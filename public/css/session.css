@@ -1,0 +1,75 @@
+* {
+  font-family: "Montserrat", sans-serif;
+}
+body {
+  background-color: #fff;
+}
+#login-pane {
+  background: #283f5c;
+  background: linear-gradient(180deg, #283f5c 0%, #8e9385 100%);
+  border-radius: 8px;
+  margin-top: 20vh;
+}
+#login-pane #logo {
+  height: 75px;
+  width: auto;
+  display: block;
+  margin: 20px auto;
+}
+#login-pane #steps {
+  height: 60px;
+  width: auto;
+  display: block;
+  margin: 20px auto;
+}
+#login-pane p {
+  color: #fff;
+  font-size: 12px;
+  text-align: center;
+  width: 100%;
+  margin-top: -20px;
+}
+#login-pane p a {
+  color: #fff;
+  text-decoration: underline;
+}
+#login-pane form {
+  background-color: transparent;
+  width: 100% !important;
+  border: none;
+}
+#login-pane form fieldset {
+  background-color: transparent;
+  border: none;
+  width: 100%;
+}
+#login-pane form fieldset label {
+  float: left;
+  width: 100%;
+  color: #fff;
+  font-size: 14px;
+}
+#login-pane form fieldset input {
+  float: left;
+  clear: both;
+  width: 100%;
+  background-color: transparent;
+  color: #fff;
+  border: 1px solid #fff;
+  border-radius: 8px;
+  font-size: 14px;
+}
+#login-pane form input[type="submit"] {
+  width: 100%;
+  text-align: center;
+  background-color: #fff;
+  border: none;
+  border-radius: 8px;
+  color: #283F5C;
+  font-size: 18px;
+  font-weight: 500;
+  margin-top: 10vh;
+}
+#login-pane form input[type="submit"]:hover {
+  text-decoration: underline;
+}

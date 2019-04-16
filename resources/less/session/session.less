@@ -1,0 +1,85 @@
+@import "../global.less";
+
+body {
+    background-color: #fff;
+}
+
+#login-pane {
+    background: rgb(40,63,92);
+    background: linear-gradient(180deg, rgba(40,63,92,1) 0%, rgba(142,147,133,1) 100%);
+    border-radius: 8px;
+    margin-top: 20vh;
+
+    #logo {
+        height: 75px;
+        width: auto;
+        display: block;
+        margin: 20px auto;
+    }
+
+    #steps {
+        height: 60px;
+        width: auto;
+        display: block;
+        margin: 20px auto;
+    }
+
+    p {
+        color: #fff;
+        font-size: 12px;
+        text-align: center;
+        width: 100%;
+        margin-top: -20px;
+
+        a {
+            color: #fff;
+            text-decoration: underline;
+        }
+    }
+
+    form {
+        background-color: transparent;
+        width: 100% !important;
+        border: none;
+
+        fieldset {
+            background-color: transparent;
+            border: none;
+            width: 100%;
+
+            label {
+                float: left;
+                width: 100%;
+                color: #fff;
+                font-size: 14px;
+            }
+
+            input {
+                float: left;
+                clear: both;
+                width: 100%;
+                background-color: transparent;
+                color: #fff;
+                border: 1px solid #fff;
+                border-radius: 8px;
+                font-size: 14px;
+            }
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            text-align: center;
+            background-color: #fff;
+            border: none;
+            border-radius: 8px;
+            color: #283F5C;
+            font-size: 18px;
+            font-weight: 500;
+            margin-top: 10vh;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+}
