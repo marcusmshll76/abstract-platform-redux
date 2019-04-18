@@ -7,10 +7,10 @@
     <h2>We will let you know when your account has been approved within 1-2 days.</h2>
 </div>
 <div id="tour">
-    <img src="/img/dashboard/sponsor-diligence.png">
-    <img src="/img/dashboard/invest-guide.png">
-    <img src="/img/dashboard/explore-marketplace.png">
-    <img src="/img/dashboard/investor-servicing.png">
+    <a href="#"><img src="/img/dashboard/sponsor-diligence.png"></a>
+    <a href="#"><img src="/img/dashboard/invest-guide.png"></a>
+    <a href="#"><img src="/img/dashboard/explore-marketplace.png"></a>
+    <a href="/investor-servicing/k1"><img src="/img/dashboard/investor-servicing.png"></a>
 </div>
 <div id="overview">
     <img src="/img/dashboard/verify.png">

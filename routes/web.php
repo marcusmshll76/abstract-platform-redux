@@ -27,3 +27,6 @@ Route::get('/welcome/overview', 'WelcomeController@allSet');
 
 // Sponsors
 Route::get('/sponsor/welcome', 'SponsorController@welcome');
+
+// Investor Servicing
+Route::get('/investor-servicing/k1', 'InvestorServicingController@k1');
