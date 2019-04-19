@@ -30,3 +30,6 @@ Route::get('/sponsor/welcome', 'SponsorController@welcome');
 
 // Investor Servicing
 Route::get('/investor-servicing/k1', 'InvestorServicingController@k1');
+
+// Account Settings
+Route::get('/account-settings/verification', 'AccountSettingsController@verification');

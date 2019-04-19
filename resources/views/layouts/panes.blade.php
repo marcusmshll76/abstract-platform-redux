@@ -3,13 +3,17 @@
 @section('content')
     <div class="row">
         <div class="col-md-2" id="nav">
-            <h1>Investor Servicing</h1>
+            <h1>{{$nav['header']}}</h1>
             <ul>
-                <li><a href="#">Choose an Investment</a></li>
-                <li><a href="#">Cap Table Management</a></li>
-                <li><a href="#">Distributions</a></li>
-                <li class="current"><a href="#">Investor K-1s</a></li>
-                <li><a href="#">Reports</a></li>
+                @foreach( $nav['links'] as $l )
+                    <li
+                        @if( $l['current'] == true )
+                                class="current"
+                            @endif
+                    >
+                        <a href="{{$l['href']}}">{{$l['text']}}</a>
+                    </li>
+                @endforeach
             </ul>
         </div>
         <div class="col-md-10">

@@ -13,7 +13,7 @@
     <a href="/investor-servicing/k1"><img src="/img/dashboard/investor-servicing.png"></a>
 </div>
 <div id="overview">
-    <img src="/img/dashboard/verify.png">
+    <a href="/account-settings/verification"><img src="/img/dashboard/verify.png"></a>
     <img src="/img/dashboard/opportunity.png">
 </div>
 @endsection
