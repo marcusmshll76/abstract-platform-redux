@@ -314,48 +314,9 @@ header .drawer-toggle #dropdown {
   border-radius: 8px;
   margin-bottom: 20px;
 }
-#body-frame .frame fieldset {
-  margin: 50px 0;
-  background: #fff;
-  border-radius: 8px;
-  border: 1px solid #979797;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.73);
-}
-#body-frame .frame fieldset label {
-  font-size: 16px;
-  font-weight: 700;
-}
-#body-frame .frame fieldset input {
-  background-color: #fff;
-  border-radius: 8px;
-  border: 1px solid #4A4A4A;
-}
-#body-frame .frame .left,
-#body-frame .frame .right {
-  width: 49%;
-  padding: 0 40px;
-}
-#body-frame .frame .left {
-  border-right: 1px solid rgba(221, 171, 33, 0.73);
-}
-#body-frame .frame .left img {
-  width: 250px;
-  height: 161px;
-  margin: 0 auto;
-}
-#body-frame .frame .left fieldset {
-  margin-top: 34px;
-}
-#body-frame .frame .right p {
-  font-size: 18px;
-  font-weight: 700;
-  margin: 50px 0;
-}
 #body-frame .frame .inner {
   width: 100%;
   display: block;
-  display: flex;
-  flex-direction: row;
   text-align: center;
   justify-content: center;
   padding-bottom: 80px;
@@ -391,6 +352,44 @@ header .drawer-toggle #dropdown {
 #body-frame .action a:hover {
   background: transparent;
   text-decoration: underline;
+}
+.frame fieldset {
+  border: none;
+  text-align: left;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.75);
+  margin: 0 auto;
+}
+.frame fieldset input {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.75);
+}
+.frame fieldset.inline {
+  margin: calc(var(--universal-margin) / 4);
+}
+.frame fieldset.inline label {
+  float: left;
+}
+.frame fieldset.inline input {
+  float: left;
+  clear: both;
+  width: 100%;
+}
+#progress-bar {
+  margin-top: 20px;
+}
+#progress-bar .advance {
+  float: right;
+  margin-right: 20px;
+}
+#progress-bar .advance a {
+  font-size: 16px;
+  font-weight: 600;
+  color: #283F5C;
+}
+#progress-bar .advance a:hover {
+  cursor: pointer;
 }
 body {
   background-color: #e7e7e7;

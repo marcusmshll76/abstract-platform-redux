@@ -1,6 +1,11 @@
 @extends('layouts.panes')
-@section('title', "Investor K-1s > Investor Servicing")
+@section('title', "Account Settings -> Account Verification")
 
 @section('body')
-    <p>Placeholder</p>
+    <script>
+        window.FormBody = @json($form);
+    </script>
+    <div id="vue-app">
+        <form-container></form-container>
+    </div>
 @endsection
