@@ -1,7 +1,7 @@
 <template>
     <fieldset v-bind:class="styleClass">
         <label>{{label}}</label>
-        <input type="text" v-bind:name="name" />
+        <input type="text" v-bind:name="name" v-model="Form.state[name]" />
     </fieldset>
 </template>
 
@@ -17,7 +17,6 @@ module.exports = {
             return this.$parent['_vnode']['data']['staticClass'] == "row";
         },
         col: function() {
-            console.log( this.colWidth );
             if( typeof( this.colWidth ) != 'undefined' ) {
                 return this.colWidth;
             }

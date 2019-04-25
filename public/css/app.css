@@ -353,6 +353,14 @@ header .drawer-toggle #dropdown {
   background: transparent;
   text-decoration: underline;
 }
+.frame p {
+  font-size: 16px;
+  font-weight: 400;
+}
+.frame h2 {
+  font-size: 18px;
+  font-weight: 500;
+}
 .frame fieldset {
   border: none;
   text-align: left;
@@ -360,7 +368,8 @@ header .drawer-toggle #dropdown {
   color: rgba(0, 0, 0, 0.75);
   margin: 0 auto;
 }
-.frame fieldset input {
+.frame fieldset input,
+.frame fieldset textarea {
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.75);

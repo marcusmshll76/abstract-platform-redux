@@ -5,4 +5,7 @@
 </template>
 
 <script>
+module.exports = {
+    props: ['colWidth']
+}
 </script>

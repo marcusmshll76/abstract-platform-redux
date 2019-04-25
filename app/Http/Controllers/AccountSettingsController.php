@@ -141,6 +141,205 @@ class AccountSettingsController extends Controller {
                                 )
                             )
                         )
+                ),
+                array(
+                    'header'    => 'About The Sponsor',
+                    'desc'      => 'Connect your Sponsor Bio now and this information can automaically be connected to the digital securities you create for Abstract’s Marketplace. Investors will look at your Sponsor Bio to  learn more about  your company’s history.',
+                    'body'      =>
+                        array(
+                            array(
+                                'type'  => 'pane',
+                                'size'  => 'col-md-12',
+                                'fields'    => array(
+                                    array(
+                                        'type'  => 'heading',
+                                        'body'  => 'Sponsor Bio'
+                                    ),
+                                    array(
+                                        'type'  => 'paragraph',
+                                        'body'  => 'Reassure potential investors with an in-depth bio describing your past successes, milestones and relavent statistics.',
+                                    ),
+                                    array(
+                                        'type'  => 'textarea',
+                                        'name'  => 'sponsor_bio'
+                                    ),
+                                    array(
+                                        'type'  => 'text',
+                                        'label' => 'Total Portfolio Activity Amount',
+                                        'name'  => 'portfolio_activity_amount',
+                                    ),
+                                    array(
+                                        'type'  => 'text',
+                                        'label' => 'Total Assets Under Management',
+                                        'name'  => 'assets_under_management'
+                                    ),
+                                    array(
+                                        'type'  => 'text',
+                                        'label' => 'Total Square Feet Managed',
+                                        'name'  => 'total_square_feet'
+                                    )
+                                )
+                            )
+                        )
+                ),
+                array(
+                    'header'    => 'Meet the Principles, Property Owners or Fund Managers',
+                    'desc'      => 'Connect any Principles or Partners to your organization.  These will be shared to investors interested in your deals on Abstract’s Marketplace.',
+                    'body'      =>
+                        array(
+                            array(
+                                'type'  => 'pane',
+                                'size'  => 'col-md-12',
+                                'fields'    => array(
+                                    array(
+                                        'type'  => 'meet-the-principles'
+                                    )
+                                )
+                            )
+                        )
+                ),
+                array(
+                    'header'    => 'Professional References',
+                    'desc'      => 'We will need 4 references from your team.  (1) Commercial Mortgage Broker, (2) Bank References, and (1) CRE Broker.',
+                    'body'      => 
+                        array(
+                            array(
+                                'type'  => 'pane',
+                                'size'  => 'col-md-3',
+                                'fields' => array(
+                                    array(
+                                        'type'  => 'text',
+                                        'name'  => 'reference_type_1',
+                                        'label' => 'Reference Type',
+                                        'colWidth'  => 'col-md-12',
+                                    ),
+                                    array(
+                                        'type'  => 'text',
+                                        'name'  => 'reference_name_1',
+                                        'label' => 'First & Last Name',
+                                        'colWidth'  => 'col-md-12',
+                                    ),
+                                    array(
+                                        'type'  => 'text',
+                                        'name'  => 'reference_phone_1',
+                                        'label' => 'Phone Number',
+                                        'colWidth'  => 'col-md-12',
+                                    ),
+                                    array(
+                                        'type'  => 'email',
+                                        'name'  => 'reference_email_1',
+                                        'label' => 'Email Address',
+                                        'colWidth'  => 'col-md-12',
+                                    ),
+                                ),
+                            ),
+                            array(
+                                'type'  => 'pane',
+                                'size'  => 'col-md-3',
+                                'fields' => array(
+                                    array(
+                                        'type'  => 'text',
+                                        'name'  => 'reference_type_2',
+                                        'label' => 'Reference Type',
+                                        'colWidth'  => 'col-md-12',
+                                    ),
+                                    array(
+                                        'type'  => 'text',
+                                        'name'  => 'reference_name_2',
+                                        'label' => 'First & Last Name',
+                                        'colWidth'  => 'col-md-12',
+                                    ),
+                                    array(
+                                        'type'  => 'text',
+                                        'name'  => 'reference_phone_2',
+                                        'label' => 'Phone Number',
+                                        'colWidth'  => 'col-md-12',
+                                    ),
+                                    array(
+                                        'type'  => 'email',
+                                        'name'  => 'reference_email_2',
+                                        'label' => 'Email Address',
+                                        'colWidth'  => 'col-md-12',
+                                    ),
+                                ),
+                            ),
+                            array(
+                                'type'  => 'pane',
+                                'size'  => 'col-md-3',
+                                'fields' => array(
+                                    array(
+                                        'type'  => 'text',
+                                        'name'  => 'reference_type_3',
+                                        'label' => 'Reference Type',
+                                        'colWidth'  => 'col-md-12',
+                                    ),
+                                    array(
+                                        'type'  => 'text',
+                                        'name'  => 'reference_name_3',
+                                        'label' => 'First & Last Name',
+                                        'colWidth'  => 'col-md-12',
+                                    ),
+                                    array(
+                                        'type'  => 'text',
+                                        'name'  => 'reference_phone_3',
+                                        'label' => 'Phone Number',
+                                        'colWidth'  => 'col-md-12',
+                                    ),
+                                    array(
+                                        'type'  => 'email',
+                                        'name'  => 'reference_email_3',
+                                        'label' => 'Email Address',
+                                        'colWidth'  => 'col-md-12',
+                                    ),
+                                ),
+                            ),
+                            array(
+                                'type'  => 'pane',
+                                'size'  => 'col-md-3',
+                                'fields' => array(
+                                    array(
+                                        'type'  => 'text',
+                                        'name'  => 'reference_type_4',
+                                        'label' => 'Reference Type',
+                                        'colWidth'  => 'col-md-12',
+                                    ),
+                                    array(
+                                        'type'  => 'text',
+                                        'name'  => 'reference_name_4',
+                                        'label' => 'First & Last Name',
+                                        'colWidth'  => 'col-md-12',
+                                    ),
+                                    array(
+                                        'type'  => 'text',
+                                        'name'  => 'reference_phone_4',
+                                        'label' => 'Phone Number',
+                                        'colWidth'  => 'col-md-12',
+                                    ),
+                                    array(
+                                        'type'  => 'email',
+                                        'name'  => 'reference_email_4',
+                                        'label' => 'Email Address',
+                                        'colWidth'  => 'col-md-12',
+                                    ),
+                                ),
+                            ),
+                        ),
+                ),
+                array(
+                    'header'    => 'Sponsor Diligence with Ease.',
+                    'desc'      => 'Abstract ensures that our marketplace consists only of institutional grade, high quality properties, funds and Sponsors.  Providing the following diligence will help us quickly qualify you. We’re powered by Box.com to ensure top level security and a succinct diligence hand off between our team and yours.  Simply drag and drop the speciific DD files into their individual folders below.',
+                    'body'      =>
+                        array(
+                            array(
+                                'type'  => 'pane',
+                                'size'  => 'col-md-12',
+                                'fields'    => array(
+                                    array(
+                                        'type'  => 'fileupload'
+                                    )
+                                )
+                            )
+                        )
                 )
             )
         );

@@ -4,8 +4,12 @@ class FormBuilder {
             console.error( 'No form body set.' );
         }
 
-        this.form = form_body;
-        this.step = 1;
+        this.form = this.addPreviewStep(form_body);
+        this.step = 6;
+        this.state = { };
+
+        // Register our autosave function for every 30 seconds
+        setTimeout( () => { this.autosave() }, 30 * 1000 );
     }
 
     get header() {
@@ -16,6 +20,14 @@ class FormBuilder {
         return this.form.steps[this.stepIndex].desc;
     }
 
+    get currentStep() {
+        return this.step;
+    }
+
+    get totalSteps() {
+        return this.form.steps.length;
+    }
+
     get stepIndex() {
         return this.step - 1;
     }
@@ -24,8 +36,23 @@ class FormBuilder {
         this.step += 1;
     }
 
+    addPreviewStep( form_data ) {
+        const previewInfo = {
+            header: 'Confirm',
+            desc: 'Before we submit, please double check all of the information that\'s included below. Any changes you make will be saved when you submit.'
+        }
+
+        form_data.steps.push( previewInfo );
+        return form_data;
+    }
+
     buildBodyFromStepRoot( createElement ) {
-        return this.generateBody( this.form.steps[this.stepIndex].body, createElement );
+        // Remember that our last "step" is actually a preview.
+        if( this.stepIndex < ( this.form.steps.length - 1 ) ) {
+            return this.generateBody( this.form.steps[this.stepIndex].body, createElement );
+        } else {
+            return this.renderPreview( this.form.steps, createElement );
+        }
     }
 
     generateBody( root, createElement ) {
@@ -34,6 +61,13 @@ class FormBuilder {
         } );
 
         return createElement( 'div', { class: 'row' }, elements );
+    }
+
+    autosave() {
+        console.log( this.state );
+
+        // Reregister autosave...
+        setTimeout( () => { this.autosave() }, 30 * 1000 );
     }
 
     getComponent( fieldInfo, createElement ) {
@@ -54,6 +88,15 @@ class FormBuilder {
                 break;
             case 'email':
                 el = 'EmailField';
+                break;
+            case 'heading':
+                el = 'Heading';
+                break;
+            case 'paragraph':
+                el = 'Paragraph';
+                break;
+            case 'textarea':
+                el = 'Textarea';
                 break;
             default:
                 el = 'UnknownComponent';
@@ -79,6 +122,27 @@ class FormBuilder {
           },
           fieldInfo.fields.map( field => this.getComponent( field, createElement ) )
         );
+    }
+
+    renderPreview( steps, createElement ) {
+        let stepBodies = [];
+
+        // Remove the preview step, so we don't accidentally recurse
+        steps.pop();
+
+        steps.forEach( step => {
+            stepBodies.push( createElement( 'row', { class: 'col-md-12' }, [
+                createElement( 'h1', step.header ),
+                createElement( 'row', { class: 'col-md-12' }, [ this.generateBody( step.body, createElement ) ] ),
+            ] ) ) 
+        } );
+
+        return createElement( 'row', {}, stepBodies );
+    }
+
+    doFieldUpdate(fieldName, event) {
+        event.preventDefault();
+        this.state[ fieldName ] = event.target.value;
     }
 
 }

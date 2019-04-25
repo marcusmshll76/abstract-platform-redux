@@ -6,7 +6,7 @@
             <div class="frame">
                 <div class="inner">
                     <form-body></form-body>
-                    <form-progress-bar v-bind:currentStep="1" v-bind:totalSteps="5"></form-progress-bar>
+                    <form-progress-bar v-bind:currentStep="Form.currentStep" v-bind:totalSteps="Form.totalSteps" v-bind:rerender="rerender"></form-progress-bar>
                 </div>
             </div>
         </div>
@@ -15,6 +15,6 @@
 
 <script>
 module.exports = {
-    props: [ 'title', 'description' ]
+    props: [ 'title', 'description', 'rerender' ],
 }
 </script>
