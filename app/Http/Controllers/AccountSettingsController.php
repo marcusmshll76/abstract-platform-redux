@@ -72,7 +72,7 @@ class AccountSettingsController extends Controller {
         $form->add_field( 'diligence-pane', 'pane', [ 'size' => 'col-md-12' ], 'diligence' );
         $form->add_field( 'diligence-files', 'fileupload', [], 'diligence' ); // @todo add file list
 
-        return view( 'form-builder', [ 'title' => 'Account Settings -> Account Verification', 'nav' => $this->get_nav('/account-settings/verification'), 'form' => $form->generate() ] );
+        return view( 'form-builder', [ 'title' => 'Account Settings -> Account Verification', 'nav' => $this->get_nav('/account-settings/verification'), 'category' => 'account-settings', 'form' => $form->generate() ] );
     }
 
     public function __construct() {

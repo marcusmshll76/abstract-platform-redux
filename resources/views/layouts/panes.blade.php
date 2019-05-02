@@ -19,10 +19,31 @@
         <div class="col-md-10">
             <div class="row">
                 <div class="col-md-12" id="pane-nav">
+                <a href="/account-settings/verification">
+                @if( $category == 'account-settings' )
+                    <img src="/img/nav/account-settings-selected.png">
+                @else
                     <img src="/img/nav/account-settings.png">
+                @endif
+                </a>
+
+                @if( $category == 'properties' )
+                    <img src="/img/nav/my-properties-selected.png">
+                @else
                     <img src="/img/nav/my-properties.png">
+                @endif
+
+                @if( $category == 'investor-servicing' ) 
                     <img src="/img/nav/investor-servicing-selected.png">
+                @else
+                    <img src="/img/nav/investor-servicing.png">
+                @endif
+                    
+                @if( $category == 'create-digital-security' )
+                    <img src="/img/nav/create-digital-security-selected.png">
+                @else
                     <img src="/img/nav/create-digital-security.png">
+                @endif
                 </div>
             </div>
             <div class="row">
