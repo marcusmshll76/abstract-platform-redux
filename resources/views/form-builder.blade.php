@@ -1,5 +1,5 @@
 @extends('layouts.panes')
-@section('title', "Account Settings -> Account Verification")
+@section('title', $title)
 
 @section('body')
     <script>
