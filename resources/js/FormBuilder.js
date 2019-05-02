@@ -5,7 +5,7 @@ class FormBuilder {
         }
 
         this.form = this.addPreviewStep(form_body);
-        this.step = 6;
+        this.step = 1;
         this.state = { };
 
         // Register our autosave function for every 30 seconds

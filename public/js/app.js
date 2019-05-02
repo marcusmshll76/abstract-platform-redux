@@ -13430,7 +13430,7 @@ function () {
     }
 
     this.form = this.addPreviewStep(form_body);
-    this.step = 6;
+    this.step = 1;
     this.state = {}; // Register our autosave function for every 30 seconds
 
     setTimeout(function () {
@@ -14575,9 +14575,9 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/phil/dev/abstract-new-platform/resources/js/app.js */"./resources/js/app.js");
-__webpack_require__(/*! /Users/phil/dev/abstract-new-platform/resources/less/session/session.less */"./resources/less/session/session.less");
-module.exports = __webpack_require__(/*! /Users/phil/dev/abstract-new-platform/resources/less/app/app.less */"./resources/less/app/app.less");
+__webpack_require__(/*! /home/vagrant/dev/abstract/resources/js/app.js */"./resources/js/app.js");
+__webpack_require__(/*! /home/vagrant/dev/abstract/resources/less/session/session.less */"./resources/less/session/session.less");
+module.exports = __webpack_require__(/*! /home/vagrant/dev/abstract/resources/less/app/app.less */"./resources/less/app/app.less");
 
 
 /***/ })
