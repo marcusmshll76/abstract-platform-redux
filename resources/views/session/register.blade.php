@@ -1,59 +1,64 @@
-@extends('layouts.session')
+@extends('layouts.app')
 @section('title', 'Register')
 
 @section('content')
-<div class="container" id="login">
-    <div class="row">
-        <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2" id="login-pane">
-            <div class="row">
-                <img src="{{ $site->logo }}" id="logo">
-            </div>
-            <div class="row">
-                <img src="/img/login/steps.png" id="steps">
-            </div>
-            <div class="row">
-                <form method="post" action="/register">
+<style>
+        header {
+            display: none !important
+        }
+    </style>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-12 col-sm-8 col-md-6 col-lg-5 center">
+                <div class="card-content-onboarding card">
+                    <div class="onboarding-title">
+                        <div class="onboarding-logo"><img src="/img/logo-light-w-type.svg"></div>
+                    </div>
+                    <div class="onboarding-steps">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <p>Account</p><img src="/img/icon-check-orange.svg">
+                            </div>
+                            <div class="col-xs-3">
+                                <p>User Dashboard</p><img src="/img/icon-check-white.svg">
+                            </div>
+                            <div class="col-xs-3">
+                                <p>Create Digital Security</p><img src="/img/icon-check-white.svg">
+                            </div>
+                            <div class="col-xs-3">
+                                <p>Invest</p><img src="/img/icon-check-white.svg">
+                            </div>
+                        </div>
+                        <div class="divider"></div>
+                    </div>
+                    <form method="post" action="/register">
                     @csrf
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <fieldset>
-                                    <label for="first">First Name</label>
-                                    <input type="text" name="first">
-                                </fieldset>
+                        <div class="content-form">
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-6">
+                                    <p>First Name</p><input type="text" name="first">
+                                </div>
+                                <div class="col-xs-12 col-sm-6">
+                                    <p>Last Name</p><input type="text" name="last">
+                                </div>
+                                <div class="col-xs-12">
+                                    <p>Email</p><input type="email" name="email">
+                                </div>
+                                <div class="col-xs-12">
+                                    <p>Password</p><input type="password" name="password">
+                                </div>
+                                <div class="col-xs-12">
+                                    <p>Confirm Password</p><input type="password" name="password_verify">
+                                </div>
                             </div>
-                            <div class="col-sm-6">
-                                <fieldset>
-                                    <label for="first">Last Name</label>
-                                    <input type="text" name="last">
-                                </fieldset>
-                            </div>
                         </div>
-                    </div>
-                    <div class="container">
-                        <div class="row">
-                            <fieldset>
-                                <label for="email">Email</label>
-                                <input type="email" name="email">
-                            </fieldset>
+                        <div class="signup-footer">
+                            <button class="large full-width white">Create Account!</button>
+                            <p>Already have an account? <a href="/login">Login now</a></p>
                         </div>
-                        <div class="row">
-                            <fieldset>
-                                <label for="password">Password</label>
-                                <input type="password" name="password">
-                            </fieldset>
-                        </div>
-                        <div class="row">
-                            <input type="hidden" name="remember" value="true">
-                            <input type="submit" value="Create Account!" />
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="row">
-                <p>Already have an account? <a href="/login">Login now</a>!</p>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
-</div>
 @endsection
