@@ -33,3 +33,7 @@ Route::get('/investor-servicing/k1', 'InvestorServicingController@k1');
 
 // Account Settings
 Route::get('/account-settings/verification', 'AccountSettingsController@verification');
+Route::post('/account-settings/verification/bio', 'AccountSettingsController@bio');
+Route::post('/account-settings/verification/principles', 'AccountSettingsController@principles');
+Route::post('/account-settings/verification/references', 'AccountSettingsController@references');
+Route::post('/account-settings/verification/diligence', 'AccountSettingsController@diligence');
