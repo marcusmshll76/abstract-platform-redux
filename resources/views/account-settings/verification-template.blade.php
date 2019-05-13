@@ -7,20 +7,20 @@
                 <div class="left-nav">
                     <div class="card">
                         <div class="card-title black text-center">
-                            <h5>Account Settings </h5>
+                            <h5>Account Settings</h5>
                         </div>
                         <div class="left-nav-item-wrap">
                             <div class="left-nav-item active">
                                 <p><a href="/account-settings/verification">Account Verification</a></p>
                             </div>
                             <div class="left-nav-item">
-                                <p>Digital Custodial Wallet</p>
+                                <p><a href="/account-settings/wallets">Digital Custodial Wallet</a></p>
                             </div>
                             <div class="left-nav-item">
-                                <p>Privacy & Data Storage Security</p>
+                                <p><a href="/account-settings/privacy">Privacy & Data Storage Security</a></p>
                             </div>
                             <div class="left-nav-item">
-                                <p>Password & Two-Factor Authentication</p>
+                                <p><a href="/account-settings/password">Password & Two-Factor Authentication</a></p>
                             </div>
                         </div>
                     </div>

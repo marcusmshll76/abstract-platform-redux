@@ -17,8 +17,10 @@ Route::get('/', function () {
 
 // Sessions
 Route::get('/login', 'SessionController@getLogin');
+Route::post('/login', 'SessionController@doLogin');
 Route::get('/register', 'SessionController@getRegister');
 Route::post('/register', 'SessionController@doRegister');
+Route::get('/logout', 'SessionController@doLogout');
 
 // Onboarding
 Route::get('/welcome', 'WelcomeController@userType');
@@ -37,3 +39,9 @@ Route::post('/account-settings/verification/bio', 'AccountSettingsController@bio
 Route::post('/account-settings/verification/principles', 'AccountSettingsController@principles');
 Route::post('/account-settings/verification/references', 'AccountSettingsController@references');
 Route::post('/account-settings/verification/diligence', 'AccountSettingsController@diligence');
+
+Route::get('/account-settings/wallets', 'AccountSettingsController@wallets');
+Route::get('/account-settings/privacy', 'AccountSettingsController@privacy');
+Route::post('/account-settings/privacy', 'AccountSettingsController@updatePrivacy');
+Route::get('/account-settings/password', 'AccountSettingsController@passwordAnd2FA');
+Route::post('/account-settings/password', 'AccountSettingsController@updatePassword');

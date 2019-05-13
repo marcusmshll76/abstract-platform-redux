@@ -8,6 +8,7 @@ class AuthDetails {
     public function handle($request, Closure $next) {
         $user = Auth::user();
         View::share('user', $user);
+        $request->user = $user;
         return $next($request);
     }
 }

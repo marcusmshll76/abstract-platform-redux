@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class SessionController extends Controller {
 
@@ -12,6 +13,15 @@ class SessionController extends Controller {
 
     public function getLogin(Request $request) {
         return view('session.login');
+    }
+
+    public function doLogin(Request $request) {
+        $credentials = $request->only('email', 'password');
+        if (Auth::attempt($credentials, true)) {
+            return redirect()->intended('/sponsor/welcome');
+        } else {
+            return view('session.login', [ 'error' => true ] );
+        }
     }
 
     public function getRegister(Request $request) {
@@ -37,5 +47,10 @@ class SessionController extends Controller {
 
         $this->redirectTo = '/onboard';
         return $this->login($request);
+    }
+
+    public function doLogout(Request $request) {
+        Auth::logout();
+        return redirect( '/' );
     }
 }
