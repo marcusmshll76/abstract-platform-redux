@@ -34,11 +34,41 @@ Route::get('/sponsor/welcome', 'SponsorController@welcome');
 Route::get('/investor-servicing/k1', 'InvestorServicingController@k1');
 
 // Account Settings
+/*******************
+    * ******* Account Verification
+**************/
 Route::get('/account-settings/verification', 'AccountSettingsController@verification');
-Route::post('/account-settings/verification/bio', 'AccountSettingsController@bio');
-Route::post('/account-settings/verification/principles', 'AccountSettingsController@principles');
-Route::post('/account-settings/verification/references', 'AccountSettingsController@references');
-Route::post('/account-settings/verification/diligence', 'AccountSettingsController@diligence');
+Route::post('/account-settings/verification/create', 'AccountSettingsController@createVerification');
+
+/*******************
+    * ******* Bio (About the Sponsor)
+**************/
+Route::get('/account-settings/verification/bio', 'AccountSettingsController@bio');
+Route::post('/account-settings/verification/bio/create', 'AccountSettingsController@createBio');
+
+/*******************
+    * ******* Principles (Meet The Principles, Property Owners, and Fund Managers)
+**************/
+Route::get('/account-settings/verification/principles', 'AccountSettingsController@principles');
+Route::post('/account-settings/verification/principles/create', 'AccountSettingsController@createPrinciples');
+
+/*******************
+     * ******* References (Professional References)
+     **************/
+Route::get('/account-settings/verification/references', 'AccountSettingsController@references');
+Route::post('/account-settings/verification/references/create', 'AccountSettingsController@createReferences');
+
+/*******************
+     * ******* Diligence (Sponsor Diligence with Ease)
+     **************/
+Route::get('/account-settings/verification/diligence', 'AccountSettingsController@diligence');
+Route::post('/account-settings/verification/diligence/create', 'AccountSettingsController@createDiligence');
+
+/*******************
+     * ******* Preview
+     **************/
+Route::get('/account-settings/verification/preview', 'AccountSettingsController@preview');
+Route::post('/account-settings/verification/preview/create', 'AccountSettingsController@submitPreview');
 
 Route::get('/account-settings/wallets', 'AccountSettingsController@wallets');
 Route::get('/account-settings/privacy', 'AccountSettingsController@privacy');

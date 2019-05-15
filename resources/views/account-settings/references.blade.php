@@ -2,7 +2,7 @@
 @section('title', $title )
 
 @section('body')
-<form action="/account-settings/verification/diligence" method="post">
+<form action="/account-settings/verification/references/create" method="post">
 @csrf
 
 <div class="card margin-top-m">
@@ -18,87 +18,227 @@
                     <div class="col-xs-12">
                         <div class="content-form">
                             <div class="row">
+                                <!-------
+                                    -------------- Reference 1 -------------
+                                -------->
                                 <div class="col-xs-12 col-sm-3 margin-bottom-m-sm">
                                     <div class="row">
                                         <div class="col-xs-12">
-                                            <p class="no-margin-top">Reference Type</p><select>
-                                                <option value="" disabled="disabled" selected="selected" name="reference_type_1">Select an option</option>
+                                            <p class="no-margin-top">Reference Type</p>
+                                            <select name="reference_type_1">
+
+                                                <!-- default select value -->
+                                                <option value="{{ isset($data['reference_type_1']) ? $data['reference_type_1'] : '' }}" selected="selected">
+                                                    @if(isset($data['reference_type_1']))
+
+                                                    @switch($data['reference_type_1'])
+                                                        @case('cre')
+                                                                CRE Broker
+                                                            @break
+
+                                                        @case('cmb')
+                                                            Commercial Mortgage Broker
+                                                            @break
+                                                        
+                                                        @case('bank')
+                                                                Bank Reference
+                                                            @break
+
+                                                        @default
+                                                            
+                                                    @endswitch
+
+                                                    @else
+                                                        Select an option
+                                                    @endif   
+                                                </option>
+
+
                                                 <option value="cmb">Commercial Mortgage Broker</option>
                                                 <option value="cre">CRE Broker</option>
                                                 <option value="bank">Bank Reference</option>
                                             </select>
                                         </div>
                                         <div class="col-xs-12">
-                                            <p>First, Last Name</p><input type="text" name="reference_name_1">
+                                            <p>First, Last Name</p>
+                                            <input type="text" value="{{ isset($data['reference_name_1']) ? $data['reference_name_1'] : '' }}" name="reference_name_1">
                                         </div>
                                         <div class="col-xs-12">
-                                            <p>Phone Number</p><input type="text" name="reference_phone_1">
+                                            <p>Phone Number</p>
+                                            <input type="text" value="{{ isset($data['reference_phone_1']) ? $data['reference_phone_1'] : '' }}" name="reference_phone_1">
                                         </div>
                                         <div class="col-xs-12">
-                                            <p>Email</p><input type="text" name="reference_email_1">
+                                            <p>Email</p>
+                                            <input type="text" value="{{ isset($data['reference_email_1']) ? $data['reference_email_1'] : '' }}" name="reference_email_1">
                                         </div>
                                     </div>
                                 </div>
+
+                                <!-------
+                                    -------------- Reference 2 -------------
+                                -------->
+
                                 <div class="col-xs-12 col-sm-3 margin-bottom-m-sm">
                                     <div class="row">
                                         <div class="col-xs-12">
-                                            <p class="no-margin-top">Reference Type</p><select>
-                                                <option value="" disabled="disabled" selected="selected" name="reference_type_2">Select an option</option>
+                                            <p class="no-margin-top">Reference Type</p>
+                                            <select name="reference_type_2">
+                                                
+                                                <!-- default select value -->
+                                                <option value="{{ isset($data['reference_type_2']) ? $data['reference_type_2'] : '' }}" selected="selected">
+                                                    @if(isset($data['reference_type_2']))
+
+                                                    @switch($data['reference_type_2'])
+                                                        @case('cre')
+                                                                CRE Broker
+                                                            @break
+
+                                                        @case('cmb')
+                                                            Commercial Mortgage Broker
+                                                            @break
+                                                        
+                                                        @case('bank')
+                                                                Bank Reference
+                                                            @break
+
+                                                        @default
+                                                            
+                                                    @endswitch
+
+                                                    @else
+                                                        Select an option
+                                                    @endif   
+                                                </option>
+
                                                 <option value="cmb">Commercial Mortgage Broker</option>
                                                 <option value="cre">CRE Broker</option>
                                                 <option value="bank">Bank Reference</option>
                                             </select>
                                         </div>
                                         <div class="col-xs-12">
-                                            <p>First, Last Name</p><input type="text" name="reference_name_2">
+                                            <p>First, Last Name</p>
+                                            <input type="text" value="{{ isset($data['reference_name_2']) ? $data['reference_name_2'] : '' }}" name="reference_name_2">
                                         </div>
                                         <div class="col-xs-12">
-                                            <p>Phone Number</p><input type="text" name="reference_phone_2">
+                                            <p>Phone Number</p>
+                                            <input type="text" value="{{ isset($data['reference_phone_2']) ? $data['reference_phone_2'] : '' }}" name="reference_phone_2">
                                         </div>
                                         <div class="col-xs-12">
-                                            <p>Email</p><input type="text" name="reference_email_2">
+                                            <p>Email</p>
+                                            <input type="text" value="{{ isset($data['reference_email_2']) ? $data['reference_email_2'] : '' }}" name="reference_email_2">
                                         </div>
                                     </div>
                                 </div>
+
+                                <!-------
+                                    -------------- Reference 3 -------------
+                                -------->
+
                                 <div class="col-xs-12 col-sm-3 margin-bottom-m-sm">
                                     <div class="row">
                                         <div class="col-xs-12">
-                                            <p class="no-margin-top">Reference Type</p><select>
-                                                <option value="" disabled="disabled" selected="selected" name="reference_type_3">Select an option</option>
+                                            <p class="no-margin-top">Reference Type</p>
+                                            <select name="reference_type_3">
+                                                
+                                                <!-- default select value -->
+                                                <option value="{{ isset($data['reference_type_3']) ? $data['reference_type_3'] : '' }}" selected="selected">
+                                                    @if(isset($data['reference_type_3']))
+
+                                                    @switch($data['reference_type_3'])
+                                                        @case('cre')
+                                                                CRE Broker
+                                                            @break
+
+                                                        @case('cmb')
+                                                            Commercial Mortgage Broker
+                                                            @break
+                                                        
+                                                        @case('bank')
+                                                                Bank Reference
+                                                            @break
+
+                                                        @default
+                                                            
+                                                    @endswitch
+
+                                                    @else
+                                                        Select an option
+                                                    @endif   
+                                                </option>
+
                                                 <option value="cmb">Commercial Mortgage Broker</option>
                                                 <option value="cre">CRE Broker</option>
                                                 <option value="bank">Bank Reference</option>
                                             </select>
                                         </div>
                                         <div class="col-xs-12">
-                                            <p>First, Last Name</p><input type="text" name="reference_name_3">
+                                            <p>First, Last Name</p>
+                                            <input type="text" value="{{ isset($data['reference_name_3']) ? $data['reference_name_3'] : '' }}" name="reference_name_3">
                                         </div>
                                         <div class="col-xs-12">
-                                            <p>Phone Number</p><input type="text" name="reference_phone_3">
+                                            <p>Phone Number</p>
+                                            <input type="text" value="{{ isset($data['reference_phone_3']) ? $data['reference_phone_3'] : '' }}" name="reference_phone_3">
                                         </div>
                                         <div class="col-xs-12">
-                                            <p>Email</p><input type="text" name="reference_email_3">
+                                            <p>Email</p>
+                                            <input type="text" value="{{ isset($data['reference_email_3']) ? $data['reference_email_3'] : '' }}" name="reference_email_3">
                                         </div>
                                     </div>
                                 </div>
+
+                                <!-------
+                                    -------------- Reference 4 -------------
+                                -------->
+
                                 <div class="col-xs-12 col-sm-3">
                                     <div class="row">
                                         <div class="col-xs-12">
-                                            <p class="no-margin-top">Reference Type</p><select>
-                                                <option value="" disabled="disabled" selected="selected" name="reference_type_4">Select an option</option>
+                                            <p class="no-margin-top">Reference Type</p>
+                                            <select name="reference_type_4">
+                                                
+                                                <!-- default select value -->
+                                                <!-- default select value -->
+                                                <option value="{{ isset($data['reference_type_4']) ? $data['reference_type_4'] : '' }}" selected="selected">
+                                                    @if(isset($data['reference_type_4']))
+
+                                                    @switch($data['reference_type_4'])
+                                                        @case('cre')
+                                                                CRE Broker
+                                                            @break
+
+                                                        @case('cmb')
+                                                            Commercial Mortgage Broker
+                                                            @break
+                                                        
+                                                        @case('bank')
+                                                                Bank Reference
+                                                            @break
+
+                                                        @default
+                                                            
+                                                    @endswitch
+
+                                                    @else
+                                                        Select an option
+                                                    @endif   
+                                                </option>
+
                                                 <option value="cmb">Commercial Mortgage Broker</option>
                                                 <option value="cre">CRE Broker</option>
                                                 <option value="bank">Bank Reference</option>
                                             </select>
                                         </div>
                                         <div class="col-xs-12">
-                                            <p>First, Last Name</p><input type="text" name="reference_name_4">
+                                            <p>First, Last Name</p>
+                                            <input type="text" value="{{ isset($data['reference_name_4']) ? $data['reference_name_4'] : '' }}" name="reference_name_4">
                                         </div>
                                         <div class="col-xs-12">
-                                            <p>Phone Number</p><input type="text" name="reference_phone_4">
+                                            <p>Phone Number</p>
+                                            <input type="text" value="{{ isset($data['reference_phone_4']) ? $data['reference_phone_4'] : '' }}" name="reference_phone_4">
                                         </div>
                                         <div class="col-xs-12">
-                                            <p>Email</p><input type="text" name="reference_email_4">
+                                            <p>Email</p>
+                                            <input type="text" value="{{ isset($data['reference_email_4']) ? $data['reference_email_4'] : '' }}" name="reference_email_4">
                                         </div>
                                     </div>
                                 </div>

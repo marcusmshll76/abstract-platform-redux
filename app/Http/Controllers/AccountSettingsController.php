@@ -5,14 +5,88 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
+use App\AccountVerificiation;
 
 class AccountSettingsController extends Controller {
+
+    /*******************
+     * ******* Account Verification
+     **************/
     public function verification(Request $request) {
         return view( 'account-settings.verify', [ 'title' => 'Account Settings -> Account Verification'] )->with('data', $request->session()->get('account-settings'));
     }
 
-    public function bio(Request $request) {
+    public function createVerification(Request $request) {
+        $session_data = session( 'account-settings', array() );
+        $session_data = array_merge( $session_data, $_POST );
+        session( [ 'account-settings' => $session_data ] );
 
+        return redirect('/account-settings/verification/bio');
+    }
+
+    public function bio(Request $request) {
+        return view( 'account-settings.bio', [ 'title' => 'Account Settings -> Sponsor Bio'] )->with('data', $request->session()->get('account-settings'));
+    }
+
+    public function createBio(Request $request) {
+        $session_data = session( 'account-settings', array() );
+        $session_data = array_merge( $session_data, $_POST );
+        session( [ 'account-settings' => $session_data ] );
+
+        return redirect('/account-settings/verification/principles');
+    }
+
+    public function principles(Request $request) {
+        return view( 'account-settings.principles', [ 'title' => 'Account Settings -> Meet The Principles'] )->with('data', $request->session()->get('account-settings'));
+    }
+
+    public function createPrinciples(Request $request) {    
+
+        $session_data = session( 'account-settings', array() );
+        $session_data = array_merge( $session_data, $_POST );
+        session( [ 'account-settings' => $session_data ] );
+
+        return redirect('/account-settings/verification/references');
+    }
+
+    public function references(Request $request) {
+        return view( 'account-settings.references', [ 'title' => 'Account Settings -> Professional References' ] )->with('data', $request->session()->get('account-settings'));
+    }
+
+    public function createReferences(Request $request) {
+        
+        $session_data = session( 'account-settings', array() );
+        $session_data = array_merge( $session_data, $_POST );
+        session( [ 'account-settings' => $session_data ] );
+
+        return redirect('/account-settings/verification/diligence');
+    }
+
+    public function diligence(Request $request) {
+        return view( 'account-settings.diligence', [ 'title' => 'Account Settings -> Sponsor Diligence' ] )->with('data', $request->session()->get('account-settings'));
+    }
+
+    public function createDiligence(Request $request) {
+        $session_data = session( 'account-settings', array() );
+        $session_data = array_merge( $session_data, $_POST );
+        session( [ 'account-settings' => $session_data ] );
+        return redirect('/account-settings/verification/preview');
+    }
+
+    /*******************
+     * ******* Preview
+     **************/
+    public function preview(Request $request) {
+        return view( 'account-settings.preview', [ 'title' => 'Account Settings -> Preview' ] )->with('data', $request->session()->get('account-settings'));
+    }
+
+
+    public function submitPreview(Request $request) {
+
+        $session_data = session( 'account-settings', array() );
+        $session_data = array_merge( $session_data, $_POST );
+        session( [ 'account-settings' => $session_data ] );
+        
         $this->validate($request, [
             'company_name' => 'required',
             'company_website' => 'required',
@@ -28,34 +102,78 @@ class AccountSettingsController extends Controller {
             'email' => 'required|email',
             'job_title' => 'required',
             'tin' => 'required',
-            'country' => 'required'
+            'country' => 'required',
+            'bio' => 'required',
+            'portfolio_activity_amount' => 'required',
+            'assets_under_management' => 'required',
+            'square_feet_managed' => 'required',
+            'principle_company_name' => 'required',
+            'principle_company_website' => 'required',
+            'principle_website' => 'required',
+            'reference_type_1' => 'required',
+            'reference_name_1' => 'required',
+            'reference_phone_1' => 'required',
+            'reference_email_1' => 'required|email',
+            'reference_type_2' => 'required',
+            'reference_name_2' => 'required',
+            'reference_phone_2' => 'required',
+            'reference_email_2' => 'required|email',
+            'reference_type_3' => 'required',
+            'reference_name_3' => 'required',
+            'reference_phone_3' => 'required',
+            'reference_email_3' => 'required|email',
+            'reference_type_4' => 'required',
+            'reference_name_4' => 'required',
+            'reference_phone_4' => 'required',
+            'reference_email_4' => 'required|email'
         ]);
         
-        $session_data = session( 'account-settings', array() );
-        $session_data = array_merge( $session_data, $_POST );
-        session( [ 'account-settings' => $session_data ] );
-        return view( 'account-settings.bio', [ 'title' => 'Account Settings -> Sponsor Bio'] );
-    }
+        $userid = Auth::id();
+        $payload = array(
+            'userid' => $userid,
+            'company_name' => $request->get('company_name'),
+            'company_website' => $request->get('company_website'),
+            'first_name' => $request->get('first_name'),
+            'work_phone' => $request->get('work_phone'),
+            'company_address' => $request->get('company_address'),
+            'company_address_2' => $request->get('company_address_2'),
+            'last_name' => $request->get('last_name'),
+            'mobile' => $request->get('mobile'),
+            'city' => $request->get('city'),
+            'state' => $request->get('state'),
+            'zip' => $request->get('zip'),
+            'email' => $request->get('email'),
+            'job_title' => $request->get('job_title'),
+            'tin' => $request->get('tin'),
+            'country' => $request->get('country'),
+            'bio' => $request->get('bio'),
+            'portfolio_activity_amount' => $request->get('portfolio_activity_amount'),
+            'assets_under_management' => $request->get('assets_under_management'),
+            'square_feet_managed' => $request->get('square_feet_managed'),
+            'principle_company_name' => $request->get('principle_company_name'),
+            'principle_company_website' => $request->get('principle_company_website'),
+            'principle_website' => $request->get('principle_website'),
+            'reference_type_1' => $request->get('reference_type_1'),
+            'reference_name_1' => $request->get('reference_name_1'),
+            'reference_phone_1' => $request->get('reference_phone_1'),
+            'reference_email_1' => $request->get('reference_email_1'),
+            'reference_type_2' => $request->get('reference_type_2'),
+            'reference_name_2' => $request->get('reference_name_2'),
+            'reference_phone_2' => $request->get('reference_phone_2'),
+            'reference_email_2' => $request->get('reference_email_2'),
+            'reference_type_3' => $request->get('reference_type_3'),
+            'reference_name_3' => $request->get('reference_name_3'),
+            'reference_phone_3' => $request->get('reference_phone_3'),
+            'reference_email_3' => $request->get('reference_email_3'),
+            'reference_type_4' => $request->get('reference_type_4'),
+            'reference_name_4' => $request->get('reference_name_4'),
+            'reference_phone_4' => $request->get('reference_phone_4'),
+            'reference_email_4' => $request->get('reference_email_4'),
+        );
 
-    public function principles() {
-        $session_data = session( 'account-settings', array() );
-        $session_data = array_merge( $session_data, $_POST );
-        session( [ 'account-settings' => $session_data ] );
-        return view( 'account-settings.principles', [ 'title' => 'Account Settings -> Meet The Principles'] );
-    }
-
-    public function references() {
-        $session_data = session( 'account-settings', array() );
-        $session_data = array_merge( $session_data, $_POST );
-        session( [ 'account-settings' => $session_data ] );
-        return view( 'account-settings.references', [ 'title' => 'Account Settings -> Professional References' ] );
-    }
-
-    public function diligence() {
-        $session_data = session( 'account-settings', array() );
-        $session_data = array_merge( $session_data, $_POST );
-        session( [ 'account-settings' => $session_data ] );
-        return view( 'account-settings.diligence', [ 'title' => 'Account Settings -> Sponsor Diligence' ] );
+        DB::table('account_verification')->insert($payload);
+        
+        return view( 'account-settings.preview', [ 'title' => 'Account Settings -> Preview', 'success' => true ] );
     }
 
     public function wallets() {
