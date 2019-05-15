@@ -14,10 +14,10 @@ class AddPrivacySettings extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->boolean( 'electronic_document_consent' );
-            $table->string( 'signee_first_name' );
-            $table->string( 'signee_last_name' );
-            $table->string( 'signee_email' );
+            $table->boolean( 'electronic_document_consent' )->nullable();
+            $table->string( 'signee_first_name' )->nullable();
+            $table->string( 'signee_last_name' )->nullable();
+            $table->string( 'signee_email' )->nullable();
         });
     }
 
