@@ -7,11 +7,30 @@ use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller;
 
 class AccountSettingsController extends Controller {
-    public function verification() {
-        return view( 'account-settings.verify', [ 'title' => 'Account Settings -> Account Verification'] );
+    public function verification(Request $request) {
+        return view( 'account-settings.verify', [ 'title' => 'Account Settings -> Account Verification'] )->with('data', $request->session()->get('account-settings'));
     }
 
-    public function bio() {
+    public function bio(Request $request) {
+
+        $this->validate($request, [
+            'company_name' => 'required',
+            'company_website' => 'required',
+            'first_name' => 'required',
+            'work_phone' => 'required',
+            'company_address' => 'required',
+            'company_address_2' => 'required',
+            'last_name' => 'required',
+            'mobile' => 'required',
+            'city' => 'required',
+            'state' => 'required',
+            'zip' => 'required',
+            'email' => 'required|email',
+            'job_title' => 'required',
+            'tin' => 'required',
+            'country' => 'required'
+        ]);
+        
         $session_data = session( 'account-settings', array() );
         $session_data = array_merge( $session_data, $_POST );
         session( [ 'account-settings' => $session_data ] );

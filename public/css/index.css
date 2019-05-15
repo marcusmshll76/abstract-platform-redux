@@ -6946,3 +6946,15 @@ footer .social a {
 .hide-toggle.shrink {
     display: block
 }
+
+/* Error Small */
+
+.error-small{
+    display: block;
+}
+.error-small, .error-small span{
+   color: #C42626; 
+}
+.error-small span{
+ font-size: 9px;
+}
