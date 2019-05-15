@@ -17,25 +17,6 @@ class AccountSettingsController extends Controller {
     }
 
     public function createVerification(Request $request) {
-
-        $this->validate($request, [
-            'company_name' => 'required',
-            'company_website' => 'required',
-            'first_name' => 'required',
-            'work_phone' => 'required',
-            'company_address' => 'required',
-            'company_address_2' => 'required',
-            'last_name' => 'required',
-            'mobile' => 'required',
-            'city' => 'required',
-            'state' => 'required',
-            'zip' => 'required',
-            'email' => 'required|email',
-            'job_title' => 'required',
-            'tin' => 'required',
-            'country' => 'required'
-        ]);
-        
         $session_data = session( 'account-settings', array() );
         $session_data = array_merge( $session_data, $_POST );
         session( [ 'account-settings' => $session_data ] );
@@ -43,23 +24,11 @@ class AccountSettingsController extends Controller {
         return redirect('/account-settings/verification/bio');
     }
 
-
-    /*******************
-     * ******* Bio (About the Sponsor)
-     **************/
     public function bio(Request $request) {
         return view( 'account-settings.bio', [ 'title' => 'Account Settings -> Sponsor Bio'] )->with('data', $request->session()->get('account-settings'));
     }
 
     public function createBio(Request $request) {
-
-        $this->validate($request, [
-            'bio' => 'required',
-            'portfolio_activity_amount' => 'required',
-            'assets_under_management' => 'required',
-            'square_feet_managed' => 'required'
-        ]);
-
         $session_data = session( 'account-settings', array() );
         $session_data = array_merge( $session_data, $_POST );
         session( [ 'account-settings' => $session_data ] );
@@ -67,21 +36,11 @@ class AccountSettingsController extends Controller {
         return redirect('/account-settings/verification/principles');
     }
 
-
-    /*******************
-     * ******* Principles (Meet The Principles, Property Owners, and Fund Managers)
-     **************/
     public function principles(Request $request) {
         return view( 'account-settings.principles', [ 'title' => 'Account Settings -> Meet The Principles'] )->with('data', $request->session()->get('account-settings'));
     }
 
-    public function createPrinciples(Request $request) {
-
-        $this->validate($request, [
-            'principle_company_name' => 'required',
-            'principle_company_website' => 'required',
-            'principle_website' => 'required'
-        ]);        
+    public function createPrinciples(Request $request) {    
 
         $session_data = session( 'account-settings', array() );
         $session_data = array_merge( $session_data, $_POST );
@@ -90,34 +49,11 @@ class AccountSettingsController extends Controller {
         return redirect('/account-settings/verification/references');
     }
 
-
-    /*******************
-     * ******* References (Professional References)
-     **************/
     public function references(Request $request) {
         return view( 'account-settings.references', [ 'title' => 'Account Settings -> Professional References' ] )->with('data', $request->session()->get('account-settings'));
     }
 
     public function createReferences(Request $request) {
-        
-        $this->validate($request, [
-            'reference_type_1' => 'required',
-            'reference_name_1' => 'required',
-            'reference_phone_1' => 'required',
-            'reference_email_1' => 'required|email',
-            'reference_type_2' => 'required',
-            'reference_name_2' => 'required',
-            'reference_phone_2' => 'required',
-            'reference_email_2' => 'required|email',
-            'reference_type_3' => 'required',
-            'reference_name_3' => 'required',
-            'reference_phone_3' => 'required',
-            'reference_email_3' => 'required|email',
-            'reference_type_4' => 'required',
-            'reference_name_4' => 'required',
-            'reference_phone_4' => 'required',
-            'reference_email_4' => 'required|email'
-        ]);
         
         $session_data = session( 'account-settings', array() );
         $session_data = array_merge( $session_data, $_POST );
@@ -126,9 +62,6 @@ class AccountSettingsController extends Controller {
         return redirect('/account-settings/verification/diligence');
     }
 
-    /*******************
-     * ******* Diligence (Sponsor Diligence with Ease)
-     **************/
     public function diligence(Request $request) {
         return view( 'account-settings.diligence', [ 'title' => 'Account Settings -> Sponsor Diligence' ] )->with('data', $request->session()->get('account-settings'));
     }
@@ -150,6 +83,10 @@ class AccountSettingsController extends Controller {
 
     public function submitPreview(Request $request) {
 
+        $session_data = session( 'account-settings', array() );
+        $session_data = array_merge( $session_data, $_POST );
+        session( [ 'account-settings' => $session_data ] );
+        
         $this->validate($request, [
             'company_name' => 'required',
             'company_website' => 'required',

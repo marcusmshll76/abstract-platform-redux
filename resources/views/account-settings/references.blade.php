@@ -25,11 +25,6 @@
                                     <div class="row">
                                         <div class="col-xs-12">
                                             <p class="no-margin-top">Reference Type</p>
-
-                                            @if($errors->has('reference_type_1'))
-                                                <small class="error-small"><em>*</em> <span> Please select an option </span></small>
-                                            @endif
-
                                             <select name="reference_type_1">
 
                                                 <!-- default select value -->
@@ -66,32 +61,14 @@
                                         </div>
                                         <div class="col-xs-12">
                                             <p>First, Last Name</p>
-
-                                            @if($errors->has('reference_name_1'))
-                                                <br/>
-                                                <small class="error-small"><em>*</em> <span> This field is required </span></small>
-                                            @endif
-
                                             <input type="text" value="{{ isset($data['reference_name_1']) ? $data['reference_name_1'] : '' }}" name="reference_name_1">
                                         </div>
                                         <div class="col-xs-12">
                                             <p>Phone Number</p>
-                                            
-                                            @if($errors->has('reference_phone_1'))
-                                                <br/>
-                                                <small class="error-small"><em>*</em> <span> {{ $errors->first('reference_phone_1') }} </span></small>
-                                            @endif
-
                                             <input type="text" value="{{ isset($data['reference_phone_1']) ? $data['reference_phone_1'] : '' }}" name="reference_phone_1">
                                         </div>
                                         <div class="col-xs-12">
                                             <p>Email</p>
-                                            
-                                            @if($errors->has('reference_email_1'))
-                                                <br/>
-                                                <small class="error-small"><em>*</em> <span> {{ $errors->first('reference_email_1') }} </span></small>
-                                            @endif
-
                                             <input type="text" value="{{ isset($data['reference_email_1']) ? $data['reference_email_1'] : '' }}" name="reference_email_1">
                                         </div>
                                     </div>
@@ -105,11 +82,6 @@
                                     <div class="row">
                                         <div class="col-xs-12">
                                             <p class="no-margin-top">Reference Type</p>
-
-                                            @if($errors->has('reference_type_2'))
-                                                <small class="error-small"><em>*</em> <span> Please select an option </span></small>
-                                            @endif
-
                                             <select name="reference_type_2">
                                                 
                                                 <!-- default select value -->
@@ -145,32 +117,14 @@
                                         </div>
                                         <div class="col-xs-12">
                                             <p>First, Last Name</p>
-                                            
-                                            @if($errors->has('reference_name_2'))
-                                                <br/>
-                                                <small class="error-small"><em>*</em> <span> This field is required </span></small>
-                                            @endif
-                                                
                                             <input type="text" value="{{ isset($data['reference_name_2']) ? $data['reference_name_2'] : '' }}" name="reference_name_2">
                                         </div>
                                         <div class="col-xs-12">
                                             <p>Phone Number</p>
-                                            
-                                            @if($errors->has('reference_phone_2'))
-                                                <br/>
-                                                <small class="error-small"><em>*</em> <span> {{ $errors->first('reference_phone_2') }} </span></small>
-                                            @endif
-
                                             <input type="text" value="{{ isset($data['reference_phone_2']) ? $data['reference_phone_2'] : '' }}" name="reference_phone_2">
                                         </div>
                                         <div class="col-xs-12">
                                             <p>Email</p>
-                                            
-                                            @if($errors->has('reference_email_2'))
-                                                <br/>
-                                                <small class="error-small"><em>*</em> <span> {{ $errors->first('reference_email_2') }} </span></small>
-                                            @endif
-
                                             <input type="text" value="{{ isset($data['reference_email_2']) ? $data['reference_email_2'] : '' }}" name="reference_email_2">
                                         </div>
                                     </div>
@@ -184,11 +138,6 @@
                                     <div class="row">
                                         <div class="col-xs-12">
                                             <p class="no-margin-top">Reference Type</p>
-                                            
-                                            @if($errors->has('reference_type_3'))
-                                                <small class="error-small"><em>*</em> <span> Please select an option </span></small>
-                                            @endif
-
                                             <select name="reference_type_3">
                                                 
                                                 <!-- default select value -->
@@ -224,32 +173,14 @@
                                         </div>
                                         <div class="col-xs-12">
                                             <p>First, Last Name</p>
-                                            
-                                            @if($errors->has('reference_name_3'))
-                                                <br/>
-                                                <small class="error-small"><em>*</em> <span> This field is required </span></small>
-                                            @endif
-
                                             <input type="text" value="{{ isset($data['reference_name_3']) ? $data['reference_name_3'] : '' }}" name="reference_name_3">
                                         </div>
                                         <div class="col-xs-12">
                                             <p>Phone Number</p>
-                                            
-                                            @if($errors->has('reference_phone_3'))
-                                                <br/>
-                                                <small class="error-small"><em>*</em> <span> {{ $errors->first('reference_phone_3') }} </span></small>
-                                            @endif
-
                                             <input type="text" value="{{ isset($data['reference_phone_3']) ? $data['reference_phone_3'] : '' }}" name="reference_phone_3">
                                         </div>
                                         <div class="col-xs-12">
                                             <p>Email</p>
-                                            
-                                            @if($errors->has('reference_email_3'))
-                                                <br/>
-                                                <small class="error-small"><em>*</em> <span> {{ $errors->first('reference_email_3') }} </span></small>
-                                            @endif
-
                                             <input type="text" value="{{ isset($data['reference_email_3']) ? $data['reference_email_3'] : '' }}" name="reference_email_3">
                                         </div>
                                     </div>
@@ -263,11 +194,6 @@
                                     <div class="row">
                                         <div class="col-xs-12">
                                             <p class="no-margin-top">Reference Type</p>
-                                            
-                                            @if($errors->has('reference_type_4'))
-                                                <small class="error-small"><em>*</em> <span> Please select an option </span></small>
-                                            @endif
-
                                             <select name="reference_type_4">
                                                 
                                                 <!-- default select value -->
@@ -304,31 +230,14 @@
                                         </div>
                                         <div class="col-xs-12">
                                             <p>First, Last Name</p>
-
-                                            @if($errors->has('reference_name_4'))
-                                                <br/>
-                                                <small class="error-small"><em>*</em> <span> This field is required </span></small>
-                                            @endif
                                             <input type="text" value="{{ isset($data['reference_name_4']) ? $data['reference_name_4'] : '' }}" name="reference_name_4">
                                         </div>
                                         <div class="col-xs-12">
                                             <p>Phone Number</p>
-                                            
-                                            @if($errors->has('reference_phone_4'))
-                                                <br/>
-                                                <small class="error-small"><em>*</em> <span> {{ $errors->first('reference_phone_2') }} </span></small>
-                                            @endif
-
                                             <input type="text" value="{{ isset($data['reference_phone_4']) ? $data['reference_phone_4'] : '' }}" name="reference_phone_4">
                                         </div>
                                         <div class="col-xs-12">
                                             <p>Email</p>
-                                            
-                                            @if($errors->has('reference_email_4'))
-                                                <br/>
-                                                <small class="error-small"><em>*</em> <span> {{ $errors->first('reference_email_4') }} </span></small>
-                                            @endif
-
                                             <input type="text" value="{{ isset($data['reference_email_4']) ? $data['reference_email_4'] : '' }}" name="reference_email_4">
                                         </div>
                                     </div>

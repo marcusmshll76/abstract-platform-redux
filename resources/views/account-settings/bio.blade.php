@@ -16,44 +16,24 @@
                 <div class="row center-xs">
                     <div class="col-xs-12 col-md-8">
                         <h5>Sponsor Bio</h5>
-
-                        @if($errors->has('bio'))
-                            <small class="error-small"><em>*</em> <span> {{ $errors->first('bio') }} </span></small>
-                        @endif
-
                         <p>Reassure potential investors with an in-depth bio describing your past successes, milestones and relavent statistics.</p>
                         <textarea name="bio">{{ isset($data['bio']) ? $data['bio'] : '' }}</textarea>
                         <div class="content-form-row">
                             <div class="row middle-xs">
                                 <div class="col-xs-12 col-sm-8">
                                     <p>Total Portfolio Activity Amount:</p>
-
-                                    @if($errors->has('portfolio_activity_amount'))
-                                        <small class="error-small"><em>*</em> <span> {{ $errors->first('portfolio_activity_amount') }} </span></small>
-                                    @endif
-
                                 </div>
                                 <div class="col-xs-12 col-sm-4"><input type="text" value="{{ isset($data['portfolio_activity_amount']) ? $data['portfolio_activity_amount'] : '' }}" name="portfolio_activity_amount"></div>
                             </div>
                             <div class="row middle-xs">
                                 <div class="col-xs-12 col-sm-8">
                                     <p>Total Assets Under Management:</p>
-
-                                    @if($errors->has('assets_under_management'))
-                                        <small class="error-small"><em>*</em> <span> {{ $errors->first('assets_under_management') }} </span></small>
-                                    @endif
-
                                 </div>
                                 <div class="col-xs-12 col-sm-4"><input type="text" value="{{ isset($data['assets_under_management']) ? $data['assets_under_management'] : '' }}" name="assets_under_management"></div>
                             </div>
                             <div class="row middle-xs">
                                 <div class="col-xs-12 col-sm-8">
                                     <p>Total Square Feet Managed:</p>
-
-                                    @if($errors->has('square_feet_managed'))
-                                        <small class="error-small"><em>*</em> <span> {{ $errors->first('square_feet_managed') }} </span></small>
-                                    @endif
-                                    
                                 </div>
                                 <div class="col-xs-12 col-sm-4"><input type="text" value="{{ isset($data['square_feet_managed']) ? $data['square_feet_managed'] : '' }}" name="square_feet_managed"></div>
                             </div>
