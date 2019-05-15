@@ -2,7 +2,7 @@
 @section('title', $title )
 
 @section('body')
-<form action="/account-settings/verification/references" method="post">
+<form action="/account-settings/verification/principles/create" method="post">
 @csrf
 <div class="card margin-top-m">
     <div class="card-title blue">
@@ -21,16 +21,36 @@
                         <div class="content-form">
                             <div class="row">
                                 <div class="col-xs-12">
-                                    <p>Company Name</p><input type="text" name="principle_company_name">
+                                    <p>Company Name</p>
+
+                                    @if($errors->has('principle_company_name'))
+                                        <br/>
+                                        <small class="error-small"><em>*</em> <span> {{ $errors->first('principle_company_name') }} </span></small>
+                                    @endif
+                                    
+                                    <input type="text" value="{{ isset($data['principle_company_name']) ? $data['principle_company_name'] : '' }}" name="principle_company_name">
                                 </div>
                                 <div class="col-xs-12">
-                                    <p>Company Website</p><input type="text" name="principle_company_website">
+                                    <p>Company Website</p>
+
+                                    @if($errors->has('principle_company_website'))
+                                        <br/>
+                                        <small class="error-small"><em>*</em> <span> {{ $errors->first('principle_company_website') }} </span></small>
+                                    @endif
+
+                                    <input type="text" value="{{ isset($data['principle_company_website']) ? $data['principle_company_website'] : '' }}" name="principle_company_website">
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-7 col-md-offset-1">
-                        <p class="no-margin-top">Principle Bio</p><textarea name="principle_website"></textarea>
+                        <p class="no-margin-top">Principle Bio</p>
+
+                        @if($errors->has('principle_website'))
+                            <small class="error-small"><em>*</em> <span> {{ $errors->first('principle_website') }} </span></small>
+                        @endif
+                        
+                        <textarea name="principle_website">{{ isset($data['principle_website']) ? $data['principle_website'] : '' }}</textarea>
                         <div class="btn margin-top-m small">+ Principal</div>
                     </div>
                     <div class="col-xs-12 col-sm-1 margin-top-m-sm"><img src="/img/icon-large-arrow-right.svg"></div>

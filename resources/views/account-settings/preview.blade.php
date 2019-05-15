@@ -2,17 +2,324 @@
 @section('title', $title )
 
 @section('body')
-<form action="/account-settings/verification/references/create" method="post">
+<form action="/account-settings/verification/preview/create" method="post">
 @csrf
-
+@if( isset( $success ) && $success )
+    <div class="success success-green"><p><strong>Congratulations submitted successfully</strong></p></div>
+@endif
 <div class="card margin-top-m">
-    <div class="card-title blue">
-        <h5>Account Verification</h5>
-    </div>
-    <div class="card-content">
-        <h5>Professional References </h5>
-        <p>We will need 4 references from your team. (1) Commercial Mortgage Broker, (2) Bank References, and (1) CRE Broker. </p>
-        <div class="card grey margin-top-m">
+        <div class="card-title blue">
+            <h5>Account Settings: Preview & Submit</h5>
+        </div>
+        <div class="card-content">
+            <p>Edit & save any section below.</p>
+            <div class="card grey margin-top-m">
+                <div class="card-title dust has-button">
+                    <h5>Sponsor Info</h5>
+                    <div class="btn">Edit</div>
+                </div>
+                <div class="card-content">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-3">
+                        <div class="file-upload-box"><img src="/img/icon-upload.svg">
+                            <h5>Upload Company Logo </h5>
+                        </div>
+                        <div class="content-form">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <p>Company Name</p>
+                                    
+                                    @if($errors->has('company_name'))
+                                        <br/>
+                                        <small class="error-small"><em>*</em> <span> {{ $errors->first('company_name') }} </span></small>
+                                    @endif
+
+                                    <input type="text" value="{{ isset($data['company_name']) ? $data['company_name'] : '' }}" name="company_name">
+                                </div>
+                                <div class="col-xs-12">
+                                    <p>Company Website</p>
+
+                                    @if($errors->has('company_website'))
+                                        <br/>
+                                        <small class="error-small"><em>*</em> <span> {{ $errors->first('company_website') }} </span></small>
+                                    @endif
+
+                                    <input type="text" value="{{ isset($data['company_website']) ? $data['company_website'] : '' }}" name="company_website">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-9">
+                        <div class="content-form">
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-4">
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <p class="no-margin-top">First Name</p>
+
+                                            @if($errors->has('first_name'))
+                                                <br/>
+                                                <small class="error-small"><em>*</em> <span> {{ $errors->first('first_name') }} </span></small>
+                                            @endif
+
+                                            <input type="text" value="{{ isset($data['first_name']) ? $data['first_name'] : '' }}" name="first_name">
+                                        </div>
+                                        <div class="col-xs-12">
+
+                                            <p>Work Phone</p>
+
+                                            @if($errors->has('work_phone'))
+                                                <br/>
+                                                <small class="error-small"><em>*</em> <span> {{ $errors->first('work_phone') }} </span></small>
+                                            @endif
+                                            
+                                            <input type="text" value="{{ isset($data['work_phone']) ? $data['work_phone'] : '' }}" name="work_phone">
+                                        </div>
+                                        <div class="col-xs-12">
+                                            <p>Company Address</p>
+
+                                            @if($errors->has('company_address'))
+                                                <br/>
+                                                <small class="error-small"><em>*</em> <span> {{ $errors->first('company_address') }} </span></small>
+                                            @endif
+                                            
+                                            <input type="text" value="{{ isset($data['company_address']) ? $data['company_address'] : '' }}" name="company_address">
+                                        </div>
+                                        <div class="col-xs-12">
+                                            <p>Company Address</p>
+                                            
+                                            @if($errors->has('company_address_2'))
+                                                <br/>
+                                                <small class="error-small"><em>*</em> <span> {{ $errors->first('company_address_2') }} </span></small>
+                                            @endif
+                                            
+                                            <input type="text" value="{{ isset($data['company_address_2']) ? $data['company_address_2'] : '' }}" name="company_address_2">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-4">
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <p class="no-margin-top">Last Name</p>
+                                            
+                                            @if($errors->has('last_name'))
+                                                <br/>
+                                                <small class="error-small"><em>*</em> <span> {{ $errors->first('last_name') }} </span></small>
+                                            @endif
+                                            
+                                            <input type="text" value="{{ isset($data['last_name']) ? $data['last_name'] : '' }}" name="last_name">
+                                        </div>
+                                        <div class="col-xs-12">
+                                            <p>Mobile Phone</p>
+                                            
+                                            @if($errors->has('mobile'))
+                                                <br/>
+                                                <small class="error-small"><em>*</em> <span> {{ $errors->first('mobile') }} </span></small>
+                                            @endif
+                                            
+                                            <input type="text" value="{{ isset($data['mobile']) ? $data['mobile'] : '' }}" name="mobile">
+                                        </div>
+                                        <div class="col-xs-12">
+                                            <div class="row">
+                                                <div class="col-xs-12 col-sm-7 col-md-8">
+                                                    <p>City</p>
+                                                    
+                                                    @if($errors->has('city'))
+                                                        <br/>
+                                                        <small class="error-small"><em>*</em> <span> {{ $errors->first('city') }} </span></small>
+                                                    @endif
+
+                                                    <input type="text" value="{{ isset($data['city']) ? $data['city'] : '' }}" name="city">
+                                                </div>
+                                                <div class="col-xs-12 col-sm-5 col-md-4">
+                                                    <p>State</p>
+                                                    
+                                                    @if($errors->has('state'))
+                                                        <br/>
+                                                        <small class="error-small"><em>*</em> <span> required </span></small>
+                                                    @endif
+
+                                                    <input type="text" value="{{ isset($data['state']) ? $data['state'] : '' }}" name="state">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12">
+                                            <p>ZIP Code</p>
+                                            
+                                            @if($errors->has('zip'))
+                                                <br/>
+                                                <small class="error-small"><em>*</em> <span> {{ $errors->first('zip') }} </span></small>
+                                            @endif
+
+                                            <input type="text" value="{{ isset($data['zip']) ? $data['zip'] : '' }}" name="zip">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-4">
+                                    <div class="row">
+                                        <div class="col-xs-12">
+                                            <p class="no-margin-top">Email</p>
+                                            @if($errors->has('email'))
+                                                <br/>
+                                                <small class="error-small"><em>*</em> <span> {{ $errors->first('email') }} </span></small>
+                                            @endif
+
+                                            <input type="email" value="{{ isset($data['email']) ? $data['email'] : '' }}" name="email">
+                                        </div>
+                                        <div class="col-xs-12">
+                                            <p>Job Title</p>
+                                            
+                                            @if($errors->has('job_title'))
+                                                <br/>
+                                                <small class="error-small"><em>*</em> <span> {{ $errors->first('job_title') }} </span></small>
+                                            @endif
+                                            
+                                            <input type="text" value="{{ isset($data['job_title']) ? $data['job_title'] : '' }}" name="job_title">
+                                        </div>
+                                        <div class="col-xs-12">
+                                            <p>Sponsor EIN/TIN</p>
+                                            
+                                            @if($errors->has('tin'))
+                                                <br/>
+                                                <small class="error-small"><em>*</em> <span> {{ $errors->first('tin') }} </span></small>
+                                            @endif
+                                            
+                                            <input type="text" value="{{ isset($data['tin']) ? $data['tin'] : '' }}" name="tin">
+                                        </div>
+                                        <div class="col-xs-12">
+                                            <p>Country</p>
+                                            
+                                            @if($errors->has('country'))
+                                                <br/>
+                                                <small class="error-small"><em>*</em> <span> {{ $errors->first('country') }} </span></small>
+                                            @endif
+                                            
+                                            <input type="text" value="{{ isset($data['country']) ? $data['country'] : '' }}" name="country">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div class="card grey margin-top-m">
+                <div class="card-title dust has-button">
+                    <h5>Sponsor Bio</h5>
+                    <div class="btn">Edit</div>
+                </div>
+
+                <div class="card-content">
+                <div class="row center-xs">
+                    <div class="col-xs-12 col-md-8">
+                        <h5>Sponsor Bio</h5>
+
+                        @if($errors->has('bio'))
+                            <small class="error-small"><em>*</em> <span> {{ $errors->first('bio') }} </span></small>
+                        @endif
+
+                        <p>Reassure potential investors with an in-depth bio describing your past successes, milestones and relavent statistics.</p>
+                        <textarea name="bio">{{ isset($data['bio']) ? $data['bio'] : '' }}</textarea>
+                        <div class="content-form-row">
+                            <div class="row middle-xs">
+                                <div class="col-xs-12 col-sm-8">
+                                    <p>Total Portfolio Activity Amount:</p>
+
+                                    @if($errors->has('portfolio_activity_amount'))
+                                        <small class="error-small"><em>*</em> <span> {{ $errors->first('portfolio_activity_amount') }} </span></small>
+                                    @endif
+
+                                </div>
+                                <div class="col-xs-12 col-sm-4"><input type="text" value="{{ isset($data['portfolio_activity_amount']) ? $data['portfolio_activity_amount'] : '' }}" name="portfolio_activity_amount"></div>
+                            </div>
+                            <div class="row middle-xs">
+                                <div class="col-xs-12 col-sm-8">
+                                    <p>Total Assets Under Management:</p>
+
+                                    @if($errors->has('assets_under_management'))
+                                        <small class="error-small"><em>*</em> <span> {{ $errors->first('assets_under_management') }} </span></small>
+                                    @endif
+
+                                </div>
+                                <div class="col-xs-12 col-sm-4"><input type="text" value="{{ isset($data['assets_under_management']) ? $data['assets_under_management'] : '' }}" name="assets_under_management"></div>
+                            </div>
+                            <div class="row middle-xs">
+                                <div class="col-xs-12 col-sm-8">
+                                    <p>Total Square Feet Managed:</p>
+
+                                    @if($errors->has('square_feet_managed'))
+                                        <small class="error-small"><em>*</em> <span> {{ $errors->first('square_feet_managed') }} </span></small>
+                                    @endif
+                                    
+                                </div>
+                                <div class="col-xs-12 col-sm-4"><input type="text" value="{{ isset($data['square_feet_managed']) ? $data['square_feet_managed'] : '' }}" name="square_feet_managed"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            <div class="card grey margin-top-m">
+                <div class="card-title dust has-button">
+                    <h5>Meet the Principles, Property Owners or Fund Managers</h5>
+                    <div class="btn">Edit</div>
+                </div>
+                
+                <div class="card-content">
+                <div class="row middle-xs">
+                    <div class="col-xs-12 col-sm-4 col-md-3">
+                        <div class="file-upload-box"><img src="/img/icon-upload.svg">
+                            <h5>Upload Company Logo </h5>
+                        </div>
+                        <div class="content-form">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <p>Company Name</p>
+
+                                    @if($errors->has('principle_company_name'))
+                                        <br/>
+                                        <small class="error-small"><em>*</em> <span> {{ $errors->first('principle_company_name') }} </span></small>
+                                    @endif
+                                    
+                                    <input type="text" value="{{ isset($data['principle_company_name']) ? $data['principle_company_name'] : '' }}" name="principle_company_name">
+                                </div>
+                                <div class="col-xs-12">
+                                    <p>Company Website</p>
+
+                                    @if($errors->has('principle_company_website'))
+                                        <br/>
+                                        <small class="error-small"><em>*</em> <span> {{ $errors->first('principle_company_website') }} </span></small>
+                                    @endif
+
+                                    <input type="text" value="{{ isset($data['principle_company_website']) ? $data['principle_company_website'] : '' }}" name="principle_company_website">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-7 col-md-offset-1">
+                        <p class="no-margin-top">Principle Bio</p>
+
+                        @if($errors->has('principle_website'))
+                            <small class="error-small"><em>*</em> <span> {{ $errors->first('principle_website') }} </span></small>
+                        @endif
+                        
+                        <textarea name="principle_website">{{ isset($data['principle_website']) ? $data['principle_website'] : '' }}</textarea>
+                        <div class="btn margin-top-m small">+ Principal</div>
+                    </div>
+                    <div class="col-xs-12 col-sm-1 margin-top-m-sm"><img src="/img/icon-large-arrow-right.svg"></div>
+                </div>
+            </div>
+                
+
+
+            </div>
+            <div class="card grey margin-top-m">
+                <div class="card-title dust has-button">
+                    <h5>Professional References</h5>
+                    <div class="btn">Edit</div>
+                </div>
+                
             <div class="card-content">
                 <div class="row">
                     <div class="col-xs-12">
@@ -336,44 +643,32 @@
                             </div>
                         </div>
                     </div>
+            </div>
+            <div class="card grey margin-top-m">
+                <div class="card-title dust">
+                    <h5>Sponsor Diligence</h5>
                 </div>
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div class="content-footer">
-                            <div class="row center-xs">
-                                <div class="col-xs-12 col-sm-6 col-md-4">
-                                    <div class="content-footer-step">
-                                        <div class="row">
-                                            <div class="col-xs">
-                                                <div class="step-item active"></div>
-                                            </div>
-                                            <div class="col-xs">
-                                                <div class="step-item active"></div>
-                                            </div>
-                                            <div class="col-xs">
-                                                <div class="step-item active"></div>
-                                            </div>
-                                            <div class="col-xs">
-                                                <div class="step-item active"></div>
-                                            </div>
-                                            <div class="col-xs">
-                                                <div class="step-item"></div>
-                                            </div>
-                                        </div>
-                                        <div class="step-divider"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="footer-button-next">
-                                <input type="submit" value="Next">
+                <div class="card-content">
+                    <p class="margin-bottom-m no-margin-top">Remove or add diligence files as needed below</p>
+                    <div class="card">
+                        <div class="card-title">
+                            <div class="breadcrumb">
+                                <p>All Files<img src="/img/icon-arrow-right.svg">Cephasa Partneres Sponsor Diligence </p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
-
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="content-footer">
+                        <div class="text-center">
+                            <input class="btn" type="submit" value="Finish">
+                        </div>
+                    </div>
+                </div>
+                            </div>
+                        </div>
+                    </div>
 </form>
 @endsection

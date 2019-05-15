@@ -2,7 +2,7 @@
 @section('title', $title )
 
 @section('body')
-<form action="#" method="post">
+<form action="/account-settings/verification/diligence/create" method="post">
 @csrf
 
 <div class="card margin-top-m">
@@ -53,7 +53,7 @@
                                 </div>
                             </div>
                             <div class="footer-button-next">
-                                <div class="btn">Finish</div>
+                                <input class="btn" type="submit" value="Finish">
                             </div>
                         </div>
                     </div>

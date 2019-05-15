@@ -6958,3 +6958,9 @@ footer .social a {
 .error-small span{
  font-size: 9px;
 }
+.success-green strong{
+ color: rgb(52, 128, 86);
+}
+.text-right{
+ text-align: right;
+}

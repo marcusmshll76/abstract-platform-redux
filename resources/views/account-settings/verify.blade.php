@@ -2,7 +2,7 @@
 @section('title', $title )
 
 @section('body')
-<form action="/account-settings/verification/bio" method="post">
+<form action="/account-settings/verification/create" method="post">
 @csrf
 <div class="card margin-top-m">
     <div class="card-title blue">
@@ -28,7 +28,7 @@
                                         <small class="error-small"><em>*</em> <span> {{ $errors->first('company_name') }} </span></small>
                                     @endif
 
-                                    <input type="text" value="{{ $data['company_name'] }}" name="company_name">
+                                    <input type="text" value="{{ isset($data['company_name']) ? $data['company_name'] : '' }}" name="company_name">
                                 </div>
                                 <div class="col-xs-12">
                                     <p>Company Website</p>
@@ -38,7 +38,7 @@
                                         <small class="error-small"><em>*</em> <span> {{ $errors->first('company_website') }} </span></small>
                                     @endif
 
-                                    <input type="text" value="{{ $data['company_website'] }}" name="company_website">
+                                    <input type="text" value="{{ isset($data['company_website']) ? $data['company_website'] : '' }}" name="company_website">
                                 </div>
                             </div>
                         </div>
@@ -56,7 +56,7 @@
                                                 <small class="error-small"><em>*</em> <span> {{ $errors->first('first_name') }} </span></small>
                                             @endif
 
-                                            <input type="text" value="{{ $data['first_name'] }}" name="first_name">
+                                            <input type="text" value="{{ isset($data['first_name']) ? $data['first_name'] : '' }}" name="first_name">
                                         </div>
                                         <div class="col-xs-12">
 
@@ -67,7 +67,7 @@
                                                 <small class="error-small"><em>*</em> <span> {{ $errors->first('work_phone') }} </span></small>
                                             @endif
                                             
-                                            <input type="text" value="{{ $data['work_phone'] }}" name="work_phone">
+                                            <input type="text" value="{{ isset($data['work_phone']) ? $data['work_phone'] : '' }}" name="work_phone">
                                         </div>
                                         <div class="col-xs-12">
                                             <p>Company Address</p>
@@ -77,7 +77,7 @@
                                                 <small class="error-small"><em>*</em> <span> {{ $errors->first('company_address') }} </span></small>
                                             @endif
                                             
-                                            <input type="text" value="{{ $data['company_address'] }}" name="company_address">
+                                            <input type="text" value="{{ isset($data['company_address']) ? $data['company_address'] : '' }}" name="company_address">
                                         </div>
                                         <div class="col-xs-12">
                                             <p>Company Address</p>
@@ -87,7 +87,7 @@
                                                 <small class="error-small"><em>*</em> <span> {{ $errors->first('company_address_2') }} </span></small>
                                             @endif
                                             
-                                            <input type="text" value="{{ $data['company_address_2'] }}" name="company_address_2">
+                                            <input type="text" value="{{ isset($data['company_address_2']) ? $data['company_address_2'] : '' }}" name="company_address_2">
                                         </div>
                                     </div>
                                 </div>
@@ -101,7 +101,7 @@
                                                 <small class="error-small"><em>*</em> <span> {{ $errors->first('last_name') }} </span></small>
                                             @endif
                                             
-                                            <input type="text" value="{{ $data['last_name'] }}" name="last_name">
+                                            <input type="text" value="{{ isset($data['last_name']) ? $data['last_name'] : '' }}" name="last_name">
                                         </div>
                                         <div class="col-xs-12">
                                             <p>Mobile Phone</p>
@@ -111,7 +111,7 @@
                                                 <small class="error-small"><em>*</em> <span> {{ $errors->first('mobile') }} </span></small>
                                             @endif
                                             
-                                            <input type="text" value="{{ $data['mobile'] }}" name="mobile">
+                                            <input type="text" value="{{ isset($data['mobile']) ? $data['mobile'] : '' }}" name="mobile">
                                         </div>
                                         <div class="col-xs-12">
                                             <div class="row">
@@ -123,7 +123,7 @@
                                                         <small class="error-small"><em>*</em> <span> {{ $errors->first('city') }} </span></small>
                                                     @endif
 
-                                                    <input type="text" value="{{ $data['city'] }}" name="city">
+                                                    <input type="text" value="{{ isset($data['city']) ? $data['city'] : '' }}" name="city">
                                                 </div>
                                                 <div class="col-xs-12 col-sm-5 col-md-4">
                                                     <p>State</p>
@@ -133,7 +133,7 @@
                                                         <small class="error-small"><em>*</em> <span> required </span></small>
                                                     @endif
 
-                                                    <input type="text" value="{{ $data['state'] }}" name="state">
+                                                    <input type="text" value="{{ isset($data['state']) ? $data['state'] : '' }}" name="state">
                                                 </div>
                                             </div>
                                         </div>
@@ -145,7 +145,7 @@
                                                 <small class="error-small"><em>*</em> <span> {{ $errors->first('zip') }} </span></small>
                                             @endif
 
-                                            <input type="text" value="{{ $data['zip'] }}" name="zip">
+                                            <input type="text" value="{{ isset($data['zip']) ? $data['zip'] : '' }}" name="zip">
                                         </div>
                                     </div>
                                 </div>
@@ -158,7 +158,7 @@
                                                 <small class="error-small"><em>*</em> <span> {{ $errors->first('email') }} </span></small>
                                             @endif
 
-                                            <input type="email" value="{{ $data['email'] }}" name="email">
+                                            <input type="email" value="{{ isset($data['email']) ? $data['email'] : '' }}" name="email">
                                         </div>
                                         <div class="col-xs-12">
                                             <p>Job Title</p>
@@ -168,7 +168,7 @@
                                                 <small class="error-small"><em>*</em> <span> {{ $errors->first('job_title') }} </span></small>
                                             @endif
                                             
-                                            <input type="text" value="{{ $data['job_title'] }}" name="job_title">
+                                            <input type="text" value="{{ isset($data['job_title']) ? $data['job_title'] : '' }}" name="job_title">
                                         </div>
                                         <div class="col-xs-12">
                                             <p>Sponsor EIN/TIN</p>
@@ -178,7 +178,7 @@
                                                 <small class="error-small"><em>*</em> <span> {{ $errors->first('tin') }} </span></small>
                                             @endif
                                             
-                                            <input type="text" value="{{ $data['tin'] }}" name="tin">
+                                            <input type="text" value="{{ isset($data['tin']) ? $data['tin'] : '' }}" name="tin">
                                         </div>
                                         <div class="col-xs-12">
                                             <p>Country</p>
@@ -188,7 +188,7 @@
                                                 <small class="error-small"><em>*</em> <span> {{ $errors->first('country') }} </span></small>
                                             @endif
                                             
-                                            <input type="text" value="{{ $data['country'] }}" name="country">
+                                            <input type="text" value="{{ isset($data['country']) ? $data['country'] : '' }}" name="country">
                                         </div>
                                     </div>
                                 </div>
