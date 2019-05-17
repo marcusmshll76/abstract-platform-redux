@@ -70,6 +70,30 @@ Route::post('/account-settings/verification/diligence/create', 'AccountSettingsC
 Route::get('/account-settings/verification/preview', 'AccountSettingsController@preview');
 Route::post('/account-settings/verification/preview/create', 'AccountSettingsController@submitPreview');
 
+
+/*******************
+    * ******* Security Flow
+**************/
+//step 1
+Route::get('/security-flow/step-1/choose', 'SecurityFlow@choose');
+Route::get('/security-flow/step-1/upload-photos', 'SecurityFlow@upload');
+Route::get('/security-flow/step-1/details', 'SecurityFlow@details');
+Route::get('/security-flow/step-1/highlights', 'SecurityFlow@highlights');
+
+Route::post('/security-flow/step-1/create/{details?}', 'SecurityFlow@saveData');
+Route::post('/security-flow/step-1/create/{highlights?}', 'SecurityFlow@saveData');
+//step 2
+Route::get('/security-flow/step-2/ownership', 'SecurityFlow@ownership');
+Route::post('/security-flow/step-2/create/{ownership?}', 'SecurityFlow@saveData');
+//step 3
+Route::get('/security-flow/step-3/diligence', 'SecurityFlow@diligence');
+//step 4
+Route::get('/security-flow/step-4/key-points', 'SecurityFlow@keyPoints');
+
+
+
+// Route::post('/account-settings/verification/create', 'AccountSettingsController@createVerification');
+
 Route::get('/account-settings/wallets', 'AccountSettingsController@wallets');
 Route::get('/account-settings/privacy', 'AccountSettingsController@privacy');
 Route::post('/account-settings/privacy', 'AccountSettingsController@updatePrivacy');
