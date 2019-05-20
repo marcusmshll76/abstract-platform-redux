@@ -15,9 +15,13 @@
             <div class="card-content">
                 <div class="row">
                     <div class="col-xs-12 col-sm-3">
-                        <div class="file-upload-box"><img src="/img/icon-upload.svg">
-                            <h5>Upload Company Logo </h5>
-                        </div>
+
+                        <uploads-component 
+                            type="single"
+                            action="//jsonplaceholder.typicode.com/posts/"
+                            title="Upload Company Logo">
+                        </uploads-component>
+
                         <div class="content-form">
                             <div class="row">
                                 <div class="col-xs-12">

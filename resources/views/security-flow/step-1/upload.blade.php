@@ -15,32 +15,48 @@
             <div class="card-content">
                 <div class="row">
                     <div class="col-xs-12 col-md-6">
-                        <div class="photo-upload-box large margin-bottom-m-md">
-                            <img src="/img/icon-upload.svg" />
-                        </div>
+                        <uploads-component
+                            type="photos"
+                            action="//jsonplaceholder.typicode.com/posts/"
+                            class="large margin-bottom-m-md">
+                        </uploads-component>
                     </div>
                     <div class="col-xs-12 col-md-6">
                         <div class="row margin-bottom-m">
                             <div class="col-xs-12 col-sm-6">
-                                <div class="photo-upload-box margin-bottom-m-md">
-                                    <img src="/img/icon-upload.svg" />
-                                </div>
+                                <uploads-component
+                                    type="photos"
+                                    action="//jsonplaceholder.typicode.com/posts/"
+                                    class="margin-bottom-m-md">
+                                </uploads-component>
                             </div>
                             <div class="col-xs-12 col-sm-6">
                                 <div class="photo-upload-box">
-                                    <img src="/img/icon-upload.svg" />
+                                    <uploads-component
+                                        type="photos"
+                                        action="//jsonplaceholder.typicode.com/posts/"
+                                        class="margin-bottom-m-md">
+                                    </uploads-component>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-xs-12 col-sm-6">
                                 <div class="photo-upload-box margin-bottom-m-md">
-                                    <img src="/img/icon-upload.svg" />
+                                    <uploads-component
+                                        type="photos"
+                                        action="//jsonplaceholder.typicode.com/posts/"
+                                        class="margin-bottom-m-md">
+                                    </uploads-component>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-6">
                                 <div class="photo-upload-box">
-                                    <img src="/img/icon-upload.svg" />
+                                    <uploads-component
+                                        type="photos"
+                                        action="//jsonplaceholder.typicode.com/posts/"
+                                        class="margin-bottom-m-md">
+                                    </uploads-component>
                                 </div>
                             </div>
                         </div>

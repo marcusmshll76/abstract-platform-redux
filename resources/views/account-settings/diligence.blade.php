@@ -22,6 +22,9 @@
                                     <p>All Files<img src="/img/icon-arrow-right.svg">Cephasa Partneres Sponsor Diligence </p>
                                 </div>
                             </div>
+                            <div class="card-content">
+                                <file-tree></file-tree>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -38,7 +38,7 @@ class SecurityFlow extends Controller
         return view( 'security-flow.step-4.key-points', [ 'title' => 'Security Flow -> Key Points' ] );
     }
 
-    //Save Data 
+    // Save Data into a session
     public function saveData (Request $request, $e) {
 
         $session_data = session( 'security-flow', array() );
@@ -56,7 +56,7 @@ class SecurityFlow extends Controller
                 return redirect('/security-flow/step-3/diligence');
                 break;
             default:
-                echo "Your favorite color is neither red, blue, nor green!";
+                echo "default";
         }
     }
 }

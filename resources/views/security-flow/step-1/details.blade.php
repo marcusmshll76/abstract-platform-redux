@@ -4,7 +4,7 @@
 @section('body')
 <form action="/security-flow/step-1/create/details" method="post">
 @csrf
-<div class="card margin-top-m">
+<div class="card margin-top-m" id="app">
                     <div class="card-title blue">
                         <h5> Import Digital Security Details</h5>
                     </div>

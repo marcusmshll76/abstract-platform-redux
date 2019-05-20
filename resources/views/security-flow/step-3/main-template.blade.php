@@ -63,6 +63,9 @@
                     </div>
                 </div>
                 @yield('body')
+
+                @yield('content')
+                <example></example>
             </div>
         </div>
     </div>

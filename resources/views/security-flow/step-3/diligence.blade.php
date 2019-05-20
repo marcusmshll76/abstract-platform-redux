@@ -1,4 +1,4 @@
-@extends('security-flow.step-4.main-template')
+@extends('security-flow.step-3.main-template')
 @section('title', $title )
 
 @section('body')
@@ -20,6 +20,9 @@
                         </div>
                     </div>
                     <div class="col-xs-12 col-md-6"><input type="search"></div>
+                </div>
+                <div class="row">
+                    <file-tree></file-tree>
                 </div>
                 <div class="row">
                     <div class="col-xs-12">

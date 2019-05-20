@@ -24,71 +24,74 @@
 </head>
 
 <body>
-    <header>
-        <div class="container-fluid">
-            <div class="navbar">
-                <div class="row middle-xs no-margin">
-                    <div class="col-xs-12 col-sm-4">
-                        <div class="nav-logo"><a href="/"><img src="/img/logo-dark-w-type.svg" class="logo"></a></div>
-                    </div>
-                    <div class="col-xs-12 col-sm-4">
-                        <div class="header-toggle text-center">
-                            <div class="row">
-                                <div class="col-xs-12 col-sm-4">
-                                    <div class="header-toggle-item">
-                                        <p>Investors</p>
+    <div id="app">
+        <header>
+            <div class="container-fluid">
+                <div class="navbar">
+                    <div class="row middle-xs no-margin">
+                        <div class="col-xs-12 col-sm-4">
+                            <div class="nav-logo"><a href="/"><img src="/img/logo-dark-w-type.svg" class="logo"></a></div>
+                        </div>
+                        <div class="col-xs-12 col-sm-4">
+                            <div class="header-toggle text-center">
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-4">
+                                        <div class="header-toggle-item">
+                                            <p>Investors</p>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-xs-12 col-sm-4">
-                                    <div class="header-toggle-item active">
-                                        <p>Sponsors</p>
+                                    <div class="col-xs-12 col-sm-4">
+                                        <div class="header-toggle-item active">
+                                            <p>Sponsors</p>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-xs-12 col-sm-4">
-                                    <div class="header-toggle-item">
-                                        <p>Marketplace</p>
+                                    <div class="col-xs-12 col-sm-4">
+                                        <div class="header-toggle-item">
+                                            <p>Marketplace</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-4">
-                        <div class="nav-user-info">
-                            <div class="user-setting">
-                                <div class="dropdown">
-                                    <div data-toggle="dropdown" class="dropdown-toggle">
-                                        <div class="user-image"><img src="/img/icon-user.svg"></div>
-                                        <div class="user-setting-arrow"></div>
+                        <div class="col-xs-12 col-sm-4">
+                            <div class="nav-user-info">
+                                <div class="user-setting">
+                                    <div class="dropdown">
+                                        <div data-toggle="dropdown" class="dropdown-toggle">
+                                            <div class="user-image"><img src="/img/icon-user.svg"></div>
+                                            <div class="user-setting-arrow"></div>
+                                        </div>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="/logout">Logout</a></li>
+                                        </ul>
                                     </div>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="/logout">Logout</a></li>
-                                    </ul>
                                 </div>
                             </div>
+                            <div class="nav-item">
+                                <div class="nav-notification"><img src="/img/icon-bell.svg"></div>
+                            </div>
                         </div>
-                        <div class="nav-item">
-                            <div class="nav-notification"><img src="/img/icon-bell.svg"></div>
+                    </div>
+                </div>
+                <div class="navbar-mobile">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="logo"><a href="/"><img src="/img/logo-dark-w-type.svg" class="logo"></a></div>
+                            <div class="menu-button"><img src="/img/icon-menu-btn.svg"></div>
+                            <ul class="nav-item">
+                                <li><a href="#">Investor </a></li>
+                                <li><a href="#">Sponsors</a></li>
+                                <li><a href="#">Marketplace</a></li>
+                                <li><a href="#">Settings</a></li>
+                                <li><a href="/logout">Logout</a></li>
+                            </ul>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="navbar-mobile">
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div class="logo"><a href="/"><img src="/img/logo-dark-w-type.svg" class="logo"></a></div>
-                        <div class="menu-button"><img src="/img/icon-menu-btn.svg"></div>
-                        <ul class="nav-item">
-                            <li><a href="#">Investor </a></li>
-                            <li><a href="#">Sponsors</a></li>
-                            <li><a href="#">Marketplace</a></li>
-                            <li><a href="#">Settings</a></li>
-                            <li><a href="/logout">Logout</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
-     @yield('content')
-    </body>
+        </header>
+         @yield('content')
+    </div>
+    <script src="/js/app.js"></script>
+</body>
 </html>

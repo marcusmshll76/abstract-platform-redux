@@ -15,6 +15,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// Vue Router Fix
+// Route::get('/{any}', 'SinglePageController@index')->where('any', '.*');
+
 // Sessions
 Route::get('/login', 'SessionController@getLogin');
 Route::post('/login', 'SessionController@doLogin');

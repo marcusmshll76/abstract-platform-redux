@@ -18,7 +18,13 @@
                         <div class="col-xs-12 col-sm-6">
                             <h5>Existing Investor Ownership</h5>
                             <p>Please upload your cap table; our preferred method of data transfer. However, if you have 3 or less investors on your cap table, you may enter their information mannually below. </p>
-                            <div class="btn dust"> <img src="/img/icon-upload.svg" /> <br/>Upload Cap Table </div>
+                            <uploads-component 
+                                type="single-dust"
+                                action="//jsonplaceholder.typicode.com/posts/"
+                                title="Upload Cap Table"
+                                flat>
+                            </uploads-component>
+
                             <div class="content-form">
                                 <div class="row margin-bottom-l-md">
                                     <div class="col-xs-12 col-md-4">
