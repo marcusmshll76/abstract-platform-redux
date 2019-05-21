@@ -1918,21 +1918,40 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['type', 'action', 'title', 'icon', 'flat'],
+  props: ['type', 'action', 'title', 'icon', 'flat', 'path', 'elname', 'scope'],
+  data: function data() {
+    return {
+      header: '',
+      payload: {}
+    };
+  },
+  mounted: function mounted() {
+    this.payload = {
+      structure: this.path,
+      access: this.scope
+    };
+    this.header = document.head.querySelector("[name~=csrf-token][content]").content;
+  },
   methods: {
     success: function success(res, file) {
       console.log(res);
     },
-    formatError: function formatError(file) {
-      console.log(file);
+    formatError: function formatError(file) {// console.log(file)
+
       /* this.$Notice.warning({
           title: 'The file format is incorrect',
           desc: 'File format of ' + file.name + ' is incorrect, please select jpg or png.'
       }); */
     },
-    naxSize: function naxSize(file) {
-      console.log(file);
+    maxSize: function maxSize(file) {// console.log(file)
+
       /* this.$Notice.warning({
           title: 'Exceeding file size limit',
           desc: 'File  ' + file.name + ' is too large, no more than 2M.'
@@ -62424,12 +62443,15 @@ var render = function() {
             {
               ref: "upload",
               attrs: {
+                name: _vm.elname,
+                headers: { "X-CSRF-TOKEN": _vm.header },
                 action: _vm.action,
                 "on-success": _vm.success,
                 format: ["jpg", "jpeg", "png"],
                 "max-size": 2048,
                 "on-format-error": _vm.formatError,
-                "on-exceeded-size": _vm.maxSize
+                "on-exceeded-size": _vm.maxSize,
+                data: _vm.payload
               }
             },
             [
@@ -62474,12 +62496,15 @@ var render = function() {
             {
               ref: "uploadPhotos",
               attrs: {
+                name: _vm.elname,
+                headers: { "X-CSRF-TOKEN": _vm.header },
                 action: _vm.action,
                 "on-success": _vm.success,
                 format: ["jpg", "jpeg", "png"],
                 "max-size": 2048,
                 "on-format-error": _vm.formatError,
-                "on-exceeded-size": _vm.maxSize
+                "on-exceeded-size": _vm.maxSize,
+                data: _vm.payload
               }
             },
             [

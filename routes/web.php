@@ -111,3 +111,11 @@ Route::get('/account-settings/privacy', 'AccountSettingsController@privacy');
 Route::post('/account-settings/privacy', 'AccountSettingsController@updatePrivacy');
 Route::get('/account-settings/password', 'AccountSettingsController@passwordAnd2FA');
 Route::post('/account-settings/password', 'AccountSettingsController@updatePassword');
+
+/*******************
+    * ******* Files
+});
+**************/
+
+Route::get('/getFiles', 'FilesController@retrieve');
+Route::resource('files', 'FilesController', ['only' => ['store', 'destroy']]);
