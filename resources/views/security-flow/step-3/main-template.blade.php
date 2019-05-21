@@ -12,25 +12,25 @@
                         <br/>
                         <div class="left-nav-item-wrap">
                             <div class="left-nav-item">
-                                <p><a href="/account-settings/verification"> Import Security<br/> Details</a></p>
+                                <p><a href="/security-flow/step-1/choose"> Import Security<br/> Details</a></p>
                             </div>
                             <div class="left-nav-item">
-                                <p><a href="/account-settings/wallets">Investment Details </a></p>
+                                <p><a href="/security-flow/step-2/ownership">Investment Details </a></p>
                             </div>
                             <div class="left-nav-item active">
-                                <p><a href="/account-settings/privacy">Diligence Documents</a></p>
+                                <p><a href="/security-flow/step-3/diligence">Diligence Documents</a></p>
                             </div>
                             <div class="left-nav-item">
-                                <p><a href="/account-settings/password">Key Deal Points</a></p>
+                                <p><a href="/security-flow/step-4/key-points">Key Deal Points</a></p>
                             </div>
                             <div class="left-nav-item">
-                                <p><a href="/account-settings/password">Capital Stack</a></p>
+                                <p><a href="/security-flow/step-5/capital-stack">Capital Stack</a></p>
                             </div>
                             <div class="left-nav-item">
-                                <p><a href="/account-settings/password">Meet the Sponsors</a></p>
+                                <p><a href="/security-flow/step-6/meet-sponsors">Meet the Sponsors</a></p>
                             </div>
                             <div class="left-nav-item">
-                                <p><a href="/account-settings/password">Preview & Submit</a></p>
+                                <p><a href="/security-flow/step-7/preview">Preview & Submit</a></p>
                             </div>
                         </div>
                     </div>
@@ -63,9 +63,6 @@
                     </div>
                 </div>
                 @yield('body')
-
-                @yield('content')
-                <example></example>
             </div>
         </div>
     </div>

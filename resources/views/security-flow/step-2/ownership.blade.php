@@ -22,7 +22,7 @@
                                 type="single-dust"
                                 action="//jsonplaceholder.typicode.com/posts/"
                                 title="Upload Cap Table"
-                                flat>
+                                flat="true">
                             </uploads-component>
 
                             <div class="content-form">

@@ -19,7 +19,7 @@
                                 h('span', [
                                     h('Icon', {
                                         props: {
-                                            type: 'ios-folder-outline'
+                                            type: 'ios-folder'
                                         },
                                         style: {
                                             marginRight: '8px'
@@ -33,20 +33,7 @@
                                         float: 'right',
                                         marginRight: '32px'
                                     }
-                                }, [
-                                   /* h('Button', {
-                                        props: Object.assign({}, this.buttonProps, {
-                                            icon: 'ios-add',
-                                            type: 'primary'
-                                        }),
-                                        style: {
-                                            width: '64px'
-                                        },
-                                        on: {
-                                            click: () => { this.append(data) }
-                                        }
-                                    }) */
-                                ])
+                                })
                             ]);
                         },
                         children: [
@@ -56,25 +43,11 @@
                                 children: [
                                     {
                                         title: 'leaf 1-1-1',
-                                        expand: true
+                                        expand: false
                                     },
                                     {
                                         title: 'leaf 1-1-2',
-                                        expand: true
-                                    }
-                                ]
-                            },
-                            {
-                                title: 'child 1-2',
-                                expand: true,
-                                children: [
-                                    {
-                                        title: 'leaf 1-2-1',
-                                        expand: true
-                                    },
-                                    {
-                                        title: 'leaf 1-2-1',
-                                        expand: true
+                                        expand: false
                                     }
                                 ]
                             }
@@ -112,27 +85,7 @@
                             float: 'right',
                             marginRight: '32px'
                         }
-                    }, [
-                       /* h('Button', {
-                            props: Object.assign({}, this.buttonProps, {
-                                icon: 'ios-add'
-                            }),
-                            style: {
-                                marginRight: '8px'
-                            },
-                            on: {
-                                click: () => { this.append(data) }
-                            }
-                        }),
-                        h('Button', {
-                            props: Object.assign({}, this.buttonProps, {
-                                icon: 'ios-remove'
-                            }),
-                            on: {
-                                click: () => { this.remove(root, node, data) }
-                            }
-                        }) */
-                    ])
+                    })
                 ]);
             },
             append (data) {

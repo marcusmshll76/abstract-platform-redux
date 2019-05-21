@@ -11,7 +11,7 @@
                         </div>
                         <br/>
                         <div class="left-nav-item-wrap">
-                            <div class="left-nav-item active">
+                            <div class="left-nav-item">
                                 <p><a href="/security-flow/step-1/choose"> Import Security<br/> Details</a></p>
                             </div>
                             <div class="left-nav-item">
@@ -26,7 +26,7 @@
                             <div class="left-nav-item">
                                 <p><a href="/security-flow/step-5/capital-stack">Capital Stack</a></p>
                             </div>
-                            <div class="left-nav-item">
+                            <div class="left-nav-item active">
                                 <p><a href="/security-flow/step-6/meet-sponsors">Meet the Sponsors</a></p>
                             </div>
                             <div class="left-nav-item">

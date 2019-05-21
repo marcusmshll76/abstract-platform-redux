@@ -52,7 +52,7 @@
                                 </div>
                             </div>
                             <div class="footer-button-next">
-                                <div class="btn">Next</div>
+                                <a href="/security-flow/step-4/key-points" class="btn color-white">Next</a>
                             </div>
                         </div>
                     </div>

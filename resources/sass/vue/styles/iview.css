@@ -3483,7 +3483,9 @@
 }
 
 /* uploads *****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
-
+.ivu-upload{
+    cursor: pointer;
+}
 .ivu-upload input[type=file] {
     display: none
 }
@@ -3729,4 +3731,93 @@
         opacity: 0;
         height: 100%
     }
+}
+.ivu-tree ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: 12px
+}
+
+.ivu-tree ul.ivu-dropdown-menu {
+    padding: 0
+}
+
+.ivu-tree ul li {
+    list-style: none;
+    margin: 8px 0;
+    padding: 0;
+    white-space: nowrap;
+    outline: 0
+}
+
+.ivu-tree ul li.ivu-dropdown-item {
+    margin: 0;
+    padding: 7px 16px;
+    white-space: nowrap
+}
+
+.ivu-tree li ul {
+    margin: 0;
+    padding: 0 0 0 18px
+}
+
+.ivu-tree-title {
+    display: inline-block;
+    margin: 0;
+    padding: 0 4px;
+    border-radius: 3px;
+    cursor: pointer;
+    vertical-align: top;
+    color: #515a6e;
+    -webkit-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out
+}
+
+.ivu-tree-title:hover {
+    background-color: #eaf4fe
+}
+
+.ivu-tree-title-selected,
+.ivu-tree-title-selected:hover {
+    background-color: #d5e8fc
+}
+
+.ivu-tree-arrow {
+    cursor: pointer;
+    width: 18px;
+    margin-right: 10px;
+    text-align: center;
+    display: inline-block
+}
+
+.ivu-tree-arrow i {
+    -webkit-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+    font-size: 16px;
+    font-weight: bold;
+    vertical-align: middle;
+    color: #283F5C;
+}
+
+.ivu-tree-arrow-open i {
+    -webkit-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+
+.ivu-tree-arrow-disabled {
+    cursor: not-allowed
+}
+
+.ivu-tree .ivu-checkbox-wrapper {
+    margin-right: 4px;
+    margin-left: 4px
+}
+.ivu-tree .ivu-icon-ios-folder{
+    font-size: 1.8em;
+    color: #283F5C;
+}
+.ivu-tree .ivu-icon-ios-paper-outline{
+    font-size: 1.5em;
 }

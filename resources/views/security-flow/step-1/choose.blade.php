@@ -30,7 +30,7 @@
                     <div class="col-xs-12">
                         <div class="content-footer">
                             <div class="footer-button-next">
-                                <div class="btn">Next</div>
+                                <a href="/security-flow/step-1/upload-photos" class="btn color-white">Next</a>
                             </div>
                         </div>
                     </div>

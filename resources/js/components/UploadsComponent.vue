@@ -47,7 +47,7 @@
 
 <script>
 export default {
-    props: ['type', 'action', 'title', 'icon'],
+    props: ['type', 'action', 'title', 'icon', 'flat'],
     
     methods: {
         success(res, file) {

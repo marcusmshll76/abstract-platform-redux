@@ -90,7 +90,7 @@
                                 </div>
                             </div>
                             <div class="footer-button-next">
-                                <div class="btn">Next</div>
+                                <a href="/security-flow/step-1/details" class="btn color-white">Next</a>
                             </div>
                         </div>
                     </div>

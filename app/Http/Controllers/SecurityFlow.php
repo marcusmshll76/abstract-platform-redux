@@ -34,8 +34,24 @@ class SecurityFlow extends Controller
         return view( 'security-flow.step-3.diligence', [ 'title' => 'Security Flow -> Ownership' ] );
     }
 
-    public function keyPoints () {
-        return view( 'security-flow.step-4.key-points', [ 'title' => 'Security Flow -> Key Points' ] );
+    public function keyPoints (Request $request) {
+        return view( 'security-flow.step-4.key-points', [ 'title' => 'Security Flow -> Key Points' ] )->with('data', $request->session()->get('security-flow'));
+    }
+
+    public function capitalStack (Request $request) {
+        return view( 'security-flow.step-5.capital-stack', [ 'title' => 'Security Flow -> Capital Stack' ] )->with('data', $request->session()->get('security-flow'));
+    }
+
+    public function meetSponsors (Request $request) {
+        return view( 'security-flow.step-6.meet-sponsors', [ 'title' => 'Security Flow -> Meet the Sponsors' ] )->with('data', $request->session()->get('security-flow'));
+    }
+
+    public function preview (Request $request) {
+        return view( 'security-flow.step-7.preview', [ 'title' => 'Security Flow -> Preview' ] )->with('data', $request->session()->get('security-flow'));
+    }
+
+    public function final (Request $request) {
+        return view( 'security-flow.step-7.final', [ 'title' => 'Security Flow -> Preview & Submit' ] )->with('data', $request->session()->get('security-flow'));
     }
 
     // Save Data into a session
@@ -55,8 +71,17 @@ class SecurityFlow extends Controller
             case "ownership":
                 return redirect('/security-flow/step-3/diligence');
                 break;
+            case "keyPoints":
+                return redirect('/security-flow/step-5/capital-stack');
+                break;
+            case "capitalStack":
+                return redirect('/security-flow/step-6/meet-sponsors');
+                break;
+            case "meetSponsors":
+                return redirect('/security-flow/step-7/preview');
+                break;
             default:
-                echo "default";
+                return redirect('/security-flow/step-1/choose');
         }
     }
 }
