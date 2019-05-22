@@ -1,7 +1,7 @@
 <template>
 <div class="full-width">
     <div class="row contextArea" @contextmenu.prevent="$refs.menu.open">
-        <nested-draggable :data="list" />
+        <nested-draggable @done="refresh" :data="list" />
     </div>
     <vue-context ref="menu">
         <li>
@@ -30,28 +30,38 @@ export default {
             list: [{
                     name: "Title Survey & Zoning Diligence",
                     type: "folder",
+                    edit: false,
                     data: [{
-                        name: "Title Survey & Zoning DD List"
+                        name: "Title Survey & Zoning DD List",
+                        edit: false
                     }]
                 },
                 {
                     name: "Legal & Insurance Diligence",
                     type: "folder",
+                    edit: false,
                     data: [{
-                        name: "Legal & Insurance DD List "
+                        name: "Legal & Insurance DD List ",
+                        edit: false
                     }]
                 },
                 {
                     name: "Financial Diligence",
                     type: 'folder',
+                    edit: false,
                     data: [{
-                        name: "Financial DD List"
+                        name: "Financial DD List",
+                        edit: false
                     }]
                 }
-            ]
+            ],
+            ref: 1
         };
     },
     methods: {
+        refresh: function (data) {
+            this.list = data
+        },
         createFolder: function () {
             this.list.push({
                 name: 'New Folder',

@@ -26,7 +26,9 @@
         "vue": "^2.6.10",
         "vue-clickaway": "^2.2.2",
         "vue-context": "^4.0.0",
+        "vue-doc-preview": "^0.3.1",
         "vue-router": "^3.0.6",
+        "vue2-editor": "^2.6.6",
         "vuedraggable": "^2.21.0"
     }
 }
