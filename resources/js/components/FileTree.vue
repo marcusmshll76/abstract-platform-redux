@@ -16,9 +16,7 @@
 
 <script>
 import nestedDraggable from "./nestedDraggable";
-import {
-    VueContext
-} from 'vue-context';
+import { VueContext } from 'vue-context';
 export default {
     name: "nested-example",
     display: "Nested",
@@ -30,23 +28,25 @@ export default {
     data() {
         return {
             list: [{
-                    name: "task 1",
+                    name: "Title Survey & Zoning Diligence",
                     type: "folder",
                     data: [{
-                        name: "...",
-                        data: []
+                        name: "Title Survey & Zoning DD List"
                     }]
                 },
                 {
-                    name: "task 3",
+                    name: "Legal & Insurance Diligence",
                     type: "folder",
                     data: [{
-                        name: "...",
-                        data: []
+                        name: "Legal & Insurance DD List "
                     }]
                 },
                 {
-                    name: "task 5"
+                    name: "Financial Diligence",
+                    type: 'folder',
+                    data: [{
+                        name: "Financial DD List"
+                    }]
                 }
             ]
         };
@@ -57,16 +57,14 @@ export default {
                 name: 'New Folder',
                 edit: true,
                 type: 'folder',
-                data: [{
-                    name: "...",
-                    data: []
-                }]
+                data: []
             });
         },
         createFile: function () {
             this.list.push({
-                name: 'New File',
-                edit: true
+                name: 'New Folder',
+                edit: true,
+                data: []
             });
         }
     },
@@ -78,11 +76,9 @@ export default {
     outline: 0 !important;
     overflow: hidden !important;
 }
-
-.full-width {
+.full-width{
     width: 100%;
 }
-
 .contextArea {
     width: 100%;
     min-height: 300px;

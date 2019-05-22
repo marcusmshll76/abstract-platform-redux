@@ -1,6 +1,6 @@
 <template>
 <draggable class="dragArea" tag="ul" :list="data" :group="{ name: 'g1' }">
-    <li v-for="(path, index) in data" :key="index">
+    <li v-for="(path, index) in data" :key="path.name">
         <div>
             <Icon type="ios-folder-open" v-if="path.type" />
             <Icon type="ios-paper-outline" v-else />
@@ -64,12 +64,13 @@ export default {
 <style>
 .dragArea {
     width: 100%;
+     min-height: 15px;
 }
 .dragArea .ivu-icon-ios-folder-open{
-    font-size: 1.8em;
+    font-size: 2.2em;
 }
 .dragArea .ivu-icon-ios-paper-outline{
-    font-size: 1.5em;
+    font-size: 1.8em;
 }
 .dragArea input{
  outline: none !important;

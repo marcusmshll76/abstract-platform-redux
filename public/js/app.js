@@ -1795,21 +1795,23 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       list: [{
-        name: "task 1",
+        name: "Title Survey & Zoning Diligence",
         type: "folder",
         data: [{
-          name: "...",
-          data: []
+          name: "Title Survey & Zoning DD List"
         }]
       }, {
-        name: "task 3",
+        name: "Legal & Insurance Diligence",
         type: "folder",
         data: [{
-          name: "...",
-          data: []
+          name: "Legal & Insurance DD List "
         }]
       }, {
-        name: "task 5"
+        name: "Financial Diligence",
+        type: 'folder',
+        data: [{
+          name: "Financial DD List"
+        }]
       }]
     };
   },
@@ -1819,16 +1821,14 @@ __webpack_require__.r(__webpack_exports__);
         name: 'New Folder',
         edit: true,
         type: 'folder',
-        data: [{
-          name: "...",
-          data: []
-        }]
+        data: []
       });
     },
     createFile: function createFile() {
       this.list.push({
-        name: 'New File',
-        edit: true
+        name: 'New Folder',
+        edit: true,
+        data: []
       });
     }
   }
@@ -2042,7 +2042,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.v-context {\n    outline: 0 !important;\n    overflow: hidden !important;\n}\n.full-width {\n    width: 100%;\n}\n.contextArea {\n    width: 100%;\n    min-height: 300px;\n}\n", ""]);
+exports.push([module.i, "\n.v-context {\n    outline: 0 !important;\n    overflow: hidden !important;\n}\n.full-width{\n    width: 100%;\n}\n.contextArea {\n    width: 100%;\n    min-height: 300px;\n}\n", ""]);
 
 // exports
 
@@ -2080,7 +2080,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.dragArea {\n    width: 100%;\n}\n.dragArea .ivu-icon-ios-folder-open{\n    font-size: 1.8em;\n}\n.dragArea .ivu-icon-ios-paper-outline{\n    font-size: 1.5em;\n}\n.dragArea input{\n outline: none !important;\n box-shadow: none !important;\n font-size: 13px !important;\n border: solid 1px #eee !important;\n padding: 5px 10px !important;\n}\n", ""]);
+exports.push([module.i, "\n.dragArea {\n    width: 100%;\n     min-height: 15px;\n}\n.dragArea .ivu-icon-ios-folder-open{\n    font-size: 2.2em;\n}\n.dragArea .ivu-icon-ios-paper-outline{\n    font-size: 1.8em;\n}\n.dragArea input{\n outline: none !important;\n box-shadow: none !important;\n font-size: 13px !important;\n border: solid 1px #eee !important;\n padding: 5px 10px !important;\n}\n", ""]);
 
 // exports
 
@@ -65331,7 +65331,7 @@ var render = function() {
     _vm._l(_vm.data, function(path, index) {
       return _c(
         "li",
-        { key: index },
+        { key: path.name },
         [
           _c(
             "div",
