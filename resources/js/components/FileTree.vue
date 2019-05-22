@@ -1,107 +1,90 @@
 <template>
-    <Tree :data="fakedata" :render="renderContent"></Tree>
+<div class="full-width">
+    <div class="row contextArea" @contextmenu.prevent="$refs.menu.open">
+        <nested-draggable :data="list" />
+    </div>
+    <vue-context ref="menu">
+        <li>
+            <a href="#" @click.prevent="createFolder"><Icon type="ios-folder-open" /> Create New Folder</a>
+        </li>
+        <li>
+            <a href="#" @click.prevent="createFile"><Icon type="ios-paper-outline" /> Create New File</a>
+        </li>
+    </vue-context>
+</div>
 </template>
+
 <script>
-    export default {
-        data () {
-            return {
-                fakedata: [
-                    {
-                        title: 'parent 1',
-                        expand: true,
-                        render: (h, { root, node, data }) => {
-                            return h('span', {
-                                style: {
-                                    display: 'inline-block',
-                                    width: '100%'
-                                }
-                            }, [
-                                h('span', [
-                                    h('Icon', {
-                                        props: {
-                                            type: 'ios-folder'
-                                        },
-                                        style: {
-                                            marginRight: '8px'
-                                        }
-                                    }),
-                                    h('span', data.title)
-                                ]),
-                                h('span', {
-                                    style: {
-                                        display: 'inline-block',
-                                        float: 'right',
-                                        marginRight: '32px'
-                                    }
-                                })
-                            ]);
-                        },
-                        children: [
-                            {
-                                title: 'child 1-1',
-                                expand: true,
-                                children: [
-                                    {
-                                        title: 'leaf 1-1-1',
-                                        expand: false
-                                    },
-                                    {
-                                        title: 'leaf 1-1-2',
-                                        expand: false
-                                    }
-                                ]
-                            }
-                        ]
-                    }
-                ],
-                buttonProps: {
-                    type: 'default',
-                    size: 'small',
+import nestedDraggable from "./nestedDraggable";
+import {
+    VueContext
+} from 'vue-context';
+export default {
+    name: "nested-example",
+    display: "Nested",
+    order: 15,
+    components: {
+        nestedDraggable,
+        VueContext
+    },
+    data() {
+        return {
+            list: [{
+                    name: "task 1",
+                    type: "folder",
+                    data: [{
+                        name: "...",
+                        data: []
+                    }]
+                },
+                {
+                    name: "task 3",
+                    type: "folder",
+                    data: [{
+                        name: "...",
+                        data: []
+                    }]
+                },
+                {
+                    name: "task 5"
                 }
-            }
+            ]
+        };
+    },
+    methods: {
+        createFolder: function () {
+            this.list.push({
+                name: 'New Folder',
+                edit: true,
+                type: 'folder',
+                data: [{
+                    name: "...",
+                    data: []
+                }]
+            });
         },
-        methods: {
-            renderContent (h, { root, node, data }) {
-                return h('span', {
-                    style: {
-                        display: 'inline-block',
-                        width: '100%'
-                    }
-                }, [
-                    h('span', [
-                        h('Icon', {
-                            props: {
-                                type: 'ios-paper-outline'
-                            },
-                            style: {
-                                marginRight: '8px'
-                            }
-                        }),
-                        h('span', data.title)
-                    ]),
-                    h('span', {
-                        style: {
-                            display: 'inline-block',
-                            float: 'right',
-                            marginRight: '32px'
-                        }
-                    })
-                ]);
-            },
-            append (data) {
-                const children = data.children || [];
-                children.push({
-                    title: 'appended node',
-                    expand: true
-                });
-                this.$set(data, 'children', children);
-            },
-            remove (root, node, data) {
-                const parentKey = root.find(el => el === node).parent;
-                const parent = root.find(el => el.nodeKey === parentKey).node;
-                const index = parent.children.indexOf(data);
-                parent.children.splice(index, 1);
-            }
+        createFile: function () {
+            this.list.push({
+                name: 'New File',
+                edit: true
+            });
         }
-    }
+    },
+};
 </script>
+
+<style>
+.v-context {
+    outline: 0 !important;
+    overflow: hidden !important;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.contextArea {
+    width: 100%;
+    min-height: 300px;
+}
+</style>

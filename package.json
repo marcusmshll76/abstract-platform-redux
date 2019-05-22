@@ -24,6 +24,9 @@
     "dependencies": {
         "iview": "^3.4.1",
         "vue": "^2.6.10",
-        "vue-router": "^3.0.6"
+        "vue-clickaway": "^2.2.2",
+        "vue-context": "^4.0.0",
+        "vue-router": "^3.0.6",
+        "vuedraggable": "^2.21.0"
     }
 }
