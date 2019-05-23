@@ -21,7 +21,7 @@
                             <uploads-component
                                 title="Upload Cap Table"
                                 action="/files"
-                                elname="image"
+                                elname="file"
                                 scope="private"
                                 path="/ownership/"
                                 flat="true"
@@ -48,7 +48,7 @@
                                         <p>Investor Last Name</p><input type="text" value="{{ isset($data['investor-last-name-1']) ? $data['investor-last-name-1'] : '' }}" name="investor-last-name-1">
                                     </div>
                                     <div class="col-xs-12 col-md-4">
-                                        <p>% Ownership</p><input type="text" value="{{ isset($data['investor-ownership-1']) ? $data['investor-ownership-1'] : '' }}" name="ownership-1">
+                                        <p>% Ownership</p><input type="text" value="{{ isset($data['ownership-1']) ? $data['ownership-1'] : '' }}" name="ownership-1">
                                     </div>
                                 </div>
                                 <div class="row margin-bottom-l-sm">
@@ -59,7 +59,7 @@
                                         <p>Investor Last Name</p><input type="text" value="{{ isset($data['investor-last-name-2']) ? $data['investor-last-name-2'] : '' }}" name="investor-last-name-2">
                                     </div>
                                     <div class="col-xs-12 col-md-4">
-                                        <p>% Ownership</p><input type="text" value="{{ isset($data['investor-ownership-2']) ? $data['investor-ownership-2'] : '' }}" name="ownership-2">
+                                        <p>% Ownership</p><input type="text" value="{{ isset($data['ownership-2']) ? $data['ownership-2'] : '' }}" name="ownership-2">
                                     </div>
                                 </div>
                             </div>
@@ -73,7 +73,7 @@
                                     <div class="col-xs-12 col-md-6">
                                         <p class="no-margin-top margin-top-s-md">Distribution frequency</p>
                                         <select name="distribution-frequency">
-                                            <option value="{{ isset($data['distribution-frequency']) ? $data['distribution-frequency'] : '' }}" selected="selected">Select an option</option>
+                                            <option value="{{ isset($data['distribution-frequency']) ? $data['distribution-frequency'] : '' }}" selected="selected">{{ isset($data['distribution-frequency']) ? $data['distribution-frequency'] : 'Select an option' }}</option>
                                             <option value="option">option</option>
                                             <option value="option">option</option>
                                             <option value="option">option</option>

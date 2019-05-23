@@ -17,9 +17,7 @@
         v-if="type === 'single' || type === 'single-dust'" 
         :action="action"
         :on-success="success"
-        :format="['jpg','jpeg','png']"
         :max-size="2048"
-        :on-format-error="formatError"
         :on-exceeded-size="maxSize"
         :data="payload">
         <div class="btn dust" v-if="type === 'single-dust'">
@@ -39,9 +37,7 @@
         v-if="type === 'photos'" 
         :action="action"
         :on-success="success"
-        :format="['jpg','jpeg','png']"
         :max-size="2048"
-        :on-format-error="formatError"
         :on-exceeded-size="maxSize"
         :data="payload">
         <div class="photo-upload-box">
@@ -67,13 +63,6 @@ export default {
     methods: {
         success(res, file) { 
             console.log(res)
-        },
-        formatError(file) {
-            // console.log(file)
-            /* this.$Notice.warning({
-                title: 'The file format is incorrect',
-                desc: 'File format of ' + file.name + ' is incorrect, please select jpg or png.'
-            }); */
         },
         maxSize(file) {
             // console.log(file)

@@ -1,5 +1,5 @@
 <template>
-<div class="full-width">
+<div>
     <draggable class="dragArea" tag="ul" :list="subdata" :group="{ name: 'g1' }">
         <li v-for="(path, index) in subdata" :key="path.name">
             <a>
@@ -11,7 +11,7 @@
                 <span v-show="path.edit === true">
                     <Icon type="ios-folder-open" v-if="path.type" />
                     <Icon type="ios-paper-outline" v-else />
-                    <input ref="rn" v-model="value" v-on:blur="rename(index);" @keyup.enter="rename(index)">
+                    <input v-model="value" v-on:blur="rename(index);" @keyup.enter="rename(index)">
                 </span>
             </a>
                 <nested-draggable :data="path.data" />
@@ -19,11 +19,25 @@
     </draggable>
     <Modal
         v-model="editor"
-        :title="doctitle"
+        title="Man"
         @on-ok="save"
         @on-cancel="cancel"
         ok-text="Save File"
         cancel-text="Cancel">
+            <p slot="header">
+                 <a v-if="data[docindex]">
+                    <label v-show="!data[docindex].edit" @click="handleClick(docindex)" :style="[data[docindex].type ? {'font-weight' : 'bold'} : '']"> 
+                        <Icon type="ios-folder-open" v-if="data[docindex].type" />
+                        <Icon type="ios-paper-outline" v-else />
+                        {{ data[docindex].name }} 
+                    </label>
+                    <span v-show="data[docindex].edit === true">
+                        <Icon type="ios-folder-open" v-if="data[docindex].type"/>
+                        <Icon type="ios-paper-outline" v-else />
+                        <input v-model="value" v-on:blur="rename(docindex);" @keyup.enter="rename(docindex)">
+                    </span>
+                </a>
+            </p>
             <vue-editor v-model="content"></vue-editor>
     </Modal>
 </div>
@@ -38,7 +52,7 @@ export default {
     directives: {
         onClickaway: onClickaway
     },
-    props: ['data'],
+    props: ['data', 'txtindex'],
     data() {
         return {
             subdata: [],
@@ -48,7 +62,7 @@ export default {
             editor: false,
             clickCount: 0,
             clickTimer: null,
-            doctitle: ''
+            docindex: 1
         }
     },
     components: {
@@ -59,6 +73,9 @@ export default {
     watch: {
         data: function (val) {
             this.subdata = val
+        },
+        txtindex: function (val) {
+            this.openEditor(val)
         }
     },
     created () {
@@ -83,7 +100,6 @@ export default {
             this.$emit('done', this.data)
             this.data[index].edit = true
             this.value = this.data[index].name
-            this.$refs.rn[index].focus()
         },
         rename: function(index) {
             if (this.value !== '') {
@@ -97,8 +113,8 @@ export default {
             this.$emit('done', this.data)
         },
         openEditor: function(index) {
+            this.docindex = index
             this.editor = true
-            this.doctitle = this.data[index].name;
         },
         save: function() {
             // You have the content to save
@@ -124,13 +140,16 @@ export default {
 .dragArea .ivu-icon-ios-paper-outline{
     font-size: 1.8em;
 }
-.dragArea input{
-color: #283F5C;
+.dragArea input, .ivu-modal-header input{
+ color: #283F5C;
  outline: none !important;
  box-shadow: none !important;
- font-size : '1em' !important;
+ font-size : 12px !important;
  border: solid 1px #eee !important;
  padding: 5px 10px !important;   
+}
+.ivu-modal-header p, .ivu-modal-header-inner{
+    height: 30px !important;
 }
 .dragArea label{
     color: #283F5C;

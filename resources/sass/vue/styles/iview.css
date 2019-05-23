@@ -3523,7 +3523,7 @@
 }
 
 .ivu-upload-list-file:hover>span {
-    color: #2d8cf0
+    color: #283F5C
 }
 
 .ivu-upload-list-file:hover>span i {
@@ -3567,11 +3567,11 @@
 }
 
 .ivu-upload-drag:hover {
-    border: 1px dashed #2d8cf0
+    border: 1px dashed #283F5C
 }
 
 .ivu-upload-dragOver {
-    border: 2px dashed #2d8cf0
+    border: 2px dashed #283F5C
 }
 .ivu-progress {
     display: inline-block;
@@ -3629,7 +3629,7 @@
 
 .ivu-progress-bg {
     border-radius: 100px;
-    background-color: #2d8cf0;
+    background-color: #283F5C;
     -webkit-transition: all .2s linear;
     transition: all .2s linear;
     position: relative
@@ -4036,7 +4036,7 @@
 }
 
 .ivu-modal-confirm-head-icon-info {
-    color: #2d8cf0
+    color: #283F5C
 }
 
 .ivu-modal-confirm-head-icon-success {
@@ -4052,7 +4052,7 @@
 }
 
 .ivu-modal-confirm-head-icon-confirm {
-    color: #f90
+    color: #283F5C;
 }
 
 .ivu-modal-confirm-head-title {
@@ -4084,4 +4084,115 @@
 .ivu-modal-confirm-footer button+button {
     margin-left: 8px;
     margin-bottom: 0
+}
+.ivu-btn {
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: 400;
+    text-align: center;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    background-image: none;
+    border: none !important;
+    white-space: nowrap;
+    line-height: 1.5;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    padding: 10px 20px;
+    font-size: 12px !important;
+    border-radius: 4px;
+    -webkit-transition: color .2s linear, background-color .2s linear, border .2s linear, -webkit-box-shadow .2s linear;
+    transition: color .2s linear, background-color .2s linear, border .2s linear, -webkit-box-shadow .2s linear;
+    transition: color .2s linear, background-color .2s linear, border .2s linear, box-shadow .2s linear;
+    transition: color .2s linear, background-color .2s linear, border .2s linear, box-shadow .2s linear, -webkit-box-shadow .2s linear;
+    color: #fff !important;
+    background: linear-gradient(135deg, #283f5c 0%, #8e9385 100%);
+    outline: 0 !important;
+    text-transform: capitalize !important;
+}
+.ivu-btn span{
+    font-size: 12px !important;
+    color: #fff !important;
+}
+
+.ivu-spin {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #283F5C;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.ivu-spin-dot {
+    position: relative;
+    display: block;
+    border-radius: 50%;
+    background-color: #283F5C;
+    width: 20px;
+    height: 20px;
+    -webkit-animation: ani-spin-bounce 1s 0s ease-in-out infinite;
+    animation: ani-spin-bounce 1s 0s ease-in-out infinite
+}
+
+.ivu-spin-large .ivu-spin-dot {
+    width: 32px;
+    height: 32px
+}
+
+.ivu-spin-small .ivu-spin-dot {
+    width: 12px;
+    height: 12px
+}
+
+.ivu-spin-fix {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 8;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, .9)
+}
+
+.ivu-spin-fullscreen {
+    z-index: 2010
+}
+
+.ivu-spin-fullscreen-wrapper {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0
+}
+
+.ivu-spin-fix .ivu-spin-main {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%)
+}
+
+.ivu-spin-fix .ivu-spin-dot {
+    display: inline-block
+}
+
+.ivu-spin-show-text .ivu-spin-dot,
+.ivu-spin-text {
+    display: none
+}
+
+.ivu-spin-show-text .ivu-spin-text {
+    display: block
 }

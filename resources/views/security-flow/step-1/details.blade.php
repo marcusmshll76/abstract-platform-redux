@@ -24,7 +24,7 @@
                                                     <div class="col-xs-12 col-md-5">
                                                         <p class="no-margin-top margin-top-s-md">Opportunity Type</p>
                                                         <select name="opportunity_type">
-                                                            <option value="{{ isset($data['opportunity_type']) ? $data['opportunity_type'] : '' }}" selected="selected">Select an option</option>
+                                                            <option value="{{ isset($data['opportunity_type']) ? $data['opportunity_type'] : '' }}" selected="selected">{{ isset($data['opportunity_type']) ? $data['opportunity_type'] : 'Select an option' }}</option>
                                                             <option value="option">option</option>
                                                             <option value="option">option</option>
                                                             <option value="option">option</option>

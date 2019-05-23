@@ -17,7 +17,10 @@
                     <div class="col-xs-12 col-md-6">
                         <uploads-component
                             type="photos"
-                            action="//jsonplaceholder.typicode.com/posts/"
+                            action="/files"
+                            elname="image"
+                            scope="private"
+                            path="/digital-security/photo-gallery/"
                             class="large margin-bottom-m-md">
                         </uploads-component>
                     </div>
@@ -26,7 +29,10 @@
                             <div class="col-xs-12 col-sm-6">
                                 <uploads-component
                                     type="photos"
-                                    action="//jsonplaceholder.typicode.com/posts/"
+                                    action="/files"
+                                    elname="image"
+                                    scope="private"
+                                    path="/digital-security/photo-gallery/"
                                     class="margin-bottom-m-md">
                                 </uploads-component>
                             </div>
@@ -34,7 +40,10 @@
                                 <div class="photo-upload-box">
                                     <uploads-component
                                         type="photos"
-                                        action="//jsonplaceholder.typicode.com/posts/"
+                                        action="/files"
+                                        elname="image"
+                                        scope="private"
+                                        path="/digital-security/photo-gallery/"
                                         class="margin-bottom-m-md">
                                     </uploads-component>
                                 </div>
@@ -45,7 +54,10 @@
                                 <div class="photo-upload-box margin-bottom-m-md">
                                     <uploads-component
                                         type="photos"
-                                        action="//jsonplaceholder.typicode.com/posts/"
+                                        action="/files"
+                                        elname="image"
+                                        scope="private"
+                                        path="/digital-security/photo-gallery/"
                                         class="margin-bottom-m-md">
                                     </uploads-component>
                                 </div>
@@ -54,7 +66,10 @@
                                 <div class="photo-upload-box">
                                     <uploads-component
                                         type="photos"
-                                        action="//jsonplaceholder.typicode.com/posts/"
+                                        action="/files"
+                                        elname="image"
+                                        scope="private"
+                                        path="/digital-security/photo-gallery/"
                                         class="margin-bottom-m-md">
                                     </uploads-component>
                                 </div>

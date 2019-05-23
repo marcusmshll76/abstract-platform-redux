@@ -57,7 +57,7 @@
                                                 <p>Target Investment Period</p><input name="target-investment-period" type="text" value="{{ isset($data['target-investment-period']) ? $data['target-investment-period'] : '' }}">
                                             </div>
                                             <div class="col-xs-12">
-                                                <p>Property Type</p><input name="property-type" type="text">
+                                                <p>Property Type</p><input name="property-type" value="{{ isset($data['property-type']) ? $data['property-type'] : '' }}" type="text">
                                             </div>
                                             <div class="col-xs-12">
                                                 <p>Sponsor Co-Investment</p><input name="sponsor-co-investment" value="{{ isset($data['sponsor-co-investment']) ? $data['sponsor-co-investment'] : '' }}" type="text">

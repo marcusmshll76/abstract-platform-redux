@@ -15,23 +15,12 @@
                 <div class="btn">Edit</div>
             </div>
             <div class="card-content">
-                <div class="row">
-                    <div class="col-xs-12 col-sm-4">
-                        <div class="porperty-image margin-bottom-m-sm">
-                            <div class="image-close"></div><img src="/img/img-demo-1.jpg">
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-4">
-                        <div class="porperty-image margin-bottom-m-sm">
-                            <div class="image-close"></div><img src="/img/img-demo-2.jpg">
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-4">
-                        <div class="porperty-image">
-                            <div class="image-close"></div><img src="/img/img-demo-3.jpg">
-                        </div>
-                    </div>
-                </div>
+                <file-preview
+                    iname="Digital Security Photo Gallery"
+                    scope="private"
+                    user="{{Auth::id()}}"
+                    path="/digital-security/photo-gallery/">
+                </file-preview>
             </div>
         </div>
         <div class="row">

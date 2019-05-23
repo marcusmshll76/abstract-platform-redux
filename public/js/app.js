@@ -1763,9 +1763,8 @@ module.exports = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _nestedDraggable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./nestedDraggable */ "./resources/js/components/nestedDraggable.vue");
-/* harmony import */ var vue_context__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-context */ "./node_modules/vue-context/dist/js/vue-context.js");
-/* harmony import */ var vue_context__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_context__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var vue_context__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-context */ "./node_modules/vue-context/dist/js/vue-context.js");
+/* harmony import */ var vue_context__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_context__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -1782,15 +1781,33 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+ // import s3tree from 's3-tree';
+// const generator = s3tree({bucket: process.env.AWS_BUCKET});
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "nested-example",
   display: "Nested",
   order: 15,
   components: {
-    nestedDraggable: _nestedDraggable__WEBPACK_IMPORTED_MODULE_0__["default"],
-    VueContext: vue_context__WEBPACK_IMPORTED_MODULE_1__["VueContext"]
+    VueContext: vue_context__WEBPACK_IMPORTED_MODULE_0__["VueContext"]
   },
   data: function data() {
     return {
@@ -1819,10 +1836,25 @@ __webpack_require__.r(__webpack_exports__);
           edit: false
         }]
       }],
+      upload: false,
+      txt: '',
       ref: 1
     };
   },
+  created: function created() {// this.preventReload()
+    // this.dirJson()
+  },
   methods: {
+    dirJson: function dirJson() {
+      generator.generate('/').then(function (tree) {
+        console.log(JSON.stringify(tree, null, 2));
+      });
+    },
+    preventReload: function preventReload() {
+      window.onbeforeunload = function () {
+        return "Are you sure you want to leave? Think of the kittens!";
+      };
+    },
     refresh: function refresh(data) {
       this.list = data;
     },
@@ -1836,10 +1868,33 @@ __webpack_require__.r(__webpack_exports__);
     },
     createFile: function createFile() {
       this.list.push({
-        name: 'New Folder',
-        edit: true,
+        name: 'New File',
+        edit: false,
         data: []
       });
+      this.confirm(); // this.upload = true
+    },
+    confirm: function confirm() {
+      var _this = this;
+
+      var pos = this.list.length > 0 ? this.list.length - 1 : 0;
+      this.$Modal.confirm({
+        title: 'Create File Action',
+        content: '<p>One last step to complete your request</p>',
+        okText: 'Upload a file',
+        cancelText: 'Create a text file',
+        onOk: function onOk() {
+          _this.upload = true;
+        },
+        onCancel: function onCancel() {
+          _this.txt = pos;
+        }
+      });
+    },
+    save: function save() {},
+    cancel: function cancel() {
+      var pos = this.list.length > 0 ? this.list.length - 1 : 0;
+      this.list.splice(pos, 1);
     }
   }
 });
@@ -1855,10 +1910,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
 //
 //
 //
@@ -1927,19 +1978,109 @@ __webpack_require__.r(__webpack_exports__);
     success: function success(res, file) {
       console.log(res);
     },
-    formatError: function formatError(file) {// console.log(file)
-
-      /* this.$Notice.warning({
-          title: 'The file format is incorrect',
-          desc: 'File format of ' + file.name + ' is incorrect, please select jpg or png.'
-      }); */
-    },
     maxSize: function maxSize(file) {// console.log(file)
 
       /* this.$Notice.warning({
           title: 'Exceeding file size limit',
           desc: 'File  ' + file.name + ' is too large, no more than 2M.'
       }); */
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/filePreview.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/filePreview.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _libs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../libs */ "./resources/js/libs/index.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['user', 'path', 'scope', 'iname', 'index'],
+  data: function data() {
+    return {
+      files: [],
+      loading: true,
+      loadingtxt: 'Loading Files, Please Hold On'
+    };
+  },
+  created: function created() {
+    var self = this;
+    var url = self.scope === 'private' ? self.user ? '?user=' + self.user + '&&path=' + self.path : false : 'public?path=' + self.path;
+
+    if (url !== false) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(_libs__WEBPACK_IMPORTED_MODULE_1__["default"].getFiles + url).then(function (resp) {
+        self.files = resp.data;
+        self.loading = false;
+      })["catch"](function (error) {
+        return error;
+      });
+    } else {
+      self.loadingtxt = 'Access Denied, Please sign in to access private files';
     }
   }
 });
@@ -1994,6 +2135,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2002,7 +2157,7 @@ __webpack_require__.r(__webpack_exports__);
   directives: {
     onClickaway: vue_clickaway__WEBPACK_IMPORTED_MODULE_1__["directive"]
   },
-  props: ['data'],
+  props: ['data', 'txtindex'],
   data: function data() {
     return {
       subdata: [],
@@ -2012,7 +2167,7 @@ __webpack_require__.r(__webpack_exports__);
       editor: false,
       clickCount: 0,
       clickTimer: null,
-      doctitle: ''
+      docindex: 1
     };
   },
   components: {
@@ -2023,6 +2178,9 @@ __webpack_require__.r(__webpack_exports__);
   watch: {
     data: function data(val) {
       this.subdata = val;
+    },
+    txtindex: function txtindex(val) {
+      this.openEditor(val);
     }
   },
   created: function created() {
@@ -2052,7 +2210,6 @@ __webpack_require__.r(__webpack_exports__);
       this.$emit('done', this.data);
       this.data[index].edit = true;
       this.value = this.data[index].name;
-      this.$refs.rn[index].focus();
     },
     rename: function rename(index) {
       if (this.value !== '') {
@@ -2067,8 +2224,8 @@ __webpack_require__.r(__webpack_exports__);
       this.$emit('done', this.data);
     },
     openEditor: function openEditor(index) {
+      this.docindex = index;
       this.editor = true;
-      this.doctitle = this.data[index].name;
     },
     save: function save() {
       // You have the content to save
@@ -2096,7 +2253,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "/* Fonts *****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/\n@font-face {\n    font-family: Ionicons;\n    src: url(" + escape(__webpack_require__(/*! ./fonts/ionicons.woff2?v=3.0.0 */ "./resources/sass/vue/styles/fonts/ionicons.woff2?v=3.0.0")) + ") format(\"woff2\"), url(" + escape(__webpack_require__(/*! ./fonts/ionicons.woff?v=3.0.0 */ "./resources/sass/vue/styles/fonts/ionicons.woff?v=3.0.0")) + ") format(\"woff\"), url(" + escape(__webpack_require__(/*! ./fonts/ionicons.ttf?v=3.0.0 */ "./resources/sass/vue/styles/fonts/ionicons.ttf?v=3.0.0")) + ") format(\"truetype\"), url(" + escape(__webpack_require__(/*! ./fonts/ionicons.svg?v=3.0.0 */ "./resources/sass/vue/styles/fonts/ionicons.svg?v=3.0.0")) + "#Ionicons) format(\"svg\");\n    font-weight: 400;\n    font-style: normal\n}\n\n.ivu-icon {\n    display: inline-block;\n    font-family: Ionicons;\n    speak: none;\n    font-style: normal;\n    font-weight: 400;\n    font-variant: normal;\n    text-transform: none;\n    text-rendering: auto;\n    line-height: 1;\n    -webkit-font-smoothing: antialiased;\n    -moz-osx-font-smoothing: grayscale;\n    vertical-align: middle\n}\n@font-face {\n    font-family: Ionicons;\n    src: url(" + escape(__webpack_require__(/*! ./fonts/ionicons.woff2?v=3.0.0 */ "./resources/sass/vue/styles/fonts/ionicons.woff2?v=3.0.0")) + ") format(\"woff2\"), url(" + escape(__webpack_require__(/*! ./fonts/ionicons.woff?v=3.0.0 */ "./resources/sass/vue/styles/fonts/ionicons.woff?v=3.0.0")) + ") format(\"woff\"), url(" + escape(__webpack_require__(/*! ./fonts/ionicons.ttf?v=3.0.0 */ "./resources/sass/vue/styles/fonts/ionicons.ttf?v=3.0.0")) + ") format(\"truetype\"), url(" + escape(__webpack_require__(/*! ./fonts/ionicons.svg?v=3.0.0 */ "./resources/sass/vue/styles/fonts/ionicons.svg?v=3.0.0")) + "#Ionicons) format(\"svg\");\n    font-weight: 400;\n    font-style: normal\n}\n\n.ivu-icon {\n    display: inline-block;\n    font-family: Ionicons;\n    speak: none;\n    font-style: normal;\n    font-weight: 400;\n    font-variant: normal;\n    text-transform: none;\n    text-rendering: auto;\n    line-height: 1;\n    -webkit-font-smoothing: antialiased;\n    -moz-osx-font-smoothing: grayscale;\n    vertical-align: middle\n}\n\n.ivu-icon-ios-add-circle-outline:before {\n    content: \"\\F100\"\n}\n\n.ivu-icon-ios-add-circle:before {\n    content: \"\\F101\"\n}\n\n.ivu-icon-ios-add:before {\n    content: \"\\F102\"\n}\n\n.ivu-icon-ios-alarm-outline:before {\n    content: \"\\F103\"\n}\n\n.ivu-icon-ios-alarm:before {\n    content: \"\\F104\"\n}\n\n.ivu-icon-ios-albums-outline:before {\n    content: \"\\F105\"\n}\n\n.ivu-icon-ios-albums:before {\n    content: \"\\F106\"\n}\n\n.ivu-icon-ios-alert-outline:before {\n    content: \"\\F107\"\n}\n\n.ivu-icon-ios-alert:before {\n    content: \"\\F108\"\n}\n\n.ivu-icon-ios-american-football-outline:before {\n    content: \"\\F109\"\n}\n\n.ivu-icon-ios-american-football:before {\n    content: \"\\F10A\"\n}\n\n.ivu-icon-ios-analytics-outline:before {\n    content: \"\\F10B\"\n}\n\n.ivu-icon-ios-analytics:before {\n    content: \"\\F10C\"\n}\n\n.ivu-icon-ios-aperture-outline:before {\n    content: \"\\F10D\"\n}\n\n.ivu-icon-ios-aperture:before {\n    content: \"\\F10E\"\n}\n\n.ivu-icon-ios-apps-outline:before {\n    content: \"\\F10F\"\n}\n\n.ivu-icon-ios-apps:before {\n    content: \"\\F110\"\n}\n\n.ivu-icon-ios-appstore-outline:before {\n    content: \"\\F111\"\n}\n\n.ivu-icon-ios-appstore:before {\n    content: \"\\F112\"\n}\n\n.ivu-icon-ios-archive-outline:before {\n    content: \"\\F113\"\n}\n\n.ivu-icon-ios-archive:before {\n    content: \"\\F114\"\n}\n\n.ivu-icon-ios-arrow-back:before {\n    content: \"\\F115\"\n}\n\n.ivu-icon-ios-arrow-down:before {\n    content: \"\\F116\"\n}\n\n.ivu-icon-ios-arrow-dropdown-circle:before {\n    content: \"\\F117\"\n}\n\n.ivu-icon-ios-arrow-dropdown:before {\n    content: \"\\F118\"\n}\n\n.ivu-icon-ios-arrow-dropleft-circle:before {\n    content: \"\\F119\"\n}\n\n.ivu-icon-ios-arrow-dropleft:before {\n    content: \"\\F11A\"\n}\n\n.ivu-icon-ios-arrow-dropright-circle:before {\n    content: \"\\F11B\"\n}\n\n.ivu-icon-ios-arrow-dropright:before {\n    content: \"\\F11C\"\n}\n\n.ivu-icon-ios-arrow-dropup-circle:before {\n    content: \"\\F11D\"\n}\n\n.ivu-icon-ios-arrow-dropup:before {\n    content: \"\\F11E\"\n}\n\n.ivu-icon-ios-arrow-forward:before {\n    content: \"\\F11F\"\n}\n\n.ivu-icon-ios-arrow-round-back:before {\n    content: \"\\F120\"\n}\n\n.ivu-icon-ios-arrow-round-down:before {\n    content: \"\\F121\"\n}\n\n.ivu-icon-ios-arrow-round-forward:before {\n    content: \"\\F122\"\n}\n\n.ivu-icon-ios-arrow-round-up:before {\n    content: \"\\F123\"\n}\n\n.ivu-icon-ios-arrow-up:before {\n    content: \"\\F124\"\n}\n\n.ivu-icon-ios-at-outline:before {\n    content: \"\\F125\"\n}\n\n.ivu-icon-ios-at:before {\n    content: \"\\F126\"\n}\n\n.ivu-icon-ios-attach:before {\n    content: \"\\F127\"\n}\n\n.ivu-icon-ios-backspace-outline:before {\n    content: \"\\F128\"\n}\n\n.ivu-icon-ios-backspace:before {\n    content: \"\\F129\"\n}\n\n.ivu-icon-ios-barcode-outline:before {\n    content: \"\\F12A\"\n}\n\n.ivu-icon-ios-barcode:before {\n    content: \"\\F12B\"\n}\n\n.ivu-icon-ios-baseball-outline:before {\n    content: \"\\F12C\"\n}\n\n.ivu-icon-ios-baseball:before {\n    content: \"\\F12D\"\n}\n\n.ivu-icon-ios-basket-outline:before {\n    content: \"\\F12E\"\n}\n\n.ivu-icon-ios-basket:before {\n    content: \"\\F12F\"\n}\n\n.ivu-icon-ios-basketball-outline:before {\n    content: \"\\F130\"\n}\n\n.ivu-icon-ios-basketball:before {\n    content: \"\\F131\"\n}\n\n.ivu-icon-ios-battery-charging:before {\n    content: \"\\F132\"\n}\n\n.ivu-icon-ios-battery-dead:before {\n    content: \"\\F133\"\n}\n\n.ivu-icon-ios-battery-full:before {\n    content: \"\\F134\"\n}\n\n.ivu-icon-ios-beaker-outline:before {\n    content: \"\\F135\"\n}\n\n.ivu-icon-ios-beaker:before {\n    content: \"\\F136\"\n}\n\n.ivu-icon-ios-beer-outline:before {\n    content: \"\\F137\"\n}\n\n.ivu-icon-ios-beer:before {\n    content: \"\\F138\"\n}\n\n.ivu-icon-ios-bicycle:before {\n    content: \"\\F139\"\n}\n\n.ivu-icon-ios-bluetooth:before {\n    content: \"\\F13A\"\n}\n\n.ivu-icon-ios-boat-outline:before {\n    content: \"\\F13B\"\n}\n\n.ivu-icon-ios-boat:before {\n    content: \"\\F13C\"\n}\n\n.ivu-icon-ios-body-outline:before {\n    content: \"\\F13D\"\n}\n\n.ivu-icon-ios-body:before {\n    content: \"\\F13E\"\n}\n\n.ivu-icon-ios-bonfire-outline:before {\n    content: \"\\F13F\"\n}\n\n.ivu-icon-ios-bonfire:before {\n    content: \"\\F140\"\n}\n\n.ivu-icon-ios-book-outline:before {\n    content: \"\\F141\"\n}\n\n.ivu-icon-ios-book:before {\n    content: \"\\F142\"\n}\n\n.ivu-icon-ios-bookmark-outline:before {\n    content: \"\\F143\"\n}\n\n.ivu-icon-ios-bookmark:before {\n    content: \"\\F144\"\n}\n\n.ivu-icon-ios-bookmarks-outline:before {\n    content: \"\\F145\"\n}\n\n.ivu-icon-ios-bookmarks:before {\n    content: \"\\F146\"\n}\n\n.ivu-icon-ios-bowtie-outline:before {\n    content: \"\\F147\"\n}\n\n.ivu-icon-ios-bowtie:before {\n    content: \"\\F148\"\n}\n\n.ivu-icon-ios-briefcase-outline:before {\n    content: \"\\F149\"\n}\n\n.ivu-icon-ios-briefcase:before {\n    content: \"\\F14A\"\n}\n\n.ivu-icon-ios-browsers-outline:before {\n    content: \"\\F14B\"\n}\n\n.ivu-icon-ios-browsers:before {\n    content: \"\\F14C\"\n}\n\n.ivu-icon-ios-brush-outline:before {\n    content: \"\\F14D\"\n}\n\n.ivu-icon-ios-brush:before {\n    content: \"\\F14E\"\n}\n\n.ivu-icon-ios-bug-outline:before {\n    content: \"\\F14F\"\n}\n\n.ivu-icon-ios-bug:before {\n    content: \"\\F150\"\n}\n\n.ivu-icon-ios-build-outline:before {\n    content: \"\\F151\"\n}\n\n.ivu-icon-ios-build:before {\n    content: \"\\F152\"\n}\n\n.ivu-icon-ios-bulb-outline:before {\n    content: \"\\F153\"\n}\n\n.ivu-icon-ios-bulb:before {\n    content: \"\\F154\"\n}\n\n.ivu-icon-ios-bus-outline:before {\n    content: \"\\F155\"\n}\n\n.ivu-icon-ios-bus:before {\n    content: \"\\F156\"\n}\n\n.ivu-icon-ios-cafe-outline:before {\n    content: \"\\F157\"\n}\n\n.ivu-icon-ios-cafe:before {\n    content: \"\\F158\"\n}\n\n.ivu-icon-ios-calculator-outline:before {\n    content: \"\\F159\"\n}\n\n.ivu-icon-ios-calculator:before {\n    content: \"\\F15A\"\n}\n\n.ivu-icon-ios-calendar-outline:before {\n    content: \"\\F15B\"\n}\n\n.ivu-icon-ios-calendar:before {\n    content: \"\\F15C\"\n}\n\n.ivu-icon-ios-call-outline:before {\n    content: \"\\F15D\"\n}\n\n.ivu-icon-ios-call:before {\n    content: \"\\F15E\"\n}\n\n.ivu-icon-ios-camera-outline:before {\n    content: \"\\F15F\"\n}\n\n.ivu-icon-ios-camera:before {\n    content: \"\\F160\"\n}\n\n.ivu-icon-ios-car-outline:before {\n    content: \"\\F161\"\n}\n\n.ivu-icon-ios-car:before {\n    content: \"\\F162\"\n}\n\n.ivu-icon-ios-card-outline:before {\n    content: \"\\F163\"\n}\n\n.ivu-icon-ios-card:before {\n    content: \"\\F164\"\n}\n\n.ivu-icon-ios-cart-outline:before {\n    content: \"\\F165\"\n}\n\n.ivu-icon-ios-cart:before {\n    content: \"\\F166\"\n}\n\n.ivu-icon-ios-cash-outline:before {\n    content: \"\\F167\"\n}\n\n.ivu-icon-ios-cash:before {\n    content: \"\\F168\"\n}\n\n.ivu-icon-ios-chatboxes-outline:before {\n    content: \"\\F169\"\n}\n\n.ivu-icon-ios-chatboxes:before {\n    content: \"\\F16A\"\n}\n\n.ivu-icon-ios-chatbubbles-outline:before {\n    content: \"\\F16B\"\n}\n\n.ivu-icon-ios-chatbubbles:before {\n    content: \"\\F16C\"\n}\n\n.ivu-icon-ios-checkbox-outline:before {\n    content: \"\\F16D\"\n}\n\n.ivu-icon-ios-checkbox:before {\n    content: \"\\F16E\"\n}\n\n.ivu-icon-ios-checkmark-circle-outline:before {\n    content: \"\\F16F\"\n}\n\n.ivu-icon-ios-checkmark-circle:before {\n    content: \"\\F170\"\n}\n\n.ivu-icon-ios-checkmark:before {\n    content: \"\\F171\"\n}\n\n.ivu-icon-ios-clipboard-outline:before {\n    content: \"\\F172\"\n}\n\n.ivu-icon-ios-clipboard:before {\n    content: \"\\F173\"\n}\n\n.ivu-icon-ios-clock-outline:before {\n    content: \"\\F174\"\n}\n\n.ivu-icon-ios-clock:before {\n    content: \"\\F175\"\n}\n\n.ivu-icon-ios-close-circle-outline:before {\n    content: \"\\F176\"\n}\n\n.ivu-icon-ios-close-circle:before {\n    content: \"\\F177\"\n}\n\n.ivu-icon-ios-close:before {\n    content: \"\\F178\"\n}\n\n.ivu-icon-ios-closed-captioning-outline:before {\n    content: \"\\F179\"\n}\n\n.ivu-icon-ios-closed-captioning:before {\n    content: \"\\F17A\"\n}\n\n.ivu-icon-ios-cloud-circle-outline:before {\n    content: \"\\F17B\"\n}\n\n.ivu-icon-ios-cloud-circle:before {\n    content: \"\\F17C\"\n}\n\n.ivu-icon-ios-cloud-done-outline:before {\n    content: \"\\F17D\"\n}\n\n.ivu-icon-ios-cloud-done:before {\n    content: \"\\F17E\"\n}\n\n.ivu-icon-ios-cloud-download-outline:before {\n    content: \"\\F17F\"\n}\n\n.ivu-icon-ios-cloud-download:before {\n    content: \"\\F180\"\n}\n\n.ivu-icon-ios-cloud-outline:before {\n    content: \"\\F181\"\n}\n\n.ivu-icon-ios-cloud-upload-outline:before {\n    content: \"\\F182\"\n}\n\n.ivu-icon-ios-cloud-upload:before {\n    content: \"\\F183\"\n}\n\n.ivu-icon-ios-cloud:before {\n    content: \"\\F184\"\n}\n\n.ivu-icon-ios-cloudy-night-outline:before {\n    content: \"\\F185\"\n}\n\n.ivu-icon-ios-cloudy-night:before {\n    content: \"\\F186\"\n}\n\n.ivu-icon-ios-cloudy-outline:before {\n    content: \"\\F187\"\n}\n\n.ivu-icon-ios-cloudy:before {\n    content: \"\\F188\"\n}\n\n.ivu-icon-ios-code-download:before {\n    content: \"\\F189\"\n}\n\n.ivu-icon-ios-code-working:before {\n    content: \"\\F18A\"\n}\n\n.ivu-icon-ios-code:before {\n    content: \"\\F18B\"\n}\n\n.ivu-icon-ios-cog-outline:before {\n    content: \"\\F18C\"\n}\n\n.ivu-icon-ios-cog:before {\n    content: \"\\F18D\"\n}\n\n.ivu-icon-ios-color-fill-outline:before {\n    content: \"\\F18E\"\n}\n\n.ivu-icon-ios-color-fill:before {\n    content: \"\\F18F\"\n}\n\n.ivu-icon-ios-color-filter-outline:before {\n    content: \"\\F190\"\n}\n\n.ivu-icon-ios-color-filter:before {\n    content: \"\\F191\"\n}\n\n.ivu-icon-ios-color-palette-outline:before {\n    content: \"\\F192\"\n}\n\n.ivu-icon-ios-color-palette:before {\n    content: \"\\F193\"\n}\n\n.ivu-icon-ios-color-wand-outline:before {\n    content: \"\\F194\"\n}\n\n.ivu-icon-ios-color-wand:before {\n    content: \"\\F195\"\n}\n\n.ivu-icon-ios-compass-outline:before {\n    content: \"\\F196\"\n}\n\n.ivu-icon-ios-compass:before {\n    content: \"\\F197\"\n}\n\n.ivu-icon-ios-construct-outline:before {\n    content: \"\\F198\"\n}\n\n.ivu-icon-ios-construct:before {\n    content: \"\\F199\"\n}\n\n.ivu-icon-ios-contact-outline:before {\n    content: \"\\F19A\"\n}\n\n.ivu-icon-ios-contact:before {\n    content: \"\\F19B\"\n}\n\n.ivu-icon-ios-contacts-outline:before {\n    content: \"\\F19C\"\n}\n\n.ivu-icon-ios-contacts:before {\n    content: \"\\F19D\"\n}\n\n.ivu-icon-ios-contract:before {\n    content: \"\\F19E\"\n}\n\n.ivu-icon-ios-contrast:before {\n    content: \"\\F19F\"\n}\n\n.ivu-icon-ios-copy-outline:before {\n    content: \"\\F1A0\"\n}\n\n.ivu-icon-ios-copy:before {\n    content: \"\\F1A1\"\n}\n\n.ivu-icon-ios-create-outline:before {\n    content: \"\\F1A2\"\n}\n\n.ivu-icon-ios-create:before {\n    content: \"\\F1A3\"\n}\n\n.ivu-icon-ios-crop-outline:before {\n    content: \"\\F1A4\"\n}\n\n.ivu-icon-ios-crop:before {\n    content: \"\\F1A5\"\n}\n\n.ivu-icon-ios-cube-outline:before {\n    content: \"\\F1A6\"\n}\n\n.ivu-icon-ios-cube:before {\n    content: \"\\F1A7\"\n}\n\n.ivu-icon-ios-cut-outline:before {\n    content: \"\\F1A8\"\n}\n\n.ivu-icon-ios-cut:before {\n    content: \"\\F1A9\"\n}\n\n.ivu-icon-ios-desktop-outline:before {\n    content: \"\\F1AA\"\n}\n\n.ivu-icon-ios-desktop:before {\n    content: \"\\F1AB\"\n}\n\n.ivu-icon-ios-disc-outline:before {\n    content: \"\\F1AC\"\n}\n\n.ivu-icon-ios-disc:before {\n    content: \"\\F1AD\"\n}\n\n.ivu-icon-ios-document-outline:before {\n    content: \"\\F1AE\"\n}\n\n.ivu-icon-ios-document:before {\n    content: \"\\F1AF\"\n}\n\n.ivu-icon-ios-done-all:before {\n    content: \"\\F1B0\"\n}\n\n.ivu-icon-ios-download-outline:before {\n    content: \"\\F1B1\"\n}\n\n.ivu-icon-ios-download:before {\n    content: \"\\F1B2\"\n}\n\n.ivu-icon-ios-easel-outline:before {\n    content: \"\\F1B3\"\n}\n\n.ivu-icon-ios-easel:before {\n    content: \"\\F1B4\"\n}\n\n.ivu-icon-ios-egg-outline:before {\n    content: \"\\F1B5\"\n}\n\n.ivu-icon-ios-egg:before {\n    content: \"\\F1B6\"\n}\n\n.ivu-icon-ios-exit-outline:before {\n    content: \"\\F1B7\"\n}\n\n.ivu-icon-ios-exit:before {\n    content: \"\\F1B8\"\n}\n\n.ivu-icon-ios-expand:before {\n    content: \"\\F1B9\"\n}\n\n.ivu-icon-ios-eye-off-outline:before {\n    content: \"\\F1BA\"\n}\n\n.ivu-icon-ios-eye-off:before {\n    content: \"\\F1BB\"\n}\n\n.ivu-icon-ios-eye-outline:before {\n    content: \"\\F1BC\"\n}\n\n.ivu-icon-ios-eye:before {\n    content: \"\\F1BD\"\n}\n\n.ivu-icon-ios-fastforward-outline:before {\n    content: \"\\F1BE\"\n}\n\n.ivu-icon-ios-fastforward:before {\n    content: \"\\F1BF\"\n}\n\n.ivu-icon-ios-female:before {\n    content: \"\\F1C0\"\n}\n\n.ivu-icon-ios-filing-outline:before {\n    content: \"\\F1C1\"\n}\n\n.ivu-icon-ios-filing:before {\n    content: \"\\F1C2\"\n}\n\n.ivu-icon-ios-film-outline:before {\n    content: \"\\F1C3\"\n}\n\n.ivu-icon-ios-film:before {\n    content: \"\\F1C4\"\n}\n\n.ivu-icon-ios-finger-print:before {\n    content: \"\\F1C5\"\n}\n\n.ivu-icon-ios-flag-outline:before {\n    content: \"\\F1C6\"\n}\n\n.ivu-icon-ios-flag:before {\n    content: \"\\F1C7\"\n}\n\n.ivu-icon-ios-flame-outline:before {\n    content: \"\\F1C8\"\n}\n\n.ivu-icon-ios-flame:before {\n    content: \"\\F1C9\"\n}\n\n.ivu-icon-ios-flash-outline:before {\n    content: \"\\F1CA\"\n}\n\n.ivu-icon-ios-flash:before {\n    content: \"\\F1CB\"\n}\n\n.ivu-icon-ios-flask-outline:before {\n    content: \"\\F1CC\"\n}\n\n.ivu-icon-ios-flask:before {\n    content: \"\\F1CD\"\n}\n\n.ivu-icon-ios-flower-outline:before {\n    content: \"\\F1CE\"\n}\n\n.ivu-icon-ios-flower:before {\n    content: \"\\F1CF\"\n}\n\n.ivu-icon-ios-folder-open-outline:before {\n    content: \"\\F1D0\"\n}\n\n.ivu-icon-ios-folder-open:before {\n    content: \"\\F1D1\"\n}\n\n.ivu-icon-ios-folder-outline:before {\n    content: \"\\F1D2\"\n}\n\n.ivu-icon-ios-folder:before {\n    content: \"\\F1D3\"\n}\n\n.ivu-icon-ios-football-outline:before {\n    content: \"\\F1D4\"\n}\n\n.ivu-icon-ios-football:before {\n    content: \"\\F1D5\"\n}\n\n.ivu-icon-ios-funnel-outline:before {\n    content: \"\\F1D6\"\n}\n\n.ivu-icon-ios-funnel:before {\n    content: \"\\F1D7\"\n}\n\n.ivu-icon-ios-game-controller-a-outline:before {\n    content: \"\\F1D8\"\n}\n\n.ivu-icon-ios-game-controller-a:before {\n    content: \"\\F1D9\"\n}\n\n.ivu-icon-ios-game-controller-b-outline:before {\n    content: \"\\F1DA\"\n}\n\n.ivu-icon-ios-game-controller-b:before {\n    content: \"\\F1DB\"\n}\n\n.ivu-icon-ios-git-branch:before {\n    content: \"\\F1DC\"\n}\n\n.ivu-icon-ios-git-commit:before {\n    content: \"\\F1DD\"\n}\n\n.ivu-icon-ios-git-compare:before {\n    content: \"\\F1DE\"\n}\n\n.ivu-icon-ios-git-merge:before {\n    content: \"\\F1DF\"\n}\n\n.ivu-icon-ios-git-network:before {\n    content: \"\\F1E0\"\n}\n\n.ivu-icon-ios-git-pull-request:before {\n    content: \"\\F1E1\"\n}\n\n.ivu-icon-ios-glasses-outline:before {\n    content: \"\\F1E2\"\n}\n\n.ivu-icon-ios-glasses:before {\n    content: \"\\F1E3\"\n}\n\n.ivu-icon-ios-globe-outline:before {\n    content: \"\\F1E4\"\n}\n\n.ivu-icon-ios-globe:before {\n    content: \"\\F1E5\"\n}\n\n.ivu-icon-ios-grid-outline:before {\n    content: \"\\F1E6\"\n}\n\n.ivu-icon-ios-grid:before {\n    content: \"\\F1E7\"\n}\n\n.ivu-icon-ios-hammer-outline:before {\n    content: \"\\F1E8\"\n}\n\n.ivu-icon-ios-hammer:before {\n    content: \"\\F1E9\"\n}\n\n.ivu-icon-ios-hand-outline:before {\n    content: \"\\F1EA\"\n}\n\n.ivu-icon-ios-hand:before {\n    content: \"\\F1EB\"\n}\n\n.ivu-icon-ios-happy-outline:before {\n    content: \"\\F1EC\"\n}\n\n.ivu-icon-ios-happy:before {\n    content: \"\\F1ED\"\n}\n\n.ivu-icon-ios-headset-outline:before {\n    content: \"\\F1EE\"\n}\n\n.ivu-icon-ios-headset:before {\n    content: \"\\F1EF\"\n}\n\n.ivu-icon-ios-heart-outline:before {\n    content: \"\\F1F0\"\n}\n\n.ivu-icon-ios-heart:before {\n    content: \"\\F1F1\"\n}\n\n.ivu-icon-ios-help-buoy-outline:before {\n    content: \"\\F1F2\"\n}\n\n.ivu-icon-ios-help-buoy:before {\n    content: \"\\F1F3\"\n}\n\n.ivu-icon-ios-help-circle-outline:before {\n    content: \"\\F1F4\"\n}\n\n.ivu-icon-ios-help-circle:before {\n    content: \"\\F1F5\"\n}\n\n.ivu-icon-ios-help:before {\n    content: \"\\F1F6\"\n}\n\n.ivu-icon-ios-home-outline:before {\n    content: \"\\F1F7\"\n}\n\n.ivu-icon-ios-home:before {\n    content: \"\\F1F8\"\n}\n\n.ivu-icon-ios-ice-cream-outline:before {\n    content: \"\\F1F9\"\n}\n\n.ivu-icon-ios-ice-cream:before {\n    content: \"\\F1FA\"\n}\n\n.ivu-icon-ios-image-outline:before {\n    content: \"\\F1FB\"\n}\n\n.ivu-icon-ios-image:before {\n    content: \"\\F1FC\"\n}\n\n.ivu-icon-ios-images-outline:before {\n    content: \"\\F1FD\"\n}\n\n.ivu-icon-ios-images:before {\n    content: \"\\F1FE\"\n}\n\n.ivu-icon-ios-infinite-outline:before {\n    content: \"\\F1FF\"\n}\n\n.ivu-icon-ios-infinite:before {\n    content: \"\\F200\"\n}\n\n.ivu-icon-ios-information-circle-outline:before {\n    content: \"\\F201\"\n}\n\n.ivu-icon-ios-information-circle:before {\n    content: \"\\F202\"\n}\n\n.ivu-icon-ios-information:before {\n    content: \"\\F203\"\n}\n\n.ivu-icon-ios-ionic-outline:before {\n    content: \"\\F204\"\n}\n\n.ivu-icon-ios-ionic:before {\n    content: \"\\F205\"\n}\n\n.ivu-icon-ios-ionitron-outline:before {\n    content: \"\\F206\"\n}\n\n.ivu-icon-ios-ionitron:before {\n    content: \"\\F207\"\n}\n\n.ivu-icon-ios-jet-outline:before {\n    content: \"\\F208\"\n}\n\n.ivu-icon-ios-jet:before {\n    content: \"\\F209\"\n}\n\n.ivu-icon-ios-key-outline:before {\n    content: \"\\F20A\"\n}\n\n.ivu-icon-ios-key:before {\n    content: \"\\F20B\"\n}\n\n.ivu-icon-ios-keypad-outline:before {\n    content: \"\\F20C\"\n}\n\n.ivu-icon-ios-keypad:before {\n    content: \"\\F20D\"\n}\n\n.ivu-icon-ios-laptop:before {\n    content: \"\\F20E\"\n}\n\n.ivu-icon-ios-leaf-outline:before {\n    content: \"\\F20F\"\n}\n\n.ivu-icon-ios-leaf:before {\n    content: \"\\F210\"\n}\n\n.ivu-icon-ios-link-outline:before {\n    content: \"\\F211\"\n}\n\n.ivu-icon-ios-link:before {\n    content: \"\\F212\"\n}\n\n.ivu-icon-ios-list-box-outline:before {\n    content: \"\\F213\"\n}\n\n.ivu-icon-ios-list-box:before {\n    content: \"\\F214\"\n}\n\n.ivu-icon-ios-list:before {\n    content: \"\\F215\"\n}\n\n.ivu-icon-ios-locate-outline:before {\n    content: \"\\F216\"\n}\n\n.ivu-icon-ios-locate:before {\n    content: \"\\F217\"\n}\n\n.ivu-icon-ios-lock-outline:before {\n    content: \"\\F218\"\n}\n\n.ivu-icon-ios-lock:before {\n    content: \"\\F219\"\n}\n\n.ivu-icon-ios-log-in:before {\n    content: \"\\F21A\"\n}\n\n.ivu-icon-ios-log-out:before {\n    content: \"\\F21B\"\n}\n\n.ivu-icon-ios-magnet-outline:before {\n    content: \"\\F21C\"\n}\n\n.ivu-icon-ios-magnet:before {\n    content: \"\\F21D\"\n}\n\n.ivu-icon-ios-mail-open-outline:before {\n    content: \"\\F21E\"\n}\n\n.ivu-icon-ios-mail-open:before {\n    content: \"\\F21F\"\n}\n\n.ivu-icon-ios-mail-outline:before {\n    content: \"\\F220\"\n}\n\n.ivu-icon-ios-mail:before {\n    content: \"\\F221\"\n}\n\n.ivu-icon-ios-male:before {\n    content: \"\\F222\"\n}\n\n.ivu-icon-ios-man-outline:before {\n    content: \"\\F223\"\n}\n\n.ivu-icon-ios-man:before {\n    content: \"\\F224\"\n}\n\n.ivu-icon-ios-map-outline:before {\n    content: \"\\F225\"\n}\n\n.ivu-icon-ios-map:before {\n    content: \"\\F226\"\n}\n\n.ivu-icon-ios-medal-outline:before {\n    content: \"\\F227\"\n}\n\n.ivu-icon-ios-medal:before {\n    content: \"\\F228\"\n}\n\n.ivu-icon-ios-medical-outline:before {\n    content: \"\\F229\"\n}\n\n.ivu-icon-ios-medical:before {\n    content: \"\\F22A\"\n}\n\n.ivu-icon-ios-medkit-outline:before {\n    content: \"\\F22B\"\n}\n\n.ivu-icon-ios-medkit:before {\n    content: \"\\F22C\"\n}\n\n.ivu-icon-ios-megaphone-outline:before {\n    content: \"\\F22D\"\n}\n\n.ivu-icon-ios-megaphone:before {\n    content: \"\\F22E\"\n}\n\n.ivu-icon-ios-menu-outline:before {\n    content: \"\\F22F\"\n}\n\n.ivu-icon-ios-menu:before {\n    content: \"\\F230\"\n}\n\n.ivu-icon-ios-mic-off-outline:before {\n    content: \"\\F231\"\n}\n\n.ivu-icon-ios-mic-off:before {\n    content: \"\\F232\"\n}\n\n.ivu-icon-ios-mic-outline:before {\n    content: \"\\F233\"\n}\n\n.ivu-icon-ios-mic:before {\n    content: \"\\F234\"\n}\n\n.ivu-icon-ios-microphone-outline:before {\n    content: \"\\F235\"\n}\n\n.ivu-icon-ios-microphone:before {\n    content: \"\\F236\"\n}\n\n.ivu-icon-ios-moon-outline:before {\n    content: \"\\F237\"\n}\n\n.ivu-icon-ios-moon:before {\n    content: \"\\F238\"\n}\n\n.ivu-icon-ios-more-outline:before {\n    content: \"\\F239\"\n}\n\n.ivu-icon-ios-more:before {\n    content: \"\\F23A\"\n}\n\n.ivu-icon-ios-move:before {\n    content: \"\\F23B\"\n}\n\n.ivu-icon-ios-musical-note-outline:before {\n    content: \"\\F23C\"\n}\n\n.ivu-icon-ios-musical-note:before {\n    content: \"\\F23D\"\n}\n\n.ivu-icon-ios-musical-notes-outline:before {\n    content: \"\\F23E\"\n}\n\n.ivu-icon-ios-musical-notes:before {\n    content: \"\\F23F\"\n}\n\n.ivu-icon-ios-navigate-outline:before {\n    content: \"\\F240\"\n}\n\n.ivu-icon-ios-navigate:before {\n    content: \"\\F241\"\n}\n\n.ivu-icon-ios-no-smoking-outline:before {\n    content: \"\\F242\"\n}\n\n.ivu-icon-ios-no-smoking:before {\n    content: \"\\F243\"\n}\n\n.ivu-icon-ios-notifications-off-outline:before {\n    content: \"\\F244\"\n}\n\n.ivu-icon-ios-notifications-off:before {\n    content: \"\\F245\"\n}\n\n.ivu-icon-ios-notifications-outline:before {\n    content: \"\\F246\"\n}\n\n.ivu-icon-ios-notifications:before {\n    content: \"\\F247\"\n}\n\n.ivu-icon-ios-nuclear-outline:before {\n    content: \"\\F248\"\n}\n\n.ivu-icon-ios-nuclear:before {\n    content: \"\\F249\"\n}\n\n.ivu-icon-ios-nutrition-outline:before {\n    content: \"\\F24A\"\n}\n\n.ivu-icon-ios-nutrition:before {\n    content: \"\\F24B\"\n}\n\n.ivu-icon-ios-open-outline:before {\n    content: \"\\F24C\"\n}\n\n.ivu-icon-ios-open:before {\n    content: \"\\F24D\"\n}\n\n.ivu-icon-ios-options-outline:before {\n    content: \"\\F24E\"\n}\n\n.ivu-icon-ios-options:before {\n    content: \"\\F24F\"\n}\n\n.ivu-icon-ios-outlet-outline:before {\n    content: \"\\F250\"\n}\n\n.ivu-icon-ios-outlet:before {\n    content: \"\\F251\"\n}\n\n.ivu-icon-ios-paper-outline:before {\n    content: \"\\F252\"\n}\n\n.ivu-icon-ios-paper-plane-outline:before {\n    content: \"\\F253\"\n}\n\n.ivu-icon-ios-paper-plane:before {\n    content: \"\\F254\"\n}\n\n.ivu-icon-ios-paper:before {\n    content: \"\\F255\"\n}\n\n.ivu-icon-ios-partly-sunny-outline:before {\n    content: \"\\F256\"\n}\n\n.ivu-icon-ios-partly-sunny:before {\n    content: \"\\F257\"\n}\n\n.ivu-icon-ios-pause-outline:before {\n    content: \"\\F258\"\n}\n\n.ivu-icon-ios-pause:before {\n    content: \"\\F259\"\n}\n\n.ivu-icon-ios-paw-outline:before {\n    content: \"\\F25A\"\n}\n\n.ivu-icon-ios-paw:before {\n    content: \"\\F25B\"\n}\n\n.ivu-icon-ios-people-outline:before {\n    content: \"\\F25C\"\n}\n\n.ivu-icon-ios-people:before {\n    content: \"\\F25D\"\n}\n\n.ivu-icon-ios-person-add-outline:before {\n    content: \"\\F25E\"\n}\n\n.ivu-icon-ios-person-add:before {\n    content: \"\\F25F\"\n}\n\n.ivu-icon-ios-person-outline:before {\n    content: \"\\F260\"\n}\n\n.ivu-icon-ios-person:before {\n    content: \"\\F261\"\n}\n\n.ivu-icon-ios-phone-landscape:before {\n    content: \"\\F262\"\n}\n\n.ivu-icon-ios-phone-portrait:before {\n    content: \"\\F263\"\n}\n\n.ivu-icon-ios-photos-outline:before {\n    content: \"\\F264\"\n}\n\n.ivu-icon-ios-photos:before {\n    content: \"\\F265\"\n}\n\n.ivu-icon-ios-pie-outline:before {\n    content: \"\\F266\"\n}\n\n.ivu-icon-ios-pie:before {\n    content: \"\\F267\"\n}\n\n.ivu-icon-ios-pin-outline:before {\n    content: \"\\F268\"\n}\n\n.ivu-icon-ios-pin:before {\n    content: \"\\F269\"\n}\n\n.ivu-icon-ios-pint-outline:before {\n    content: \"\\F26A\"\n}\n\n.ivu-icon-ios-pint:before {\n    content: \"\\F26B\"\n}\n\n.ivu-icon-ios-pizza-outline:before {\n    content: \"\\F26C\"\n}\n\n.ivu-icon-ios-pizza:before {\n    content: \"\\F26D\"\n}\n\n.ivu-icon-ios-plane-outline:before {\n    content: \"\\F26E\"\n}\n\n.ivu-icon-ios-plane:before {\n    content: \"\\F26F\"\n}\n\n.ivu-icon-ios-planet-outline:before {\n    content: \"\\F270\"\n}\n\n.ivu-icon-ios-planet:before {\n    content: \"\\F271\"\n}\n\n.ivu-icon-ios-play-outline:before {\n    content: \"\\F272\"\n}\n\n.ivu-icon-ios-play:before {\n    content: \"\\F273\"\n}\n\n.ivu-icon-ios-podium-outline:before {\n    content: \"\\F274\"\n}\n\n.ivu-icon-ios-podium:before {\n    content: \"\\F275\"\n}\n\n.ivu-icon-ios-power-outline:before {\n    content: \"\\F276\"\n}\n\n.ivu-icon-ios-power:before {\n    content: \"\\F277\"\n}\n\n.ivu-icon-ios-pricetag-outline:before {\n    content: \"\\F278\"\n}\n\n.ivu-icon-ios-pricetag:before {\n    content: \"\\F279\"\n}\n\n.ivu-icon-ios-pricetags-outline:before {\n    content: \"\\F27A\"\n}\n\n.ivu-icon-ios-pricetags:before {\n    content: \"\\F27B\"\n}\n\n.ivu-icon-ios-print-outline:before {\n    content: \"\\F27C\"\n}\n\n.ivu-icon-ios-print:before {\n    content: \"\\F27D\"\n}\n\n.ivu-icon-ios-pulse-outline:before {\n    content: \"\\F27E\"\n}\n\n.ivu-icon-ios-pulse:before {\n    content: \"\\F27F\"\n}\n\n.ivu-icon-ios-qr-scanner:before {\n    content: \"\\F280\"\n}\n\n.ivu-icon-ios-quote-outline:before {\n    content: \"\\F281\"\n}\n\n.ivu-icon-ios-quote:before {\n    content: \"\\F282\"\n}\n\n.ivu-icon-ios-radio-button-off:before {\n    content: \"\\F283\"\n}\n\n.ivu-icon-ios-radio-button-on:before {\n    content: \"\\F284\"\n}\n\n.ivu-icon-ios-radio-outline:before {\n    content: \"\\F285\"\n}\n\n.ivu-icon-ios-radio:before {\n    content: \"\\F286\"\n}\n\n.ivu-icon-ios-rainy-outline:before {\n    content: \"\\F287\"\n}\n\n.ivu-icon-ios-rainy:before {\n    content: \"\\F288\"\n}\n\n.ivu-icon-ios-recording-outline:before {\n    content: \"\\F289\"\n}\n\n.ivu-icon-ios-recording:before {\n    content: \"\\F28A\"\n}\n\n.ivu-icon-ios-redo-outline:before {\n    content: \"\\F28B\"\n}\n\n.ivu-icon-ios-redo:before {\n    content: \"\\F28C\"\n}\n\n.ivu-icon-ios-refresh-circle-outline:before {\n    content: \"\\F28D\"\n}\n\n.ivu-icon-ios-refresh-circle:before {\n    content: \"\\F28E\"\n}\n\n.ivu-icon-ios-refresh:before {\n    content: \"\\F28F\"\n}\n\n.ivu-icon-ios-remove-circle-outline:before {\n    content: \"\\F290\"\n}\n\n.ivu-icon-ios-remove-circle:before {\n    content: \"\\F291\"\n}\n\n.ivu-icon-ios-remove:before {\n    content: \"\\F292\"\n}\n\n.ivu-icon-ios-reorder:before {\n    content: \"\\F293\"\n}\n\n.ivu-icon-ios-repeat:before {\n    content: \"\\F294\"\n}\n\n.ivu-icon-ios-resize:before {\n    content: \"\\F295\"\n}\n\n.ivu-icon-ios-restaurant-outline:before {\n    content: \"\\F296\"\n}\n\n.ivu-icon-ios-restaurant:before {\n    content: \"\\F297\"\n}\n\n.ivu-icon-ios-return-left:before {\n    content: \"\\F298\"\n}\n\n.ivu-icon-ios-return-right:before {\n    content: \"\\F299\"\n}\n\n.ivu-icon-ios-reverse-camera-outline:before {\n    content: \"\\F29A\"\n}\n\n.ivu-icon-ios-reverse-camera:before {\n    content: \"\\F29B\"\n}\n\n.ivu-icon-ios-rewind-outline:before {\n    content: \"\\F29C\"\n}\n\n.ivu-icon-ios-rewind:before {\n    content: \"\\F29D\"\n}\n\n.ivu-icon-ios-ribbon-outline:before {\n    content: \"\\F29E\"\n}\n\n.ivu-icon-ios-ribbon:before {\n    content: \"\\F29F\"\n}\n\n.ivu-icon-ios-rose-outline:before {\n    content: \"\\F2A0\"\n}\n\n.ivu-icon-ios-rose:before {\n    content: \"\\F2A1\"\n}\n\n.ivu-icon-ios-sad-outline:before {\n    content: \"\\F2A2\"\n}\n\n.ivu-icon-ios-sad:before {\n    content: \"\\F2A3\"\n}\n\n.ivu-icon-ios-school-outline:before {\n    content: \"\\F2A4\"\n}\n\n.ivu-icon-ios-school:before {\n    content: \"\\F2A5\"\n}\n\n.ivu-icon-ios-search-outline:before {\n    content: \"\\F2A6\"\n}\n\n.ivu-icon-ios-search:before {\n    content: \"\\F2A7\"\n}\n\n.ivu-icon-ios-send-outline:before {\n    content: \"\\F2A8\"\n}\n\n.ivu-icon-ios-send:before {\n    content: \"\\F2A9\"\n}\n\n.ivu-icon-ios-settings-outline:before {\n    content: \"\\F2AA\"\n}\n\n.ivu-icon-ios-settings:before {\n    content: \"\\F2AB\"\n}\n\n.ivu-icon-ios-share-alt-outline:before {\n    content: \"\\F2AC\"\n}\n\n.ivu-icon-ios-share-alt:before {\n    content: \"\\F2AD\"\n}\n\n.ivu-icon-ios-share-outline:before {\n    content: \"\\F2AE\"\n}\n\n.ivu-icon-ios-share:before {\n    content: \"\\F2AF\"\n}\n\n.ivu-icon-ios-shirt-outline:before {\n    content: \"\\F2B0\"\n}\n\n.ivu-icon-ios-shirt:before {\n    content: \"\\F2B1\"\n}\n\n.ivu-icon-ios-shuffle:before {\n    content: \"\\F2B2\"\n}\n\n.ivu-icon-ios-skip-backward-outline:before {\n    content: \"\\F2B3\"\n}\n\n.ivu-icon-ios-skip-backward:before {\n    content: \"\\F2B4\"\n}\n\n.ivu-icon-ios-skip-forward-outline:before {\n    content: \"\\F2B5\"\n}\n\n.ivu-icon-ios-skip-forward:before {\n    content: \"\\F2B6\"\n}\n\n.ivu-icon-ios-snow-outline:before {\n    content: \"\\F2B7\"\n}\n\n.ivu-icon-ios-snow:before {\n    content: \"\\F2B8\"\n}\n\n.ivu-icon-ios-speedometer-outline:before {\n    content: \"\\F2B9\"\n}\n\n.ivu-icon-ios-speedometer:before {\n    content: \"\\F2BA\"\n}\n\n.ivu-icon-ios-square-outline:before {\n    content: \"\\F2BB\"\n}\n\n.ivu-icon-ios-square:before {\n    content: \"\\F2BC\"\n}\n\n.ivu-icon-ios-star-half:before {\n    content: \"\\F2BD\"\n}\n\n.ivu-icon-ios-star-outline:before {\n    content: \"\\F2BE\"\n}\n\n.ivu-icon-ios-star:before {\n    content: \"\\F2BF\"\n}\n\n.ivu-icon-ios-stats-outline:before {\n    content: \"\\F2C0\"\n}\n\n.ivu-icon-ios-stats:before {\n    content: \"\\F2C1\"\n}\n\n.ivu-icon-ios-stopwatch-outline:before {\n    content: \"\\F2C2\"\n}\n\n.ivu-icon-ios-stopwatch:before {\n    content: \"\\F2C3\"\n}\n\n.ivu-icon-ios-subway-outline:before {\n    content: \"\\F2C4\"\n}\n\n.ivu-icon-ios-subway:before {\n    content: \"\\F2C5\"\n}\n\n.ivu-icon-ios-sunny-outline:before {\n    content: \"\\F2C6\"\n}\n\n.ivu-icon-ios-sunny:before {\n    content: \"\\F2C7\"\n}\n\n.ivu-icon-ios-swap:before {\n    content: \"\\F2C8\"\n}\n\n.ivu-icon-ios-switch-outline:before {\n    content: \"\\F2C9\"\n}\n\n.ivu-icon-ios-switch:before {\n    content: \"\\F2CA\"\n}\n\n.ivu-icon-ios-sync:before {\n    content: \"\\F2CB\"\n}\n\n.ivu-icon-ios-tablet-landscape:before {\n    content: \"\\F2CC\"\n}\n\n.ivu-icon-ios-tablet-portrait:before {\n    content: \"\\F2CD\"\n}\n\n.ivu-icon-ios-tennisball-outline:before {\n    content: \"\\F2CE\"\n}\n\n.ivu-icon-ios-tennisball:before {\n    content: \"\\F2CF\"\n}\n\n.ivu-icon-ios-text-outline:before {\n    content: \"\\F2D0\"\n}\n\n.ivu-icon-ios-text:before {\n    content: \"\\F2D1\"\n}\n\n.ivu-icon-ios-thermometer-outline:before {\n    content: \"\\F2D2\"\n}\n\n.ivu-icon-ios-thermometer:before {\n    content: \"\\F2D3\"\n}\n\n.ivu-icon-ios-thumbs-down-outline:before {\n    content: \"\\F2D4\"\n}\n\n.ivu-icon-ios-thumbs-down:before {\n    content: \"\\F2D5\"\n}\n\n.ivu-icon-ios-thumbs-up-outline:before {\n    content: \"\\F2D6\"\n}\n\n.ivu-icon-ios-thumbs-up:before {\n    content: \"\\F2D7\"\n}\n\n.ivu-icon-ios-thunderstorm-outline:before {\n    content: \"\\F2D8\"\n}\n\n.ivu-icon-ios-thunderstorm:before {\n    content: \"\\F2D9\"\n}\n\n.ivu-icon-ios-time-outline:before {\n    content: \"\\F2DA\"\n}\n\n.ivu-icon-ios-time:before {\n    content: \"\\F2DB\"\n}\n\n.ivu-icon-ios-timer-outline:before {\n    content: \"\\F2DC\"\n}\n\n.ivu-icon-ios-timer:before {\n    content: \"\\F2DD\"\n}\n\n.ivu-icon-ios-train-outline:before {\n    content: \"\\F2DE\"\n}\n\n.ivu-icon-ios-train:before {\n    content: \"\\F2DF\"\n}\n\n.ivu-icon-ios-transgender:before {\n    content: \"\\F2E0\"\n}\n\n.ivu-icon-ios-trash-outline:before {\n    content: \"\\F2E1\"\n}\n\n.ivu-icon-ios-trash:before {\n    content: \"\\F2E2\"\n}\n\n.ivu-icon-ios-trending-down:before {\n    content: \"\\F2E3\"\n}\n\n.ivu-icon-ios-trending-up:before {\n    content: \"\\F2E4\"\n}\n\n.ivu-icon-ios-trophy-outline:before {\n    content: \"\\F2E5\"\n}\n\n.ivu-icon-ios-trophy:before {\n    content: \"\\F2E6\"\n}\n\n.ivu-icon-ios-umbrella-outline:before {\n    content: \"\\F2E7\"\n}\n\n.ivu-icon-ios-umbrella:before {\n    content: \"\\F2E8\"\n}\n\n.ivu-icon-ios-undo-outline:before {\n    content: \"\\F2E9\"\n}\n\n.ivu-icon-ios-undo:before {\n    content: \"\\F2EA\"\n}\n\n.ivu-icon-ios-unlock-outline:before {\n    content: \"\\F2EB\"\n}\n\n.ivu-icon-ios-unlock:before {\n    content: \"\\F2EC\"\n}\n\n.ivu-icon-ios-videocam-outline:before {\n    content: \"\\F2ED\"\n}\n\n.ivu-icon-ios-videocam:before {\n    content: \"\\F2EE\"\n}\n\n.ivu-icon-ios-volume-down:before {\n    content: \"\\F2EF\"\n}\n\n.ivu-icon-ios-volume-mute:before {\n    content: \"\\F2F0\"\n}\n\n.ivu-icon-ios-volume-off:before {\n    content: \"\\F2F1\"\n}\n\n.ivu-icon-ios-volume-up:before {\n    content: \"\\F2F2\"\n}\n\n.ivu-icon-ios-walk:before {\n    content: \"\\F2F3\"\n}\n\n.ivu-icon-ios-warning-outline:before {\n    content: \"\\F2F4\"\n}\n\n.ivu-icon-ios-warning:before {\n    content: \"\\F2F5\"\n}\n\n.ivu-icon-ios-watch:before {\n    content: \"\\F2F6\"\n}\n\n.ivu-icon-ios-water-outline:before {\n    content: \"\\F2F7\"\n}\n\n.ivu-icon-ios-water:before {\n    content: \"\\F2F8\"\n}\n\n.ivu-icon-ios-wifi-outline:before {\n    content: \"\\F2F9\"\n}\n\n.ivu-icon-ios-wifi:before {\n    content: \"\\F2FA\"\n}\n\n.ivu-icon-ios-wine-outline:before {\n    content: \"\\F2FB\"\n}\n\n.ivu-icon-ios-wine:before {\n    content: \"\\F2FC\"\n}\n\n.ivu-icon-ios-woman-outline:before {\n    content: \"\\F2FD\"\n}\n\n.ivu-icon-ios-woman:before {\n    content: \"\\F2FE\"\n}\n\n.ivu-icon-logo-android:before {\n    content: \"\\F2FF\"\n}\n\n.ivu-icon-logo-angular:before {\n    content: \"\\F300\"\n}\n\n.ivu-icon-logo-apple:before {\n    content: \"\\F301\"\n}\n\n.ivu-icon-logo-bitcoin:before {\n    content: \"\\F302\"\n}\n\n.ivu-icon-logo-buffer:before {\n    content: \"\\F303\"\n}\n\n.ivu-icon-logo-chrome:before {\n    content: \"\\F304\"\n}\n\n.ivu-icon-logo-codepen:before {\n    content: \"\\F305\"\n}\n\n.ivu-icon-logo-css3:before {\n    content: \"\\F306\"\n}\n\n.ivu-icon-logo-designernews:before {\n    content: \"\\F307\"\n}\n\n.ivu-icon-logo-dribbble:before {\n    content: \"\\F308\"\n}\n\n.ivu-icon-logo-dropbox:before {\n    content: \"\\F309\"\n}\n\n.ivu-icon-logo-euro:before {\n    content: \"\\F30A\"\n}\n\n.ivu-icon-logo-facebook:before {\n    content: \"\\F30B\"\n}\n\n.ivu-icon-logo-foursquare:before {\n    content: \"\\F30C\"\n}\n\n.ivu-icon-logo-freebsd-devil:before {\n    content: \"\\F30D\"\n}\n\n.ivu-icon-logo-github:before {\n    content: \"\\F30E\"\n}\n\n.ivu-icon-logo-google:before {\n    content: \"\\F30F\"\n}\n\n.ivu-icon-logo-googleplus:before {\n    content: \"\\F310\"\n}\n\n.ivu-icon-logo-hackernews:before {\n    content: \"\\F311\"\n}\n\n.ivu-icon-logo-html5:before {\n    content: \"\\F312\"\n}\n\n.ivu-icon-logo-instagram:before {\n    content: \"\\F313\"\n}\n\n.ivu-icon-logo-javascript:before {\n    content: \"\\F314\"\n}\n\n.ivu-icon-logo-linkedin:before {\n    content: \"\\F315\"\n}\n\n.ivu-icon-logo-markdown:before {\n    content: \"\\F316\"\n}\n\n.ivu-icon-logo-nodejs:before {\n    content: \"\\F317\"\n}\n\n.ivu-icon-logo-octocat:before {\n    content: \"\\F318\"\n}\n\n.ivu-icon-logo-pinterest:before {\n    content: \"\\F319\"\n}\n\n.ivu-icon-logo-playstation:before {\n    content: \"\\F31A\"\n}\n\n.ivu-icon-logo-python:before {\n    content: \"\\F31B\"\n}\n\n.ivu-icon-logo-reddit:before {\n    content: \"\\F31C\"\n}\n\n.ivu-icon-logo-rss:before {\n    content: \"\\F31D\"\n}\n\n.ivu-icon-logo-sass:before {\n    content: \"\\F31E\"\n}\n\n.ivu-icon-logo-skype:before {\n    content: \"\\F31F\"\n}\n\n.ivu-icon-logo-snapchat:before {\n    content: \"\\F320\"\n}\n\n.ivu-icon-logo-steam:before {\n    content: \"\\F321\"\n}\n\n.ivu-icon-logo-tumblr:before {\n    content: \"\\F322\"\n}\n\n.ivu-icon-logo-tux:before {\n    content: \"\\F323\"\n}\n\n.ivu-icon-logo-twitch:before {\n    content: \"\\F324\"\n}\n\n.ivu-icon-logo-twitter:before {\n    content: \"\\F325\"\n}\n\n.ivu-icon-logo-usd:before {\n    content: \"\\F326\"\n}\n\n.ivu-icon-logo-vimeo:before {\n    content: \"\\F327\"\n}\n\n.ivu-icon-logo-whatsapp:before {\n    content: \"\\F328\"\n}\n\n.ivu-icon-logo-windows:before {\n    content: \"\\F329\"\n}\n\n.ivu-icon-logo-wordpress:before {\n    content: \"\\F32A\"\n}\n\n.ivu-icon-logo-xbox:before {\n    content: \"\\F32B\"\n}\n\n.ivu-icon-logo-yahoo:before {\n    content: \"\\F32C\"\n}\n\n.ivu-icon-logo-yen:before {\n    content: \"\\F32D\"\n}\n\n.ivu-icon-logo-youtube:before {\n    content: \"\\F32E\"\n}\n\n.ivu-icon-md-add-circle:before {\n    content: \"\\F32F\"\n}\n\n.ivu-icon-md-add:before {\n    content: \"\\F330\"\n}\n\n.ivu-icon-md-alarm:before {\n    content: \"\\F331\"\n}\n\n.ivu-icon-md-albums:before {\n    content: \"\\F332\"\n}\n\n.ivu-icon-md-alert:before {\n    content: \"\\F333\"\n}\n\n.ivu-icon-md-american-football:before {\n    content: \"\\F334\"\n}\n\n.ivu-icon-md-analytics:before {\n    content: \"\\F335\"\n}\n\n.ivu-icon-md-aperture:before {\n    content: \"\\F336\"\n}\n\n.ivu-icon-md-apps:before {\n    content: \"\\F337\"\n}\n\n.ivu-icon-md-appstore:before {\n    content: \"\\F338\"\n}\n\n.ivu-icon-md-archive:before {\n    content: \"\\F339\"\n}\n\n.ivu-icon-md-arrow-back:before {\n    content: \"\\F33A\"\n}\n\n.ivu-icon-md-arrow-down:before {\n    content: \"\\F33B\"\n}\n\n.ivu-icon-md-arrow-dropdown-circle:before {\n    content: \"\\F33C\"\n}\n\n.ivu-icon-md-arrow-dropdown:before {\n    content: \"\\F33D\"\n}\n\n.ivu-icon-md-arrow-dropleft-circle:before {\n    content: \"\\F33E\"\n}\n\n.ivu-icon-md-arrow-dropleft:before {\n    content: \"\\F33F\"\n}\n\n.ivu-icon-md-arrow-dropright-circle:before {\n    content: \"\\F340\"\n}\n\n.ivu-icon-md-arrow-dropright:before {\n    content: \"\\F341\"\n}\n\n.ivu-icon-md-arrow-dropup-circle:before {\n    content: \"\\F342\"\n}\n\n.ivu-icon-md-arrow-dropup:before {\n    content: \"\\F343\"\n}\n\n.ivu-icon-md-arrow-forward:before {\n    content: \"\\F344\"\n}\n\n.ivu-icon-md-arrow-round-back:before {\n    content: \"\\F345\"\n}\n\n.ivu-icon-md-arrow-round-down:before {\n    content: \"\\F346\"\n}\n\n.ivu-icon-md-arrow-round-forward:before {\n    content: \"\\F347\"\n}\n\n.ivu-icon-md-arrow-round-up:before {\n    content: \"\\F348\"\n}\n\n.ivu-icon-md-arrow-up:before {\n    content: \"\\F349\"\n}\n\n.ivu-icon-md-at:before {\n    content: \"\\F34A\"\n}\n\n.ivu-icon-md-attach:before {\n    content: \"\\F34B\"\n}\n\n.ivu-icon-md-backspace:before {\n    content: \"\\F34C\"\n}\n\n.ivu-icon-md-barcode:before {\n    content: \"\\F34D\"\n}\n\n.ivu-icon-md-baseball:before {\n    content: \"\\F34E\"\n}\n\n.ivu-icon-md-basket:before {\n    content: \"\\F34F\"\n}\n\n.ivu-icon-md-basketball:before {\n    content: \"\\F350\"\n}\n\n.ivu-icon-md-battery-charging:before {\n    content: \"\\F351\"\n}\n\n.ivu-icon-md-battery-dead:before {\n    content: \"\\F352\"\n}\n\n.ivu-icon-md-battery-full:before {\n    content: \"\\F353\"\n}\n\n.ivu-icon-md-beaker:before {\n    content: \"\\F354\"\n}\n\n.ivu-icon-md-beer:before {\n    content: \"\\F355\"\n}\n\n.ivu-icon-md-bicycle:before {\n    content: \"\\F356\"\n}\n\n.ivu-icon-md-bluetooth:before {\n    content: \"\\F357\"\n}\n\n.ivu-icon-md-boat:before {\n    content: \"\\F358\"\n}\n\n.ivu-icon-md-body:before {\n    content: \"\\F359\"\n}\n\n.ivu-icon-md-bonfire:before {\n    content: \"\\F35A\"\n}\n\n.ivu-icon-md-book:before {\n    content: \"\\F35B\"\n}\n\n.ivu-icon-md-bookmark:before {\n    content: \"\\F35C\"\n}\n\n.ivu-icon-md-bookmarks:before {\n    content: \"\\F35D\"\n}\n\n.ivu-icon-md-bowtie:before {\n    content: \"\\F35E\"\n}\n\n.ivu-icon-md-briefcase:before {\n    content: \"\\F35F\"\n}\n\n.ivu-icon-md-browsers:before {\n    content: \"\\F360\"\n}\n\n.ivu-icon-md-brush:before {\n    content: \"\\F361\"\n}\n\n.ivu-icon-md-bug:before {\n    content: \"\\F362\"\n}\n\n.ivu-icon-md-build:before {\n    content: \"\\F363\"\n}\n\n.ivu-icon-md-bulb:before {\n    content: \"\\F364\"\n}\n\n.ivu-icon-md-bus:before {\n    content: \"\\F365\"\n}\n\n.ivu-icon-md-cafe:before {\n    content: \"\\F366\"\n}\n\n.ivu-icon-md-calculator:before {\n    content: \"\\F367\"\n}\n\n.ivu-icon-md-calendar:before {\n    content: \"\\F368\"\n}\n\n.ivu-icon-md-call:before {\n    content: \"\\F369\"\n}\n\n.ivu-icon-md-camera:before {\n    content: \"\\F36A\"\n}\n\n.ivu-icon-md-car:before {\n    content: \"\\F36B\"\n}\n\n.ivu-icon-md-card:before {\n    content: \"\\F36C\"\n}\n\n.ivu-icon-md-cart:before {\n    content: \"\\F36D\"\n}\n\n.ivu-icon-md-cash:before {\n    content: \"\\F36E\"\n}\n\n.ivu-icon-md-chatboxes:before {\n    content: \"\\F36F\"\n}\n\n.ivu-icon-md-chatbubbles:before {\n    content: \"\\F370\"\n}\n\n.ivu-icon-md-checkbox-outline:before {\n    content: \"\\F371\"\n}\n\n.ivu-icon-md-checkbox:before {\n    content: \"\\F372\"\n}\n\n.ivu-icon-md-checkmark-circle-outline:before {\n    content: \"\\F373\"\n}\n\n.ivu-icon-md-checkmark-circle:before {\n    content: \"\\F374\"\n}\n\n.ivu-icon-md-checkmark:before {\n    content: \"\\F375\"\n}\n\n.ivu-icon-md-clipboard:before {\n    content: \"\\F376\"\n}\n\n.ivu-icon-md-clock:before {\n    content: \"\\F377\"\n}\n\n.ivu-icon-md-close-circle:before {\n    content: \"\\F378\"\n}\n\n.ivu-icon-md-close:before {\n    content: \"\\F379\"\n}\n\n.ivu-icon-md-closed-captioning:before {\n    content: \"\\F37A\"\n}\n\n.ivu-icon-md-cloud-circle:before {\n    content: \"\\F37B\"\n}\n\n.ivu-icon-md-cloud-done:before {\n    content: \"\\F37C\"\n}\n\n.ivu-icon-md-cloud-download:before {\n    content: \"\\F37D\"\n}\n\n.ivu-icon-md-cloud-outline:before {\n    content: \"\\F37E\"\n}\n\n.ivu-icon-md-cloud-upload:before {\n    content: \"\\F37F\"\n}\n\n.ivu-icon-md-cloud:before {\n    content: \"\\F380\"\n}\n\n.ivu-icon-md-cloudy-night:before {\n    content: \"\\F381\"\n}\n\n.ivu-icon-md-cloudy:before {\n    content: \"\\F382\"\n}\n\n.ivu-icon-md-code-download:before {\n    content: \"\\F383\"\n}\n\n.ivu-icon-md-code-working:before {\n    content: \"\\F384\"\n}\n\n.ivu-icon-md-code:before {\n    content: \"\\F385\"\n}\n\n.ivu-icon-md-cog:before {\n    content: \"\\F386\"\n}\n\n.ivu-icon-md-color-fill:before {\n    content: \"\\F387\"\n}\n\n.ivu-icon-md-color-filter:before {\n    content: \"\\F388\"\n}\n\n.ivu-icon-md-color-palette:before {\n    content: \"\\F389\"\n}\n\n.ivu-icon-md-color-wand:before {\n    content: \"\\F38A\"\n}\n\n.ivu-icon-md-compass:before {\n    content: \"\\F38B\"\n}\n\n.ivu-icon-md-construct:before {\n    content: \"\\F38C\"\n}\n\n.ivu-icon-md-contact:before {\n    content: \"\\F38D\"\n}\n\n.ivu-icon-md-contacts:before {\n    content: \"\\F38E\"\n}\n\n.ivu-icon-md-contract:before {\n    content: \"\\F38F\"\n}\n\n.ivu-icon-md-contrast:before {\n    content: \"\\F390\"\n}\n\n.ivu-icon-md-copy:before {\n    content: \"\\F391\"\n}\n\n.ivu-icon-md-create:before {\n    content: \"\\F392\"\n}\n\n.ivu-icon-md-crop:before {\n    content: \"\\F393\"\n}\n\n.ivu-icon-md-cube:before {\n    content: \"\\F394\"\n}\n\n.ivu-icon-md-cut:before {\n    content: \"\\F395\"\n}\n\n.ivu-icon-md-desktop:before {\n    content: \"\\F396\"\n}\n\n.ivu-icon-md-disc:before {\n    content: \"\\F397\"\n}\n\n.ivu-icon-md-document:before {\n    content: \"\\F398\"\n}\n\n.ivu-icon-md-done-all:before {\n    content: \"\\F399\"\n}\n\n.ivu-icon-md-download:before {\n    content: \"\\F39A\"\n}\n\n.ivu-icon-md-easel:before {\n    content: \"\\F39B\"\n}\n\n.ivu-icon-md-egg:before {\n    content: \"\\F39C\"\n}\n\n.ivu-icon-md-exit:before {\n    content: \"\\F39D\"\n}\n\n.ivu-icon-md-expand:before {\n    content: \"\\F39E\"\n}\n\n.ivu-icon-md-eye-off:before {\n    content: \"\\F39F\"\n}\n\n.ivu-icon-md-eye:before {\n    content: \"\\F3A0\"\n}\n\n.ivu-icon-md-fastforward:before {\n    content: \"\\F3A1\"\n}\n\n.ivu-icon-md-female:before {\n    content: \"\\F3A2\"\n}\n\n.ivu-icon-md-filing:before {\n    content: \"\\F3A3\"\n}\n\n.ivu-icon-md-film:before {\n    content: \"\\F3A4\"\n}\n\n.ivu-icon-md-finger-print:before {\n    content: \"\\F3A5\"\n}\n\n.ivu-icon-md-flag:before {\n    content: \"\\F3A6\"\n}\n\n.ivu-icon-md-flame:before {\n    content: \"\\F3A7\"\n}\n\n.ivu-icon-md-flash:before {\n    content: \"\\F3A8\"\n}\n\n.ivu-icon-md-flask:before {\n    content: \"\\F3A9\"\n}\n\n.ivu-icon-md-flower:before {\n    content: \"\\F3AA\"\n}\n\n.ivu-icon-md-folder-open:before {\n    content: \"\\F3AB\"\n}\n\n.ivu-icon-md-folder:before {\n    content: \"\\F3AC\"\n}\n\n.ivu-icon-md-football:before {\n    content: \"\\F3AD\"\n}\n\n.ivu-icon-md-funnel:before {\n    content: \"\\F3AE\"\n}\n\n.ivu-icon-md-game-controller-a:before {\n    content: \"\\F3AF\"\n}\n\n.ivu-icon-md-game-controller-b:before {\n    content: \"\\F3B0\"\n}\n\n.ivu-icon-md-git-branch:before {\n    content: \"\\F3B1\"\n}\n\n.ivu-icon-md-git-commit:before {\n    content: \"\\F3B2\"\n}\n\n.ivu-icon-md-git-compare:before {\n    content: \"\\F3B3\"\n}\n\n.ivu-icon-md-git-merge:before {\n    content: \"\\F3B4\"\n}\n\n.ivu-icon-md-git-network:before {\n    content: \"\\F3B5\"\n}\n\n.ivu-icon-md-git-pull-request:before {\n    content: \"\\F3B6\"\n}\n\n.ivu-icon-md-glasses:before {\n    content: \"\\F3B7\"\n}\n\n.ivu-icon-md-globe:before {\n    content: \"\\F3B8\"\n}\n\n.ivu-icon-md-grid:before {\n    content: \"\\F3B9\"\n}\n\n.ivu-icon-md-hammer:before {\n    content: \"\\F3BA\"\n}\n\n.ivu-icon-md-hand:before {\n    content: \"\\F3BB\"\n}\n\n.ivu-icon-md-happy:before {\n    content: \"\\F3BC\"\n}\n\n.ivu-icon-md-headset:before {\n    content: \"\\F3BD\"\n}\n\n.ivu-icon-md-heart-outline:before {\n    content: \"\\F3BE\"\n}\n\n.ivu-icon-md-heart:before {\n    content: \"\\F3BF\"\n}\n\n.ivu-icon-md-help-buoy:before {\n    content: \"\\F3C0\"\n}\n\n.ivu-icon-md-help-circle:before {\n    content: \"\\F3C1\"\n}\n\n.ivu-icon-md-help:before {\n    content: \"\\F3C2\"\n}\n\n.ivu-icon-md-home:before {\n    content: \"\\F3C3\"\n}\n\n.ivu-icon-md-ice-cream:before {\n    content: \"\\F3C4\"\n}\n\n.ivu-icon-md-image:before {\n    content: \"\\F3C5\"\n}\n\n.ivu-icon-md-images:before {\n    content: \"\\F3C6\"\n}\n\n.ivu-icon-md-infinite:before {\n    content: \"\\F3C7\"\n}\n\n.ivu-icon-md-information-circle:before {\n    content: \"\\F3C8\"\n}\n\n.ivu-icon-md-information:before {\n    content: \"\\F3C9\"\n}\n\n.ivu-icon-md-ionic:before {\n    content: \"\\F3CA\"\n}\n\n.ivu-icon-md-ionitron:before {\n    content: \"\\F3CB\"\n}\n\n.ivu-icon-md-jet:before {\n    content: \"\\F3CC\"\n}\n\n.ivu-icon-md-key:before {\n    content: \"\\F3CD\"\n}\n\n.ivu-icon-md-keypad:before {\n    content: \"\\F3CE\"\n}\n\n.ivu-icon-md-laptop:before {\n    content: \"\\F3CF\"\n}\n\n.ivu-icon-md-leaf:before {\n    content: \"\\F3D0\"\n}\n\n.ivu-icon-md-link:before {\n    content: \"\\F3D1\"\n}\n\n.ivu-icon-md-list-box:before {\n    content: \"\\F3D2\"\n}\n\n.ivu-icon-md-list:before {\n    content: \"\\F3D3\"\n}\n\n.ivu-icon-md-locate:before {\n    content: \"\\F3D4\"\n}\n\n.ivu-icon-md-lock:before {\n    content: \"\\F3D5\"\n}\n\n.ivu-icon-md-log-in:before {\n    content: \"\\F3D6\"\n}\n\n.ivu-icon-md-log-out:before {\n    content: \"\\F3D7\"\n}\n\n.ivu-icon-md-magnet:before {\n    content: \"\\F3D8\"\n}\n\n.ivu-icon-md-mail-open:before {\n    content: \"\\F3D9\"\n}\n\n.ivu-icon-md-mail:before {\n    content: \"\\F3DA\"\n}\n\n.ivu-icon-md-male:before {\n    content: \"\\F3DB\"\n}\n\n.ivu-icon-md-man:before {\n    content: \"\\F3DC\"\n}\n\n.ivu-icon-md-map:before {\n    content: \"\\F3DD\"\n}\n\n.ivu-icon-md-medal:before {\n    content: \"\\F3DE\"\n}\n\n.ivu-icon-md-medical:before {\n    content: \"\\F3DF\"\n}\n\n.ivu-icon-md-medkit:before {\n    content: \"\\F3E0\"\n}\n\n.ivu-icon-md-megaphone:before {\n    content: \"\\F3E1\"\n}\n\n.ivu-icon-md-menu:before {\n    content: \"\\F3E2\"\n}\n\n.ivu-icon-md-mic-off:before {\n    content: \"\\F3E3\"\n}\n\n.ivu-icon-md-mic:before {\n    content: \"\\F3E4\"\n}\n\n.ivu-icon-md-microphone:before {\n    content: \"\\F3E5\"\n}\n\n.ivu-icon-md-moon:before {\n    content: \"\\F3E6\"\n}\n\n.ivu-icon-md-more:before {\n    content: \"\\F3E7\"\n}\n\n.ivu-icon-md-move:before {\n    content: \"\\F3E8\"\n}\n\n.ivu-icon-md-musical-note:before {\n    content: \"\\F3E9\"\n}\n\n.ivu-icon-md-musical-notes:before {\n    content: \"\\F3EA\"\n}\n\n.ivu-icon-md-navigate:before {\n    content: \"\\F3EB\"\n}\n\n.ivu-icon-md-no-smoking:before {\n    content: \"\\F3EC\"\n}\n\n.ivu-icon-md-notifications-off:before {\n    content: \"\\F3ED\"\n}\n\n.ivu-icon-md-notifications-outline:before {\n    content: \"\\F3EE\"\n}\n\n.ivu-icon-md-notifications:before {\n    content: \"\\F3EF\"\n}\n\n.ivu-icon-md-nuclear:before {\n    content: \"\\F3F0\"\n}\n\n.ivu-icon-md-nutrition:before {\n    content: \"\\F3F1\"\n}\n\n.ivu-icon-md-open:before {\n    content: \"\\F3F2\"\n}\n\n.ivu-icon-md-options:before {\n    content: \"\\F3F3\"\n}\n\n.ivu-icon-md-outlet:before {\n    content: \"\\F3F4\"\n}\n\n.ivu-icon-md-paper-plane:before {\n    content: \"\\F3F5\"\n}\n\n.ivu-icon-md-paper:before {\n    content: \"\\F3F6\"\n}\n\n.ivu-icon-md-partly-sunny:before {\n    content: \"\\F3F7\"\n}\n\n.ivu-icon-md-pause:before {\n    content: \"\\F3F8\"\n}\n\n.ivu-icon-md-paw:before {\n    content: \"\\F3F9\"\n}\n\n.ivu-icon-md-people:before {\n    content: \"\\F3FA\"\n}\n\n.ivu-icon-md-person-add:before {\n    content: \"\\F3FB\"\n}\n\n.ivu-icon-md-person:before {\n    content: \"\\F3FC\"\n}\n\n.ivu-icon-md-phone-landscape:before {\n    content: \"\\F3FD\"\n}\n\n.ivu-icon-md-phone-portrait:before {\n    content: \"\\F3FE\"\n}\n\n.ivu-icon-md-photos:before {\n    content: \"\\F3FF\"\n}\n\n.ivu-icon-md-pie:before {\n    content: \"\\F400\"\n}\n\n.ivu-icon-md-pin:before {\n    content: \"\\F401\"\n}\n\n.ivu-icon-md-pint:before {\n    content: \"\\F402\"\n}\n\n.ivu-icon-md-pizza:before {\n    content: \"\\F403\"\n}\n\n.ivu-icon-md-plane:before {\n    content: \"\\F404\"\n}\n\n.ivu-icon-md-planet:before {\n    content: \"\\F405\"\n}\n\n.ivu-icon-md-play:before {\n    content: \"\\F406\"\n}\n\n.ivu-icon-md-podium:before {\n    content: \"\\F407\"\n}\n\n.ivu-icon-md-power:before {\n    content: \"\\F408\"\n}\n\n.ivu-icon-md-pricetag:before {\n    content: \"\\F409\"\n}\n\n.ivu-icon-md-pricetags:before {\n    content: \"\\F40A\"\n}\n\n.ivu-icon-md-print:before {\n    content: \"\\F40B\"\n}\n\n.ivu-icon-md-pulse:before {\n    content: \"\\F40C\"\n}\n\n.ivu-icon-md-qr-scanner:before {\n    content: \"\\F40D\"\n}\n\n.ivu-icon-md-quote:before {\n    content: \"\\F40E\"\n}\n\n.ivu-icon-md-radio-button-off:before {\n    content: \"\\F40F\"\n}\n\n.ivu-icon-md-radio-button-on:before {\n    content: \"\\F410\"\n}\n\n.ivu-icon-md-radio:before {\n    content: \"\\F411\"\n}\n\n.ivu-icon-md-rainy:before {\n    content: \"\\F412\"\n}\n\n.ivu-icon-md-recording:before {\n    content: \"\\F413\"\n}\n\n.ivu-icon-md-redo:before {\n    content: \"\\F414\"\n}\n\n.ivu-icon-md-refresh-circle:before {\n    content: \"\\F415\"\n}\n\n.ivu-icon-md-refresh:before {\n    content: \"\\F416\"\n}\n\n.ivu-icon-md-remove-circle:before {\n    content: \"\\F417\"\n}\n\n.ivu-icon-md-remove:before {\n    content: \"\\F418\"\n}\n\n.ivu-icon-md-reorder:before {\n    content: \"\\F419\"\n}\n\n.ivu-icon-md-repeat:before {\n    content: \"\\F41A\"\n}\n\n.ivu-icon-md-resize:before {\n    content: \"\\F41B\"\n}\n\n.ivu-icon-md-restaurant:before {\n    content: \"\\F41C\"\n}\n\n.ivu-icon-md-return-left:before {\n    content: \"\\F41D\"\n}\n\n.ivu-icon-md-return-right:before {\n    content: \"\\F41E\"\n}\n\n.ivu-icon-md-reverse-camera:before {\n    content: \"\\F41F\"\n}\n\n.ivu-icon-md-rewind:before {\n    content: \"\\F420\"\n}\n\n.ivu-icon-md-ribbon:before {\n    content: \"\\F421\"\n}\n\n.ivu-icon-md-rose:before {\n    content: \"\\F422\"\n}\n\n.ivu-icon-md-sad:before {\n    content: \"\\F423\"\n}\n\n.ivu-icon-md-school:before {\n    content: \"\\F424\"\n}\n\n.ivu-icon-md-search:before {\n    content: \"\\F425\"\n}\n\n.ivu-icon-md-send:before {\n    content: \"\\F426\"\n}\n\n.ivu-icon-md-settings:before {\n    content: \"\\F427\"\n}\n\n.ivu-icon-md-share-alt:before {\n    content: \"\\F428\"\n}\n\n.ivu-icon-md-share:before {\n    content: \"\\F429\"\n}\n\n.ivu-icon-md-shirt:before {\n    content: \"\\F42A\"\n}\n\n.ivu-icon-md-shuffle:before {\n    content: \"\\F42B\"\n}\n\n.ivu-icon-md-skip-backward:before {\n    content: \"\\F42C\"\n}\n\n.ivu-icon-md-skip-forward:before {\n    content: \"\\F42D\"\n}\n\n.ivu-icon-md-snow:before {\n    content: \"\\F42E\"\n}\n\n.ivu-icon-md-speedometer:before {\n    content: \"\\F42F\"\n}\n\n.ivu-icon-md-square-outline:before {\n    content: \"\\F430\"\n}\n\n.ivu-icon-md-square:before {\n    content: \"\\F431\"\n}\n\n.ivu-icon-md-star-half:before {\n    content: \"\\F432\"\n}\n\n.ivu-icon-md-star-outline:before {\n    content: \"\\F433\"\n}\n\n.ivu-icon-md-star:before {\n    content: \"\\F434\"\n}\n\n.ivu-icon-md-stats:before {\n    content: \"\\F435\"\n}\n\n.ivu-icon-md-stopwatch:before {\n    content: \"\\F436\"\n}\n\n.ivu-icon-md-subway:before {\n    content: \"\\F437\"\n}\n\n.ivu-icon-md-sunny:before {\n    content: \"\\F438\"\n}\n\n.ivu-icon-md-swap:before {\n    content: \"\\F439\"\n}\n\n.ivu-icon-md-switch:before {\n    content: \"\\F43A\"\n}\n\n.ivu-icon-md-sync:before {\n    content: \"\\F43B\"\n}\n\n.ivu-icon-md-tablet-landscape:before {\n    content: \"\\F43C\"\n}\n\n.ivu-icon-md-tablet-portrait:before {\n    content: \"\\F43D\"\n}\n\n.ivu-icon-md-tennisball:before {\n    content: \"\\F43E\"\n}\n\n.ivu-icon-md-text:before {\n    content: \"\\F43F\"\n}\n\n.ivu-icon-md-thermometer:before {\n    content: \"\\F440\"\n}\n\n.ivu-icon-md-thumbs-down:before {\n    content: \"\\F441\"\n}\n\n.ivu-icon-md-thumbs-up:before {\n    content: \"\\F442\"\n}\n\n.ivu-icon-md-thunderstorm:before {\n    content: \"\\F443\"\n}\n\n.ivu-icon-md-time:before {\n    content: \"\\F444\"\n}\n\n.ivu-icon-md-timer:before {\n    content: \"\\F445\"\n}\n\n.ivu-icon-md-train:before {\n    content: \"\\F446\"\n}\n\n.ivu-icon-md-transgender:before {\n    content: \"\\F447\"\n}\n\n.ivu-icon-md-trash:before {\n    content: \"\\F448\"\n}\n\n.ivu-icon-md-trending-down:before {\n    content: \"\\F449\"\n}\n\n.ivu-icon-md-trending-up:before {\n    content: \"\\F44A\"\n}\n\n.ivu-icon-md-trophy:before {\n    content: \"\\F44B\"\n}\n\n.ivu-icon-md-umbrella:before {\n    content: \"\\F44C\"\n}\n\n.ivu-icon-md-undo:before {\n    content: \"\\F44D\"\n}\n\n.ivu-icon-md-unlock:before {\n    content: \"\\F44E\"\n}\n\n.ivu-icon-md-videocam:before {\n    content: \"\\F44F\"\n}\n\n.ivu-icon-md-volume-down:before {\n    content: \"\\F450\"\n}\n\n.ivu-icon-md-volume-mute:before {\n    content: \"\\F451\"\n}\n\n.ivu-icon-md-volume-off:before {\n    content: \"\\F452\"\n}\n\n.ivu-icon-md-volume-up:before {\n    content: \"\\F453\"\n}\n\n.ivu-icon-md-walk:before {\n    content: \"\\F454\"\n}\n\n.ivu-icon-md-warning:before {\n    content: \"\\F455\"\n}\n\n.ivu-icon-md-watch:before {\n    content: \"\\F456\"\n}\n\n.ivu-icon-md-water:before {\n    content: \"\\F457\"\n}\n\n.ivu-icon-md-wifi:before {\n    content: \"\\F458\"\n}\n\n.ivu-icon-md-wine:before {\n    content: \"\\F459\"\n}\n\n.ivu-icon-md-woman:before {\n    content: \"\\F45A\"\n}\n\n.ivu-icon-ios-loading:before {\n    content: \"\\F45B\"\n}\n\n/* uploads *****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/\n.ivu-upload{\n    cursor: pointer;\n}\n.ivu-upload input[type=file] {\n    display: none\n}\n\n.ivu-upload-list {\n    margin-top: 8px\n}\n\n.ivu-upload-list-file {\n    padding: 4px;\n    color: #515a6e;\n    border-radius: 4px;\n    transition: background-color .2s ease-in-out;\n    overflow: hidden;\n    position: relative\n}\n\n.ivu-upload-list-file>span {\n    cursor: pointer;\n    transition: color .2s ease-in-out\n}\n\n.ivu-upload-list-file>span i {\n    display: inline-block;\n    width: 12px;\n    height: 12px;\n    color: #515a6e;\n    text-align: center\n}\n\n.ivu-upload-list-file:hover {\n    background: #f3f3f3\n}\n\n.ivu-upload-list-file:hover>span {\n    color: #2d8cf0\n}\n\n.ivu-upload-list-file:hover>span i {\n    color: #515a6e\n}\n\n.ivu-upload-list-file:hover .ivu-upload-list-remove {\n    opacity: 1\n}\n\n.ivu-upload-list-remove {\n    opacity: 0;\n    font-size: 18px;\n    cursor: pointer;\n    float: right;\n    margin-right: 4px;\n    color: #999;\n    transition: all .2s ease\n}\n\n.ivu-upload-list-remove:hover {\n    color: #444\n}\n\n.ivu-upload-select {\n    display: inline-block;\n    width: 100% !important;\n}\n\n.ivu-upload-drag {\n    background: #fff;\n    border: 1px dashed #dcdee2;\n    border-radius: 4px;\n    text-align: center;\n    cursor: pointer;\n    position: relative;\n    overflow: hidden;\n    transition: border-color .2s ease\n}\n\n.ivu-upload-drag:hover {\n    border: 1px dashed #2d8cf0\n}\n\n.ivu-upload-dragOver {\n    border: 2px dashed #2d8cf0\n}\n.ivu-progress {\n    display: inline-block;\n    width: 100%;\n    font-size: 12px;\n    position: relative\n}\n\n.ivu-progress-vertical {\n    height: 100%;\n    width: auto\n}\n\n.ivu-progress-outer {\n    display: inline-block;\n    width: 100%;\n    margin-right: 0;\n    padding-right: 0\n}\n\n.ivu-progress-show-info .ivu-progress-outer {\n    padding-right: 55px;\n    margin-right: -55px\n}\n\n.ivu-progress-vertical .ivu-progress-outer {\n    height: 100%;\n    width: auto\n}\n\n.ivu-progress-inner {\n    display: inline-block;\n    width: 100%;\n    background-color: #f3f3f3;\n    border-radius: 100px;\n    vertical-align: middle;\n    position: relative\n}\n\n.ivu-progress-vertical .ivu-progress-inner {\n    height: 100%;\n    width: auto\n}\n\n.ivu-progress-vertical .ivu-progress-inner:after,\n.ivu-progress-vertical .ivu-progress-inner>* {\n    display: inline-block;\n    vertical-align: bottom\n}\n\n.ivu-progress-vertical .ivu-progress-inner:after {\n    content: '';\n    height: 100%\n}\n\n.ivu-progress-bg {\n    border-radius: 100px;\n    background-color: #2d8cf0;\n    transition: all .2s linear;\n    position: relative\n}\n\n.ivu-progress-success-bg {\n    border-radius: 100px;\n    background-color: #19be6b;\n    transition: all .2s linear;\n    position: absolute;\n    top: 0;\n    left: 0\n}\n\n.ivu-progress-text {\n    display: inline-block;\n    margin-left: 5px;\n    text-align: left;\n    font-size: 1em;\n    vertical-align: middle\n}\n\n.ivu-progress-active .ivu-progress-bg:before {\n    content: '';\n    opacity: 0;\n    position: absolute;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    background: #fff;\n    border-radius: 10px;\n    -webkit-animation: ivu-progress-active 2s ease-in-out infinite;\n    animation: ivu-progress-active 2s ease-in-out infinite\n}\n\n.ivu-progress-vertical.ivu-progress-active .ivu-progress-bg:before {\n    top: auto;\n    -webkit-animation: ivu-progress-active-vertical 2s ease-in-out infinite;\n    animation: ivu-progress-active-vertical 2s ease-in-out infinite\n}\n\n.ivu-progress-wrong .ivu-progress-bg {\n    background-color: #ed4014\n}\n\n.ivu-progress-wrong .ivu-progress-text {\n    color: #ed4014\n}\n\n.ivu-progress-success .ivu-progress-bg {\n    background-color: #19be6b\n}\n\n.ivu-progress-success .ivu-progress-text {\n    color: #19be6b\n}\n\n@-webkit-keyframes ivu-progress-active {\n    0% {\n        opacity: .3;\n        width: 0\n    }\n    100% {\n        opacity: 0;\n        width: 100%\n    }\n}\n\n@keyframes ivu-progress-active {\n    0% {\n        opacity: .3;\n        width: 0\n    }\n    100% {\n        opacity: 0;\n        width: 100%\n    }\n}\n\n@-webkit-keyframes ivu-progress-active-vertical {\n    0% {\n        opacity: .3;\n        height: 0\n    }\n    100% {\n        opacity: 0;\n        height: 100%\n    }\n}\n\n@keyframes ivu-progress-active-vertical {\n    0% {\n        opacity: .3;\n        height: 0\n    }\n    100% {\n        opacity: 0;\n        height: 100%\n    }\n}\n.ivu-tree ul {\n    list-style: none;\n    margin: 0;\n    padding: 0;\n    font-size: 12px\n}\n\n.ivu-tree ul.ivu-dropdown-menu {\n    padding: 0\n}\n\n.ivu-tree ul li {\n    list-style: none;\n    margin: 8px 0;\n    padding: 0;\n    white-space: nowrap;\n    outline: 0\n}\n\n.ivu-tree ul li.ivu-dropdown-item {\n    margin: 0;\n    padding: 7px 16px;\n    white-space: nowrap\n}\n\n.ivu-tree li ul {\n    margin: 0;\n    padding: 0 0 0 18px\n}\n\n.ivu-tree-title {\n    display: inline-block;\n    margin: 0;\n    padding: 0 4px;\n    border-radius: 3px;\n    cursor: pointer;\n    vertical-align: top;\n    color: #515a6e;\n    transition: all .2s ease-in-out\n}\n\n.ivu-tree-title:hover {\n    background-color: #eaf4fe\n}\n\n.ivu-tree-title-selected,\n.ivu-tree-title-selected:hover {\n    background-color: #d5e8fc\n}\n\n.ivu-tree-arrow {\n    cursor: pointer;\n    width: 18px;\n    margin-right: 10px;\n    text-align: center;\n    display: inline-block\n}\n\n.ivu-tree-arrow i {\n    transition: all .2s ease-in-out;\n    font-size: 16px;\n    font-weight: bold;\n    vertical-align: middle;\n    color: #283F5C;\n}\n\n.ivu-tree-arrow-open i {\n    -webkit-transform: rotate(90deg);\n    transform: rotate(90deg);\n}\n\n.ivu-tree-arrow-disabled {\n    cursor: not-allowed\n}\n\n.ivu-tree .ivu-checkbox-wrapper {\n    margin-right: 4px;\n    margin-left: 4px\n}\n.ivu-tree .ivu-icon-ios-folder{\n    font-size: 1.8em;\n    color: #283F5C;\n}\n.ivu-tree .ivu-icon-ios-paper-outline{\n    font-size: 1.5em;\n}\n\n\n.ivu-modal {\n    width: auto;\n    margin: 0 auto;\n    position: relative;\n    outline: 0;\n    top: 100px\n}\n\n.ivu-modal-hidden {\n    display: none!important\n}\n\n.ivu-modal-wrap {\n    position: fixed;\n    overflow: auto;\n    top: 0;\n    right: 0;\n    bottom: 0;\n    left: 0;\n    z-index: 1000;\n    -webkit-overflow-scrolling: touch;\n    outline: 0\n}\n\n.ivu-modal-wrap * {\n    box-sizing: border-box;\n    -webkit-tap-highlight-color: transparent\n}\n\n.ivu-modal-mask {\n    position: fixed;\n    top: 0;\n    bottom: 0;\n    left: 0;\n    right: 0;\n    background-color: rgba(55, 55, 55, .6);\n    height: 100%;\n    z-index: 1000\n}\n\n.ivu-modal-mask-hidden {\n    display: none\n}\n\n.ivu-modal-content {\n    position: relative;\n    background-color: #fff;\n    border: 0;\n    border-radius: 6px;\n    background-clip: padding-box;\n    box-shadow: 0 4px 12px rgba(0, 0, 0, .15)\n}\n\n.ivu-modal-content-no-mask {\n    pointer-events: auto\n}\n\n.ivu-modal-content-drag {\n    position: absolute\n}\n\n.ivu-modal-content-drag .ivu-modal-header {\n    cursor: move\n}\n\n.ivu-modal-content-dragging {\n    -webkit-user-select: none;\n    -moz-user-select: none;\n    -ms-user-select: none;\n    user-select: none\n}\n\n.ivu-modal-header {\n    border-bottom: 1px solid #e8eaec;\n    padding: 14px 16px;\n    line-height: 1\n}\n\n.ivu-modal-header p,\n.ivu-modal-header-inner {\n    display: inline-block;\n    width: 100%;\n    height: 20px;\n    line-height: 20px;\n    font-size: 14px;\n    color: #17233d;\n    font-weight: 700;\n    overflow: hidden;\n    text-overflow: ellipsis;\n    white-space: nowrap\n}\n\n.ivu-modal-header p i,\n.ivu-modal-header p span {\n    vertical-align: middle\n}\n\n.ivu-modal-close {\n    z-index: 1;\n    font-size: 12px;\n    position: absolute;\n    right: 8px;\n    top: 8px;\n    overflow: hidden;\n    cursor: pointer\n}\n\n.ivu-modal-close .ivu-icon-ios-close {\n    font-size: 31px;\n    color: #999;\n    transition: color .2s ease;\n    position: relative;\n    top: 1px\n}\n\n.ivu-modal-close .ivu-icon-ios-close:hover {\n    color: #444\n}\n\n.ivu-modal-body {\n    padding: 16px;\n    font-size: 12px;\n    line-height: 1.5\n}\n\n.ivu-modal-footer {\n    border-top: 1px solid #e8eaec;\n    padding: 12px 18px 12px 18px;\n    text-align: right\n}\n\n.ivu-modal-footer button+button {\n    margin-left: 8px;\n    margin-bottom: 0\n}\n\n.ivu-modal-fullscreen {\n    width: 100%!important;\n    top: 0;\n    bottom: 0;\n    position: absolute\n}\n\n.ivu-modal-fullscreen .ivu-modal-content {\n    width: 100%;\n    border-radius: 0;\n    position: absolute;\n    top: 0;\n    bottom: 0\n}\n\n.ivu-modal-fullscreen .ivu-modal-body {\n    width: 100%;\n    overflow: auto;\n    position: absolute;\n    top: 51px;\n    bottom: 61px\n}\n\n.ivu-modal-fullscreen-no-header .ivu-modal-body {\n    top: 0\n}\n\n.ivu-modal-fullscreen-no-footer .ivu-modal-body {\n    bottom: 0\n}\n\n.ivu-modal-fullscreen .ivu-modal-footer {\n    position: absolute;\n    width: 100%;\n    bottom: 0\n}\n\n.ivu-modal-no-mask {\n    pointer-events: none\n}\n\n@media (max-width:576px) {\n    .ivu-modal {\n        width: auto!important;\n        margin: 10px\n    }\n    .ivu-modal-fullscreen {\n        width: 100%!important;\n        margin: 0\n    }\n    .vertical-center-modal .ivu-modal {\n        flex: 1\n    }\n}\n\n.ivu-modal-confirm {\n    padding: 0 4px\n}\n\n.ivu-modal-confirm-head {\n    padding: 0 12px 0 0\n}\n\n.ivu-modal-confirm-head-icon {\n    display: inline-block;\n    font-size: 28px;\n    vertical-align: middle;\n    position: relative;\n    top: -2px\n}\n\n.ivu-modal-confirm-head-icon-info {\n    color: #2d8cf0\n}\n\n.ivu-modal-confirm-head-icon-success {\n    color: #19be6b\n}\n\n.ivu-modal-confirm-head-icon-warning {\n    color: #f90\n}\n\n.ivu-modal-confirm-head-icon-error {\n    color: #ed4014\n}\n\n.ivu-modal-confirm-head-icon-confirm {\n    color: #f90\n}\n\n.ivu-modal-confirm-head-title {\n    display: inline-block;\n    vertical-align: middle;\n    margin-left: 12px;\n    font-size: 16px;\n    color: #17233d;\n    font-weight: 700\n}\n\n.ivu-modal-confirm-body {\n    padding-left: 42px;\n    font-size: 14px;\n    color: #515a6e;\n    position: relative\n}\n\n.ivu-modal-confirm-body-render {\n    margin: 0;\n    padding: 0\n}\n\n.ivu-modal-confirm-footer {\n    margin-top: 20px;\n    text-align: right\n}\n\n.ivu-modal-confirm-footer button+button {\n    margin-left: 8px;\n    margin-bottom: 0\n}\n", ""]);
+exports.push([module.i, "/* Fonts *****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/\n@font-face {\n    font-family: Ionicons;\n    src: url(" + escape(__webpack_require__(/*! ./fonts/ionicons.woff2?v=3.0.0 */ "./resources/sass/vue/styles/fonts/ionicons.woff2?v=3.0.0")) + ") format(\"woff2\"), url(" + escape(__webpack_require__(/*! ./fonts/ionicons.woff?v=3.0.0 */ "./resources/sass/vue/styles/fonts/ionicons.woff?v=3.0.0")) + ") format(\"woff\"), url(" + escape(__webpack_require__(/*! ./fonts/ionicons.ttf?v=3.0.0 */ "./resources/sass/vue/styles/fonts/ionicons.ttf?v=3.0.0")) + ") format(\"truetype\"), url(" + escape(__webpack_require__(/*! ./fonts/ionicons.svg?v=3.0.0 */ "./resources/sass/vue/styles/fonts/ionicons.svg?v=3.0.0")) + "#Ionicons) format(\"svg\");\n    font-weight: 400;\n    font-style: normal\n}\n\n.ivu-icon {\n    display: inline-block;\n    font-family: Ionicons;\n    speak: none;\n    font-style: normal;\n    font-weight: 400;\n    font-variant: normal;\n    text-transform: none;\n    text-rendering: auto;\n    line-height: 1;\n    -webkit-font-smoothing: antialiased;\n    -moz-osx-font-smoothing: grayscale;\n    vertical-align: middle\n}\n@font-face {\n    font-family: Ionicons;\n    src: url(" + escape(__webpack_require__(/*! ./fonts/ionicons.woff2?v=3.0.0 */ "./resources/sass/vue/styles/fonts/ionicons.woff2?v=3.0.0")) + ") format(\"woff2\"), url(" + escape(__webpack_require__(/*! ./fonts/ionicons.woff?v=3.0.0 */ "./resources/sass/vue/styles/fonts/ionicons.woff?v=3.0.0")) + ") format(\"woff\"), url(" + escape(__webpack_require__(/*! ./fonts/ionicons.ttf?v=3.0.0 */ "./resources/sass/vue/styles/fonts/ionicons.ttf?v=3.0.0")) + ") format(\"truetype\"), url(" + escape(__webpack_require__(/*! ./fonts/ionicons.svg?v=3.0.0 */ "./resources/sass/vue/styles/fonts/ionicons.svg?v=3.0.0")) + "#Ionicons) format(\"svg\");\n    font-weight: 400;\n    font-style: normal\n}\n\n.ivu-icon {\n    display: inline-block;\n    font-family: Ionicons;\n    speak: none;\n    font-style: normal;\n    font-weight: 400;\n    font-variant: normal;\n    text-transform: none;\n    text-rendering: auto;\n    line-height: 1;\n    -webkit-font-smoothing: antialiased;\n    -moz-osx-font-smoothing: grayscale;\n    vertical-align: middle\n}\n\n.ivu-icon-ios-add-circle-outline:before {\n    content: \"\\F100\"\n}\n\n.ivu-icon-ios-add-circle:before {\n    content: \"\\F101\"\n}\n\n.ivu-icon-ios-add:before {\n    content: \"\\F102\"\n}\n\n.ivu-icon-ios-alarm-outline:before {\n    content: \"\\F103\"\n}\n\n.ivu-icon-ios-alarm:before {\n    content: \"\\F104\"\n}\n\n.ivu-icon-ios-albums-outline:before {\n    content: \"\\F105\"\n}\n\n.ivu-icon-ios-albums:before {\n    content: \"\\F106\"\n}\n\n.ivu-icon-ios-alert-outline:before {\n    content: \"\\F107\"\n}\n\n.ivu-icon-ios-alert:before {\n    content: \"\\F108\"\n}\n\n.ivu-icon-ios-american-football-outline:before {\n    content: \"\\F109\"\n}\n\n.ivu-icon-ios-american-football:before {\n    content: \"\\F10A\"\n}\n\n.ivu-icon-ios-analytics-outline:before {\n    content: \"\\F10B\"\n}\n\n.ivu-icon-ios-analytics:before {\n    content: \"\\F10C\"\n}\n\n.ivu-icon-ios-aperture-outline:before {\n    content: \"\\F10D\"\n}\n\n.ivu-icon-ios-aperture:before {\n    content: \"\\F10E\"\n}\n\n.ivu-icon-ios-apps-outline:before {\n    content: \"\\F10F\"\n}\n\n.ivu-icon-ios-apps:before {\n    content: \"\\F110\"\n}\n\n.ivu-icon-ios-appstore-outline:before {\n    content: \"\\F111\"\n}\n\n.ivu-icon-ios-appstore:before {\n    content: \"\\F112\"\n}\n\n.ivu-icon-ios-archive-outline:before {\n    content: \"\\F113\"\n}\n\n.ivu-icon-ios-archive:before {\n    content: \"\\F114\"\n}\n\n.ivu-icon-ios-arrow-back:before {\n    content: \"\\F115\"\n}\n\n.ivu-icon-ios-arrow-down:before {\n    content: \"\\F116\"\n}\n\n.ivu-icon-ios-arrow-dropdown-circle:before {\n    content: \"\\F117\"\n}\n\n.ivu-icon-ios-arrow-dropdown:before {\n    content: \"\\F118\"\n}\n\n.ivu-icon-ios-arrow-dropleft-circle:before {\n    content: \"\\F119\"\n}\n\n.ivu-icon-ios-arrow-dropleft:before {\n    content: \"\\F11A\"\n}\n\n.ivu-icon-ios-arrow-dropright-circle:before {\n    content: \"\\F11B\"\n}\n\n.ivu-icon-ios-arrow-dropright:before {\n    content: \"\\F11C\"\n}\n\n.ivu-icon-ios-arrow-dropup-circle:before {\n    content: \"\\F11D\"\n}\n\n.ivu-icon-ios-arrow-dropup:before {\n    content: \"\\F11E\"\n}\n\n.ivu-icon-ios-arrow-forward:before {\n    content: \"\\F11F\"\n}\n\n.ivu-icon-ios-arrow-round-back:before {\n    content: \"\\F120\"\n}\n\n.ivu-icon-ios-arrow-round-down:before {\n    content: \"\\F121\"\n}\n\n.ivu-icon-ios-arrow-round-forward:before {\n    content: \"\\F122\"\n}\n\n.ivu-icon-ios-arrow-round-up:before {\n    content: \"\\F123\"\n}\n\n.ivu-icon-ios-arrow-up:before {\n    content: \"\\F124\"\n}\n\n.ivu-icon-ios-at-outline:before {\n    content: \"\\F125\"\n}\n\n.ivu-icon-ios-at:before {\n    content: \"\\F126\"\n}\n\n.ivu-icon-ios-attach:before {\n    content: \"\\F127\"\n}\n\n.ivu-icon-ios-backspace-outline:before {\n    content: \"\\F128\"\n}\n\n.ivu-icon-ios-backspace:before {\n    content: \"\\F129\"\n}\n\n.ivu-icon-ios-barcode-outline:before {\n    content: \"\\F12A\"\n}\n\n.ivu-icon-ios-barcode:before {\n    content: \"\\F12B\"\n}\n\n.ivu-icon-ios-baseball-outline:before {\n    content: \"\\F12C\"\n}\n\n.ivu-icon-ios-baseball:before {\n    content: \"\\F12D\"\n}\n\n.ivu-icon-ios-basket-outline:before {\n    content: \"\\F12E\"\n}\n\n.ivu-icon-ios-basket:before {\n    content: \"\\F12F\"\n}\n\n.ivu-icon-ios-basketball-outline:before {\n    content: \"\\F130\"\n}\n\n.ivu-icon-ios-basketball:before {\n    content: \"\\F131\"\n}\n\n.ivu-icon-ios-battery-charging:before {\n    content: \"\\F132\"\n}\n\n.ivu-icon-ios-battery-dead:before {\n    content: \"\\F133\"\n}\n\n.ivu-icon-ios-battery-full:before {\n    content: \"\\F134\"\n}\n\n.ivu-icon-ios-beaker-outline:before {\n    content: \"\\F135\"\n}\n\n.ivu-icon-ios-beaker:before {\n    content: \"\\F136\"\n}\n\n.ivu-icon-ios-beer-outline:before {\n    content: \"\\F137\"\n}\n\n.ivu-icon-ios-beer:before {\n    content: \"\\F138\"\n}\n\n.ivu-icon-ios-bicycle:before {\n    content: \"\\F139\"\n}\n\n.ivu-icon-ios-bluetooth:before {\n    content: \"\\F13A\"\n}\n\n.ivu-icon-ios-boat-outline:before {\n    content: \"\\F13B\"\n}\n\n.ivu-icon-ios-boat:before {\n    content: \"\\F13C\"\n}\n\n.ivu-icon-ios-body-outline:before {\n    content: \"\\F13D\"\n}\n\n.ivu-icon-ios-body:before {\n    content: \"\\F13E\"\n}\n\n.ivu-icon-ios-bonfire-outline:before {\n    content: \"\\F13F\"\n}\n\n.ivu-icon-ios-bonfire:before {\n    content: \"\\F140\"\n}\n\n.ivu-icon-ios-book-outline:before {\n    content: \"\\F141\"\n}\n\n.ivu-icon-ios-book:before {\n    content: \"\\F142\"\n}\n\n.ivu-icon-ios-bookmark-outline:before {\n    content: \"\\F143\"\n}\n\n.ivu-icon-ios-bookmark:before {\n    content: \"\\F144\"\n}\n\n.ivu-icon-ios-bookmarks-outline:before {\n    content: \"\\F145\"\n}\n\n.ivu-icon-ios-bookmarks:before {\n    content: \"\\F146\"\n}\n\n.ivu-icon-ios-bowtie-outline:before {\n    content: \"\\F147\"\n}\n\n.ivu-icon-ios-bowtie:before {\n    content: \"\\F148\"\n}\n\n.ivu-icon-ios-briefcase-outline:before {\n    content: \"\\F149\"\n}\n\n.ivu-icon-ios-briefcase:before {\n    content: \"\\F14A\"\n}\n\n.ivu-icon-ios-browsers-outline:before {\n    content: \"\\F14B\"\n}\n\n.ivu-icon-ios-browsers:before {\n    content: \"\\F14C\"\n}\n\n.ivu-icon-ios-brush-outline:before {\n    content: \"\\F14D\"\n}\n\n.ivu-icon-ios-brush:before {\n    content: \"\\F14E\"\n}\n\n.ivu-icon-ios-bug-outline:before {\n    content: \"\\F14F\"\n}\n\n.ivu-icon-ios-bug:before {\n    content: \"\\F150\"\n}\n\n.ivu-icon-ios-build-outline:before {\n    content: \"\\F151\"\n}\n\n.ivu-icon-ios-build:before {\n    content: \"\\F152\"\n}\n\n.ivu-icon-ios-bulb-outline:before {\n    content: \"\\F153\"\n}\n\n.ivu-icon-ios-bulb:before {\n    content: \"\\F154\"\n}\n\n.ivu-icon-ios-bus-outline:before {\n    content: \"\\F155\"\n}\n\n.ivu-icon-ios-bus:before {\n    content: \"\\F156\"\n}\n\n.ivu-icon-ios-cafe-outline:before {\n    content: \"\\F157\"\n}\n\n.ivu-icon-ios-cafe:before {\n    content: \"\\F158\"\n}\n\n.ivu-icon-ios-calculator-outline:before {\n    content: \"\\F159\"\n}\n\n.ivu-icon-ios-calculator:before {\n    content: \"\\F15A\"\n}\n\n.ivu-icon-ios-calendar-outline:before {\n    content: \"\\F15B\"\n}\n\n.ivu-icon-ios-calendar:before {\n    content: \"\\F15C\"\n}\n\n.ivu-icon-ios-call-outline:before {\n    content: \"\\F15D\"\n}\n\n.ivu-icon-ios-call:before {\n    content: \"\\F15E\"\n}\n\n.ivu-icon-ios-camera-outline:before {\n    content: \"\\F15F\"\n}\n\n.ivu-icon-ios-camera:before {\n    content: \"\\F160\"\n}\n\n.ivu-icon-ios-car-outline:before {\n    content: \"\\F161\"\n}\n\n.ivu-icon-ios-car:before {\n    content: \"\\F162\"\n}\n\n.ivu-icon-ios-card-outline:before {\n    content: \"\\F163\"\n}\n\n.ivu-icon-ios-card:before {\n    content: \"\\F164\"\n}\n\n.ivu-icon-ios-cart-outline:before {\n    content: \"\\F165\"\n}\n\n.ivu-icon-ios-cart:before {\n    content: \"\\F166\"\n}\n\n.ivu-icon-ios-cash-outline:before {\n    content: \"\\F167\"\n}\n\n.ivu-icon-ios-cash:before {\n    content: \"\\F168\"\n}\n\n.ivu-icon-ios-chatboxes-outline:before {\n    content: \"\\F169\"\n}\n\n.ivu-icon-ios-chatboxes:before {\n    content: \"\\F16A\"\n}\n\n.ivu-icon-ios-chatbubbles-outline:before {\n    content: \"\\F16B\"\n}\n\n.ivu-icon-ios-chatbubbles:before {\n    content: \"\\F16C\"\n}\n\n.ivu-icon-ios-checkbox-outline:before {\n    content: \"\\F16D\"\n}\n\n.ivu-icon-ios-checkbox:before {\n    content: \"\\F16E\"\n}\n\n.ivu-icon-ios-checkmark-circle-outline:before {\n    content: \"\\F16F\"\n}\n\n.ivu-icon-ios-checkmark-circle:before {\n    content: \"\\F170\"\n}\n\n.ivu-icon-ios-checkmark:before {\n    content: \"\\F171\"\n}\n\n.ivu-icon-ios-clipboard-outline:before {\n    content: \"\\F172\"\n}\n\n.ivu-icon-ios-clipboard:before {\n    content: \"\\F173\"\n}\n\n.ivu-icon-ios-clock-outline:before {\n    content: \"\\F174\"\n}\n\n.ivu-icon-ios-clock:before {\n    content: \"\\F175\"\n}\n\n.ivu-icon-ios-close-circle-outline:before {\n    content: \"\\F176\"\n}\n\n.ivu-icon-ios-close-circle:before {\n    content: \"\\F177\"\n}\n\n.ivu-icon-ios-close:before {\n    content: \"\\F178\"\n}\n\n.ivu-icon-ios-closed-captioning-outline:before {\n    content: \"\\F179\"\n}\n\n.ivu-icon-ios-closed-captioning:before {\n    content: \"\\F17A\"\n}\n\n.ivu-icon-ios-cloud-circle-outline:before {\n    content: \"\\F17B\"\n}\n\n.ivu-icon-ios-cloud-circle:before {\n    content: \"\\F17C\"\n}\n\n.ivu-icon-ios-cloud-done-outline:before {\n    content: \"\\F17D\"\n}\n\n.ivu-icon-ios-cloud-done:before {\n    content: \"\\F17E\"\n}\n\n.ivu-icon-ios-cloud-download-outline:before {\n    content: \"\\F17F\"\n}\n\n.ivu-icon-ios-cloud-download:before {\n    content: \"\\F180\"\n}\n\n.ivu-icon-ios-cloud-outline:before {\n    content: \"\\F181\"\n}\n\n.ivu-icon-ios-cloud-upload-outline:before {\n    content: \"\\F182\"\n}\n\n.ivu-icon-ios-cloud-upload:before {\n    content: \"\\F183\"\n}\n\n.ivu-icon-ios-cloud:before {\n    content: \"\\F184\"\n}\n\n.ivu-icon-ios-cloudy-night-outline:before {\n    content: \"\\F185\"\n}\n\n.ivu-icon-ios-cloudy-night:before {\n    content: \"\\F186\"\n}\n\n.ivu-icon-ios-cloudy-outline:before {\n    content: \"\\F187\"\n}\n\n.ivu-icon-ios-cloudy:before {\n    content: \"\\F188\"\n}\n\n.ivu-icon-ios-code-download:before {\n    content: \"\\F189\"\n}\n\n.ivu-icon-ios-code-working:before {\n    content: \"\\F18A\"\n}\n\n.ivu-icon-ios-code:before {\n    content: \"\\F18B\"\n}\n\n.ivu-icon-ios-cog-outline:before {\n    content: \"\\F18C\"\n}\n\n.ivu-icon-ios-cog:before {\n    content: \"\\F18D\"\n}\n\n.ivu-icon-ios-color-fill-outline:before {\n    content: \"\\F18E\"\n}\n\n.ivu-icon-ios-color-fill:before {\n    content: \"\\F18F\"\n}\n\n.ivu-icon-ios-color-filter-outline:before {\n    content: \"\\F190\"\n}\n\n.ivu-icon-ios-color-filter:before {\n    content: \"\\F191\"\n}\n\n.ivu-icon-ios-color-palette-outline:before {\n    content: \"\\F192\"\n}\n\n.ivu-icon-ios-color-palette:before {\n    content: \"\\F193\"\n}\n\n.ivu-icon-ios-color-wand-outline:before {\n    content: \"\\F194\"\n}\n\n.ivu-icon-ios-color-wand:before {\n    content: \"\\F195\"\n}\n\n.ivu-icon-ios-compass-outline:before {\n    content: \"\\F196\"\n}\n\n.ivu-icon-ios-compass:before {\n    content: \"\\F197\"\n}\n\n.ivu-icon-ios-construct-outline:before {\n    content: \"\\F198\"\n}\n\n.ivu-icon-ios-construct:before {\n    content: \"\\F199\"\n}\n\n.ivu-icon-ios-contact-outline:before {\n    content: \"\\F19A\"\n}\n\n.ivu-icon-ios-contact:before {\n    content: \"\\F19B\"\n}\n\n.ivu-icon-ios-contacts-outline:before {\n    content: \"\\F19C\"\n}\n\n.ivu-icon-ios-contacts:before {\n    content: \"\\F19D\"\n}\n\n.ivu-icon-ios-contract:before {\n    content: \"\\F19E\"\n}\n\n.ivu-icon-ios-contrast:before {\n    content: \"\\F19F\"\n}\n\n.ivu-icon-ios-copy-outline:before {\n    content: \"\\F1A0\"\n}\n\n.ivu-icon-ios-copy:before {\n    content: \"\\F1A1\"\n}\n\n.ivu-icon-ios-create-outline:before {\n    content: \"\\F1A2\"\n}\n\n.ivu-icon-ios-create:before {\n    content: \"\\F1A3\"\n}\n\n.ivu-icon-ios-crop-outline:before {\n    content: \"\\F1A4\"\n}\n\n.ivu-icon-ios-crop:before {\n    content: \"\\F1A5\"\n}\n\n.ivu-icon-ios-cube-outline:before {\n    content: \"\\F1A6\"\n}\n\n.ivu-icon-ios-cube:before {\n    content: \"\\F1A7\"\n}\n\n.ivu-icon-ios-cut-outline:before {\n    content: \"\\F1A8\"\n}\n\n.ivu-icon-ios-cut:before {\n    content: \"\\F1A9\"\n}\n\n.ivu-icon-ios-desktop-outline:before {\n    content: \"\\F1AA\"\n}\n\n.ivu-icon-ios-desktop:before {\n    content: \"\\F1AB\"\n}\n\n.ivu-icon-ios-disc-outline:before {\n    content: \"\\F1AC\"\n}\n\n.ivu-icon-ios-disc:before {\n    content: \"\\F1AD\"\n}\n\n.ivu-icon-ios-document-outline:before {\n    content: \"\\F1AE\"\n}\n\n.ivu-icon-ios-document:before {\n    content: \"\\F1AF\"\n}\n\n.ivu-icon-ios-done-all:before {\n    content: \"\\F1B0\"\n}\n\n.ivu-icon-ios-download-outline:before {\n    content: \"\\F1B1\"\n}\n\n.ivu-icon-ios-download:before {\n    content: \"\\F1B2\"\n}\n\n.ivu-icon-ios-easel-outline:before {\n    content: \"\\F1B3\"\n}\n\n.ivu-icon-ios-easel:before {\n    content: \"\\F1B4\"\n}\n\n.ivu-icon-ios-egg-outline:before {\n    content: \"\\F1B5\"\n}\n\n.ivu-icon-ios-egg:before {\n    content: \"\\F1B6\"\n}\n\n.ivu-icon-ios-exit-outline:before {\n    content: \"\\F1B7\"\n}\n\n.ivu-icon-ios-exit:before {\n    content: \"\\F1B8\"\n}\n\n.ivu-icon-ios-expand:before {\n    content: \"\\F1B9\"\n}\n\n.ivu-icon-ios-eye-off-outline:before {\n    content: \"\\F1BA\"\n}\n\n.ivu-icon-ios-eye-off:before {\n    content: \"\\F1BB\"\n}\n\n.ivu-icon-ios-eye-outline:before {\n    content: \"\\F1BC\"\n}\n\n.ivu-icon-ios-eye:before {\n    content: \"\\F1BD\"\n}\n\n.ivu-icon-ios-fastforward-outline:before {\n    content: \"\\F1BE\"\n}\n\n.ivu-icon-ios-fastforward:before {\n    content: \"\\F1BF\"\n}\n\n.ivu-icon-ios-female:before {\n    content: \"\\F1C0\"\n}\n\n.ivu-icon-ios-filing-outline:before {\n    content: \"\\F1C1\"\n}\n\n.ivu-icon-ios-filing:before {\n    content: \"\\F1C2\"\n}\n\n.ivu-icon-ios-film-outline:before {\n    content: \"\\F1C3\"\n}\n\n.ivu-icon-ios-film:before {\n    content: \"\\F1C4\"\n}\n\n.ivu-icon-ios-finger-print:before {\n    content: \"\\F1C5\"\n}\n\n.ivu-icon-ios-flag-outline:before {\n    content: \"\\F1C6\"\n}\n\n.ivu-icon-ios-flag:before {\n    content: \"\\F1C7\"\n}\n\n.ivu-icon-ios-flame-outline:before {\n    content: \"\\F1C8\"\n}\n\n.ivu-icon-ios-flame:before {\n    content: \"\\F1C9\"\n}\n\n.ivu-icon-ios-flash-outline:before {\n    content: \"\\F1CA\"\n}\n\n.ivu-icon-ios-flash:before {\n    content: \"\\F1CB\"\n}\n\n.ivu-icon-ios-flask-outline:before {\n    content: \"\\F1CC\"\n}\n\n.ivu-icon-ios-flask:before {\n    content: \"\\F1CD\"\n}\n\n.ivu-icon-ios-flower-outline:before {\n    content: \"\\F1CE\"\n}\n\n.ivu-icon-ios-flower:before {\n    content: \"\\F1CF\"\n}\n\n.ivu-icon-ios-folder-open-outline:before {\n    content: \"\\F1D0\"\n}\n\n.ivu-icon-ios-folder-open:before {\n    content: \"\\F1D1\"\n}\n\n.ivu-icon-ios-folder-outline:before {\n    content: \"\\F1D2\"\n}\n\n.ivu-icon-ios-folder:before {\n    content: \"\\F1D3\"\n}\n\n.ivu-icon-ios-football-outline:before {\n    content: \"\\F1D4\"\n}\n\n.ivu-icon-ios-football:before {\n    content: \"\\F1D5\"\n}\n\n.ivu-icon-ios-funnel-outline:before {\n    content: \"\\F1D6\"\n}\n\n.ivu-icon-ios-funnel:before {\n    content: \"\\F1D7\"\n}\n\n.ivu-icon-ios-game-controller-a-outline:before {\n    content: \"\\F1D8\"\n}\n\n.ivu-icon-ios-game-controller-a:before {\n    content: \"\\F1D9\"\n}\n\n.ivu-icon-ios-game-controller-b-outline:before {\n    content: \"\\F1DA\"\n}\n\n.ivu-icon-ios-game-controller-b:before {\n    content: \"\\F1DB\"\n}\n\n.ivu-icon-ios-git-branch:before {\n    content: \"\\F1DC\"\n}\n\n.ivu-icon-ios-git-commit:before {\n    content: \"\\F1DD\"\n}\n\n.ivu-icon-ios-git-compare:before {\n    content: \"\\F1DE\"\n}\n\n.ivu-icon-ios-git-merge:before {\n    content: \"\\F1DF\"\n}\n\n.ivu-icon-ios-git-network:before {\n    content: \"\\F1E0\"\n}\n\n.ivu-icon-ios-git-pull-request:before {\n    content: \"\\F1E1\"\n}\n\n.ivu-icon-ios-glasses-outline:before {\n    content: \"\\F1E2\"\n}\n\n.ivu-icon-ios-glasses:before {\n    content: \"\\F1E3\"\n}\n\n.ivu-icon-ios-globe-outline:before {\n    content: \"\\F1E4\"\n}\n\n.ivu-icon-ios-globe:before {\n    content: \"\\F1E5\"\n}\n\n.ivu-icon-ios-grid-outline:before {\n    content: \"\\F1E6\"\n}\n\n.ivu-icon-ios-grid:before {\n    content: \"\\F1E7\"\n}\n\n.ivu-icon-ios-hammer-outline:before {\n    content: \"\\F1E8\"\n}\n\n.ivu-icon-ios-hammer:before {\n    content: \"\\F1E9\"\n}\n\n.ivu-icon-ios-hand-outline:before {\n    content: \"\\F1EA\"\n}\n\n.ivu-icon-ios-hand:before {\n    content: \"\\F1EB\"\n}\n\n.ivu-icon-ios-happy-outline:before {\n    content: \"\\F1EC\"\n}\n\n.ivu-icon-ios-happy:before {\n    content: \"\\F1ED\"\n}\n\n.ivu-icon-ios-headset-outline:before {\n    content: \"\\F1EE\"\n}\n\n.ivu-icon-ios-headset:before {\n    content: \"\\F1EF\"\n}\n\n.ivu-icon-ios-heart-outline:before {\n    content: \"\\F1F0\"\n}\n\n.ivu-icon-ios-heart:before {\n    content: \"\\F1F1\"\n}\n\n.ivu-icon-ios-help-buoy-outline:before {\n    content: \"\\F1F2\"\n}\n\n.ivu-icon-ios-help-buoy:before {\n    content: \"\\F1F3\"\n}\n\n.ivu-icon-ios-help-circle-outline:before {\n    content: \"\\F1F4\"\n}\n\n.ivu-icon-ios-help-circle:before {\n    content: \"\\F1F5\"\n}\n\n.ivu-icon-ios-help:before {\n    content: \"\\F1F6\"\n}\n\n.ivu-icon-ios-home-outline:before {\n    content: \"\\F1F7\"\n}\n\n.ivu-icon-ios-home:before {\n    content: \"\\F1F8\"\n}\n\n.ivu-icon-ios-ice-cream-outline:before {\n    content: \"\\F1F9\"\n}\n\n.ivu-icon-ios-ice-cream:before {\n    content: \"\\F1FA\"\n}\n\n.ivu-icon-ios-image-outline:before {\n    content: \"\\F1FB\"\n}\n\n.ivu-icon-ios-image:before {\n    content: \"\\F1FC\"\n}\n\n.ivu-icon-ios-images-outline:before {\n    content: \"\\F1FD\"\n}\n\n.ivu-icon-ios-images:before {\n    content: \"\\F1FE\"\n}\n\n.ivu-icon-ios-infinite-outline:before {\n    content: \"\\F1FF\"\n}\n\n.ivu-icon-ios-infinite:before {\n    content: \"\\F200\"\n}\n\n.ivu-icon-ios-information-circle-outline:before {\n    content: \"\\F201\"\n}\n\n.ivu-icon-ios-information-circle:before {\n    content: \"\\F202\"\n}\n\n.ivu-icon-ios-information:before {\n    content: \"\\F203\"\n}\n\n.ivu-icon-ios-ionic-outline:before {\n    content: \"\\F204\"\n}\n\n.ivu-icon-ios-ionic:before {\n    content: \"\\F205\"\n}\n\n.ivu-icon-ios-ionitron-outline:before {\n    content: \"\\F206\"\n}\n\n.ivu-icon-ios-ionitron:before {\n    content: \"\\F207\"\n}\n\n.ivu-icon-ios-jet-outline:before {\n    content: \"\\F208\"\n}\n\n.ivu-icon-ios-jet:before {\n    content: \"\\F209\"\n}\n\n.ivu-icon-ios-key-outline:before {\n    content: \"\\F20A\"\n}\n\n.ivu-icon-ios-key:before {\n    content: \"\\F20B\"\n}\n\n.ivu-icon-ios-keypad-outline:before {\n    content: \"\\F20C\"\n}\n\n.ivu-icon-ios-keypad:before {\n    content: \"\\F20D\"\n}\n\n.ivu-icon-ios-laptop:before {\n    content: \"\\F20E\"\n}\n\n.ivu-icon-ios-leaf-outline:before {\n    content: \"\\F20F\"\n}\n\n.ivu-icon-ios-leaf:before {\n    content: \"\\F210\"\n}\n\n.ivu-icon-ios-link-outline:before {\n    content: \"\\F211\"\n}\n\n.ivu-icon-ios-link:before {\n    content: \"\\F212\"\n}\n\n.ivu-icon-ios-list-box-outline:before {\n    content: \"\\F213\"\n}\n\n.ivu-icon-ios-list-box:before {\n    content: \"\\F214\"\n}\n\n.ivu-icon-ios-list:before {\n    content: \"\\F215\"\n}\n\n.ivu-icon-ios-locate-outline:before {\n    content: \"\\F216\"\n}\n\n.ivu-icon-ios-locate:before {\n    content: \"\\F217\"\n}\n\n.ivu-icon-ios-lock-outline:before {\n    content: \"\\F218\"\n}\n\n.ivu-icon-ios-lock:before {\n    content: \"\\F219\"\n}\n\n.ivu-icon-ios-log-in:before {\n    content: \"\\F21A\"\n}\n\n.ivu-icon-ios-log-out:before {\n    content: \"\\F21B\"\n}\n\n.ivu-icon-ios-magnet-outline:before {\n    content: \"\\F21C\"\n}\n\n.ivu-icon-ios-magnet:before {\n    content: \"\\F21D\"\n}\n\n.ivu-icon-ios-mail-open-outline:before {\n    content: \"\\F21E\"\n}\n\n.ivu-icon-ios-mail-open:before {\n    content: \"\\F21F\"\n}\n\n.ivu-icon-ios-mail-outline:before {\n    content: \"\\F220\"\n}\n\n.ivu-icon-ios-mail:before {\n    content: \"\\F221\"\n}\n\n.ivu-icon-ios-male:before {\n    content: \"\\F222\"\n}\n\n.ivu-icon-ios-man-outline:before {\n    content: \"\\F223\"\n}\n\n.ivu-icon-ios-man:before {\n    content: \"\\F224\"\n}\n\n.ivu-icon-ios-map-outline:before {\n    content: \"\\F225\"\n}\n\n.ivu-icon-ios-map:before {\n    content: \"\\F226\"\n}\n\n.ivu-icon-ios-medal-outline:before {\n    content: \"\\F227\"\n}\n\n.ivu-icon-ios-medal:before {\n    content: \"\\F228\"\n}\n\n.ivu-icon-ios-medical-outline:before {\n    content: \"\\F229\"\n}\n\n.ivu-icon-ios-medical:before {\n    content: \"\\F22A\"\n}\n\n.ivu-icon-ios-medkit-outline:before {\n    content: \"\\F22B\"\n}\n\n.ivu-icon-ios-medkit:before {\n    content: \"\\F22C\"\n}\n\n.ivu-icon-ios-megaphone-outline:before {\n    content: \"\\F22D\"\n}\n\n.ivu-icon-ios-megaphone:before {\n    content: \"\\F22E\"\n}\n\n.ivu-icon-ios-menu-outline:before {\n    content: \"\\F22F\"\n}\n\n.ivu-icon-ios-menu:before {\n    content: \"\\F230\"\n}\n\n.ivu-icon-ios-mic-off-outline:before {\n    content: \"\\F231\"\n}\n\n.ivu-icon-ios-mic-off:before {\n    content: \"\\F232\"\n}\n\n.ivu-icon-ios-mic-outline:before {\n    content: \"\\F233\"\n}\n\n.ivu-icon-ios-mic:before {\n    content: \"\\F234\"\n}\n\n.ivu-icon-ios-microphone-outline:before {\n    content: \"\\F235\"\n}\n\n.ivu-icon-ios-microphone:before {\n    content: \"\\F236\"\n}\n\n.ivu-icon-ios-moon-outline:before {\n    content: \"\\F237\"\n}\n\n.ivu-icon-ios-moon:before {\n    content: \"\\F238\"\n}\n\n.ivu-icon-ios-more-outline:before {\n    content: \"\\F239\"\n}\n\n.ivu-icon-ios-more:before {\n    content: \"\\F23A\"\n}\n\n.ivu-icon-ios-move:before {\n    content: \"\\F23B\"\n}\n\n.ivu-icon-ios-musical-note-outline:before {\n    content: \"\\F23C\"\n}\n\n.ivu-icon-ios-musical-note:before {\n    content: \"\\F23D\"\n}\n\n.ivu-icon-ios-musical-notes-outline:before {\n    content: \"\\F23E\"\n}\n\n.ivu-icon-ios-musical-notes:before {\n    content: \"\\F23F\"\n}\n\n.ivu-icon-ios-navigate-outline:before {\n    content: \"\\F240\"\n}\n\n.ivu-icon-ios-navigate:before {\n    content: \"\\F241\"\n}\n\n.ivu-icon-ios-no-smoking-outline:before {\n    content: \"\\F242\"\n}\n\n.ivu-icon-ios-no-smoking:before {\n    content: \"\\F243\"\n}\n\n.ivu-icon-ios-notifications-off-outline:before {\n    content: \"\\F244\"\n}\n\n.ivu-icon-ios-notifications-off:before {\n    content: \"\\F245\"\n}\n\n.ivu-icon-ios-notifications-outline:before {\n    content: \"\\F246\"\n}\n\n.ivu-icon-ios-notifications:before {\n    content: \"\\F247\"\n}\n\n.ivu-icon-ios-nuclear-outline:before {\n    content: \"\\F248\"\n}\n\n.ivu-icon-ios-nuclear:before {\n    content: \"\\F249\"\n}\n\n.ivu-icon-ios-nutrition-outline:before {\n    content: \"\\F24A\"\n}\n\n.ivu-icon-ios-nutrition:before {\n    content: \"\\F24B\"\n}\n\n.ivu-icon-ios-open-outline:before {\n    content: \"\\F24C\"\n}\n\n.ivu-icon-ios-open:before {\n    content: \"\\F24D\"\n}\n\n.ivu-icon-ios-options-outline:before {\n    content: \"\\F24E\"\n}\n\n.ivu-icon-ios-options:before {\n    content: \"\\F24F\"\n}\n\n.ivu-icon-ios-outlet-outline:before {\n    content: \"\\F250\"\n}\n\n.ivu-icon-ios-outlet:before {\n    content: \"\\F251\"\n}\n\n.ivu-icon-ios-paper-outline:before {\n    content: \"\\F252\"\n}\n\n.ivu-icon-ios-paper-plane-outline:before {\n    content: \"\\F253\"\n}\n\n.ivu-icon-ios-paper-plane:before {\n    content: \"\\F254\"\n}\n\n.ivu-icon-ios-paper:before {\n    content: \"\\F255\"\n}\n\n.ivu-icon-ios-partly-sunny-outline:before {\n    content: \"\\F256\"\n}\n\n.ivu-icon-ios-partly-sunny:before {\n    content: \"\\F257\"\n}\n\n.ivu-icon-ios-pause-outline:before {\n    content: \"\\F258\"\n}\n\n.ivu-icon-ios-pause:before {\n    content: \"\\F259\"\n}\n\n.ivu-icon-ios-paw-outline:before {\n    content: \"\\F25A\"\n}\n\n.ivu-icon-ios-paw:before {\n    content: \"\\F25B\"\n}\n\n.ivu-icon-ios-people-outline:before {\n    content: \"\\F25C\"\n}\n\n.ivu-icon-ios-people:before {\n    content: \"\\F25D\"\n}\n\n.ivu-icon-ios-person-add-outline:before {\n    content: \"\\F25E\"\n}\n\n.ivu-icon-ios-person-add:before {\n    content: \"\\F25F\"\n}\n\n.ivu-icon-ios-person-outline:before {\n    content: \"\\F260\"\n}\n\n.ivu-icon-ios-person:before {\n    content: \"\\F261\"\n}\n\n.ivu-icon-ios-phone-landscape:before {\n    content: \"\\F262\"\n}\n\n.ivu-icon-ios-phone-portrait:before {\n    content: \"\\F263\"\n}\n\n.ivu-icon-ios-photos-outline:before {\n    content: \"\\F264\"\n}\n\n.ivu-icon-ios-photos:before {\n    content: \"\\F265\"\n}\n\n.ivu-icon-ios-pie-outline:before {\n    content: \"\\F266\"\n}\n\n.ivu-icon-ios-pie:before {\n    content: \"\\F267\"\n}\n\n.ivu-icon-ios-pin-outline:before {\n    content: \"\\F268\"\n}\n\n.ivu-icon-ios-pin:before {\n    content: \"\\F269\"\n}\n\n.ivu-icon-ios-pint-outline:before {\n    content: \"\\F26A\"\n}\n\n.ivu-icon-ios-pint:before {\n    content: \"\\F26B\"\n}\n\n.ivu-icon-ios-pizza-outline:before {\n    content: \"\\F26C\"\n}\n\n.ivu-icon-ios-pizza:before {\n    content: \"\\F26D\"\n}\n\n.ivu-icon-ios-plane-outline:before {\n    content: \"\\F26E\"\n}\n\n.ivu-icon-ios-plane:before {\n    content: \"\\F26F\"\n}\n\n.ivu-icon-ios-planet-outline:before {\n    content: \"\\F270\"\n}\n\n.ivu-icon-ios-planet:before {\n    content: \"\\F271\"\n}\n\n.ivu-icon-ios-play-outline:before {\n    content: \"\\F272\"\n}\n\n.ivu-icon-ios-play:before {\n    content: \"\\F273\"\n}\n\n.ivu-icon-ios-podium-outline:before {\n    content: \"\\F274\"\n}\n\n.ivu-icon-ios-podium:before {\n    content: \"\\F275\"\n}\n\n.ivu-icon-ios-power-outline:before {\n    content: \"\\F276\"\n}\n\n.ivu-icon-ios-power:before {\n    content: \"\\F277\"\n}\n\n.ivu-icon-ios-pricetag-outline:before {\n    content: \"\\F278\"\n}\n\n.ivu-icon-ios-pricetag:before {\n    content: \"\\F279\"\n}\n\n.ivu-icon-ios-pricetags-outline:before {\n    content: \"\\F27A\"\n}\n\n.ivu-icon-ios-pricetags:before {\n    content: \"\\F27B\"\n}\n\n.ivu-icon-ios-print-outline:before {\n    content: \"\\F27C\"\n}\n\n.ivu-icon-ios-print:before {\n    content: \"\\F27D\"\n}\n\n.ivu-icon-ios-pulse-outline:before {\n    content: \"\\F27E\"\n}\n\n.ivu-icon-ios-pulse:before {\n    content: \"\\F27F\"\n}\n\n.ivu-icon-ios-qr-scanner:before {\n    content: \"\\F280\"\n}\n\n.ivu-icon-ios-quote-outline:before {\n    content: \"\\F281\"\n}\n\n.ivu-icon-ios-quote:before {\n    content: \"\\F282\"\n}\n\n.ivu-icon-ios-radio-button-off:before {\n    content: \"\\F283\"\n}\n\n.ivu-icon-ios-radio-button-on:before {\n    content: \"\\F284\"\n}\n\n.ivu-icon-ios-radio-outline:before {\n    content: \"\\F285\"\n}\n\n.ivu-icon-ios-radio:before {\n    content: \"\\F286\"\n}\n\n.ivu-icon-ios-rainy-outline:before {\n    content: \"\\F287\"\n}\n\n.ivu-icon-ios-rainy:before {\n    content: \"\\F288\"\n}\n\n.ivu-icon-ios-recording-outline:before {\n    content: \"\\F289\"\n}\n\n.ivu-icon-ios-recording:before {\n    content: \"\\F28A\"\n}\n\n.ivu-icon-ios-redo-outline:before {\n    content: \"\\F28B\"\n}\n\n.ivu-icon-ios-redo:before {\n    content: \"\\F28C\"\n}\n\n.ivu-icon-ios-refresh-circle-outline:before {\n    content: \"\\F28D\"\n}\n\n.ivu-icon-ios-refresh-circle:before {\n    content: \"\\F28E\"\n}\n\n.ivu-icon-ios-refresh:before {\n    content: \"\\F28F\"\n}\n\n.ivu-icon-ios-remove-circle-outline:before {\n    content: \"\\F290\"\n}\n\n.ivu-icon-ios-remove-circle:before {\n    content: \"\\F291\"\n}\n\n.ivu-icon-ios-remove:before {\n    content: \"\\F292\"\n}\n\n.ivu-icon-ios-reorder:before {\n    content: \"\\F293\"\n}\n\n.ivu-icon-ios-repeat:before {\n    content: \"\\F294\"\n}\n\n.ivu-icon-ios-resize:before {\n    content: \"\\F295\"\n}\n\n.ivu-icon-ios-restaurant-outline:before {\n    content: \"\\F296\"\n}\n\n.ivu-icon-ios-restaurant:before {\n    content: \"\\F297\"\n}\n\n.ivu-icon-ios-return-left:before {\n    content: \"\\F298\"\n}\n\n.ivu-icon-ios-return-right:before {\n    content: \"\\F299\"\n}\n\n.ivu-icon-ios-reverse-camera-outline:before {\n    content: \"\\F29A\"\n}\n\n.ivu-icon-ios-reverse-camera:before {\n    content: \"\\F29B\"\n}\n\n.ivu-icon-ios-rewind-outline:before {\n    content: \"\\F29C\"\n}\n\n.ivu-icon-ios-rewind:before {\n    content: \"\\F29D\"\n}\n\n.ivu-icon-ios-ribbon-outline:before {\n    content: \"\\F29E\"\n}\n\n.ivu-icon-ios-ribbon:before {\n    content: \"\\F29F\"\n}\n\n.ivu-icon-ios-rose-outline:before {\n    content: \"\\F2A0\"\n}\n\n.ivu-icon-ios-rose:before {\n    content: \"\\F2A1\"\n}\n\n.ivu-icon-ios-sad-outline:before {\n    content: \"\\F2A2\"\n}\n\n.ivu-icon-ios-sad:before {\n    content: \"\\F2A3\"\n}\n\n.ivu-icon-ios-school-outline:before {\n    content: \"\\F2A4\"\n}\n\n.ivu-icon-ios-school:before {\n    content: \"\\F2A5\"\n}\n\n.ivu-icon-ios-search-outline:before {\n    content: \"\\F2A6\"\n}\n\n.ivu-icon-ios-search:before {\n    content: \"\\F2A7\"\n}\n\n.ivu-icon-ios-send-outline:before {\n    content: \"\\F2A8\"\n}\n\n.ivu-icon-ios-send:before {\n    content: \"\\F2A9\"\n}\n\n.ivu-icon-ios-settings-outline:before {\n    content: \"\\F2AA\"\n}\n\n.ivu-icon-ios-settings:before {\n    content: \"\\F2AB\"\n}\n\n.ivu-icon-ios-share-alt-outline:before {\n    content: \"\\F2AC\"\n}\n\n.ivu-icon-ios-share-alt:before {\n    content: \"\\F2AD\"\n}\n\n.ivu-icon-ios-share-outline:before {\n    content: \"\\F2AE\"\n}\n\n.ivu-icon-ios-share:before {\n    content: \"\\F2AF\"\n}\n\n.ivu-icon-ios-shirt-outline:before {\n    content: \"\\F2B0\"\n}\n\n.ivu-icon-ios-shirt:before {\n    content: \"\\F2B1\"\n}\n\n.ivu-icon-ios-shuffle:before {\n    content: \"\\F2B2\"\n}\n\n.ivu-icon-ios-skip-backward-outline:before {\n    content: \"\\F2B3\"\n}\n\n.ivu-icon-ios-skip-backward:before {\n    content: \"\\F2B4\"\n}\n\n.ivu-icon-ios-skip-forward-outline:before {\n    content: \"\\F2B5\"\n}\n\n.ivu-icon-ios-skip-forward:before {\n    content: \"\\F2B6\"\n}\n\n.ivu-icon-ios-snow-outline:before {\n    content: \"\\F2B7\"\n}\n\n.ivu-icon-ios-snow:before {\n    content: \"\\F2B8\"\n}\n\n.ivu-icon-ios-speedometer-outline:before {\n    content: \"\\F2B9\"\n}\n\n.ivu-icon-ios-speedometer:before {\n    content: \"\\F2BA\"\n}\n\n.ivu-icon-ios-square-outline:before {\n    content: \"\\F2BB\"\n}\n\n.ivu-icon-ios-square:before {\n    content: \"\\F2BC\"\n}\n\n.ivu-icon-ios-star-half:before {\n    content: \"\\F2BD\"\n}\n\n.ivu-icon-ios-star-outline:before {\n    content: \"\\F2BE\"\n}\n\n.ivu-icon-ios-star:before {\n    content: \"\\F2BF\"\n}\n\n.ivu-icon-ios-stats-outline:before {\n    content: \"\\F2C0\"\n}\n\n.ivu-icon-ios-stats:before {\n    content: \"\\F2C1\"\n}\n\n.ivu-icon-ios-stopwatch-outline:before {\n    content: \"\\F2C2\"\n}\n\n.ivu-icon-ios-stopwatch:before {\n    content: \"\\F2C3\"\n}\n\n.ivu-icon-ios-subway-outline:before {\n    content: \"\\F2C4\"\n}\n\n.ivu-icon-ios-subway:before {\n    content: \"\\F2C5\"\n}\n\n.ivu-icon-ios-sunny-outline:before {\n    content: \"\\F2C6\"\n}\n\n.ivu-icon-ios-sunny:before {\n    content: \"\\F2C7\"\n}\n\n.ivu-icon-ios-swap:before {\n    content: \"\\F2C8\"\n}\n\n.ivu-icon-ios-switch-outline:before {\n    content: \"\\F2C9\"\n}\n\n.ivu-icon-ios-switch:before {\n    content: \"\\F2CA\"\n}\n\n.ivu-icon-ios-sync:before {\n    content: \"\\F2CB\"\n}\n\n.ivu-icon-ios-tablet-landscape:before {\n    content: \"\\F2CC\"\n}\n\n.ivu-icon-ios-tablet-portrait:before {\n    content: \"\\F2CD\"\n}\n\n.ivu-icon-ios-tennisball-outline:before {\n    content: \"\\F2CE\"\n}\n\n.ivu-icon-ios-tennisball:before {\n    content: \"\\F2CF\"\n}\n\n.ivu-icon-ios-text-outline:before {\n    content: \"\\F2D0\"\n}\n\n.ivu-icon-ios-text:before {\n    content: \"\\F2D1\"\n}\n\n.ivu-icon-ios-thermometer-outline:before {\n    content: \"\\F2D2\"\n}\n\n.ivu-icon-ios-thermometer:before {\n    content: \"\\F2D3\"\n}\n\n.ivu-icon-ios-thumbs-down-outline:before {\n    content: \"\\F2D4\"\n}\n\n.ivu-icon-ios-thumbs-down:before {\n    content: \"\\F2D5\"\n}\n\n.ivu-icon-ios-thumbs-up-outline:before {\n    content: \"\\F2D6\"\n}\n\n.ivu-icon-ios-thumbs-up:before {\n    content: \"\\F2D7\"\n}\n\n.ivu-icon-ios-thunderstorm-outline:before {\n    content: \"\\F2D8\"\n}\n\n.ivu-icon-ios-thunderstorm:before {\n    content: \"\\F2D9\"\n}\n\n.ivu-icon-ios-time-outline:before {\n    content: \"\\F2DA\"\n}\n\n.ivu-icon-ios-time:before {\n    content: \"\\F2DB\"\n}\n\n.ivu-icon-ios-timer-outline:before {\n    content: \"\\F2DC\"\n}\n\n.ivu-icon-ios-timer:before {\n    content: \"\\F2DD\"\n}\n\n.ivu-icon-ios-train-outline:before {\n    content: \"\\F2DE\"\n}\n\n.ivu-icon-ios-train:before {\n    content: \"\\F2DF\"\n}\n\n.ivu-icon-ios-transgender:before {\n    content: \"\\F2E0\"\n}\n\n.ivu-icon-ios-trash-outline:before {\n    content: \"\\F2E1\"\n}\n\n.ivu-icon-ios-trash:before {\n    content: \"\\F2E2\"\n}\n\n.ivu-icon-ios-trending-down:before {\n    content: \"\\F2E3\"\n}\n\n.ivu-icon-ios-trending-up:before {\n    content: \"\\F2E4\"\n}\n\n.ivu-icon-ios-trophy-outline:before {\n    content: \"\\F2E5\"\n}\n\n.ivu-icon-ios-trophy:before {\n    content: \"\\F2E6\"\n}\n\n.ivu-icon-ios-umbrella-outline:before {\n    content: \"\\F2E7\"\n}\n\n.ivu-icon-ios-umbrella:before {\n    content: \"\\F2E8\"\n}\n\n.ivu-icon-ios-undo-outline:before {\n    content: \"\\F2E9\"\n}\n\n.ivu-icon-ios-undo:before {\n    content: \"\\F2EA\"\n}\n\n.ivu-icon-ios-unlock-outline:before {\n    content: \"\\F2EB\"\n}\n\n.ivu-icon-ios-unlock:before {\n    content: \"\\F2EC\"\n}\n\n.ivu-icon-ios-videocam-outline:before {\n    content: \"\\F2ED\"\n}\n\n.ivu-icon-ios-videocam:before {\n    content: \"\\F2EE\"\n}\n\n.ivu-icon-ios-volume-down:before {\n    content: \"\\F2EF\"\n}\n\n.ivu-icon-ios-volume-mute:before {\n    content: \"\\F2F0\"\n}\n\n.ivu-icon-ios-volume-off:before {\n    content: \"\\F2F1\"\n}\n\n.ivu-icon-ios-volume-up:before {\n    content: \"\\F2F2\"\n}\n\n.ivu-icon-ios-walk:before {\n    content: \"\\F2F3\"\n}\n\n.ivu-icon-ios-warning-outline:before {\n    content: \"\\F2F4\"\n}\n\n.ivu-icon-ios-warning:before {\n    content: \"\\F2F5\"\n}\n\n.ivu-icon-ios-watch:before {\n    content: \"\\F2F6\"\n}\n\n.ivu-icon-ios-water-outline:before {\n    content: \"\\F2F7\"\n}\n\n.ivu-icon-ios-water:before {\n    content: \"\\F2F8\"\n}\n\n.ivu-icon-ios-wifi-outline:before {\n    content: \"\\F2F9\"\n}\n\n.ivu-icon-ios-wifi:before {\n    content: \"\\F2FA\"\n}\n\n.ivu-icon-ios-wine-outline:before {\n    content: \"\\F2FB\"\n}\n\n.ivu-icon-ios-wine:before {\n    content: \"\\F2FC\"\n}\n\n.ivu-icon-ios-woman-outline:before {\n    content: \"\\F2FD\"\n}\n\n.ivu-icon-ios-woman:before {\n    content: \"\\F2FE\"\n}\n\n.ivu-icon-logo-android:before {\n    content: \"\\F2FF\"\n}\n\n.ivu-icon-logo-angular:before {\n    content: \"\\F300\"\n}\n\n.ivu-icon-logo-apple:before {\n    content: \"\\F301\"\n}\n\n.ivu-icon-logo-bitcoin:before {\n    content: \"\\F302\"\n}\n\n.ivu-icon-logo-buffer:before {\n    content: \"\\F303\"\n}\n\n.ivu-icon-logo-chrome:before {\n    content: \"\\F304\"\n}\n\n.ivu-icon-logo-codepen:before {\n    content: \"\\F305\"\n}\n\n.ivu-icon-logo-css3:before {\n    content: \"\\F306\"\n}\n\n.ivu-icon-logo-designernews:before {\n    content: \"\\F307\"\n}\n\n.ivu-icon-logo-dribbble:before {\n    content: \"\\F308\"\n}\n\n.ivu-icon-logo-dropbox:before {\n    content: \"\\F309\"\n}\n\n.ivu-icon-logo-euro:before {\n    content: \"\\F30A\"\n}\n\n.ivu-icon-logo-facebook:before {\n    content: \"\\F30B\"\n}\n\n.ivu-icon-logo-foursquare:before {\n    content: \"\\F30C\"\n}\n\n.ivu-icon-logo-freebsd-devil:before {\n    content: \"\\F30D\"\n}\n\n.ivu-icon-logo-github:before {\n    content: \"\\F30E\"\n}\n\n.ivu-icon-logo-google:before {\n    content: \"\\F30F\"\n}\n\n.ivu-icon-logo-googleplus:before {\n    content: \"\\F310\"\n}\n\n.ivu-icon-logo-hackernews:before {\n    content: \"\\F311\"\n}\n\n.ivu-icon-logo-html5:before {\n    content: \"\\F312\"\n}\n\n.ivu-icon-logo-instagram:before {\n    content: \"\\F313\"\n}\n\n.ivu-icon-logo-javascript:before {\n    content: \"\\F314\"\n}\n\n.ivu-icon-logo-linkedin:before {\n    content: \"\\F315\"\n}\n\n.ivu-icon-logo-markdown:before {\n    content: \"\\F316\"\n}\n\n.ivu-icon-logo-nodejs:before {\n    content: \"\\F317\"\n}\n\n.ivu-icon-logo-octocat:before {\n    content: \"\\F318\"\n}\n\n.ivu-icon-logo-pinterest:before {\n    content: \"\\F319\"\n}\n\n.ivu-icon-logo-playstation:before {\n    content: \"\\F31A\"\n}\n\n.ivu-icon-logo-python:before {\n    content: \"\\F31B\"\n}\n\n.ivu-icon-logo-reddit:before {\n    content: \"\\F31C\"\n}\n\n.ivu-icon-logo-rss:before {\n    content: \"\\F31D\"\n}\n\n.ivu-icon-logo-sass:before {\n    content: \"\\F31E\"\n}\n\n.ivu-icon-logo-skype:before {\n    content: \"\\F31F\"\n}\n\n.ivu-icon-logo-snapchat:before {\n    content: \"\\F320\"\n}\n\n.ivu-icon-logo-steam:before {\n    content: \"\\F321\"\n}\n\n.ivu-icon-logo-tumblr:before {\n    content: \"\\F322\"\n}\n\n.ivu-icon-logo-tux:before {\n    content: \"\\F323\"\n}\n\n.ivu-icon-logo-twitch:before {\n    content: \"\\F324\"\n}\n\n.ivu-icon-logo-twitter:before {\n    content: \"\\F325\"\n}\n\n.ivu-icon-logo-usd:before {\n    content: \"\\F326\"\n}\n\n.ivu-icon-logo-vimeo:before {\n    content: \"\\F327\"\n}\n\n.ivu-icon-logo-whatsapp:before {\n    content: \"\\F328\"\n}\n\n.ivu-icon-logo-windows:before {\n    content: \"\\F329\"\n}\n\n.ivu-icon-logo-wordpress:before {\n    content: \"\\F32A\"\n}\n\n.ivu-icon-logo-xbox:before {\n    content: \"\\F32B\"\n}\n\n.ivu-icon-logo-yahoo:before {\n    content: \"\\F32C\"\n}\n\n.ivu-icon-logo-yen:before {\n    content: \"\\F32D\"\n}\n\n.ivu-icon-logo-youtube:before {\n    content: \"\\F32E\"\n}\n\n.ivu-icon-md-add-circle:before {\n    content: \"\\F32F\"\n}\n\n.ivu-icon-md-add:before {\n    content: \"\\F330\"\n}\n\n.ivu-icon-md-alarm:before {\n    content: \"\\F331\"\n}\n\n.ivu-icon-md-albums:before {\n    content: \"\\F332\"\n}\n\n.ivu-icon-md-alert:before {\n    content: \"\\F333\"\n}\n\n.ivu-icon-md-american-football:before {\n    content: \"\\F334\"\n}\n\n.ivu-icon-md-analytics:before {\n    content: \"\\F335\"\n}\n\n.ivu-icon-md-aperture:before {\n    content: \"\\F336\"\n}\n\n.ivu-icon-md-apps:before {\n    content: \"\\F337\"\n}\n\n.ivu-icon-md-appstore:before {\n    content: \"\\F338\"\n}\n\n.ivu-icon-md-archive:before {\n    content: \"\\F339\"\n}\n\n.ivu-icon-md-arrow-back:before {\n    content: \"\\F33A\"\n}\n\n.ivu-icon-md-arrow-down:before {\n    content: \"\\F33B\"\n}\n\n.ivu-icon-md-arrow-dropdown-circle:before {\n    content: \"\\F33C\"\n}\n\n.ivu-icon-md-arrow-dropdown:before {\n    content: \"\\F33D\"\n}\n\n.ivu-icon-md-arrow-dropleft-circle:before {\n    content: \"\\F33E\"\n}\n\n.ivu-icon-md-arrow-dropleft:before {\n    content: \"\\F33F\"\n}\n\n.ivu-icon-md-arrow-dropright-circle:before {\n    content: \"\\F340\"\n}\n\n.ivu-icon-md-arrow-dropright:before {\n    content: \"\\F341\"\n}\n\n.ivu-icon-md-arrow-dropup-circle:before {\n    content: \"\\F342\"\n}\n\n.ivu-icon-md-arrow-dropup:before {\n    content: \"\\F343\"\n}\n\n.ivu-icon-md-arrow-forward:before {\n    content: \"\\F344\"\n}\n\n.ivu-icon-md-arrow-round-back:before {\n    content: \"\\F345\"\n}\n\n.ivu-icon-md-arrow-round-down:before {\n    content: \"\\F346\"\n}\n\n.ivu-icon-md-arrow-round-forward:before {\n    content: \"\\F347\"\n}\n\n.ivu-icon-md-arrow-round-up:before {\n    content: \"\\F348\"\n}\n\n.ivu-icon-md-arrow-up:before {\n    content: \"\\F349\"\n}\n\n.ivu-icon-md-at:before {\n    content: \"\\F34A\"\n}\n\n.ivu-icon-md-attach:before {\n    content: \"\\F34B\"\n}\n\n.ivu-icon-md-backspace:before {\n    content: \"\\F34C\"\n}\n\n.ivu-icon-md-barcode:before {\n    content: \"\\F34D\"\n}\n\n.ivu-icon-md-baseball:before {\n    content: \"\\F34E\"\n}\n\n.ivu-icon-md-basket:before {\n    content: \"\\F34F\"\n}\n\n.ivu-icon-md-basketball:before {\n    content: \"\\F350\"\n}\n\n.ivu-icon-md-battery-charging:before {\n    content: \"\\F351\"\n}\n\n.ivu-icon-md-battery-dead:before {\n    content: \"\\F352\"\n}\n\n.ivu-icon-md-battery-full:before {\n    content: \"\\F353\"\n}\n\n.ivu-icon-md-beaker:before {\n    content: \"\\F354\"\n}\n\n.ivu-icon-md-beer:before {\n    content: \"\\F355\"\n}\n\n.ivu-icon-md-bicycle:before {\n    content: \"\\F356\"\n}\n\n.ivu-icon-md-bluetooth:before {\n    content: \"\\F357\"\n}\n\n.ivu-icon-md-boat:before {\n    content: \"\\F358\"\n}\n\n.ivu-icon-md-body:before {\n    content: \"\\F359\"\n}\n\n.ivu-icon-md-bonfire:before {\n    content: \"\\F35A\"\n}\n\n.ivu-icon-md-book:before {\n    content: \"\\F35B\"\n}\n\n.ivu-icon-md-bookmark:before {\n    content: \"\\F35C\"\n}\n\n.ivu-icon-md-bookmarks:before {\n    content: \"\\F35D\"\n}\n\n.ivu-icon-md-bowtie:before {\n    content: \"\\F35E\"\n}\n\n.ivu-icon-md-briefcase:before {\n    content: \"\\F35F\"\n}\n\n.ivu-icon-md-browsers:before {\n    content: \"\\F360\"\n}\n\n.ivu-icon-md-brush:before {\n    content: \"\\F361\"\n}\n\n.ivu-icon-md-bug:before {\n    content: \"\\F362\"\n}\n\n.ivu-icon-md-build:before {\n    content: \"\\F363\"\n}\n\n.ivu-icon-md-bulb:before {\n    content: \"\\F364\"\n}\n\n.ivu-icon-md-bus:before {\n    content: \"\\F365\"\n}\n\n.ivu-icon-md-cafe:before {\n    content: \"\\F366\"\n}\n\n.ivu-icon-md-calculator:before {\n    content: \"\\F367\"\n}\n\n.ivu-icon-md-calendar:before {\n    content: \"\\F368\"\n}\n\n.ivu-icon-md-call:before {\n    content: \"\\F369\"\n}\n\n.ivu-icon-md-camera:before {\n    content: \"\\F36A\"\n}\n\n.ivu-icon-md-car:before {\n    content: \"\\F36B\"\n}\n\n.ivu-icon-md-card:before {\n    content: \"\\F36C\"\n}\n\n.ivu-icon-md-cart:before {\n    content: \"\\F36D\"\n}\n\n.ivu-icon-md-cash:before {\n    content: \"\\F36E\"\n}\n\n.ivu-icon-md-chatboxes:before {\n    content: \"\\F36F\"\n}\n\n.ivu-icon-md-chatbubbles:before {\n    content: \"\\F370\"\n}\n\n.ivu-icon-md-checkbox-outline:before {\n    content: \"\\F371\"\n}\n\n.ivu-icon-md-checkbox:before {\n    content: \"\\F372\"\n}\n\n.ivu-icon-md-checkmark-circle-outline:before {\n    content: \"\\F373\"\n}\n\n.ivu-icon-md-checkmark-circle:before {\n    content: \"\\F374\"\n}\n\n.ivu-icon-md-checkmark:before {\n    content: \"\\F375\"\n}\n\n.ivu-icon-md-clipboard:before {\n    content: \"\\F376\"\n}\n\n.ivu-icon-md-clock:before {\n    content: \"\\F377\"\n}\n\n.ivu-icon-md-close-circle:before {\n    content: \"\\F378\"\n}\n\n.ivu-icon-md-close:before {\n    content: \"\\F379\"\n}\n\n.ivu-icon-md-closed-captioning:before {\n    content: \"\\F37A\"\n}\n\n.ivu-icon-md-cloud-circle:before {\n    content: \"\\F37B\"\n}\n\n.ivu-icon-md-cloud-done:before {\n    content: \"\\F37C\"\n}\n\n.ivu-icon-md-cloud-download:before {\n    content: \"\\F37D\"\n}\n\n.ivu-icon-md-cloud-outline:before {\n    content: \"\\F37E\"\n}\n\n.ivu-icon-md-cloud-upload:before {\n    content: \"\\F37F\"\n}\n\n.ivu-icon-md-cloud:before {\n    content: \"\\F380\"\n}\n\n.ivu-icon-md-cloudy-night:before {\n    content: \"\\F381\"\n}\n\n.ivu-icon-md-cloudy:before {\n    content: \"\\F382\"\n}\n\n.ivu-icon-md-code-download:before {\n    content: \"\\F383\"\n}\n\n.ivu-icon-md-code-working:before {\n    content: \"\\F384\"\n}\n\n.ivu-icon-md-code:before {\n    content: \"\\F385\"\n}\n\n.ivu-icon-md-cog:before {\n    content: \"\\F386\"\n}\n\n.ivu-icon-md-color-fill:before {\n    content: \"\\F387\"\n}\n\n.ivu-icon-md-color-filter:before {\n    content: \"\\F388\"\n}\n\n.ivu-icon-md-color-palette:before {\n    content: \"\\F389\"\n}\n\n.ivu-icon-md-color-wand:before {\n    content: \"\\F38A\"\n}\n\n.ivu-icon-md-compass:before {\n    content: \"\\F38B\"\n}\n\n.ivu-icon-md-construct:before {\n    content: \"\\F38C\"\n}\n\n.ivu-icon-md-contact:before {\n    content: \"\\F38D\"\n}\n\n.ivu-icon-md-contacts:before {\n    content: \"\\F38E\"\n}\n\n.ivu-icon-md-contract:before {\n    content: \"\\F38F\"\n}\n\n.ivu-icon-md-contrast:before {\n    content: \"\\F390\"\n}\n\n.ivu-icon-md-copy:before {\n    content: \"\\F391\"\n}\n\n.ivu-icon-md-create:before {\n    content: \"\\F392\"\n}\n\n.ivu-icon-md-crop:before {\n    content: \"\\F393\"\n}\n\n.ivu-icon-md-cube:before {\n    content: \"\\F394\"\n}\n\n.ivu-icon-md-cut:before {\n    content: \"\\F395\"\n}\n\n.ivu-icon-md-desktop:before {\n    content: \"\\F396\"\n}\n\n.ivu-icon-md-disc:before {\n    content: \"\\F397\"\n}\n\n.ivu-icon-md-document:before {\n    content: \"\\F398\"\n}\n\n.ivu-icon-md-done-all:before {\n    content: \"\\F399\"\n}\n\n.ivu-icon-md-download:before {\n    content: \"\\F39A\"\n}\n\n.ivu-icon-md-easel:before {\n    content: \"\\F39B\"\n}\n\n.ivu-icon-md-egg:before {\n    content: \"\\F39C\"\n}\n\n.ivu-icon-md-exit:before {\n    content: \"\\F39D\"\n}\n\n.ivu-icon-md-expand:before {\n    content: \"\\F39E\"\n}\n\n.ivu-icon-md-eye-off:before {\n    content: \"\\F39F\"\n}\n\n.ivu-icon-md-eye:before {\n    content: \"\\F3A0\"\n}\n\n.ivu-icon-md-fastforward:before {\n    content: \"\\F3A1\"\n}\n\n.ivu-icon-md-female:before {\n    content: \"\\F3A2\"\n}\n\n.ivu-icon-md-filing:before {\n    content: \"\\F3A3\"\n}\n\n.ivu-icon-md-film:before {\n    content: \"\\F3A4\"\n}\n\n.ivu-icon-md-finger-print:before {\n    content: \"\\F3A5\"\n}\n\n.ivu-icon-md-flag:before {\n    content: \"\\F3A6\"\n}\n\n.ivu-icon-md-flame:before {\n    content: \"\\F3A7\"\n}\n\n.ivu-icon-md-flash:before {\n    content: \"\\F3A8\"\n}\n\n.ivu-icon-md-flask:before {\n    content: \"\\F3A9\"\n}\n\n.ivu-icon-md-flower:before {\n    content: \"\\F3AA\"\n}\n\n.ivu-icon-md-folder-open:before {\n    content: \"\\F3AB\"\n}\n\n.ivu-icon-md-folder:before {\n    content: \"\\F3AC\"\n}\n\n.ivu-icon-md-football:before {\n    content: \"\\F3AD\"\n}\n\n.ivu-icon-md-funnel:before {\n    content: \"\\F3AE\"\n}\n\n.ivu-icon-md-game-controller-a:before {\n    content: \"\\F3AF\"\n}\n\n.ivu-icon-md-game-controller-b:before {\n    content: \"\\F3B0\"\n}\n\n.ivu-icon-md-git-branch:before {\n    content: \"\\F3B1\"\n}\n\n.ivu-icon-md-git-commit:before {\n    content: \"\\F3B2\"\n}\n\n.ivu-icon-md-git-compare:before {\n    content: \"\\F3B3\"\n}\n\n.ivu-icon-md-git-merge:before {\n    content: \"\\F3B4\"\n}\n\n.ivu-icon-md-git-network:before {\n    content: \"\\F3B5\"\n}\n\n.ivu-icon-md-git-pull-request:before {\n    content: \"\\F3B6\"\n}\n\n.ivu-icon-md-glasses:before {\n    content: \"\\F3B7\"\n}\n\n.ivu-icon-md-globe:before {\n    content: \"\\F3B8\"\n}\n\n.ivu-icon-md-grid:before {\n    content: \"\\F3B9\"\n}\n\n.ivu-icon-md-hammer:before {\n    content: \"\\F3BA\"\n}\n\n.ivu-icon-md-hand:before {\n    content: \"\\F3BB\"\n}\n\n.ivu-icon-md-happy:before {\n    content: \"\\F3BC\"\n}\n\n.ivu-icon-md-headset:before {\n    content: \"\\F3BD\"\n}\n\n.ivu-icon-md-heart-outline:before {\n    content: \"\\F3BE\"\n}\n\n.ivu-icon-md-heart:before {\n    content: \"\\F3BF\"\n}\n\n.ivu-icon-md-help-buoy:before {\n    content: \"\\F3C0\"\n}\n\n.ivu-icon-md-help-circle:before {\n    content: \"\\F3C1\"\n}\n\n.ivu-icon-md-help:before {\n    content: \"\\F3C2\"\n}\n\n.ivu-icon-md-home:before {\n    content: \"\\F3C3\"\n}\n\n.ivu-icon-md-ice-cream:before {\n    content: \"\\F3C4\"\n}\n\n.ivu-icon-md-image:before {\n    content: \"\\F3C5\"\n}\n\n.ivu-icon-md-images:before {\n    content: \"\\F3C6\"\n}\n\n.ivu-icon-md-infinite:before {\n    content: \"\\F3C7\"\n}\n\n.ivu-icon-md-information-circle:before {\n    content: \"\\F3C8\"\n}\n\n.ivu-icon-md-information:before {\n    content: \"\\F3C9\"\n}\n\n.ivu-icon-md-ionic:before {\n    content: \"\\F3CA\"\n}\n\n.ivu-icon-md-ionitron:before {\n    content: \"\\F3CB\"\n}\n\n.ivu-icon-md-jet:before {\n    content: \"\\F3CC\"\n}\n\n.ivu-icon-md-key:before {\n    content: \"\\F3CD\"\n}\n\n.ivu-icon-md-keypad:before {\n    content: \"\\F3CE\"\n}\n\n.ivu-icon-md-laptop:before {\n    content: \"\\F3CF\"\n}\n\n.ivu-icon-md-leaf:before {\n    content: \"\\F3D0\"\n}\n\n.ivu-icon-md-link:before {\n    content: \"\\F3D1\"\n}\n\n.ivu-icon-md-list-box:before {\n    content: \"\\F3D2\"\n}\n\n.ivu-icon-md-list:before {\n    content: \"\\F3D3\"\n}\n\n.ivu-icon-md-locate:before {\n    content: \"\\F3D4\"\n}\n\n.ivu-icon-md-lock:before {\n    content: \"\\F3D5\"\n}\n\n.ivu-icon-md-log-in:before {\n    content: \"\\F3D6\"\n}\n\n.ivu-icon-md-log-out:before {\n    content: \"\\F3D7\"\n}\n\n.ivu-icon-md-magnet:before {\n    content: \"\\F3D8\"\n}\n\n.ivu-icon-md-mail-open:before {\n    content: \"\\F3D9\"\n}\n\n.ivu-icon-md-mail:before {\n    content: \"\\F3DA\"\n}\n\n.ivu-icon-md-male:before {\n    content: \"\\F3DB\"\n}\n\n.ivu-icon-md-man:before {\n    content: \"\\F3DC\"\n}\n\n.ivu-icon-md-map:before {\n    content: \"\\F3DD\"\n}\n\n.ivu-icon-md-medal:before {\n    content: \"\\F3DE\"\n}\n\n.ivu-icon-md-medical:before {\n    content: \"\\F3DF\"\n}\n\n.ivu-icon-md-medkit:before {\n    content: \"\\F3E0\"\n}\n\n.ivu-icon-md-megaphone:before {\n    content: \"\\F3E1\"\n}\n\n.ivu-icon-md-menu:before {\n    content: \"\\F3E2\"\n}\n\n.ivu-icon-md-mic-off:before {\n    content: \"\\F3E3\"\n}\n\n.ivu-icon-md-mic:before {\n    content: \"\\F3E4\"\n}\n\n.ivu-icon-md-microphone:before {\n    content: \"\\F3E5\"\n}\n\n.ivu-icon-md-moon:before {\n    content: \"\\F3E6\"\n}\n\n.ivu-icon-md-more:before {\n    content: \"\\F3E7\"\n}\n\n.ivu-icon-md-move:before {\n    content: \"\\F3E8\"\n}\n\n.ivu-icon-md-musical-note:before {\n    content: \"\\F3E9\"\n}\n\n.ivu-icon-md-musical-notes:before {\n    content: \"\\F3EA\"\n}\n\n.ivu-icon-md-navigate:before {\n    content: \"\\F3EB\"\n}\n\n.ivu-icon-md-no-smoking:before {\n    content: \"\\F3EC\"\n}\n\n.ivu-icon-md-notifications-off:before {\n    content: \"\\F3ED\"\n}\n\n.ivu-icon-md-notifications-outline:before {\n    content: \"\\F3EE\"\n}\n\n.ivu-icon-md-notifications:before {\n    content: \"\\F3EF\"\n}\n\n.ivu-icon-md-nuclear:before {\n    content: \"\\F3F0\"\n}\n\n.ivu-icon-md-nutrition:before {\n    content: \"\\F3F1\"\n}\n\n.ivu-icon-md-open:before {\n    content: \"\\F3F2\"\n}\n\n.ivu-icon-md-options:before {\n    content: \"\\F3F3\"\n}\n\n.ivu-icon-md-outlet:before {\n    content: \"\\F3F4\"\n}\n\n.ivu-icon-md-paper-plane:before {\n    content: \"\\F3F5\"\n}\n\n.ivu-icon-md-paper:before {\n    content: \"\\F3F6\"\n}\n\n.ivu-icon-md-partly-sunny:before {\n    content: \"\\F3F7\"\n}\n\n.ivu-icon-md-pause:before {\n    content: \"\\F3F8\"\n}\n\n.ivu-icon-md-paw:before {\n    content: \"\\F3F9\"\n}\n\n.ivu-icon-md-people:before {\n    content: \"\\F3FA\"\n}\n\n.ivu-icon-md-person-add:before {\n    content: \"\\F3FB\"\n}\n\n.ivu-icon-md-person:before {\n    content: \"\\F3FC\"\n}\n\n.ivu-icon-md-phone-landscape:before {\n    content: \"\\F3FD\"\n}\n\n.ivu-icon-md-phone-portrait:before {\n    content: \"\\F3FE\"\n}\n\n.ivu-icon-md-photos:before {\n    content: \"\\F3FF\"\n}\n\n.ivu-icon-md-pie:before {\n    content: \"\\F400\"\n}\n\n.ivu-icon-md-pin:before {\n    content: \"\\F401\"\n}\n\n.ivu-icon-md-pint:before {\n    content: \"\\F402\"\n}\n\n.ivu-icon-md-pizza:before {\n    content: \"\\F403\"\n}\n\n.ivu-icon-md-plane:before {\n    content: \"\\F404\"\n}\n\n.ivu-icon-md-planet:before {\n    content: \"\\F405\"\n}\n\n.ivu-icon-md-play:before {\n    content: \"\\F406\"\n}\n\n.ivu-icon-md-podium:before {\n    content: \"\\F407\"\n}\n\n.ivu-icon-md-power:before {\n    content: \"\\F408\"\n}\n\n.ivu-icon-md-pricetag:before {\n    content: \"\\F409\"\n}\n\n.ivu-icon-md-pricetags:before {\n    content: \"\\F40A\"\n}\n\n.ivu-icon-md-print:before {\n    content: \"\\F40B\"\n}\n\n.ivu-icon-md-pulse:before {\n    content: \"\\F40C\"\n}\n\n.ivu-icon-md-qr-scanner:before {\n    content: \"\\F40D\"\n}\n\n.ivu-icon-md-quote:before {\n    content: \"\\F40E\"\n}\n\n.ivu-icon-md-radio-button-off:before {\n    content: \"\\F40F\"\n}\n\n.ivu-icon-md-radio-button-on:before {\n    content: \"\\F410\"\n}\n\n.ivu-icon-md-radio:before {\n    content: \"\\F411\"\n}\n\n.ivu-icon-md-rainy:before {\n    content: \"\\F412\"\n}\n\n.ivu-icon-md-recording:before {\n    content: \"\\F413\"\n}\n\n.ivu-icon-md-redo:before {\n    content: \"\\F414\"\n}\n\n.ivu-icon-md-refresh-circle:before {\n    content: \"\\F415\"\n}\n\n.ivu-icon-md-refresh:before {\n    content: \"\\F416\"\n}\n\n.ivu-icon-md-remove-circle:before {\n    content: \"\\F417\"\n}\n\n.ivu-icon-md-remove:before {\n    content: \"\\F418\"\n}\n\n.ivu-icon-md-reorder:before {\n    content: \"\\F419\"\n}\n\n.ivu-icon-md-repeat:before {\n    content: \"\\F41A\"\n}\n\n.ivu-icon-md-resize:before {\n    content: \"\\F41B\"\n}\n\n.ivu-icon-md-restaurant:before {\n    content: \"\\F41C\"\n}\n\n.ivu-icon-md-return-left:before {\n    content: \"\\F41D\"\n}\n\n.ivu-icon-md-return-right:before {\n    content: \"\\F41E\"\n}\n\n.ivu-icon-md-reverse-camera:before {\n    content: \"\\F41F\"\n}\n\n.ivu-icon-md-rewind:before {\n    content: \"\\F420\"\n}\n\n.ivu-icon-md-ribbon:before {\n    content: \"\\F421\"\n}\n\n.ivu-icon-md-rose:before {\n    content: \"\\F422\"\n}\n\n.ivu-icon-md-sad:before {\n    content: \"\\F423\"\n}\n\n.ivu-icon-md-school:before {\n    content: \"\\F424\"\n}\n\n.ivu-icon-md-search:before {\n    content: \"\\F425\"\n}\n\n.ivu-icon-md-send:before {\n    content: \"\\F426\"\n}\n\n.ivu-icon-md-settings:before {\n    content: \"\\F427\"\n}\n\n.ivu-icon-md-share-alt:before {\n    content: \"\\F428\"\n}\n\n.ivu-icon-md-share:before {\n    content: \"\\F429\"\n}\n\n.ivu-icon-md-shirt:before {\n    content: \"\\F42A\"\n}\n\n.ivu-icon-md-shuffle:before {\n    content: \"\\F42B\"\n}\n\n.ivu-icon-md-skip-backward:before {\n    content: \"\\F42C\"\n}\n\n.ivu-icon-md-skip-forward:before {\n    content: \"\\F42D\"\n}\n\n.ivu-icon-md-snow:before {\n    content: \"\\F42E\"\n}\n\n.ivu-icon-md-speedometer:before {\n    content: \"\\F42F\"\n}\n\n.ivu-icon-md-square-outline:before {\n    content: \"\\F430\"\n}\n\n.ivu-icon-md-square:before {\n    content: \"\\F431\"\n}\n\n.ivu-icon-md-star-half:before {\n    content: \"\\F432\"\n}\n\n.ivu-icon-md-star-outline:before {\n    content: \"\\F433\"\n}\n\n.ivu-icon-md-star:before {\n    content: \"\\F434\"\n}\n\n.ivu-icon-md-stats:before {\n    content: \"\\F435\"\n}\n\n.ivu-icon-md-stopwatch:before {\n    content: \"\\F436\"\n}\n\n.ivu-icon-md-subway:before {\n    content: \"\\F437\"\n}\n\n.ivu-icon-md-sunny:before {\n    content: \"\\F438\"\n}\n\n.ivu-icon-md-swap:before {\n    content: \"\\F439\"\n}\n\n.ivu-icon-md-switch:before {\n    content: \"\\F43A\"\n}\n\n.ivu-icon-md-sync:before {\n    content: \"\\F43B\"\n}\n\n.ivu-icon-md-tablet-landscape:before {\n    content: \"\\F43C\"\n}\n\n.ivu-icon-md-tablet-portrait:before {\n    content: \"\\F43D\"\n}\n\n.ivu-icon-md-tennisball:before {\n    content: \"\\F43E\"\n}\n\n.ivu-icon-md-text:before {\n    content: \"\\F43F\"\n}\n\n.ivu-icon-md-thermometer:before {\n    content: \"\\F440\"\n}\n\n.ivu-icon-md-thumbs-down:before {\n    content: \"\\F441\"\n}\n\n.ivu-icon-md-thumbs-up:before {\n    content: \"\\F442\"\n}\n\n.ivu-icon-md-thunderstorm:before {\n    content: \"\\F443\"\n}\n\n.ivu-icon-md-time:before {\n    content: \"\\F444\"\n}\n\n.ivu-icon-md-timer:before {\n    content: \"\\F445\"\n}\n\n.ivu-icon-md-train:before {\n    content: \"\\F446\"\n}\n\n.ivu-icon-md-transgender:before {\n    content: \"\\F447\"\n}\n\n.ivu-icon-md-trash:before {\n    content: \"\\F448\"\n}\n\n.ivu-icon-md-trending-down:before {\n    content: \"\\F449\"\n}\n\n.ivu-icon-md-trending-up:before {\n    content: \"\\F44A\"\n}\n\n.ivu-icon-md-trophy:before {\n    content: \"\\F44B\"\n}\n\n.ivu-icon-md-umbrella:before {\n    content: \"\\F44C\"\n}\n\n.ivu-icon-md-undo:before {\n    content: \"\\F44D\"\n}\n\n.ivu-icon-md-unlock:before {\n    content: \"\\F44E\"\n}\n\n.ivu-icon-md-videocam:before {\n    content: \"\\F44F\"\n}\n\n.ivu-icon-md-volume-down:before {\n    content: \"\\F450\"\n}\n\n.ivu-icon-md-volume-mute:before {\n    content: \"\\F451\"\n}\n\n.ivu-icon-md-volume-off:before {\n    content: \"\\F452\"\n}\n\n.ivu-icon-md-volume-up:before {\n    content: \"\\F453\"\n}\n\n.ivu-icon-md-walk:before {\n    content: \"\\F454\"\n}\n\n.ivu-icon-md-warning:before {\n    content: \"\\F455\"\n}\n\n.ivu-icon-md-watch:before {\n    content: \"\\F456\"\n}\n\n.ivu-icon-md-water:before {\n    content: \"\\F457\"\n}\n\n.ivu-icon-md-wifi:before {\n    content: \"\\F458\"\n}\n\n.ivu-icon-md-wine:before {\n    content: \"\\F459\"\n}\n\n.ivu-icon-md-woman:before {\n    content: \"\\F45A\"\n}\n\n.ivu-icon-ios-loading:before {\n    content: \"\\F45B\"\n}\n\n/* uploads *****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/\n.ivu-upload{\n    cursor: pointer;\n}\n.ivu-upload input[type=file] {\n    display: none\n}\n\n.ivu-upload-list {\n    margin-top: 8px\n}\n\n.ivu-upload-list-file {\n    padding: 4px;\n    color: #515a6e;\n    border-radius: 4px;\n    transition: background-color .2s ease-in-out;\n    overflow: hidden;\n    position: relative\n}\n\n.ivu-upload-list-file>span {\n    cursor: pointer;\n    transition: color .2s ease-in-out\n}\n\n.ivu-upload-list-file>span i {\n    display: inline-block;\n    width: 12px;\n    height: 12px;\n    color: #515a6e;\n    text-align: center\n}\n\n.ivu-upload-list-file:hover {\n    background: #f3f3f3\n}\n\n.ivu-upload-list-file:hover>span {\n    color: #283F5C\n}\n\n.ivu-upload-list-file:hover>span i {\n    color: #515a6e\n}\n\n.ivu-upload-list-file:hover .ivu-upload-list-remove {\n    opacity: 1\n}\n\n.ivu-upload-list-remove {\n    opacity: 0;\n    font-size: 18px;\n    cursor: pointer;\n    float: right;\n    margin-right: 4px;\n    color: #999;\n    transition: all .2s ease\n}\n\n.ivu-upload-list-remove:hover {\n    color: #444\n}\n\n.ivu-upload-select {\n    display: inline-block;\n    width: 100% !important;\n}\n\n.ivu-upload-drag {\n    background: #fff;\n    border: 1px dashed #dcdee2;\n    border-radius: 4px;\n    text-align: center;\n    cursor: pointer;\n    position: relative;\n    overflow: hidden;\n    transition: border-color .2s ease\n}\n\n.ivu-upload-drag:hover {\n    border: 1px dashed #283F5C\n}\n\n.ivu-upload-dragOver {\n    border: 2px dashed #283F5C\n}\n.ivu-progress {\n    display: inline-block;\n    width: 100%;\n    font-size: 12px;\n    position: relative\n}\n\n.ivu-progress-vertical {\n    height: 100%;\n    width: auto\n}\n\n.ivu-progress-outer {\n    display: inline-block;\n    width: 100%;\n    margin-right: 0;\n    padding-right: 0\n}\n\n.ivu-progress-show-info .ivu-progress-outer {\n    padding-right: 55px;\n    margin-right: -55px\n}\n\n.ivu-progress-vertical .ivu-progress-outer {\n    height: 100%;\n    width: auto\n}\n\n.ivu-progress-inner {\n    display: inline-block;\n    width: 100%;\n    background-color: #f3f3f3;\n    border-radius: 100px;\n    vertical-align: middle;\n    position: relative\n}\n\n.ivu-progress-vertical .ivu-progress-inner {\n    height: 100%;\n    width: auto\n}\n\n.ivu-progress-vertical .ivu-progress-inner:after,\n.ivu-progress-vertical .ivu-progress-inner>* {\n    display: inline-block;\n    vertical-align: bottom\n}\n\n.ivu-progress-vertical .ivu-progress-inner:after {\n    content: '';\n    height: 100%\n}\n\n.ivu-progress-bg {\n    border-radius: 100px;\n    background-color: #283F5C;\n    transition: all .2s linear;\n    position: relative\n}\n\n.ivu-progress-success-bg {\n    border-radius: 100px;\n    background-color: #19be6b;\n    transition: all .2s linear;\n    position: absolute;\n    top: 0;\n    left: 0\n}\n\n.ivu-progress-text {\n    display: inline-block;\n    margin-left: 5px;\n    text-align: left;\n    font-size: 1em;\n    vertical-align: middle\n}\n\n.ivu-progress-active .ivu-progress-bg:before {\n    content: '';\n    opacity: 0;\n    position: absolute;\n    top: 0;\n    left: 0;\n    right: 0;\n    bottom: 0;\n    background: #fff;\n    border-radius: 10px;\n    -webkit-animation: ivu-progress-active 2s ease-in-out infinite;\n    animation: ivu-progress-active 2s ease-in-out infinite\n}\n\n.ivu-progress-vertical.ivu-progress-active .ivu-progress-bg:before {\n    top: auto;\n    -webkit-animation: ivu-progress-active-vertical 2s ease-in-out infinite;\n    animation: ivu-progress-active-vertical 2s ease-in-out infinite\n}\n\n.ivu-progress-wrong .ivu-progress-bg {\n    background-color: #ed4014\n}\n\n.ivu-progress-wrong .ivu-progress-text {\n    color: #ed4014\n}\n\n.ivu-progress-success .ivu-progress-bg {\n    background-color: #19be6b\n}\n\n.ivu-progress-success .ivu-progress-text {\n    color: #19be6b\n}\n\n@-webkit-keyframes ivu-progress-active {\n    0% {\n        opacity: .3;\n        width: 0\n    }\n    100% {\n        opacity: 0;\n        width: 100%\n    }\n}\n\n@keyframes ivu-progress-active {\n    0% {\n        opacity: .3;\n        width: 0\n    }\n    100% {\n        opacity: 0;\n        width: 100%\n    }\n}\n\n@-webkit-keyframes ivu-progress-active-vertical {\n    0% {\n        opacity: .3;\n        height: 0\n    }\n    100% {\n        opacity: 0;\n        height: 100%\n    }\n}\n\n@keyframes ivu-progress-active-vertical {\n    0% {\n        opacity: .3;\n        height: 0\n    }\n    100% {\n        opacity: 0;\n        height: 100%\n    }\n}\n.ivu-tree ul {\n    list-style: none;\n    margin: 0;\n    padding: 0;\n    font-size: 12px\n}\n\n.ivu-tree ul.ivu-dropdown-menu {\n    padding: 0\n}\n\n.ivu-tree ul li {\n    list-style: none;\n    margin: 8px 0;\n    padding: 0;\n    white-space: nowrap;\n    outline: 0\n}\n\n.ivu-tree ul li.ivu-dropdown-item {\n    margin: 0;\n    padding: 7px 16px;\n    white-space: nowrap\n}\n\n.ivu-tree li ul {\n    margin: 0;\n    padding: 0 0 0 18px\n}\n\n.ivu-tree-title {\n    display: inline-block;\n    margin: 0;\n    padding: 0 4px;\n    border-radius: 3px;\n    cursor: pointer;\n    vertical-align: top;\n    color: #515a6e;\n    transition: all .2s ease-in-out\n}\n\n.ivu-tree-title:hover {\n    background-color: #eaf4fe\n}\n\n.ivu-tree-title-selected,\n.ivu-tree-title-selected:hover {\n    background-color: #d5e8fc\n}\n\n.ivu-tree-arrow {\n    cursor: pointer;\n    width: 18px;\n    margin-right: 10px;\n    text-align: center;\n    display: inline-block\n}\n\n.ivu-tree-arrow i {\n    transition: all .2s ease-in-out;\n    font-size: 16px;\n    font-weight: bold;\n    vertical-align: middle;\n    color: #283F5C;\n}\n\n.ivu-tree-arrow-open i {\n    -webkit-transform: rotate(90deg);\n    transform: rotate(90deg);\n}\n\n.ivu-tree-arrow-disabled {\n    cursor: not-allowed\n}\n\n.ivu-tree .ivu-checkbox-wrapper {\n    margin-right: 4px;\n    margin-left: 4px\n}\n.ivu-tree .ivu-icon-ios-folder{\n    font-size: 1.8em;\n    color: #283F5C;\n}\n.ivu-tree .ivu-icon-ios-paper-outline{\n    font-size: 1.5em;\n}\n\n\n.ivu-modal {\n    width: auto;\n    margin: 0 auto;\n    position: relative;\n    outline: 0;\n    top: 100px\n}\n\n.ivu-modal-hidden {\n    display: none!important\n}\n\n.ivu-modal-wrap {\n    position: fixed;\n    overflow: auto;\n    top: 0;\n    right: 0;\n    bottom: 0;\n    left: 0;\n    z-index: 1000;\n    -webkit-overflow-scrolling: touch;\n    outline: 0\n}\n\n.ivu-modal-wrap * {\n    box-sizing: border-box;\n    -webkit-tap-highlight-color: transparent\n}\n\n.ivu-modal-mask {\n    position: fixed;\n    top: 0;\n    bottom: 0;\n    left: 0;\n    right: 0;\n    background-color: rgba(55, 55, 55, .6);\n    height: 100%;\n    z-index: 1000\n}\n\n.ivu-modal-mask-hidden {\n    display: none\n}\n\n.ivu-modal-content {\n    position: relative;\n    background-color: #fff;\n    border: 0;\n    border-radius: 6px;\n    background-clip: padding-box;\n    box-shadow: 0 4px 12px rgba(0, 0, 0, .15)\n}\n\n.ivu-modal-content-no-mask {\n    pointer-events: auto\n}\n\n.ivu-modal-content-drag {\n    position: absolute\n}\n\n.ivu-modal-content-drag .ivu-modal-header {\n    cursor: move\n}\n\n.ivu-modal-content-dragging {\n    -webkit-user-select: none;\n    -moz-user-select: none;\n    -ms-user-select: none;\n    user-select: none\n}\n\n.ivu-modal-header {\n    border-bottom: 1px solid #e8eaec;\n    padding: 14px 16px;\n    line-height: 1\n}\n\n.ivu-modal-header p,\n.ivu-modal-header-inner {\n    display: inline-block;\n    width: 100%;\n    height: 20px;\n    line-height: 20px;\n    font-size: 14px;\n    color: #17233d;\n    font-weight: 700;\n    overflow: hidden;\n    text-overflow: ellipsis;\n    white-space: nowrap\n}\n\n.ivu-modal-header p i,\n.ivu-modal-header p span {\n    vertical-align: middle\n}\n\n.ivu-modal-close {\n    z-index: 1;\n    font-size: 12px;\n    position: absolute;\n    right: 8px;\n    top: 8px;\n    overflow: hidden;\n    cursor: pointer\n}\n\n.ivu-modal-close .ivu-icon-ios-close {\n    font-size: 31px;\n    color: #999;\n    transition: color .2s ease;\n    position: relative;\n    top: 1px\n}\n\n.ivu-modal-close .ivu-icon-ios-close:hover {\n    color: #444\n}\n\n.ivu-modal-body {\n    padding: 16px;\n    font-size: 12px;\n    line-height: 1.5\n}\n\n.ivu-modal-footer {\n    border-top: 1px solid #e8eaec;\n    padding: 12px 18px 12px 18px;\n    text-align: right\n}\n\n.ivu-modal-footer button+button {\n    margin-left: 8px;\n    margin-bottom: 0\n}\n\n.ivu-modal-fullscreen {\n    width: 100%!important;\n    top: 0;\n    bottom: 0;\n    position: absolute\n}\n\n.ivu-modal-fullscreen .ivu-modal-content {\n    width: 100%;\n    border-radius: 0;\n    position: absolute;\n    top: 0;\n    bottom: 0\n}\n\n.ivu-modal-fullscreen .ivu-modal-body {\n    width: 100%;\n    overflow: auto;\n    position: absolute;\n    top: 51px;\n    bottom: 61px\n}\n\n.ivu-modal-fullscreen-no-header .ivu-modal-body {\n    top: 0\n}\n\n.ivu-modal-fullscreen-no-footer .ivu-modal-body {\n    bottom: 0\n}\n\n.ivu-modal-fullscreen .ivu-modal-footer {\n    position: absolute;\n    width: 100%;\n    bottom: 0\n}\n\n.ivu-modal-no-mask {\n    pointer-events: none\n}\n\n@media (max-width:576px) {\n    .ivu-modal {\n        width: auto!important;\n        margin: 10px\n    }\n    .ivu-modal-fullscreen {\n        width: 100%!important;\n        margin: 0\n    }\n    .vertical-center-modal .ivu-modal {\n        flex: 1\n    }\n}\n\n.ivu-modal-confirm {\n    padding: 0 4px\n}\n\n.ivu-modal-confirm-head {\n    padding: 0 12px 0 0\n}\n\n.ivu-modal-confirm-head-icon {\n    display: inline-block;\n    font-size: 28px;\n    vertical-align: middle;\n    position: relative;\n    top: -2px\n}\n\n.ivu-modal-confirm-head-icon-info {\n    color: #283F5C\n}\n\n.ivu-modal-confirm-head-icon-success {\n    color: #19be6b\n}\n\n.ivu-modal-confirm-head-icon-warning {\n    color: #f90\n}\n\n.ivu-modal-confirm-head-icon-error {\n    color: #ed4014\n}\n\n.ivu-modal-confirm-head-icon-confirm {\n    color: #283F5C;\n}\n\n.ivu-modal-confirm-head-title {\n    display: inline-block;\n    vertical-align: middle;\n    margin-left: 12px;\n    font-size: 16px;\n    color: #17233d;\n    font-weight: 700\n}\n\n.ivu-modal-confirm-body {\n    padding-left: 42px;\n    font-size: 14px;\n    color: #515a6e;\n    position: relative\n}\n\n.ivu-modal-confirm-body-render {\n    margin: 0;\n    padding: 0\n}\n\n.ivu-modal-confirm-footer {\n    margin-top: 20px;\n    text-align: right\n}\n\n.ivu-modal-confirm-footer button+button {\n    margin-left: 8px;\n    margin-bottom: 0\n}\n.ivu-btn {\n    display: inline-block;\n    margin-bottom: 0;\n    font-weight: 400;\n    text-align: center;\n    vertical-align: middle;\n    touch-action: manipulation;\n    cursor: pointer;\n    background-image: none;\n    border: none !important;\n    white-space: nowrap;\n    line-height: 1.5;\n    -webkit-user-select: none;\n    -moz-user-select: none;\n    -ms-user-select: none;\n    user-select: none;\n    padding: 10px 20px;\n    font-size: 12px !important;\n    border-radius: 4px;\n    transition: color .2s linear, background-color .2s linear, border .2s linear, box-shadow .2s linear;\n    color: #fff !important;\n    background: linear-gradient(135deg, #283f5c 0%, #8e9385 100%);\n    outline: 0 !important;\n    text-transform: capitalize !important;\n}\n.ivu-btn span{\n    font-size: 12px !important;\n    color: #fff !important;\n}\n\n.ivu-spin {\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    color: #283F5C;\n    vertical-align: middle;\n    text-align: center;\n}\n\n.ivu-spin-dot {\n    position: relative;\n    display: block;\n    border-radius: 50%;\n    background-color: #283F5C;\n    width: 20px;\n    height: 20px;\n    -webkit-animation: ani-spin-bounce 1s 0s ease-in-out infinite;\n    animation: ani-spin-bounce 1s 0s ease-in-out infinite\n}\n\n.ivu-spin-large .ivu-spin-dot {\n    width: 32px;\n    height: 32px\n}\n\n.ivu-spin-small .ivu-spin-dot {\n    width: 12px;\n    height: 12px\n}\n\n.ivu-spin-fix {\n    position: absolute;\n    top: 0;\n    left: 0;\n    z-index: 8;\n    width: 100%;\n    height: 100%;\n    background-color: rgba(255, 255, 255, .9)\n}\n\n.ivu-spin-fullscreen {\n    z-index: 2010\n}\n\n.ivu-spin-fullscreen-wrapper {\n    position: fixed;\n    top: 0;\n    right: 0;\n    bottom: 0;\n    left: 0\n}\n\n.ivu-spin-fix .ivu-spin-main {\n    position: absolute;\n    top: 50%;\n    left: 50%;\n    -webkit-transform: translate(-50%, -50%);\n    transform: translate(-50%, -50%)\n}\n\n.ivu-spin-fix .ivu-spin-dot {\n    display: inline-block\n}\n\n.ivu-spin-show-text .ivu-spin-dot,\n.ivu-spin-text {\n    display: none\n}\n\n.ivu-spin-show-text .ivu-spin-text {\n    display: block\n}", ""]);
 
 // exports
 
@@ -2115,7 +2272,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.v-context {\n    outline: 0 !important;\n    overflow: hidden !important;\n}\n.full-width{\n    width: 100%;\n}\n.contextArea {\n    width: 100%;\n    min-height: 300px;\n}\n", ""]);
+exports.push([module.i, "\n.upload-drag .ivu-modal-footer{\n    display: none;\n}\n.drop{\n    margin-top: 30px;\n}\n.drop:hover{\n    /* border: dashed 1px #dddddd; */\n}\n.ivu-upload-drag:hover{\n    border-color: #283f5c;\n}\n.v-context {\n    outline: 0 !important;\n    overflow: hidden !important;\n}\n.full-width{\n    width: 100%;\n}\n.contextArea {\n    width: 100%;\n    min-height: 300px;\n}\n", ""]);
 
 // exports
 
@@ -2141,6 +2298,44 @@ exports.push([module.i, "\n.dust h5[data-v-c48ab914]{\n    color: #fff;\n}\n", "
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/chartComponent.vue?vue&type=style&index=0&lang=css&":
+/*!********************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/chartComponent.vue?vue&type=style&index=0&lang=css& ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.chart{\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    width: 100%;\n    height: 150px;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/filePreview.vue?vue&type=style&index=0&id=563cafb1&scoped=true&lang=css&":
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/filePreview.vue?vue&type=style&index=0&id=563cafb1&scoped=true&lang=css& ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.single[data-v-563cafb1]{\n    width: 100%;\n    height: auto;\n}\n.filePreview[data-v-563cafb1]{\n    min-height: 150px;\n}\n.ivu-spin[data-v-563cafb1]{\n    height: 200px;\n}\n.spin-icon-load[data-v-563cafb1]{\n    -webkit-animation: ani-demo-spin-data-v-563cafb1 1s linear infinite;\n            animation: ani-demo-spin-data-v-563cafb1 1s linear infinite;\n}\n@-webkit-keyframes ani-demo-spin-data-v-563cafb1 {\nfrom { -webkit-transform: rotate(0deg); transform: rotate(0deg);}\n50%  { -webkit-transform: rotate(180deg); transform: rotate(180deg);}\nto   { -webkit-transform: rotate(360deg); transform: rotate(360deg);}\n}\n@keyframes ani-demo-spin-data-v-563cafb1 {\nfrom { -webkit-transform: rotate(0deg); transform: rotate(0deg);}\n50%  { -webkit-transform: rotate(180deg); transform: rotate(180deg);}\nto   { -webkit-transform: rotate(360deg); transform: rotate(360deg);}\n}\n.ivu-spin div[data-v-563cafb1]{\n    max-width: 250px;\n    margin-top: 15px;\n    font-size: 13px !important;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/nestedDraggable.vue?vue&type=style&index=0&lang=css&":
 /*!*********************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/nestedDraggable.vue?vue&type=style&index=0&lang=css& ***!
@@ -2153,7 +2348,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.dragArea {\n    width: 100%;\n     min-height: 15px;\n}\n.dragArea .ivu-icon-ios-folder-open{\n    font-size: 2.2em;\n    color: #293F5C;\n}\n.dragArea .ivu-icon-ios-paper-outline{\n    font-size: 1.8em;\n}\n.dragArea input{\ncolor: #283F5C;\n outline: none !important;\n box-shadow: none !important;\n font-size : '1em' !important;\n border: solid 1px #eee !important;\n padding: 5px 10px !important;\n}\n.dragArea label{\n    color: #283F5C;\n    font-size : '1em';\n}\n", ""]);
+exports.push([module.i, "\n.dragArea {\n    width: 100%;\n     min-height: 15px;\n}\n.dragArea .ivu-icon-ios-folder-open{\n    font-size: 2.2em;\n    color: #293F5C;\n}\n.dragArea .ivu-icon-ios-paper-outline{\n    font-size: 1.8em;\n}\n.dragArea input, .ivu-modal-header input{\n color: #283F5C;\n outline: none !important;\n box-shadow: none !important;\n font-size : 12px !important;\n border: solid 1px #eee !important;\n padding: 5px 10px !important;\n}\n.ivu-modal-header p, .ivu-modal-header-inner{\n    height: 30px !important;\n}\n.dragArea label{\n    color: #283F5C;\n    font-size : '1em';\n}\n", ""]);
 
 // exports
 
@@ -64467,6 +64662,66 @@ if(false) {}
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/chartComponent.vue?vue&type=style&index=0&lang=css&":
+/*!************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/chartComponent.vue?vue&type=style&index=0&lang=css& ***!
+  \************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./chartComponent.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/chartComponent.vue?vue&type=style&index=0&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/filePreview.vue?vue&type=style&index=0&id=563cafb1&scoped=true&lang=css&":
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/filePreview.vue?vue&type=style&index=0&id=563cafb1&scoped=true&lang=css& ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./filePreview.vue?vue&type=style&index=0&id=563cafb1&scoped=true&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/filePreview.vue?vue&type=style&index=0&id=563cafb1&scoped=true&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/nestedDraggable.vue?vue&type=style&index=0&lang=css&":
 /*!*************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/nestedDraggable.vue?vue&type=style&index=0&lang=css& ***!
@@ -65208,7 +65463,7 @@ var render = function() {
       _c(
         "div",
         {
-          staticClass: "row contextArea",
+          staticClass: "row contextArea drop",
           on: {
             contextmenu: function($event) {
               $event.preventDefault()
@@ -65218,7 +65473,7 @@ var render = function() {
         },
         [
           _c("nested-draggable", {
-            attrs: { data: _vm.list },
+            attrs: { txtindex: _vm.txt, data: _vm.list },
             on: { done: _vm.refresh }
           })
         ],
@@ -65265,7 +65520,55 @@ var render = function() {
             1
           )
         ])
-      ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "Modal",
+        {
+          staticClass: "upload-drag",
+          attrs: {
+            title: "Upload A New File",
+            "ok-text": "Save File",
+            "cancel-text": "Cancel"
+          },
+          on: { "on-ok": _vm.save, "on-cancel": _vm.cancel },
+          model: {
+            value: _vm.upload,
+            callback: function($$v) {
+              _vm.upload = $$v
+            },
+            expression: "upload"
+          }
+        },
+        [
+          _c(
+            "Upload",
+            {
+              attrs: {
+                multiple: "",
+                type: "drag",
+                action: "//jsonplaceholder.typicode.com/posts/"
+              }
+            },
+            [
+              _c(
+                "div",
+                { staticStyle: { padding: "20px 0" } },
+                [
+                  _c("Icon", {
+                    staticStyle: { color: "#283f5c" },
+                    attrs: { type: "ios-cloud-upload", size: "52" }
+                  }),
+                  _vm._v(" "),
+                  _c("p", [_vm._v("Click or drag files here to upload")])
+                ],
+                1
+              )
+            ]
+          )
+        ],
+        1
+      )
     ],
     1
   )
@@ -65305,9 +65608,7 @@ var render = function() {
                 headers: { "X-CSRF-TOKEN": _vm.header },
                 action: _vm.action,
                 "on-success": _vm.success,
-                format: ["jpg", "jpeg", "png"],
                 "max-size": 2048,
-                "on-format-error": _vm.formatError,
                 "on-exceeded-size": _vm.maxSize,
                 data: _vm.payload
               }
@@ -65358,9 +65659,7 @@ var render = function() {
                 headers: { "X-CSRF-TOKEN": _vm.header },
                 action: _vm.action,
                 "on-success": _vm.success,
-                format: ["jpg", "jpeg", "png"],
                 "max-size": 2048,
-                "on-format-error": _vm.formatError,
                 "on-exceeded-size": _vm.maxSize,
                 data: _vm.payload
               }
@@ -65374,6 +65673,195 @@ var render = function() {
             ]
           )
         : _vm._e()
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/chartComponent.vue?vue&type=template&id=27ced36c&":
+/*!*****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/chartComponent.vue?vue&type=template&id=27ced36c& ***!
+  \*****************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "chart" },
+    [
+      _c("Progress", { attrs: { vertical: "", percent: 25 } }),
+      _vm._v(" "),
+      _c("Progress", {
+        attrs: { vertical: "", percent: 35, status: "active" }
+      }),
+      _vm._v(" "),
+      _c("Progress", { attrs: { vertical: "", percent: 28 } }),
+      _vm._v(" "),
+      _c("Progress", { attrs: { vertical: "", percent: 49 } })
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/filePreview.vue?vue&type=template&id=563cafb1&scoped=true&":
+/*!**************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/filePreview.vue?vue&type=template&id=563cafb1&scoped=true& ***!
+  \**************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "filePreview" },
+    [
+      _vm.loading
+        ? _c(
+            "Spin",
+            [
+              _c("Icon", {
+                staticClass: "spin-icon-load",
+                attrs: { type: "ios-loading", size: "18" }
+              }),
+              _vm._v(" "),
+              _c("div", [_vm._v(_vm._s(_vm.loadingtxt))])
+            ],
+            1
+          )
+        : _c("div", [
+            _vm.iname === "Digital Security Photo Gallery"
+              ? _c("div", { staticClass: "row" }, [
+                  _vm.files[0]
+                    ? _c("div", { staticClass: "col-xs-12 col-md-6" }, [
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "porperty-image large margin-bottom-m-md"
+                          },
+                          [
+                            _c("div", { staticClass: "image-close" }),
+                            _c("img", { attrs: { src: _vm.files[0].src } })
+                          ]
+                        )
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col-xs-12 col-md-6" }, [
+                    _c("div", { staticClass: "row margin-bottom-m" }, [
+                      _vm.files[1]
+                        ? _c("div", { staticClass: "col-xs-12 col-sm-6" }, [
+                            _c(
+                              "div",
+                              {
+                                staticClass: "porperty-image margin-bottom-m-md"
+                              },
+                              [
+                                _c("div", { staticClass: "image-close" }),
+                                _c("img", { attrs: { src: _vm.files[1].src } })
+                              ]
+                            )
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.files[2]
+                        ? _c("div", { staticClass: "col-xs-12 col-sm-6" }, [
+                            _c("div", { staticClass: "porperty-image" }, [
+                              _c("div", { staticClass: "image-close" }),
+                              _c("img", { attrs: { src: _vm.files[2].src } })
+                            ])
+                          ])
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "row" }, [
+                      _vm.files[3]
+                        ? _c("div", { staticClass: "col-xs-12 col-sm-6" }, [
+                            _c(
+                              "div",
+                              {
+                                staticClass: "porperty-image margin-bottom-m-md"
+                              },
+                              [
+                                _c("div", { staticClass: "image-close" }),
+                                _c("img", { attrs: { src: _vm.files[3].src } })
+                              ]
+                            )
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.files[4]
+                        ? _c("div", { staticClass: "col-xs-12 col-sm-6" }, [
+                            _c("div", { staticClass: "porperty-image" }, [
+                              _c("div", { staticClass: "image-close" }),
+                              _c("img", { attrs: { src: _vm.files[4].src } })
+                            ])
+                          ])
+                        : _vm._e()
+                    ])
+                  ])
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.iname === "Single"
+              ? _c("img", {
+                  staticClass: "single",
+                  attrs: { src: _vm.files[_vm.index].src }
+                })
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.iname === "file"
+              ? _c(
+                  "ul",
+                  _vm._l(_vm.files, function(a, i) {
+                    return _c("li", { key: i }, [
+                      _c(
+                        "a",
+                        {
+                          attrs: { href: a.src, target: "_blank", download: "" }
+                        },
+                        [
+                          _vm._v(
+                            _vm._s(a.name ? a.name.split(/[\/ ]+/).pop() : "") +
+                              " "
+                          ),
+                          _c("Icon", { attrs: { type: "md-cloud-download" } })
+                        ],
+                        1
+                      )
+                    ])
+                  }),
+                  0
+                )
+              : _vm._e()
+          ])
     ],
     1
   )
@@ -65402,7 +65890,6 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "full-width" },
     [
       _c(
         "draggable",
@@ -65473,8 +65960,6 @@ var render = function() {
                           expression: "value"
                         }
                       ],
-                      ref: "rn",
-                      refInFor: true,
                       domProps: { value: _vm.value },
                       on: {
                         blur: function($event) {
@@ -65520,7 +66005,7 @@ var render = function() {
         "Modal",
         {
           attrs: {
-            title: _vm.doctitle,
+            title: "Man",
             "ok-text": "Save File",
             "cancel-text": "Cancel"
           },
@@ -65534,6 +66019,105 @@ var render = function() {
           }
         },
         [
+          _c("p", { attrs: { slot: "header" }, slot: "header" }, [
+            _vm.data[_vm.docindex]
+              ? _c("a", [
+                  _c(
+                    "label",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: !_vm.data[_vm.docindex].edit,
+                          expression: "!data[docindex].edit"
+                        }
+                      ],
+                      style: [
+                        _vm.data[_vm.docindex].type
+                          ? { "font-weight": "bold" }
+                          : ""
+                      ],
+                      on: {
+                        click: function($event) {
+                          return _vm.handleClick(_vm.docindex)
+                        }
+                      }
+                    },
+                    [
+                      _vm.data[_vm.docindex].type
+                        ? _c("Icon", { attrs: { type: "ios-folder-open" } })
+                        : _c("Icon", { attrs: { type: "ios-paper-outline" } }),
+                      _vm._v(
+                        "\n                        " +
+                          _vm._s(_vm.data[_vm.docindex].name) +
+                          " \n                    "
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "span",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.data[_vm.docindex].edit === true,
+                          expression: "data[docindex].edit === true"
+                        }
+                      ]
+                    },
+                    [
+                      _vm.data[_vm.docindex].type
+                        ? _c("Icon", { attrs: { type: "ios-folder-open" } })
+                        : _c("Icon", { attrs: { type: "ios-paper-outline" } }),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.value,
+                            expression: "value"
+                          }
+                        ],
+                        domProps: { value: _vm.value },
+                        on: {
+                          blur: function($event) {
+                            return _vm.rename(_vm.docindex)
+                          },
+                          keyup: function($event) {
+                            if (
+                              !$event.type.indexOf("key") &&
+                              _vm._k(
+                                $event.keyCode,
+                                "enter",
+                                13,
+                                $event.key,
+                                "Enter"
+                              )
+                            ) {
+                              return null
+                            }
+                            return _vm.rename(_vm.docindex)
+                          },
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.value = $event.target.value
+                          }
+                        }
+                      })
+                    ],
+                    1
+                  )
+                ])
+              : _vm._e()
+          ]),
+          _vm._v(" "),
           _c("vue-editor", {
             model: {
               value: _vm.content,
@@ -80977,6 +81561,8 @@ module.exports = function(module) {
 var map = {
 	"./components/FileTree.vue": "./resources/js/components/FileTree.vue",
 	"./components/UploadsComponent.vue": "./resources/js/components/UploadsComponent.vue",
+	"./components/chartComponent.vue": "./resources/js/components/chartComponent.vue",
+	"./components/filePreview.vue": "./resources/js/components/filePreview.vue",
 	"./components/nestedDraggable.vue": "./resources/js/components/nestedDraggable.vue"
 };
 
@@ -81018,7 +81604,8 @@ var iView = __webpack_require__(/*! iview */ "./node_modules/iview/dist/iview.js
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
-__webpack_require__(/*! ../sass/vue/styles/iview.css */ "./resources/sass/vue/styles/iview.css");
+__webpack_require__(/*! ../sass/vue/styles/iview.css */ "./resources/sass/vue/styles/iview.css"); // require('dotenv').config();
+
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 Vue.use(iView);
@@ -81253,6 +81840,164 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/chartComponent.vue":
+/*!****************************************************!*\
+  !*** ./resources/js/components/chartComponent.vue ***!
+  \****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _chartComponent_vue_vue_type_template_id_27ced36c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./chartComponent.vue?vue&type=template&id=27ced36c& */ "./resources/js/components/chartComponent.vue?vue&type=template&id=27ced36c&");
+/* harmony import */ var _chartComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./chartComponent.vue?vue&type=style&index=0&lang=css& */ "./resources/js/components/chartComponent.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+var script = {}
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  script,
+  _chartComponent_vue_vue_type_template_id_27ced36c___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _chartComponent_vue_vue_type_template_id_27ced36c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/chartComponent.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/chartComponent.vue?vue&type=style&index=0&lang=css&":
+/*!*************************************************************************************!*\
+  !*** ./resources/js/components/chartComponent.vue?vue&type=style&index=0&lang=css& ***!
+  \*************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_chartComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader!../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./chartComponent.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/chartComponent.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_chartComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_chartComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_chartComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_chartComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_chartComponent_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./resources/js/components/chartComponent.vue?vue&type=template&id=27ced36c&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/components/chartComponent.vue?vue&type=template&id=27ced36c& ***!
+  \***********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_chartComponent_vue_vue_type_template_id_27ced36c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./chartComponent.vue?vue&type=template&id=27ced36c& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/chartComponent.vue?vue&type=template&id=27ced36c&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_chartComponent_vue_vue_type_template_id_27ced36c___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_chartComponent_vue_vue_type_template_id_27ced36c___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/filePreview.vue":
+/*!*************************************************!*\
+  !*** ./resources/js/components/filePreview.vue ***!
+  \*************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _filePreview_vue_vue_type_template_id_563cafb1_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./filePreview.vue?vue&type=template&id=563cafb1&scoped=true& */ "./resources/js/components/filePreview.vue?vue&type=template&id=563cafb1&scoped=true&");
+/* harmony import */ var _filePreview_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./filePreview.vue?vue&type=script&lang=js& */ "./resources/js/components/filePreview.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _filePreview_vue_vue_type_style_index_0_id_563cafb1_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./filePreview.vue?vue&type=style&index=0&id=563cafb1&scoped=true&lang=css& */ "./resources/js/components/filePreview.vue?vue&type=style&index=0&id=563cafb1&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _filePreview_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _filePreview_vue_vue_type_template_id_563cafb1_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _filePreview_vue_vue_type_template_id_563cafb1_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "563cafb1",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/filePreview.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/filePreview.vue?vue&type=script&lang=js&":
+/*!**************************************************************************!*\
+  !*** ./resources/js/components/filePreview.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_filePreview_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./filePreview.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/filePreview.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_filePreview_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/filePreview.vue?vue&type=style&index=0&id=563cafb1&scoped=true&lang=css&":
+/*!**********************************************************************************************************!*\
+  !*** ./resources/js/components/filePreview.vue?vue&type=style&index=0&id=563cafb1&scoped=true&lang=css& ***!
+  \**********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_filePreview_vue_vue_type_style_index_0_id_563cafb1_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader!../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./filePreview.vue?vue&type=style&index=0&id=563cafb1&scoped=true&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/filePreview.vue?vue&type=style&index=0&id=563cafb1&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_filePreview_vue_vue_type_style_index_0_id_563cafb1_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_filePreview_vue_vue_type_style_index_0_id_563cafb1_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_filePreview_vue_vue_type_style_index_0_id_563cafb1_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_filePreview_vue_vue_type_style_index_0_id_563cafb1_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_filePreview_vue_vue_type_style_index_0_id_563cafb1_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./resources/js/components/filePreview.vue?vue&type=template&id=563cafb1&scoped=true&":
+/*!********************************************************************************************!*\
+  !*** ./resources/js/components/filePreview.vue?vue&type=template&id=563cafb1&scoped=true& ***!
+  \********************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_filePreview_vue_vue_type_template_id_563cafb1_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./filePreview.vue?vue&type=template&id=563cafb1&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/filePreview.vue?vue&type=template&id=563cafb1&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_filePreview_vue_vue_type_template_id_563cafb1_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_filePreview_vue_vue_type_template_id_563cafb1_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/nestedDraggable.vue":
 /*!*****************************************************!*\
   !*** ./resources/js/components/nestedDraggable.vue ***!
@@ -81337,6 +82082,33 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_nestedDraggable_vue_vue_type_template_id_1f85e84a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ "./resources/js/libs/index.js":
+/*!************************************!*\
+  !*** ./resources/js/libs/index.js ***!
+  \************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function getApiUrl() {
+  var hn = window.location.hostname;
+
+  if (hn === 'abstract.test') {
+    return 'http://abstract.test/';
+  } else {
+    return 'https://abstract.com/';
+  }
+}
+
+var API_URL = getApiUrl();
+/* harmony default export */ __webpack_exports__["default"] = ({
+  ////// Retrieve Files
+  getFiles: API_URL + 'getFiles/'
+});
 
 /***/ }),
 

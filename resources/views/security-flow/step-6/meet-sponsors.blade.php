@@ -18,13 +18,16 @@
                         <div class="col-xs-12 col-sm-4">
                             <uploads-component 
                                 type="single"
-                                action="//jsonplaceholder.typicode.com/posts/"
-                                title="Upload Photo">
+                                action="/files"
+                                elname="image"
+                                scope="private"
+                                title="Upload Photo"
+                                path="/principles/">
                             </uploads-component>
                         </div>
                         <div class="col-xs-12 col-sm-8">
                             <p class="no-margin-top">Principle Bio</p>
-                            <textarea name="principle-bio" value="{{ isset($data['principle-bio']) ? $data['principle-bio'] : '' }}"></textarea>
+                            <textarea name="principle-bio">{{ isset($data['principle-bio']) ? $data['principle-bio'] : '' }}</textarea>
                             <div class="row">
                                 <div class="col-xs-12 col-sm-6">
                                     <p>Principle Full Name</p><input name="principle-full-name" value="{{ isset($data['principle-full-name']) ? $data['principle-full-name'] : '' }}" type="text">

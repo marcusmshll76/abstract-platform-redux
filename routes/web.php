@@ -103,6 +103,7 @@ Route::post('/security-flow/step-2/create/{ownership?}', 'SecurityFlow@saveData'
 Route::post('/security-flow/step-4/create/{keyPoints?}', 'SecurityFlow@saveData');
 Route::post('/security-flow/step-5/create/{capitalStack?}', 'SecurityFlow@saveData');
 Route::post('/security-flow/step-6/create/{meetSponsors?}', 'SecurityFlow@saveData');
+Route::post('/security-flow/step-7/create/preview', 'SecurityFlow@submitPreview');
 
 // Route::post('/account-settings/verification/create', 'AccountSettingsController@createVerification');
 

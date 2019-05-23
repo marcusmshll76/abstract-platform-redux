@@ -7,6 +7,7 @@
 const iView = require("iview");
 require('./bootstrap');
 require('../sass/vue/styles/iview.css');
+// require('dotenv').config();
 
 window.Vue = require('vue');
 Vue.use(iView);

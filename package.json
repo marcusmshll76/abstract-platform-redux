@@ -22,7 +22,9 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "dotenv": "^8.0.0",
         "iview": "^3.4.1",
+        "s3-tree": "^2.0.0",
         "vue": "^2.6.10",
         "vue-clickaway": "^2.2.2",
         "vue-context": "^4.0.0",
