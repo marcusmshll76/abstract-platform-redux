@@ -6052,16 +6052,21 @@ textarea.textarea-large {
 }
 
 .photo-upload-box {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    justify-content: center;
     background: #cacaca;
     width: 100%;
     border-radius: 4px;
-    display: block;
     height: 250px;
-    line-height: 0
+    line-height: 0;
 }
 
-.photo-upload-box.large {
-    height: 520px
+.large .photo-upload-box {
+    height: 520px !important;
 }
 
 .presented-company {
@@ -6963,4 +6968,27 @@ footer .social a {
 }
 .text-right{
  text-align: right;
+}
+
+.digital .active{
+    background-image: linear-gradient(-180deg, #283F5C 39%, #8E9385 100%);
+}
+.digital p, .digital a{
+    color: #000000;
+    font-size: 13px;
+}
+.digital .active p, .digital .active a{
+    color: #fff;
+    font-weight: bold;
+}
+.long .btn{
+    width: calc(100% - 40px) !important;
+}
+.card-black{
+    padding: 10px !important;
+    background-image: linear-gradient(-178deg, #FFFFFF 80%, #D8D8D8 100%);
+    box-shadow: 2px 3px 2px 0 #283F5C, inset 0 1px 3px 0 rgba(0,0,0,0.50);
+}
+.color-white{
+    color: #fff !important;
 }

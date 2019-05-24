@@ -8,12 +8,12 @@
 }
 
 .rwd-table tr{
-  border-bottom: 1px solid #DBE5FA;
+  border-bottom: 1px solid #bbbbbb;
 }
 
 .rwd-table tr.head-row{
-  border-bottom: 2px solid #F3F6FC;
-  background: #FBFDFF;
+  border-bottom: 2px solid #f3f3f3;
+  background: #f8f8f8;
 }
 
 .rwd-table th input[type="checkbox"]{
@@ -31,7 +31,7 @@
   display: block;
   padding-left: 23px;
   padding: 5px 20px;
-  color: #3A5194;
+  color: #283F5C;
 }
 .rwd-table img {
   vertical-align: middle;
@@ -56,7 +56,7 @@
   .rwd-table th, .rwd-table td {
     display: table-cell;
     font-size:15px;
-    font-weight:600;
+    font-weight:500;
     padding: 4px 20px;
   }
   .rwd-table .pending td {
@@ -67,7 +67,7 @@
     font-size: 11px;
     text-transform: uppercase;
     padding: 15px 20px;
-    color: #3A5194;
+    color: #283F5C;
   }
 }
 @media (max-width: 48em) {
