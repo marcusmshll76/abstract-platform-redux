@@ -31,7 +31,7 @@
                     <div class="row">
                         <div class="col-xs-12 col-sm-3">
                             <div class="dashboard-menu-tile active"><img src="/img/icon-user-etting.svg">
-                                <h5>Account Settings</h5>
+                                <h5><a href="/account-settings/verification">Account Settings</a></h5>
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-3">
@@ -46,7 +46,7 @@
                         </div>
                         <div class="col-xs-12 col-sm-3">
                             <div class="dashboard-menu-tile"><img src="/img/icon-secured.svg">
-                                <h5>Create Digital Security</h5>
+                                <h5><a href="/security-flow/step-1/choose">Create Digital Security</a></h5>
                             </div>
                         </div>
                     </div>

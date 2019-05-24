@@ -653,7 +653,7 @@
                     <div class="card">
                         <div class="card-title">
                             <div class="breadcrumb">
-                                <p>All Files<img src="/img/icon-arrow-right.svg">Cephasa Partneres Sponsor Diligence </p>
+                                <p>All Files<img src="/img/icon-arrow-right.svg"> Diligence Documents </p>
                             </div>
                         </div>
                     </div>

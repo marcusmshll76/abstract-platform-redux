@@ -19,7 +19,7 @@
                         <div class="card">
                             <div class="card-title">
                                 <div class="breadcome">
-                                    <p>All Files<img src="/img/icon-arrow-right.svg">Cephasa Partneres Sponsor Diligence </p>
+                                    <p>All Files<img src="/img/icon-arrow-right.svg"> Diligence Documents </p>
                                 </div>
                             </div>
                             <div class="card-content">
