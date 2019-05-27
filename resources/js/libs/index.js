@@ -9,5 +9,7 @@ function getApiUrl() {
 const API_URL = getApiUrl();
 export default {
 	////// Retrieve Files
-	getFiles: API_URL + 'getFiles/'
+	getFiles: API_URL + 'getFiles/',
+	saveKeyPoints: API_URL + 'security-flow/step-4/create/keyPoints',
+	blurKeyPoints: API_URL + 'security-flow/blur/keypoints'
 };

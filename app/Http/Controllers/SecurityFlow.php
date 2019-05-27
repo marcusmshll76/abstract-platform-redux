@@ -56,10 +56,17 @@ class SecurityFlow extends Controller
 
     // Save Data into a session
     public function saveData (Request $request, $e) {
-
-        $session_data = session( 'security-flow', array() );
-        $session_data = array_merge( $session_data, $_POST );
-        session( [ 'security-flow' => $session_data ] );
+        
+        if ($e != 'keyPoints') {
+            $session_data = session( 'security-flow', array() );
+            $session_data = array_merge( $session_data, $_POST );
+            session( [ 'security-flow' => $session_data ] );
+        } else {
+            $session_data = session( 'security-flow', array() );
+            $session_data = array_merge( $session_data, $request->all() );
+            session( [ 'security-flow' => $session_data ] );
+        }
+       
 
         switch ($e) {
             case "details":
@@ -72,7 +79,7 @@ class SecurityFlow extends Controller
                 return redirect('/security-flow/step-3/diligence');
                 break;
             case "keyPoints":
-                return redirect('/security-flow/step-5/capital-stack');
+                return ('/security-flow/step-5/capital-stack');
                 break;
             case "capitalStack":
                 return redirect('/security-flow/step-6/meet-sponsors');
@@ -146,66 +153,70 @@ class SecurityFlow extends Controller
             'principle-full-name' => 'required',
             'principle-title' => 'required'
         ]);
+        if (isset($request->session()->get('security-flow')['key-point'])) {
+            $userid = Auth::id();
+            $payload = array(
+                'userid' => $userid,
+                'target-investor-irr' => $request->get('target-investor-irr'),
+                'investment-profile' => $request->get('investment-profile'),
+                'funds-due' => $request->get('funds-due'),
+                'target-equity-multiple' => $request->get('target-equity-multiple'),
+                'minimum-investment' => $request->get('minimum-investment'),
+                'distribution-period' => $request->get('distribution-period'),
+                'target-investment-period' => $request->get('target-investment-period'),
+                'property-type' => $request->get('property-type'),
+                'sponsor-co-investment' => $request->get('sponsor-co-investment'),
+                'target-avg-investor-cash-yield' => $request->get('target-avg-investor-cash-yield'),
+                'offers-due' => $request->get('offers-due'),
+                'distribution-commencement' => $request->get('distribution-commencement'),
+                'property' => $request->get('property'),
+                'opportunity_type' => $request->get('opportunity_type'),
+                'opportunity_description' => $request->get('opportunity_description'),
+                'property_address' => $request->get('property_address'),
+                'city' => $request->get('city'),
+                'state' => $request->get('state'),
+                'zip' => $request->get('zip'),
+                'country' => $request->get('country'),
+                'vacancy_rate' => $request->get('vacancy_rate'),
+                'current_noi' => $request->get('current_noi'),
+                'annual_cash_flow' => $request->get('annual_cash_flow'),
+                '1031_exchange' => $request->get('1031_exchange'),
+                'market_value' => $request->get('market_value'),
+                'square_footage' => $request->get('square_footage'),
+                'property_class' => $request->get('property_class'),
+                'total_debt' => $request->get('total_debt'),
+                'payoff_date' => $request->get('payoff_date'),
+                'loan-type' => $request->get('loan-type'),
+                'developed' => $request->get('developed'),
+                'investor-first-name' => $request->get('investor-first-name'),
+                'investor-last-name' => $request->get('investor-last-name'),
+                'ownership' => $request->get('ownership'),
+                'investor-first-name-1' => $request->get('investor-first-name-1'),
+                'investor-last-name-1' => $request->get('investor-last-name-1'),
+                'ownership-1' => $request->get('ownership-1'),
+                'investor-first-name-2' => $request->get('investor-first-name-2'),
+                'investor-last-name-2' => $request->get('investor-last-name-2'),
+                'ownership-2' => $request->get('ownership-2'),
+                'pro-frorma-noi' => $request->get('pro-frorma-noi'),
+                'distribution-frequency' => $request->get('distribution-frequency'),
+                'equity-raise-floor-amount' => $request->get('equity-raise-floor-amount'),
+                'total-capital-required' => $request->get('total-capital-required'),
+                'equity-raise-hard-cap' => $request->get('equity-raise-hard-cap'),
+                'preferred-equity' => $request->get('preferred-equity'),
+                'common-equity' => $request->get('common-equity'),
+                'mezzanine-debt' => $request->get('mezzanine-debt'),
+                'senior-debt' => $request->get('senior-debt'),
+                'principle-bio' => $request->get('principle-bio'),
+                'principle-full-name' => $request->get('principle-full-name'),
+                'principle-title' => $request->get('principle-title'),
+                'key-points' => $request->session()->get('security-flow')['key-point']
+            );
 
-        $userid = Auth::id();
-        $payload = array(
-            'userid' => $userid,
-            'target-investor-irr' => $request->get('target-investor-irr'),
-            'investment-profile' => $request->get('investment-profile'),
-            'funds-due' => $request->get('funds-due'),
-            'target-equity-multiple' => $request->get('target-equity-multiple'),
-            'minimum-investment' => $request->get('minimum-investment'),
-            'distribution-period' => $request->get('distribution-period'),
-            'target-investment-period' => $request->get('target-investment-period'),
-            'property-type' => $request->get('property-type'),
-            'sponsor-co-investment' => $request->get('sponsor-co-investment'),
-            'target-avg-investor-cash-yield' => $request->get('target-avg-investor-cash-yield'),
-            'offers-due' => $request->get('offers-due'),
-            'distribution-commencement' => $request->get('distribution-commencement'),
-            'property' => $request->get('property'),
-            'opportunity_type' => $request->get('opportunity_type'),
-            'opportunity_description' => $request->get('opportunity_description'),
-            'property_address' => $request->get('property_address'),
-            'city' => $request->get('city'),
-            'state' => $request->get('state'),
-            'zip' => $request->get('zip'),
-            'country' => $request->get('country'),
-            'vacancy_rate' => $request->get('vacancy_rate'),
-            'current_noi' => $request->get('current_noi'),
-            'annual_cash_flow' => $request->get('annual_cash_flow'),
-            '1031_exchange' => $request->get('1031_exchange'),
-            'market_value' => $request->get('market_value'),
-            'square_footage' => $request->get('square_footage'),
-            'property_class' => $request->get('property_class'),
-            'total_debt' => $request->get('total_debt'),
-            'payoff_date' => $request->get('payoff_date'),
-            'loan-type' => $request->get('loan-type'),
-            'developed' => $request->get('developed'),
-            'investor-first-name' => $request->get('investor-first-name'),
-            'investor-last-name' => $request->get('investor-last-name'),
-            'ownership' => $request->get('ownership'),
-            'investor-first-name-1' => $request->get('investor-first-name-1'),
-            'investor-last-name-1' => $request->get('investor-last-name-1'),
-            'ownership-1' => $request->get('ownership-1'),
-            'investor-first-name-2' => $request->get('investor-first-name-2'),
-            'investor-last-name-2' => $request->get('investor-last-name-2'),
-            'ownership-2' => $request->get('ownership-2'),
-            'pro-frorma-noi' => $request->get('pro-frorma-noi'),
-            'distribution-frequency' => $request->get('distribution-frequency'),
-            'equity-raise-floor-amount' => $request->get('equity-raise-floor-amount'),
-            'total-capital-required' => $request->get('total-capital-required'),
-            'equity-raise-hard-cap' => $request->get('equity-raise-hard-cap'),
-            'preferred-equity' => $request->get('preferred-equity'),
-            'common-equity' => $request->get('common-equity'),
-            'mezzanine-debt' => $request->get('mezzanine-debt'),
-            'senior-debt' => $request->get('senior-debt'),
-            'principle-bio' => $request->get('principle-bio'),
-            'principle-full-name' => $request->get('principle-full-name'),
-            'principle-title' => $request->get('principle-title')
-        );
-
-        DB::table('security_flow_property')->insert($payload);
+            DB::table('security_flow_property')->insert($payload);
         
-        return view( 'security-flow.step-7.final', [ 'title' => 'Security Flow -> Preview & Submit', 'success' => true ] );
+            return view( 'security-flow.step-7.final', [ 'title' => 'Security Flow -> Preview & Submit', 'success' => true ] );
+        } else {
+            return view( 'security-flow.step-7.final', [ 'title' => 'Create Digital Security > Preview & Submit' ] )->with('data', $request->session()->get('security-flow')); 
+        }
     }
 }

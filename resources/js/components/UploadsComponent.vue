@@ -64,13 +64,7 @@ export default {
         success(res, file) { 
             console.log(res)
         },
-        maxSize(file) {
-            // console.log(file)
-            /* this.$Notice.warning({
-                title: 'Exceeding file size limit',
-                desc: 'File  ' + file.name + ' is too large, no more than 2M.'
-            }); */
-        }
+        maxSize(file) {}
     }
 }
 </script>

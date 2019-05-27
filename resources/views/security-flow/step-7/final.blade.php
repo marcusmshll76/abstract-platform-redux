@@ -664,7 +664,7 @@
                     @endif
                     <div class="row">
                         <div class="col-xs-12">
-                            {{ isset($data['key-point']) ? $data['key-point'] : '' }}
+                        <key-points data="{{ isset($data['key-point']) ? $data['key-point'] : '' }}" next="no"></key-points>
                         </div>
                     </div>
                 </div>

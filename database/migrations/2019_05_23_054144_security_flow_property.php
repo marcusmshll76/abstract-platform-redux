@@ -68,6 +68,7 @@ class SecurityFlowProperty extends Migration
             $table->string('principle-bio')->nullable();
             $table->string('principle-full-name')->nullable();
             $table->string('principle-title')->nullable();
+            $table->string('key-points')->nullable();
             $table->timestamps();
         });
     }
