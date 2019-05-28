@@ -22,7 +22,15 @@
                     <div class="card equal-padding">
                         <div class="row">
                             <div class="col-xs-12 col-sm-4">
-                                <div class="presented-company"></div>
+                                <div class="presented-company">
+                                <file-preview
+                                    iname="Single" 
+                                    scope="private"
+                                    user="{{Auth::id()}}"
+                                    path="/account-settings/company-logo/"
+                                    index="0">
+                                </file-preview>
+                                </div>
                             </div>
                             <div class="col-xs-12 col-sm-8">
                                 <div class="presented-description">

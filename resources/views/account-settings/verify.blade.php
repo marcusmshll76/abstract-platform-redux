@@ -15,12 +15,14 @@
             <div class="card-content">
                 <div class="row">
                     <div class="col-xs-12 col-sm-3">
-
-                        <uploads-component 
-                            type="single"
-                            action="//jsonplaceholder.typicode.com/posts/"
-                            title="Upload Company Logo">
-                        </uploads-component>
+                        <uploads-component
+                                title="Upload Company Logo"
+                                action="/files"
+                                elname="image"
+                                scope="private"
+                                path="/account-settings/company-logo/"
+                                type="single">
+                            </uploads-component>
 
                         <div class="content-form">
                             <div class="row">
