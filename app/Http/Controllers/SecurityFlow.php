@@ -63,14 +63,14 @@ class SecurityFlow extends Controller
     // Save Data into a session
     public function saveData (Request $request, $e) {
         
-        if ($e != 'keyPoints') {
-            $session_data = session( 'security-flow', array() );
+        if ($e != 'keyPoints' && $e != 'meetSponsors') {
+            $session_data = session( 'security-fund-flow', array() );
             $session_data = array_merge( $session_data, $_POST );
-            session( [ 'security-flow' => $session_data ] );
+            session( [ 'security-fund-flow' => $session_data ] );
         } else {
-            $session_data = session( 'security-flow', array() );
+            $session_data = session( 'security-fund-flow', array() );
             $session_data = array_merge( $session_data, $request->all() );
-            session( [ 'security-flow' => $session_data ] );
+            session( [ 'security-fund-flow' => $session_data ] );
         }
        
 
@@ -91,7 +91,7 @@ class SecurityFlow extends Controller
                 return redirect('/security-flow/step-6/meet-sponsors');
                 break;
             case "meetSponsors":
-                return redirect('/security-flow/step-7/preview');
+                return ('/security-flow/step-7/preview');
                 break;
             default:
                 return redirect('/security-flow/step-1/choose');

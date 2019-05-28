@@ -242,7 +242,7 @@ class SecurityFundFlow extends Controller
             return view( 'security-fund-flow.step-7.final', [ 'title' => 'Create Digital Security -> Preview & Submit', 'success' => true ] );
             
         } else {
-            // return view('security-fund-flow.step-7.final', [ 'title' => 'Create Digital Security > Preview & Submit' ])->with('data', $request->session()->get('security-fund-flow'));
+            return view('security-fund-flow.step-7.final', [ 'title' => 'Create Digital Security > Preview & Submit' ])->with('data', $request->session()->get('security-fund-flow'));
         } 
     }
 }
