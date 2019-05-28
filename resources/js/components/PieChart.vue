@@ -50,7 +50,6 @@ export default {
             }]
           }
           this.chartData = a
-          console.log(vals)
         }
     }
   },

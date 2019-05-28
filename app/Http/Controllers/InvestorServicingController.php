@@ -6,6 +6,13 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
 class InvestorServicingController extends Controller {
+
+    public function __construct() {
+        $this->middleware('auth');
+        $this->middleware('auth.details');
+    } 
+
+    
     public function k1() {
         return view( 'investor-servicing.investor-K-1.index', [ 'title' => 'K1 > Investor Servicing'] );
     }
@@ -59,10 +66,4 @@ class InvestorServicingController extends Controller {
         
         return view( 'security-fund-flow.step-7.final', [ 'title' => 'Create Digital Security > Preview & Submit' ] )->with(compact('data', 'bio'));
     }
-    
-
-    public function __construct() {
-        $this->middleware('auth');
-        $this->middleware('auth.details');
-    } 
 }
