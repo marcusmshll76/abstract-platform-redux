@@ -168,7 +168,7 @@ class SecurityFlow extends Controller
             $principles = $request->session()->get('security-fund-flow')['principles'];
         }
 
-        if (isset($keyPoints) && isset($principles) {
+        if (isset($keyPoints) && isset($principles)) {
             $userid = Auth::id();
             $payload = array(
                 'userid' => $userid,

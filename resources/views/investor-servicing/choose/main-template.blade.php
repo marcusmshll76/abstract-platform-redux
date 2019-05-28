@@ -15,16 +15,16 @@
                                 <p><a href="/investor-servicing/choose-investment"> Choose an <br/>investment</a></p>
                             </div>
                             <div class="left-nav-item">
-                                <p><a href="/investor-servicing/cap-table-mgmt">Cap Table <br/>Management </a></p>
+                                <p><a>Cap Table <br/>Management </a></p>
                             </div>
                             <div class="left-nav-item">
-                                <p><a href="/investor-servicing/distributions">Distributions</a></p>
+                                <p><a>Distributions</a></p>
                             </div>
                             <div class="left-nav-item">
-                                <p><a href="/investor-servicing/k1">Investor K-1s</a></p>
+                                <p><a>Investor K-1s</a></p>
                             </div>
                             <div class="left-nav-item">
-                                <p><a href="/investor-servicing/reports">Reports</a></p>
+                                <p><a>Reports</a></p>
                             </div>
                         </div>
                     </div>

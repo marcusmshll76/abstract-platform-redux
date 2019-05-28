@@ -40,6 +40,18 @@ export default {
           }
           this.chartData = a
         }
+        else if (this.type === 'cap table') {
+          let a = {
+            labels: [vals.fn + ' ' + vals.ln, vals.fn1 + ' ' + vals.ln1, vals.fn2 + ' ' + vals.ln2],
+            datasets: [{
+              label: "Cap Table",
+              backgroundColor: ["#FFC91C", "#AC9862", "#BFBFBF", "#D9D9D9"],
+              data: [this.cleanData(vals.ow), this.cleanData(vals.ow1), this.cleanData(vals.ow2)]
+            }]
+          }
+          this.chartData = a
+          console.log(vals)
+        }
     }
   },
   methods: {
@@ -50,8 +62,10 @@ export default {
         return parseInt(e.replace(/\/%/g, ''))
       } else if (e.indexOf('percent') > -1) {
         return parseInt(e.replace(/\/percent/g, ''))
+      } else if (typeof e === 'string') {
+        return 1;
       } else {
-        return 0;
+        return 1;
       }
     }
   }

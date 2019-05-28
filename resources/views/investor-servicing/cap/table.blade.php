@@ -18,7 +18,7 @@
                                 <h5>Ownership Allocation for Castle Stone</h5>
                             </div>
                             <div class="card-content">
-                                <pie-chart></pie-chart>
+                                <pie-chart type="cap table" data="{{ isset($data) ? json_encode($data) : '' }}"></pie-chart>
                             </div>
                         </div>
                     </div>
@@ -32,31 +32,20 @@
                                     <tr class="head-row">
                                         <th>Investor Name</th>
                                         <th>% Held</th>
-                                        <th>Digital Securities Held</th>
-                                        <th>Price Per</th>
-                                        <th>Value</th>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td data-th="Investor Name">{{ $data->fn. ' '.$data->ln  }}</td>
+                                        <td data-th="% Held">{{ $data->ow }}</td>
                                     </tr>
                                     <tr>
-                                        <td data-th="Investor Name">Carl Berg</td>
-                                        <td data-th="% Held">45</td>
-                                        <td data-th="Digital Securities Held">45,000,000</td>
-                                        <td data-th="Price Per">$0.1</td>
-                                        <td data-th="Value">$450,000</td>
+                                        <td data-th="Investor Name">{{ $data->fn1. ' '.$data->ln1  }}</td>
+                                        <td data-th="% Held">{{ $data->ow1 }}</td>
                                     </tr>
                                     <tr>
-                                        <td data-th="Investor Name">Carl Berg</td>
-                                        <td data-th="% Held">45</td>
-                                        <td data-th="Digital Securities Held">45,000,000</td>
-                                        <td data-th="Price Per">$0.1</td>
-                                        <td data-th="Value">$450,000</td>
-                                    </tr>
-                                    <tr>
-                                        <td data-th="Investor Name">Carl Berg</td>
-                                        <td data-th="% Held">45</td>
-                                        <td data-th="Digital Securities Held">45,000,000</td>
-                                        <td data-th="Price Per">$0.1</td>
-                                        <td data-th="Value">$450,000</td>
-                                    </tr>
+                                        <td data-th="Investor Name">{{ $data->fn2. ' '.$data->ln2  }}</td>
+                                        <td data-th="% Held">{{ $data->ow2 }}</td>
+                                    </tr>                    
                                 </tbody>
                             </table>
                         </div>
@@ -98,7 +87,7 @@
                                 </div>
                             </div>
                             <div class="footer-button-next">
-                                <div class="btn">Next</div>
+                                <a href="/investor-servicing/distributions" class="btn color-white">Next</a>
                             </div>
                         </div>
                     </div>
@@ -108,6 +97,3 @@
     </div>
 </div>
 @endsection
-@section('jquery-js')
-    <script src="/js/owl.carousel.min.js"></script>
-@stop

@@ -137,7 +137,7 @@ Route::post('/security-fund-flow/step-7/create/preview', 'SecurityFundFlow@submi
 **************/
 Route::get('/investor-servicing/k1', 'InvestorServicingController@k1');
 Route::get('/investor-servicing/choose-investment', 'InvestorServicingController@choose');
-Route::get('/investor-servicing/cap-table-mgmt', 'InvestorServicingController@captable');
+Route::get('/investor-servicing/cap-table-mgmt/{type?}/{data?}', 'InvestorServicingController@captable');
 Route::get('/investor-servicing/distributions', 'InvestorServicingController@distributions');
 Route::get('/investor-servicing/reports', 'InvestorServicingController@reports');
 
