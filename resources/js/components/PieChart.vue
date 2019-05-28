@@ -15,12 +15,12 @@ export default {
   data() {
     return {
       chartData: {
-        labels: ["Yellow", "Red", "Blue"],
+        labels: ["Not Enough Data"],
         datasets: [
           {
             label: "Data One",
-            backgroundColor: ["#FFC91C", "#BFBFBF", "#D9D9D9"],
-            data: [3, 7, 5]
+            backgroundColor: ["#D9D9D9"],
+            data: [100]
           }
         ]
       }

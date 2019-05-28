@@ -62,10 +62,6 @@ class SecurityFundFlow extends Controller
         return view( 'security-fund-flow.step-7.final', [ 'title' => 'Create Digital Security > Preview & Submit' ] )->with(compact('data', 'bio'));
     }
 
-    private function emptyArray($arr) {
-        return array_search("", $arr) !== false;
-    }
-
     // Save Data into a session
     public function saveData (Request $request, $e) {
         
@@ -237,16 +233,16 @@ class SecurityFundFlow extends Controller
                 'loan-type' => $request->get('loan-type'),
                 'developed' => $request->get('developed'),
                 'existing-properties' => $request->get('existing-properties'),
-                'principles' => json_decode($principles),
+                'principles' => json_encode($principles),
                 'key-points' => $keyPoints
             );
 
             DB::table('security_fund_flow')->insert($payload);
-        
+            
             return view( 'security-fund-flow.step-7.final', [ 'title' => 'Create Digital Security -> Preview & Submit', 'success' => true ] );
             
         } else {
-            return view( 'security-fund-flow.step-7.final', [ 'title' => 'Create Digital Security > Preview & Submit' ] )->with('data', $request->session()->get('security-fund-flow')); 
-        }
+            // return view('security-fund-flow.step-7.final', [ 'title' => 'Create Digital Security > Preview & Submit' ])->with('data', $request->session()->get('security-fund-flow'));
+        } 
     }
 }

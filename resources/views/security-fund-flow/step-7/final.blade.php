@@ -2,7 +2,7 @@
 @section('title', $title )
 
 @section('body')
-<form action="/security-fund-flow/create/preview" method="post">
+<form action="/security-fund-flow/step-7/create/preview" method="post">
 @csrf
 @if( isset( $success ) && $success )
     <div class="success success-green"><p><strong>Congratulations submitted successfully</strong></p></div>
@@ -346,12 +346,12 @@
                                     </div>
                                     <div class="col-xs-12 col-md-4">
                                         <p>Property Type</p>
-                                        @if($errors->has('property-type'))
+                                        @if($errors->has('property-type-pledged'))
                                             <br/>
-                                            <small class="error-small"><em>*</em> <span> {{ $errors->first('property-type') }} </span></small>
+                                            <small class="error-small"><em>*</em> <span> {{ $errors->first('property-type-pledged') }} </span></small>
                                         @endif
-                                        <select name="property-type">
-                                            <option value="{{ isset($data['property-type']) ? $data['property-type'] : '' }}" selected="selected">{{ isset($data['property-type']) ? $data['property-type'] : 'Select an option' }}</option>
+                                        <select name="property-type-pledged">
+                                            <option value="{{ isset($data['property-type-pledged']) ? $data['property-type-pledged'] : '' }}" selected="selected">{{ isset($data['property-type-pledged']) ? $data['property-type-pledged'] : 'Select an option' }}</option>
                                             <option value="option">option</option>
                                             <option value="option">option</option>
                                             <option value="option">option</option>
@@ -702,7 +702,7 @@
                     <div class="row">
                         <div class="col-xs-12 col-md-6">
                             <div class="col-sm-6">
-                                <pie-chart type="capital stack" data="{{ json_encode($data) }}"></pie-chart>
+                                <pie-chart type="capital stack" data="{{ isset($data) ? json_encode($data) : '' }}"></pie-chart>
                             </div>
                         </div>
                         <div class="col-xs-12 col-md-6">
@@ -764,7 +764,7 @@
                     @endif
                     <div class="row">
                         <div class="col-xs-12">
-                        <key-points data="{{ isset($data['key-point']) ? $data['key-point'] : '' }}" next="no"></key-points>
+                        <key-points url="security-fund-flow/step-4/create/keyPoints" data="{{ isset($data['key-point']) ? $data['key-point'] : '' }}" next="no"></key-points>
                         </div>
                     </div>
                 </div>
@@ -781,7 +781,7 @@
                             preview="true"
                             user="{{Auth::id()}}"
                             url="security-fund-flow/step-6/create/meetSponsors" 
-                            data="{{ json_encode($data) }}">
+                            data="{{ isset($data) ? json_encode($data) : '' }}">
                         </principal-form>
                                 
                         </div>

@@ -219,10 +219,10 @@ class SecurityFlow extends Controller
             );
 
             DB::table('security_flow_property')->insert($payload);
-        
             return view( 'security-flow.step-7.final', [ 'title' => 'Security Flow -> Preview & Submit', 'success' => true ] );
+
         } else {
-            return view( 'security-flow.step-7.final', [ 'title' => 'Create Digital Security > Preview & Submit' ] )->with('data', $request->session()->get('security-flow')); 
+            return view( 'security-flow.step-7.final', [ 'title' => 'Create Digital Security > Preview & Submit' ] )->with('data', $request->session()->get('security-flow'));
         }
     }
 }

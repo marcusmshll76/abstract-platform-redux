@@ -4,8 +4,8 @@
         <small class="error-small"><em>*</em> <span> Key deal points required </span></small>
         <br/>
     </span>
-    <vue-editor v-model="content" :editorToolbar="customToolbar" @blur="saveData"></vue-editor>
-        <a @click="saveData" class="btn margin-key-m color-white fl-right" v-if="next === 'yes'">Next</a>
+    <vue-editor v-model="content" :editorToolbar="customToolbar" @blur="saveData('blur')"></vue-editor>
+        <a @click="saveData('submit')" class="btn margin-key-m color-white fl-right" v-if="next === 'yes'">Next</a>
         <br/><br/><br/><br/>
 </div>
 </template>
@@ -38,14 +38,14 @@ export default {
         }
     },
     methods: {
-        saveData() {
+        saveData(e) {
             var self = this
             axios
                 .post(config.host + self.url, {
                     'key-point': self.content,
                 })
                 .then(function(resp) {
-                    resp.request.status === 200 && self.next === 'yes' ? window.location.href = resp.data : ''
+                    resp.request.status === 200 && self.next === 'yes' && e !== 'blur' ? window.location.href = resp.data : ''
                 })
                 .catch(function(error) {
                     return error
