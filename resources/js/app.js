@@ -4,13 +4,14 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-const iView = require("iview");
+import iView from 'iview';
+import locale from 'iview/dist/locale/en-US';
 require('./bootstrap');
 require('../sass/vue/styles/iview.css');
 // require('dotenv').config();
 
 window.Vue = require('vue');
-Vue.use(iView);
+Vue.use(iView, { locale });
 
 const files = require.context('./', true, /\.vue$/i);
 files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));

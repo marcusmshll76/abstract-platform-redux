@@ -73,10 +73,9 @@
                                         <p class="no-margin-top margin-top-s-md">Distribution frequency</p>
                                         <select name="distribution-frequency">
                                             <option value="{{ isset($data['distribution-frequency']) ? $data['distribution-frequency'] : '' }}" selected="selected">{{ isset($data['distribution-frequency']) ? $data['distribution-frequency'] : 'Select an option' }}</option>
-                                            <option value="option">option</option>
-                                            <option value="option">option</option>
-                                            <option value="option">option</option>
-                                            <option value="option">option</option>
+                                            <option value="Monthly">Monthly</option>
+                                            <option value="Quarterly">Quarterly</option>
+                                            <option value="Semi-Annually">Semi-Annually</option>
                                         </select>
                                     </div>
                                 </div>
@@ -88,11 +87,6 @@
                                     <div class="col-xs-12 col-md-6">
                                         <p>Total Capital Required</p><input name="total-capital-required" value="{{ isset($data['total-capital-required']) ? $data['total-capital-required'] : '' }}" type="text">
                                         <p class="light">*Total amount of capital that needs to be raised between equity & debt.</p>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-xs-12">
-                                        <p>Distribution frequency DD: Monthly, Quarterly, Semi-Annually, dulligenc</p>
                                     </div>
                                 </div>
                             </div>

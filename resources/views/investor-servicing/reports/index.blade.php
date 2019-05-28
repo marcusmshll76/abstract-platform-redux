@@ -12,34 +12,7 @@
             <div class="card-content">
                 <form>
                     <div class="row middle-xs">
-                        <div class="col-xs-12 col-md-6 text-center margin-bottom-m-md">
-                            <div class="row center-xs">
-                                <div class="col-xs-12 col-md-8">
-                                    <div class="file-upload-box margin-bottom-m"><img src="/img/icon-upload.svg">
-                                        <h5>Upload organizations K-1</h5>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 text-left">
-                                            <p>K-1 Year:</p>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-6 col-md-8 col-lg-9"><select class="no-margin-top">
-                                                <option value="" disabled="disabled" selected="selected">Select an option</option>
-                                                <option value="option">option</option>
-                                                <option value="option">option</option>
-                                                <option value="option">option</option>
-                                                <option value="option">option</option>
-                                            </select></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xs-12 col-md-6">
-                            <div class="row center-xs">
-                                <div class="col-xs-12 col-md-8">
-                                    <p class="no-margin-top">You can choose a date at least 2 days after you upload your quarterly report. Abstract will email this defined quarterly report to ALL posiitions tied to the deal.</p><input type="text" id="datepicker">
-                                </div>
-                            </div>
-                        </div>
+                        <reports-component></reports-component>
                         <div class="row"></div>
                         <div class="col-xs-12">
                             <div class="content-footer">
