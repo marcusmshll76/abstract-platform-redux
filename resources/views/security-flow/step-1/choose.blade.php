@@ -17,21 +17,18 @@
                         <div class="card equal-padding dust">
                             <img src="/img/icon-building-white.svg" />
                         </div>
-                        <div class="btn margin-top-m">Property</div>
+                        <a href="/security-flow/step-1/upload-photos" class="btn margin-top-m color-white">Property</a>
                     </div>
                     <div class="col-xs-12 col-sm-6 col-md-3">
                         <div class="card equal-padding dust margin-top-m-sm">
                         <img src="/img/icon_-stock-market-portfolio-white.svg" />
                         </div>
-                        <div class="btn margin-top-m">Fund</div>
+                        <a href="/security-fund-flow/step-1/upload-photos" class="btn margin-top-m color-white">Fund</a>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="content-footer">
-                            <div class="footer-button-next">
-                                <a href="/security-flow/step-1/upload-photos" class="btn color-white">Next</a>
-                            </div>
                         </div>
                     </div>
                 </div>

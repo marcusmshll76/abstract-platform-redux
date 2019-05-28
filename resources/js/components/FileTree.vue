@@ -37,7 +37,7 @@ import { VueContext } from 'vue-context';
 // import s3tree from 's3-tree';
 // const generator = s3tree({bucket: process.env.AWS_BUCKET});
 export default {
-    name: "nested-example",
+    name: "file-tree",
     display: "Nested",
     order: 15,
     components: {
