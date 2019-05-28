@@ -15,7 +15,7 @@ import axios from 'axios'
 import config from '../libs'
 import { VueEditor } from 'vue2-editor';
 export default {
-    props: ['data', 'next'],
+    props: ['data', 'next', 'url'],
     components: {
         VueEditor
     },
@@ -41,7 +41,7 @@ export default {
         saveData() {
             var self = this
             axios
-                .post(config.saveKeyPoints, {
+                .post(config.host + self.url, {
                     'key-point': self.content,
                 })
                 .then(function(resp) {
@@ -56,28 +56,8 @@ export default {
 </script>
 
 <style>
-.upload-drag .ivu-modal-footer{
-    display: none;
-}
-.drop{
-    margin-top: 30px;
-}
-.drop:hover{
-    /* border: dashed 1px #dddddd; */
-}
-.ivu-upload-drag:hover{
-    border-color: #283f5c;
-}
-.v-context {
-    outline: 0 !important;
-    overflow: hidden !important;
-}
 .full-width{
     width: 100%;
-}
-.contextArea {
-    width: 100%;
-    min-height: 300px;
 }
 .text-right{
     text-align: right !important;

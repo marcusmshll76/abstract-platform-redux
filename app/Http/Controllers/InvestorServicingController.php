@@ -7,15 +7,32 @@ use App\Http\Controllers\Controller;
 
 class InvestorServicingController extends Controller {
     public function k1() {
-        return view( 'investor-servicing.k1', [ 'nav' => $this->get_nav('/investor-servicing/k1') ] );
+        return view( 'investor-servicing.investor-K-1.index', [ 'title' => 'K1 > Investor Servicing'] );
     }
 
-    public function __construct() {
+    public function choose() {
+        return view( 'investor-servicing.choose.investment', [ 'title' => 'Choose Investment > Investor Servicing'] );
+    }
+
+    public function captable() {
+        return view( 'investor-servicing.cap.table', [ 'title' => 'Cap Table Management > Investor Servicing'] );
+    }
+
+    public function distributions() {
+        return view( 'investor-servicing.distributions.index', [ 'title' => 'Distributions > Investor Servicing'] );
+    }
+
+    public function reports() {
+        return view( 'investor-servicing.reports.index', [ 'title' => 'Reports > Investor Servicing'] );
+    }
+    
+
+    /* public function __construct() {
         $this->middleware('auth');
         $this->middleware('auth.details');
-    }
+    } */
 
-    private function get_nav( $current ) {
+    /* private function get_nav( $current ) {
         $nav = array(
             'header'    => 'Investor Servicing',
             'links'     => array(
@@ -54,5 +71,5 @@ class InvestorServicingController extends Controller {
         }
 
         return $nav;
-    }
+    } */
 }

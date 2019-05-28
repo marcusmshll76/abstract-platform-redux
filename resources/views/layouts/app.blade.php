@@ -92,6 +92,7 @@
         </header>
          @yield('content')
     </div>
+    @yield('jquery-js')
     <script src="/js/app.js"></script>
 </body>
 </html>

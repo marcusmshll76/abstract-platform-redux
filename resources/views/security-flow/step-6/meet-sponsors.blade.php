@@ -14,7 +14,7 @@
             
             <div class="card grey card-black margin-top-m">
                 <div class="card-content">
-                    <div class="row margin-top-l">
+                    <!-- <div class="row margin-top-l">
                         <div class="col-xs-12 col-sm-4">
                             <uploads-component 
                                 type="single"
@@ -38,7 +38,8 @@
                             </div>
                             <div class="btn small margin-top-m">+ Add Principle</div>
                         </div>
-                    </div>
+                    </div> -->
+                    <principal-form></principal-form>
                     <div class="row">
                         <div class="col-xs-12">
                             <div class="content-footer">

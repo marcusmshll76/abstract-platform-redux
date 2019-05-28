@@ -1,0 +1,163 @@
+<template>
+<div>
+    <h1>Man</h1>
+    <form action="/security-fund-flow/step-1/create/details" method="post">
+    <div class="card margin-top-m" id="app">
+        <div class="card-title blue">
+            <h5>Import Digital Security Details</h5>
+        </div>
+        <div class="card-content">
+            <h5>Details</h5>
+            <p>The next 7 steps will collect information on your digital security so that we can create a detailed page of your offering for our Marketplace.</p>
+            <div class="card grey card-black margin-top-m">
+                <div class="card-content">
+                    <form>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-6">
+                                <div class="content-form">
+                                    <div class="row">
+                                        <div class="col-xs-12 col-md-6">
+                                            <p class="no-margin-top">Fund Name</p><input <value="{{ isset($data['fund-name']) ? $data['fund-name'] : '' }}" name="fund-name" type="text">
+                                        </div>
+                                        <div class="col-xs-12 col-md-6">
+                                            <p class="no-margin-top margin-top-s-md">Opportunity Type</p>
+                                            <select name="opportunity-type">
+                                                <option value="{{ isset($data['opportunity-type']) ? $data['opportunity-type'] : '' }}" selected="selected">{{ isset($data['opportunity-type']) ? $data['opportunity-type'] : 'Select an option' }}</option>
+                                                <option value="option">option</option>
+                                                <option value="option">option</option>
+                                                <option value="option">option</option>
+                                                <option value="option">option</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row bottom-xs">
+                                        <div class="col-xs-12 col-sm-6">
+                                            <p>Type of Fund?</p>
+                                            <select name="type-of-fund">
+                                                <option value="{{ isset($data['type-of-fund']) ? $data['type-of-fund'] : '' }}" selected="selected">{{ isset($data['type-of-fund']) ? $data['type-of-fund'] : 'Select an option' }}</option>
+                                                <option value="option">option</option>
+                                                <option value="option">option</option>
+                                                <option value="option">option</option>
+                                                <option value="option">option</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-6">
+                                            <p>If Open Eneded, where is the capital from?</p>
+                                            <input type="text" name="capital-origin" value="{{ isset($data['capital-origin']) ? $data['capital-origin'] : '' }}">
+                                        </div>
+                                    </div>
+                                    <div class="row margin-top-s">
+                                        <div class="col-xs-12">
+                                            <p>Is this a Discretionary Fund or a new Fund without existing holdings?</p>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-6">
+                                            <p>Yes</p>
+                                            <input 
+                                            <?php 
+                                                if(isset($data['fund-type']) && $data['fund-type'] === 'Yes'){
+                                                    echo 'Checked';
+                                                }
+                                            ?>
+                                            type="radio" value="Yes" name="fund-type">
+                                        </div>
+                                        <div class="col-xs-12 col-sm-6">
+                                            <p>No</p>
+                                            <input 
+                                            <?php 
+                                                if(isset($data['fund-type']) && $data['fund-type'] === 'No'){
+                                                    echo 'Checked';
+                                                }
+                                            ?>
+                                            type="radio" value="No" name="fund-type">
+                                        </div>
+                                    </div>
+                                    <div class="row margin-top-s">
+                                        <div class="col-xs-12">
+                                            <p>Provide Fund description, strategy and asset type / market focus:</p>
+                                            <textarea name="fund-description">{{ isset($data['fund-description']) ? $data['fund-description'] : '' }}</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6">
+                                <div class="content-form">
+                                    <div class="row">
+                                        <div class="col-xs-12 col-md-6">
+                                            <p class="no-margin-top">Fund Address</p>
+                                            <input name="fund-address" value="{{ isset($data['fund-address']) ? $data['fund-address'] : '' }}" type="text">
+                                        </div>
+                                        <div class="col-xs-12 col-md-6">
+                                            <p class="no-margin-top">City</p>
+                                            <input name="city" value="{{ isset($data['city']) ? $data['city'] : '' }}" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-12 col-md-4">
+                                            <p>State</p>
+                                            <input name="state" value="{{ isset($data['state']) ? $data['state'] : '' }}" type="text">
+                                        </div>
+                                        <div class="col-xs-12 col-md-4">
+                                            <p>ZipCode</p>
+                                            <input name="zip" value="{{ isset($data['zip']) ? $data['zip'] : '' }}" type="text">
+                                        </div>
+                                        <div class="col-xs-12 col-md-4">
+                                            <p>Country</p>
+                                            <input name="country" value="{{ isset($data['country']) ? $data['country'] : '' }}" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="row margin-top-s">
+                                        <div class="col-xs-12">
+                                            <p>*Please Note: If a fund is Discretionary, expect longer due diligence periods.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="content-footer">
+                                    <div class="row center-xs">
+                                        <div class="col-xs-12 col-sm-6 col-md-4">
+                                            <div class="content-footer-step">
+                                                <div class="row">
+                                                    <div class="col-xs">
+                                                        <div class="step-item active"></div>
+                                                    </div>
+                                                    <div class="col-xs">
+                                                        <div class="step-item"></div>
+                                                    </div>
+                                                    <div class="col-xs">
+                                                        <div class="step-item"></div>
+                                                    </div>
+                                                    <div class="col-xs">
+                                                        <div class="step-item"></div>
+                                                    </div>
+                                                    <div class="col-xs">
+                                                        <div class="step-item"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="step-divider"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="footer-button-next"><input type="submit" value="Next"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+                    
+    </div>
+</form>
+</div>
+</template>
+<script>
+export default {
+    props: ['data'],
+    created () {
+        console.log(this.data)
+    }
+}
+</script>

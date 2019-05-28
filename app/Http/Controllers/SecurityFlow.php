@@ -51,7 +51,13 @@ class SecurityFlow extends Controller
     }
 
     public function final (Request $request) {
-        return view( 'security-flow.step-7.final', [ 'title' => 'Create Digital Security > Preview & Submit' ] )->with('data', $request->session()->get('security-flow'));
+        $userid = Auth::id();
+        $bio = DB::table('account_verification')
+            ->where('userid', $userid)
+            ->value('bio');
+        $data = $request->session()->get('security-flow');
+        
+        return view( 'security-fund-flow.step-7.final', [ 'title' => 'Create Digital Security > Preview & Submit' ] )->with(compact('data', 'bio'));
     }
 
     // Save Data into a session

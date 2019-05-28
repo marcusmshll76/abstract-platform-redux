@@ -109,7 +109,7 @@
                                                                 echo 'Checked';
                                                             }
                                                         ?>
-                                                         value="" name="loan-type">
+                                                         value="Amortizing" name="loan-type">
                                                     </div>
                                                     <div class="col-xs-12 col-sm-6">
                                                         <p>Interest Only</p><input type="radio" 

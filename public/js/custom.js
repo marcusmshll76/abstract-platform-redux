@@ -8,13 +8,13 @@ $(function(){
 // owl carousel
 $(document).ready(function() {
   $('.default-slider').owlCarousel({
-    items: 1,
+    items: 4,
     loop: false,
-    center: true,
+    center: false,
     margin: 0,
     nav:true,
-    mouseDrag: false,
-    touchDrag: false,
+    mouseDrag: true,
+    touchDrag: true,
     callbacks: true,
     autoHeight:false,
     URLhashListener: true,
@@ -25,20 +25,21 @@ $(document).ready(function() {
     autoplaySpeed:1500,
     autoplayHoverPause:false,
     smartSpeed:800,
-  });
-})
-$(document).ready(function() {
-  $('.new-image').owlCarousel({
-    items: 4,
-    loop: true,
-    margin: 0,
-    nav:true,
-    mouseDrag: true,
-    touchDrag: true,
-    autoHeight:false,
-    autoplayHoverPause: false,
-    autoplay:false,
-    autoWidth:true,
+    responsiveClass:true,
+    responsive:{
+      0:{
+          items:1,
+          nav:true
+      },
+      600:{
+          items:3,
+          nav:true
+      },
+      1000:{
+          items:4,
+          nav:true
+      },
+    }
   });
 })
 
@@ -116,12 +117,9 @@ $(document).ready(function() {
 });
 
 // Date picker
-$(function(){
-  $.datepicker.setDefaults(
-    $.extend( $.datepicker.regional[ '' ] )
-  );
-  $( '.datepicker' ).datepicker();
-});
+$( function() {
+  $( "#datepicker" ).datepicker();
+} );
 
 // tooltips
 $(function () {
