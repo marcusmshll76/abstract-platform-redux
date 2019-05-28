@@ -603,7 +603,7 @@
                 <div class="card-content">
                     <div class="row">
                         <div class="col-xs-12 col-md-6">
-                            <pie-chart type="capital stack" data="{{ json_encode($data) }}"></pie-chart>
+                            <pie-chart type="capital stack" data="{{ isset($data) ? json_encode($data) : '' }}"></pie-chart>
                         </div>
                         <div class="col-xs-12 col-md-6">
                             <div class="card">
@@ -664,7 +664,7 @@
                     @endif
                     <div class="row">
                         <div class="col-xs-12">
-                        <key-points data="{{ isset($data['key-point']) ? $data['key-point'] : '' }}" next="no"></key-points>
+                        <key-points url="security-flow/step-4/create/keyPoints" data="{{ isset($data['key-point']) ? $data['key-point'] : '' }}" next="no"></key-points>
                         </div>
                     </div>
                 </div>
@@ -677,12 +677,12 @@
                 <div class="card-content">
                     <div class="card">
                         <div class="card-content">
-                            <principal-form
-                                preview="true"
-                                user="{{Auth::id()}}"
-                                url="security-fund-flow/step-6/create/meetSponsors" 
-                                data="{{ json_encode($data) }}">
-                            </principal-form>
+                        <principal-form
+                            preview="true"
+                            user="{{Auth::id()}}"
+                            url="security-flow/step-6/create/meetSponsors" 
+                            data="{{ isset($data) ? json_encode($data) : '' }}">
+                        </principal-form>
                         </div>
                     </div>
                 </div>
