@@ -116,8 +116,8 @@
                                                         </div>
                                                         <div class="col-xs-12 col-md-4">
                                                             <p>Property Type</p>
-                                                            <select name="property-type">
-                                                                <option value="{{ isset($data['property-type']) ? $data['property-type'] : '' }}" selected="selected">{{ isset($data['property-type']) ? $data['property-type'] : 'Select an option' }}</option>
+                                                            <select name="property-type-pledged">
+                                                                <option value="{{ isset($data['property-type-pledged']) ? $data['property-type-pledged'] : '' }}" selected="selected">{{ isset($data['property-type-pledged']) ? $data['property-type-pledged'] : 'Select an option' }}</option>
                                                                 <option value="option">option</option>
                                                                 <option value="option">option</option>
                                                                 <option value="option">option</option>
