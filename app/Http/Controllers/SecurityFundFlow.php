@@ -57,9 +57,13 @@ class SecurityFundFlow extends Controller
         $bio = DB::table('account_verification')
             ->where('userid', $userid)
             ->value('bio');
-        $data = $request->session()->get('security-fund-flow');
+        $data = $request->session()->get('security-flow');
         
         return view( 'security-fund-flow.step-7.final', [ 'title' => 'Create Digital Security > Preview & Submit' ] )->with(compact('data', 'bio'));
+    }
+
+    private function emptyArray($arr) {
+        return array_search("", $arr) !== false;
     }
 
     // Save Data into a session
@@ -98,15 +102,35 @@ class SecurityFundFlow extends Controller
                 return redirect('/security-fund-flow/step-1/choose');
         }
     }
-/*
+
     // Submit Preview Data
     public function submitPreview(Request $request) {
-
         $session_data = session( 'security-fund-flow', array() );
         $session_data = array_merge( $session_data, $_POST );
         session( [ 'security-fund-flow' => $session_data ] );
 
-        $this->validate($request, [
+        // Validations
+        $condRule = [];
+        if ($request->get('fund-type') === 'Yes') {
+            $condRule = [
+                'vacancy-rate' => 'required',
+                'proforma-current-noi' => 'required',
+                'annual-cash-flow' => 'required',
+                '1031-exchange' => 'required',
+                'market-value' => 'required',
+                'square-footage' => 'required',
+                'property-class' => 'required',
+                'total-debt' => 'required',
+                'payoff-date' => 'required',
+                'loan-type' => 'required',
+                'developed' => 'required'
+            ];
+        } else {
+            $condRule = [
+                'existing-properties' => 'required' 
+            ];
+        }
+        $rules = [
             'target-investor-irr' => 'required',
             'investment-profile' => 'required',
             'funds-due' => 'required',
@@ -119,25 +143,16 @@ class SecurityFundFlow extends Controller
             'target-avg-investor-cash-yield' => 'required',
             'offers-due' => 'required',
             'distribution-commencement' => 'required',
-            'property' => 'required',
-            'opportunity_type' => 'required',
-            'opportunity_description' => 'required',
-            'property_address' => 'required',
+            'fund-name' => 'required',
+            'opportunity-type' => 'required',
+            'type-of-fund' => 'required',
+            'capital-origin' => 'required',
+            'fund-address' => 'required',
             'city' => 'required',
             'state' => 'required',
             'zip' => 'required',
             'country' => 'required',
-            'vacancy_rate' => 'required',
-            'current_noi' => 'required',
-            'annual_cash_flow' => 'required',
-            '1031_exchange' => 'required',
-            'market_value' => 'required',
-            'square_footage' => 'required',
-            'property_class' => 'required',
-            'total_debt' => 'required',
-            'payoff_date' => 'required',
-            'loan-type' => 'required',
-            'developed' => 'required',
+            'fund-description' => 'required',
             'investor-first-name' => 'required',
             'investor-last-name' => 'required',
             'ownership' => 'required',
@@ -147,20 +162,27 @@ class SecurityFundFlow extends Controller
             'investor-first-name-2' => 'required',
             'investor-last-name-2' => 'required',
             'ownership-2' => 'required',
-            'pro-frorma-noi' => 'required',
+            'minimum-raise-amount' => 'required',
             'distribution-frequency' => 'required',
-            'equity-raise-floor-amount' => 'required',
+            'maximum-raise-amount' => 'required',
             'total-capital-required' => 'required',
-            'equity-raise-hard-cap' => 'required',
             'preferred-equity' => 'required',
             'common-equity' => 'required',
             'mezzanine-debt' => 'required',
-            'senior-debt' => 'required',
-            'principle-bio' => 'required',
-            'principle-full-name' => 'required',
-            'principle-title' => 'required'
-        ]);
+            'senior-debt' => 'required'
+        ];
+        $rules = array_merge( $rules, $condRule );
+        $this->validate($request, $rules);
+        
         if (isset($request->session()->get('security-fund-flow')['key-point'])) {
+            $keyPoints = $request->session()->get('security-fund-flow')['key-point'];
+        }
+
+        if (isset($request->session()->get('security-fund-flow')['principles'])) {
+            $principles = $request->session()->get('security-fund-flow')['principles'];
+        }
+
+        if (isset($keyPoints) && isset($principles)) {
             $userid = Auth::id();
             $payload = array(
                 'userid' => $userid,
@@ -176,25 +198,16 @@ class SecurityFundFlow extends Controller
                 'target-avg-investor-cash-yield' => $request->get('target-avg-investor-cash-yield'),
                 'offers-due' => $request->get('offers-due'),
                 'distribution-commencement' => $request->get('distribution-commencement'),
-                'property' => $request->get('property'),
-                'opportunity_type' => $request->get('opportunity_type'),
-                'opportunity_description' => $request->get('opportunity_description'),
-                'property_address' => $request->get('property_address'),
+                'fund-name' => $request->get('fund-name'),
+                'opportunity-type' => $request->get('opportunity-type'),
+                'type-of-fund' => $request->get('type-of-fund'),
+                'capital-origin' => $request->get('capital-origin'),
+                'fund-address' => $request->get('fund-address'),
                 'city' => $request->get('city'),
                 'state' => $request->get('state'),
                 'zip' => $request->get('zip'),
                 'country' => $request->get('country'),
-                'vacancy_rate' => $request->get('vacancy_rate'),
-                'current_noi' => $request->get('current_noi'),
-                'annual_cash_flow' => $request->get('annual_cash_flow'),
-                '1031_exchange' => $request->get('1031_exchange'),
-                'market_value' => $request->get('market_value'),
-                'square_footage' => $request->get('square_footage'),
-                'property_class' => $request->get('property_class'),
-                'total_debt' => $request->get('total_debt'),
-                'payoff_date' => $request->get('payoff_date'),
-                'loan-type' => $request->get('loan-type'),
-                'developed' => $request->get('developed'),
+                'fund-description' => $request->get('fund-description'),
                 'investor-first-name' => $request->get('investor-first-name'),
                 'investor-last-name' => $request->get('investor-last-name'),
                 'ownership' => $request->get('ownership'),
@@ -204,26 +217,36 @@ class SecurityFundFlow extends Controller
                 'investor-first-name-2' => $request->get('investor-first-name-2'),
                 'investor-last-name-2' => $request->get('investor-last-name-2'),
                 'ownership-2' => $request->get('ownership-2'),
-                'pro-frorma-noi' => $request->get('pro-frorma-noi'),
+                'minimum-raise-amount' => $request->get('minimum-raise-amount'),
                 'distribution-frequency' => $request->get('distribution-frequency'),
-                'equity-raise-floor-amount' => $request->get('equity-raise-floor-amount'),
+                'maximum-raise-amount' => $request->get('maximum-raise-amount'),
                 'total-capital-required' => $request->get('total-capital-required'),
-                'equity-raise-hard-cap' => $request->get('equity-raise-hard-cap'),
                 'preferred-equity' => $request->get('preferred-equity'),
                 'common-equity' => $request->get('common-equity'),
                 'mezzanine-debt' => $request->get('mezzanine-debt'),
                 'senior-debt' => $request->get('senior-debt'),
-                'principle-bio' => $request->get('principle-bio'),
-                'principle-full-name' => $request->get('principle-full-name'),
-                'principle-title' => $request->get('principle-title'),
-                'key-points' => $request->session()->get('security-fund-flow')['key-point']
+                'vacancy-rate' => $request->get('vacancy-rate'),
+                'proforma-current-noi' => $request->get('proforma-current-noi'),
+                'annual-cash-flow' => $request->get('annual-cash-flow'),
+                '1031-exchange' => $request->get('1031-exchange'),
+                'market-value' => $request->get('market-value'),
+                'square-footage' => $request->get('square-footage'),
+                'property-class' => $request->get('property-class'),
+                'total-debt' => $request->get('total-debt'),
+                'payoff-date' => $request->get('payoff-date'),
+                'loan-type' => $request->get('loan-type'),
+                'developed' => $request->get('developed'),
+                'existing-properties' => $request->get('existing-properties'),
+                'principles' => json_decode($principles),
+                'key-points' => $keyPoints
             );
 
-            DB::table('security_flow_property')->insert($payload);
+            DB::table('security_fund_flow')->insert($payload);
         
-            return view( 'security-fund-flow.step-7.final', [ 'title' => 'Security Flow -> Preview & Submit', 'success' => true ] );
+            return view( 'security-fund-flow.step-7.final', [ 'title' => 'Create Digital Security -> Preview & Submit', 'success' => true ] );
+            
         } else {
             return view( 'security-fund-flow.step-7.final', [ 'title' => 'Create Digital Security > Preview & Submit' ] )->with('data', $request->session()->get('security-fund-flow')); 
         }
-    } */
+    }
 }

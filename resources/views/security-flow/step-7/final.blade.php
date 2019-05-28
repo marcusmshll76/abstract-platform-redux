@@ -603,7 +603,7 @@
                 <div class="card-content">
                     <div class="row">
                         <div class="col-xs-12 col-md-6">
-                            <chart-component></chart-component>
+                            <pie-chart type="capital stack" data="{{ json_encode($data) }}"></pie-chart>
                         </div>
                         <div class="col-xs-12 col-md-6">
                             <div class="card">
@@ -677,41 +677,12 @@
                 <div class="card-content">
                     <div class="card">
                         <div class="card-content">
-                            <div class="row margin-top-l">
-                                <div class="col-xs-12 col-sm-4">
-                                    <file-preview
-                                        iname="Single"
-                                        scope="private"
-                                        user="{{Auth::id()}}"
-                                        path="/principles/"
-                                        index="0">
-                                    </file-preview>
-                                </div>
-                                <div class="col-xs-12 col-sm-8">
-                                    <p class="no-margin-top">Principle Bio</p>
-                                    @if($errors->has('principle-bio'))
-                                        <small class="error-small"><em>*</em> <span> {{ $errors->first('principle-bio') }} </span></small>
-                                    @endif
-                                    <textarea name="principle-bio">{{ isset($data['principle-bio']) ? $data['principle-bio'] : '' }}</textarea>
-                                    <div class="row">
-                                        <div class="col-xs-12 col-sm-6">
-                                            <p>Principle Full Name</p>
-                                            @if($errors->has('principle-full-name'))
-                                                <small class="error-small"><em>*</em> <span> {{ $errors->first('principle-full-name') }} </span></small>
-                                            @endif
-                                            <input name="principle-full-name" value="{{ isset($data['principle-full-name']) ? $data['principle-full-name'] : '' }}" type="text">
-                                        </div>
-                                        <div class="col-xs-12 col-sm-6">
-                                            <p>Principle Title</p>
-                                            @if($errors->has('principle-title'))
-                                                <small class="error-small"><em>*</em> <span> {{ $errors->first('principle-title') }} </span></small>
-                                            @endif
-                                            <input name="principle-title" value="{{ isset($data['principle-title']) ? $data['principle-title'] : '' }}" type="text">
-                                        </div>
-                                    </div>
-                                    <div class="btn small margin-top-m">+ Add Principle</div>
-                                </div>
-                            </div>
+                            <principal-form
+                                preview="true"
+                                user="{{Auth::id()}}"
+                                url="security-fund-flow/step-6/create/meetSponsors" 
+                                data="{{ json_encode($data) }}">
+                            </principal-form>
                         </div>
                     </div>
                 </div>

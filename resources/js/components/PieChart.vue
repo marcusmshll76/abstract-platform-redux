@@ -44,7 +44,6 @@ export default {
   },
   methods: {
     cleanData(e){
-      console.log(e)
       if (e == 'null' || !e) {
         return 0;
       } else if (e.indexOf('%') > -1) {

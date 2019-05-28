@@ -51,13 +51,12 @@
                         </div>
                         <div class="col-xs-12 col-sm-3">
                             <div class="dashboard-menu-tile"><img src="/img/icon-paper-settings.svg">
-                                <h5>Investor Servicing
-</h5>
+                                <h5><a href="/investor-servicing/choose-investment">Investor Servicing</a></h5>
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-3">
                             <div class="dashboard-menu-tile active"><img src="/img/icon-security.svg">
-                                <h5><a href="/security-flow/step-1/choose">Create Digital Security</a></h5>
+                                <h5><a href="/security-fund-flow/step-1/choose">Create Digital Security</a></h5>
                             </div>
                         </div>
                     </div>

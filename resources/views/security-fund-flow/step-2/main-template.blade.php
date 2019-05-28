@@ -39,7 +39,7 @@
             <div class="col-xs-12 col-sm-9 col-md-10">
                 <div class="dashboard-menu-tile-container">
                     <div class="row">
-                    <div class="col-xs-12 col-sm-3">
+                        <div class="col-xs-12 col-sm-3">
                             <div class="dashboard-menu-tile"><img src="/img/icon-user-etting-blue.svg">
                                 <h5><a href="/account-settings/verification">Account Settings</a></h5>
                             </div>
@@ -51,8 +51,7 @@
                         </div>
                         <div class="col-xs-12 col-sm-3">
                             <div class="dashboard-menu-tile"><img src="/img/icon-paper-settings.svg">
-                                <h5>Investor Servicing
-</h5>
+                                <h5><a href="/investor-servicing/choose-investment">Investor Servicing</a></h5>
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-3">

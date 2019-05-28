@@ -1,7 +1,7 @@
 <template>
 <div>
 <div class="principal-section">
-    <Form ref="formDynamic" :model="formDynamic">
+    <Form ref="formDynamic">
         <div class="row margin-top-l"
             v-for="(item, index) in formDynamic.principles"
             v-if="item.status"
@@ -78,7 +78,7 @@ export default {
         }
     },
     created () {
-        !this.data || this.data == 'null' ? this.formDynamic = this.dumpFields : this.formDynamic = JSON.parse(this.data)
+        this.data !== '' || this.data == 'null' ? this.formDynamic = this.dumpFields : this.formDynamic = JSON.parse(this.data)
     },
     methods: {
         handleSubmit(e) {
