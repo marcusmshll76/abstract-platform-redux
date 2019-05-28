@@ -20,7 +20,7 @@
                             action="/files"
                             elname="image"
                             scope="private"
-                            path="/digital-security/photo-gallery/"
+                            path="/digital-security/fund/photo-gallery/"
                             class="large margin-bottom-m-md">
                         </uploads-component>
                     </div>
@@ -32,7 +32,7 @@
                                     action="/files"
                                     elname="image"
                                     scope="private"
-                                    path="/digital-security/photo-gallery/"
+                                    path="/digital-security/fund/photo-gallery/"
                                     class="margin-bottom-m-md">
                                 </uploads-component>
                             </div>
@@ -43,7 +43,7 @@
                                         action="/files"
                                         elname="image"
                                         scope="private"
-                                        path="/digital-security/photo-gallery/"
+                                        path="/digital-security/fund/photo-gallery/"
                                         class="margin-bottom-m-md">
                                     </uploads-component>
                                 </div>
@@ -57,7 +57,7 @@
                                         action="/files"
                                         elname="image"
                                         scope="private"
-                                        path="/digital-security/photo-gallery/"
+                                        path="/digital-security/fund/photo-gallery/"
                                         class="margin-bottom-m-md">
                                     </uploads-component>
                                 </div>
@@ -69,7 +69,7 @@
                                         action="/files"
                                         elname="image"
                                         scope="private"
-                                        path="/digital-security/photo-gallery/"
+                                        path="/digital-security/fund/photo-gallery/"
                                         class="margin-bottom-m-md">
                                     </uploads-component>
                                 </div>

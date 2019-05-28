@@ -19,7 +19,7 @@
                     iname="Digital Security Photo Gallery"
                     scope="private"
                     user="{{Auth::id()}}"
-                    path="/digital-security/photo-gallery/">
+                    path="/digital-security/fund/photo-gallery/">
                 </file-preview>
             </div>
         </div>

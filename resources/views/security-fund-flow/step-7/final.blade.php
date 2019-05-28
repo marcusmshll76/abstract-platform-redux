@@ -43,7 +43,7 @@
                         iname="Digital Security Photo Gallery" 
                         scope="private"
                         user="{{Auth::id()}}"
-                        path="/digital-security/photo-gallery/">
+                        path="/digital-security/fund/photo-gallery/">
                     </file-preview>
                 </div>
             </div>
@@ -428,7 +428,7 @@
                                     iname="file"
                                     scope="private"
                                     user="{{Auth::id()}}"
-                                    path="/ownership/">
+                                    path="/fund/ownership/">
                                 </file-preview>
                                 <div class="content-form">
                                     <div class="row margin-bottom-l-md">
@@ -603,7 +603,9 @@
                 <div class="card-content">
                     <div class="row">
                         <div class="col-xs-12 col-md-6">
-                            <chart-component></chart-component>
+                            <div class="col-sm-6">
+                                <pie-chart type="capital stack" data="{{ json_encode($data) }}"></pie-chart>
+                            </div>
                         </div>
                         <div class="col-xs-12 col-md-6">
                             <div class="card">
@@ -677,7 +679,14 @@
                 <div class="card-content">
                     <div class="card">
                         <div class="card-content">
-                            <div class="row margin-top-l">
+                        <principal-form
+                            preview="true"
+                            user="{{Auth::id()}}"
+                            url="security-fund-flow/step-6/create/meetSponsors" 
+                            data="{{ json_encode($data) }}">
+                        </principal-form>
+                                
+                                <!--
                                 <div class="col-xs-12 col-sm-4">
                                     <file-preview
                                         iname="Single"
@@ -710,8 +719,7 @@
                                         </div>
                                     </div>
                                     <div class="btn small margin-top-m">+ Add Principle</div>
-                                </div>
-                            </div>
+                                </div> -->
                         </div>
                     </div>
                 </div>

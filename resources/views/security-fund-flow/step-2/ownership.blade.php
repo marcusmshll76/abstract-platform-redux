@@ -23,7 +23,7 @@
                                 action="/files"
                                 elname="file"
                                 scope="private"
-                                path="/ownership/"
+                                path="/fund/ownership/"
                                 flat="true"
                                 type="single-dust">
                             </uploads-component>

@@ -10,8 +10,8 @@ class InvestorServicingController extends Controller {
         return view( 'investor-servicing.investor-K-1.index', [ 'title' => 'K1 > Investor Servicing'] );
     }
 
-    public function choose() {
-        return view( 'investor-servicing.choose.investment', [ 'title' => 'Choose Investment > Investor Servicing'] );
+    public function choose(Request $request) {
+        return view( 'investor-servicing.choose.investment', [ 'title' => 'Choose Investment > Investor Servicing'] )->with(compact('data', 'investments'));
     }
 
     public function captable() {
