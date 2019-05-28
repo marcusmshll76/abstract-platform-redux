@@ -159,7 +159,16 @@ class SecurityFlow extends Controller
             'principle-full-name' => 'required',
             'principle-title' => 'required'
         ]);
-        if (isset($request->session()->get('security-flow')['key-point'])) {
+
+        if (isset($request->session()->get('security-fund-flow')['key-point'])) {
+            $keyPoints = $request->session()->get('security-fund-flow')['key-point'];
+        }
+
+        if (isset($request->session()->get('security-fund-flow')['principles'])) {
+            $principles = $request->session()->get('security-fund-flow')['principles'];
+        }
+
+        if (isset($keyPoints) && isset($principles) {
             $userid = Auth::id();
             $payload = array(
                 'userid' => $userid,
@@ -212,10 +221,8 @@ class SecurityFlow extends Controller
                 'common-equity' => $request->get('common-equity'),
                 'mezzanine-debt' => $request->get('mezzanine-debt'),
                 'senior-debt' => $request->get('senior-debt'),
-                'principle-bio' => $request->get('principle-bio'),
-                'principle-full-name' => $request->get('principle-full-name'),
-                'principle-title' => $request->get('principle-title'),
-                'key-points' => $request->session()->get('security-flow')['key-point']
+                'principles' => json_encode($principles),
+                'key-points' => $keyPoints
             );
 
             DB::table('security_flow_property')->insert($payload);
