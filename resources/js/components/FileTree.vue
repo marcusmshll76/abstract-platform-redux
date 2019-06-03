@@ -1,16 +1,23 @@
 <template>
 <div class="full-width">
-    <div class="row contextArea drop" @contextmenu.prevent="$refs.menu.open">
-        <nested-draggable @done="refresh" :txtindex="txt" :data="list" />
+    <Spin v-if="loading">
+        <Icon type="ios-loading" size=18 class="spin-icon-load"></Icon>
+        <div>{{ loadingtxt }}</div>
+    </Spin>
+
+    <div v-else>
+        <div class="row contextArea drop" @contextmenu.prevent="$refs.menu.open">
+            <nested-draggable @done="refresh" :txtindex="txt" :data="list" />
+        </div>
+        <vue-context ref="menu">
+            <li>
+                <a href="#" @click.prevent="createFolder"><Icon type="ios-folder-open" /> Create New Folder</a>
+            </li>
+            <li>
+                <a href="#" @click.prevent="createFile"><Icon type="ios-paper-outline" /> Create New File</a>
+            </li>
+        </vue-context>
     </div>
-    <vue-context ref="menu">
-        <li>
-            <a href="#" @click.prevent="createFolder"><Icon type="ios-folder-open" /> Create New Folder</a>
-        </li>
-        <li>
-            <a href="#" @click.prevent="createFile"><Icon type="ios-paper-outline" /> Create New File</a>
-        </li>
-    </vue-context>
     <Modal
         v-model="upload"
         title="Upload A New File"
@@ -19,79 +26,103 @@
         ok-text="Save File"
         cancel-text="Cancel"
         class="upload-drag">
-            <Upload
-                multiple
-                type="drag"
-                action="//jsonplaceholder.typicode.com/posts/">
-                <div style="padding: 20px 0">
-                    <Icon type="ios-cloud-upload" size="52" style="color: #283f5c"></Icon>
-                    <p>Click or drag files here to upload</p>
-                </div>
-            </Upload>
+            <uploads-component
+                type="multi-drag"
+                action="//jsonplaceholder.typicode.com/posts/"
+                elname="file"
+                scope="private"
+                path="/diligence/"
+                @done="successUpload">
+            </uploads-component>
     </Modal>
 </div>
 </template>
 
 <script>
+import axios from 'axios'
+import config from '../libs'
 import { VueContext } from 'vue-context';
-// import s3tree from 's3-tree';
-// const generator = s3tree({bucket: process.env.AWS_BUCKET});
+
 export default {
     name: "file-tree",
     display: "Nested",
     order: 15,
+    props: ['user'],
     components: {
         VueContext
     },
     data() {
         return {
-            list: [{
-                    name: "Title Survey & Zoning Diligence",
-                    type: "folder",
-                    edit: false,
-                    data: [{
-                        name: "Title Survey & Zoning DD List",
-                        edit: false
-                    }]
-                },
-                {
-                    name: "Legal & Insurance Diligence",
-                    type: "folder",
-                    edit: false,
-                    data: [{
-                        name: "Legal & Insurance DD List ",
-                        edit: false
-                    }]
-                },
-                {
-                    name: "Financial Diligence",
-                    type: 'folder',
-                    edit: false,
-                    data: [{
-                        name: "Financial DD List",
-                        edit: false
-                    }]
-                }
-            ],
+            loading: true,
+            loadingtxt: 'Preparing Diligence Documents',
+            jsonDir: {},
+            list: [],
             upload: false,
             txt: '',
             ref: 1
         };
     },
     created () {
-        // this.preventReload()
-        // this.dirJson()
+        var self  =  this
+        axios
+        .get(config.checkDiligence)
+        .then(function(resp) {
+            if (resp.data.response) {
+                self.dirToArray(resp.data.response)
+                self.loading = false
+                self.arrayToPath(self.list)
+            }
+        })
+        .catch(function(error) {
+            return error
+        });
     },
     methods: {
-        dirJson () {
-            generator.generate('/').then(function (tree) {
-                console.log(JSON.stringify(tree, null, 2));
-            });
+        successUpload (e) {
+            console.log(e)
         },
-        preventReload () {
-            window.onbeforeunload = function() {
-                return "Are you sure you want to leave? Think of the kittens!";
+        dirToArray(data) {
+            function addPath(pathcomponents, arr) {
+                let component = pathcomponents.shift()
+                let comp = arr.find(item => item.name === component)
+            if (component !== '.DS_Store') {
+                let type
+                if (component.indexOf('.') === -1) {
+                    type = 'folder'
+                }
+                if (!comp) {
+                    comp =  {
+                        name: component,
+                        edit: false
+                    }
+                    type === 'folder' ? comp.type = 'folder' : ''
+                    arr.push(comp)
+                }
+                if (pathcomponents.length){
+                   addPath(pathcomponents, comp.data || (comp.data = []))
+                }
             }
+                return arr
+            }
+            this.list = data.reduce((arr, path) => addPath(path.split('/'), arr), [])
+
+        },
+        arrayToPath (data) {
+            // Flattend Array to string path
+            var flattened = [];
+            function flatten(data, outputArray) {
+                data.forEach(function (e){
+                    if (Array.isArray(e.data)) {
+                        outputArray.push(e.name);
+                        flatten(e.data, outputArray);
+                    } else {
+                        outputArray.push(e.name);
+                    }
+
+                });
+            }
+            flatten(data, flattened);
+            // console.log(flattened)
         },
         refresh: function (data) {
             this.list = data
@@ -118,14 +149,12 @@ export default {
             this.$Modal.confirm({
                 title: 'Create File Action',
                 content: '<p>One last step to complete your request</p>',
-                okText: 'Upload a file',
-                cancelText: 'Create a text file',
+                okText: 'Upload files',
+                cancelText: 'Cancel',
                 onOk: () => {
                     this.upload = true;
                 },
-                onCancel: () => {
-                    this.txt = pos
-                }
+                onCancel: () => {}
             });
         },
         save: function() {

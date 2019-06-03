@@ -19,7 +19,7 @@ Route::get('/', function () {
 // Route::get('/{any}', 'SinglePageController@index')->where('any', '.*');
 
 // Sessions
-Route::get('/login', 'SessionController@getLogin');
+Route::get('/login', 'SessionController@getLogin')->name('login');
 Route::post('/login', 'SessionController@doLogin');
 Route::get('/register', 'SessionController@getRegister');
 Route::post('/register', 'SessionController@doRegister');
@@ -161,3 +161,6 @@ Route::post('/security-fund-flow/step-7/create/preview', 'SecurityFundFlow@submi
 
 Route::get('/getFiles', 'FilesController@retrieve');
 Route::resource('files', 'FilesController', ['only' => ['store', 'destroy']]);
+
+//diligence
+Route::get('/files/diligence/check', 'FilesController@checkDir');

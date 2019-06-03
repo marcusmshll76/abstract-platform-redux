@@ -94,4 +94,41 @@ class FilesController extends Controller
        ]);
    }
 
+   // Create diligence default structure
+   public function checkDir () {
+       $user = Auth::id();
+        if (isset($user)) {
+            $dir = $user. '/diligence';
+            $cloudFiles = Storage::disk('s3')->allFiles($dir);
+            if (!empty($cloudFiles)) {
+                return response()->json([
+                    'response' => $cloudFiles
+                ]);
+            } else {
+                $localFiles = Storage::disk('local')->allFiles('diligence');
+                foreach($localFiles as $file) {
+                    if (strpos($file, '.DS_Store') === false) {
+                        Storage::disk('s3')->put($file, $user.'/'.$file);
+                    }  
+                }
+                return response()->json([
+                    'response' => $localFiles
+                ]);
+            }
+        } else {
+            return response()->json([
+                'response' => 'Not Authenticated'
+            ]);
+        }
+   }
+
+   // Move Files
+   public function move(Request $request){
+        $odir = $request->get('oldDir');
+        $ndir = $request->get('newDir');
+        if (isset($odir) && isset($ndir)) {
+            Storage::disk('s3')->move($odir, $ndir);
+        }
+   }
+
 }

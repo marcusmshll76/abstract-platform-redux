@@ -16,10 +16,13 @@
                 <div class="row middle-xs">
                     <div class="col-xs-12 col-sm-4 col-md-3">
                         
-                        <uploads-component 
-                            type="single"
-                            action="//jsonplaceholder.typicode.com/posts/"
-                            title="Upload Company Logo">
+                        <uploads-component
+                            title="Upload Company Logo"
+                            action="/files"
+                            elname="image"
+                            scope="private"
+                            path="/account-settings/principles/"
+                            type="single">
                         </uploads-component>
 
                         <div class="content-form">
@@ -38,7 +41,6 @@
                     <div class="col-xs-12 col-sm-7 col-md-offset-1">
                         <p class="no-margin-top">Principle Bio</p>
                         <textarea name="principle_website">{{ isset($data['principle_website']) ? $data['principle_website'] : '' }}</textarea>
-                        <div class="btn margin-top-m small">+ Principal</div>
                     </div>
                     <div class="col-xs-12 col-sm-1 margin-top-m-sm"><img src="/img/icon-large-arrow-right.svg"></div>
                 </div>

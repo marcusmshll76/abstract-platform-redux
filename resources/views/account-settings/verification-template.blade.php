@@ -31,7 +31,7 @@
                     <div class="row">
                         <div class="col-xs-12 col-sm-3">
                             <div class="dashboard-menu-tile active"><img src="/img/icon-user-etting.svg">
-                                <h5><a href="/account-settings/verification">Account Settings</a></h5>
+                                <h5><a class="color-white" href="/account-settings/verification">Account Settings</a></h5>
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-3">

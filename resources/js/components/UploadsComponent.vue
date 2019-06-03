@@ -44,6 +44,22 @@
             <img :src="icon ? icon : '/img/icon-upload.svg'">
         </div>
     </Upload>
+
+    <Upload
+        multiple
+        type="drag"
+        :name="elname"
+        :headers="{'X-CSRF-TOKEN': header}"
+        ref="uploadPhotos"
+        v-if="type === 'multi-drag'" 
+        :action="action"
+        :on-success="success"
+        :data="payload">
+        <div style="padding: 20px 0">
+            <Icon type="ios-cloud-upload" size="52" style="color: #283f5c"></Icon>
+            <p>Click or drag files here to upload</p>
+        </div>
+    </Upload>
 </div>
 </template>
 
@@ -62,7 +78,7 @@ export default {
     },
     methods: {
         success(res, file) { 
-            console.log(res)
+            this.emit(done, res)
         },
         maxSize(file) {}
     }
