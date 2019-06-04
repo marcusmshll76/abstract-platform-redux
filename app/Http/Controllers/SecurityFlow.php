@@ -10,6 +10,12 @@ use App\Http\Controllers\Controller;
 
 class SecurityFlow extends Controller
 {
+
+    public function __construct() {
+        $this->middleware('auth');
+        $this->middleware('auth.details');
+    }
+    
     public function choose () {
         return view( 'security-flow.step-1.choose', [ 'title' => 'Create Digital Security > Security Type' ] );
     }

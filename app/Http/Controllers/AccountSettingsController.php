@@ -9,6 +9,11 @@ use App\AccountVerificiation;
 
 class AccountSettingsController extends Controller {
 
+    public function __construct() {
+        $this->middleware('auth');
+        $this->middleware('auth.details');
+    } 
+    
     /*******************
      * ******* Account Verification
      **************/
@@ -223,10 +228,5 @@ class AccountSettingsController extends Controller {
         } else {
             return view( 'account-settings.password', [ 'title' => 'Account Settings -> Password & 2FA', 'error' => true ] );
         }
-    }
-
-    public function __construct() {
-        $this->middleware('auth');
-        $this->middleware('auth.details');
     }
 }

@@ -21,8 +21,14 @@
                 <div class="card-content">
                 <div class="row">
                     <div class="col-xs-12 col-sm-3">
-                        <div class="file-upload-box"><img src="/img/icon-upload.svg">
-                            <h5>Upload Company Logo </h5>
+                        <div class="file-upload-box">
+                            <file-preview
+                                iname="Single" 
+                                scope="private"
+                                user="{{Auth::id()}}"
+                                path="/account-settings/company-logo/"
+                                index="0">
+                            </file-preview>
                         </div>
                         <div class="content-form">
                             <div class="row">
@@ -269,8 +275,16 @@
                 <div class="card-content">
                 <div class="row middle-xs">
                     <div class="col-xs-12 col-sm-4 col-md-3">
-                        <div class="file-upload-box"><img src="/img/icon-upload.svg">
-                            <h5>Upload Company Logo </h5>
+                        <div class="file-upload-box color-white">
+                            <file-preview
+                                iname="Single" 
+                                scope="private"
+                                user="{{Auth::id()}}"
+                                path="/account-settings/principles/"
+                                index="0">
+                            </file-preview>
+                            <!-- <img src="/img/icon-upload.svg">
+                            <h5>Upload Company Logo </h5> -->
                         </div>
                         <div class="content-form">
                             <div class="row">
@@ -305,7 +319,6 @@
                         @endif
                         
                         <textarea name="principle_website">{{ isset($data['principle_website']) ? $data['principle_website'] : '' }}</textarea>
-                        <div class="btn margin-top-m small">+ Principal</div>
                     </div>
                     <div class="col-xs-12 col-sm-1 margin-top-m-sm"><img src="/img/icon-large-arrow-right.svg"></div>
                 </div>
@@ -655,6 +668,9 @@
                             <div class="breadcrumb">
                                 <p>All Files<img src="/img/icon-arrow-right.svg"> Diligence Documents </p>
                             </div>
+                        </div>
+                        <div class="card-content">
+                            <file-tree></file-tree>
                         </div>
                     </div>
                 </div>

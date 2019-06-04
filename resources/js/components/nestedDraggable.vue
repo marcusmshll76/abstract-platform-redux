@@ -1,6 +1,6 @@
 <template>
 <div>
-    <draggable class="dragArea" tag="ul" :list="subdata" :group="{ name: 'g1' }">
+    <draggable class="dragArea" tag="ul" :move="checkMove" :list="subdata" :group="{ name: 'g1' }">
         <li v-for="(path, index) in subdata" :key="path.name">
             <a>
                 <label v-show="!path.edit" @click="handleClick(index)" :style="[path.type ? {'font-weight' : 'bold'} : '']"> 
@@ -39,6 +39,7 @@
                 </a>
             </p>
             <vue-editor v-model="content"></vue-editor>
+            <span slot="footer"></span>
     </Modal>
 </div>
 </template>
@@ -58,7 +59,7 @@ export default {
             subdata: [],
             value: '',
             refresh: 1,
-            content: '<h3>Initial Content</h3>',
+            content: 'Diligence list here, preview only',
             editor: false,
             clickCount: 0,
             clickTimer: null,
@@ -82,6 +83,9 @@ export default {
         this.subdata = this.data
     },
     methods: {
+        checkMove: function(evt){
+            console.log('You moved' + evt.draggedContext.element.name);
+        },
         handleClick: function(index) {
             this.clickCount++
             if (this.clickCount === 1) {

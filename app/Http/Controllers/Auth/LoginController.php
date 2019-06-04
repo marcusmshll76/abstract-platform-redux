@@ -25,7 +25,14 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    
+    protected function redirectTo($request){
+        if ($request->has('redir')) {
+            return $request->input('redir');
+        } else {
+            return '/home';
+        }
+    }
 
     /**
      * Create a new controller instance.

@@ -8,6 +8,12 @@ use Illuminate\Support\Facades\DB;
 
 class SecurityFundFlow extends Controller
 {
+
+    public function __construct() {
+        $this->middleware('auth');
+        $this->middleware('auth.details');
+    }
+    
     public function choose () {
         return view( 'security-fund-flow.step-1.choose', [ 'title' => 'Create Digital Security > Security Type' ] );
     }
