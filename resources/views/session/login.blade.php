@@ -4,11 +4,6 @@
 @section('content')
 <form action="/login" method="post">
 @csrf
-<style>
-    header {
-        display: none !important
-    }
-</style>
 <div class="container-fluid">
     <div class="row">
         <div class="col-xs-12 col-sm-8 col-md-6 col-lg-5 center">
@@ -34,7 +29,7 @@
                     </div>
                 </div>
                 <div class="signup-footer"><button type="submit" class="large full-width white">Login</button></a>
-                    <p><a href="#">Forgot Password? </a></p>
+                    <p><a href="/forget-password">Forgot Password? </a></p>
                 </div>
             </div>
         </div>
@@ -42,3 +37,6 @@
 </div>
 </form>
 @endsection
+<style>
+    header { display: none !important }
+</style>

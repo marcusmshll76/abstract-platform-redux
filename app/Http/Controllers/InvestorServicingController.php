@@ -29,11 +29,11 @@ class InvestorServicingController extends Controller {
             ->union($property)
             ->get();
 
-        return view( 'investor-servicing.choose.investment', [ 'title' => 'Choose Investment > Investor Servicing'] )->with(compact('data'));
+        return view( 'investor-servicing.choose.investment', [ 'title' => 'Choose Investment > Investor Servicing'] )->with(compact('data', 'userid'));
     }
 
-    public function captable(Request $request, $type, $id) {
-        $userid = Auth::id();
+    public function captable(Request $request) {
+        /* $userid = Auth::id();
         if (isset($type) && isset($id)) {
             if ($type === 'fund') {
                 $table = 'security_fund_flow';
@@ -45,7 +45,8 @@ class InvestorServicingController extends Controller {
                 ->where('id', $id)
                 ->select('investor-first-name as fn', 'investor-last-name as ln', 'ownership as ow', 'investor-first-name-1 as fn1', 'investor-last-name-1 as ln1', 'ownership-1 as ow1', 'investor-first-name-2 as fn2', 'investor-last-name-2 as ln2', 'ownership-2 as ow2')
                 ->first();
-        }
+        } */
+        $data = [];
         return view( 'investor-servicing.cap.table', [ 'title' => 'Cap Table Management > Investor Servicing'] )->with(compact('data'));
     }
 

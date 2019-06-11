@@ -15,10 +15,33 @@ class SessionController extends Controller {
         return view('session.login');
     }
 
+    public function getForget(Request $request) {
+        return view('session.forget');
+    }
+
+    public function doForget(Request $request) {
+        $this->validate($request, [
+            'email' => 'required'
+        ]);
+        $email = $request->get('email');
+        $user = User::where('email', '=', $email)->first();
+        
+        if ($user === null) {
+            return view('session.forget', [ 'title' => 'Forgot Password', 'error' => true ] );
+        } else {
+            // @todo Send Recovery Email
+            return redirect( '/reset-password' );
+        }
+    }
+
+    public function getResetPassword(Request $request) {
+        return view('session.reset');
+    }
+
     public function doLogin(Request $request) {
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials, true)) {
-            return redirect()->intended('/sponsor/welcome');
+            return redirect()->intended('/sponsor/introduction');
         } else {
             return view('session.login', [ 'error' => true ] );
         }

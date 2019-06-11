@@ -63,7 +63,7 @@ class SecurityFundFlow extends Controller
         $bio = DB::table('account_verification')
             ->where('userid', $userid)
             ->value('bio');
-        $data = $request->session()->get('security-flow');
+        $data = $request->session()->get('security-fund-flow');
         
         return view( 'security-fund-flow.step-7.final', [ 'title' => 'Create Digital Security > Preview & Submit' ] )->with(compact('data', 'bio'));
     }

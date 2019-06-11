@@ -1,0 +1,195 @@
+<template>
+    <div>
+        <Modal
+        v-model="modal"
+        class="popup-modal">
+            <div class="card-title dust" slot="header">
+                <h5>{{ title }}</h5>
+            </div>
+            <div class="popup-review-content">
+                <span v-html="info"></span>
+                <a v-if="action" class="btn color-white" @click="modal = false">{{ action }}</a>
+            </div>
+            <div slot="footer"></div>
+        </Modal>
+    </div>
+</template>
+<script>
+import Cookies from 'js-cookie';
+export default {
+    props: ['title', 'info', 'type', 'user', 'action'],
+    data () {
+        return {
+            modal: true
+        }
+    },
+    created () {
+        if (this.type === 'Investor Servicing Intro' && this.user != null) {
+            this.popInterval() === true ? this.modal = true : this.modal = false
+        }
+
+    },
+    methods: {
+        popInterval () {
+            let popup = Cookies.get('popup')
+            let val = 'once' + this.user
+            if ( popup != null && popup === val) {
+                return false
+            } else {
+                Cookies.set('popup', val, { expires: 364 })
+                return true
+            }
+        }
+    }
+}
+</script>
+<style>
+    .popup-modal .ivu-modal-mask{
+        background: #283F5C;
+    }
+    .popup-modal .ivu-modal-footer{
+        display: none;
+    }
+    .popup-modal .ivu-modal-content{
+        overflow: hidden;
+    }
+    .popup-modal .ivu-modal-close{
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        margin: auto;
+        cursor: pointer;
+        text-align: center;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 5px;
+        padding: 7px;
+    }
+    .popup-modal .ivu-modal-close i{
+        color: #fff !important;
+        font-size: 3.5em;
+        font-weight: bold;
+    }
+    .popup-modal .ivu-modal-header{
+        padding: 0 !important;
+        border: none !important;
+    }
+    .popup-modal .card-title {
+        text-align: center;
+        position: relative;
+        width: 100%;
+        border-radius:0;
+    }
+    .popup-modal .card-title h5 {
+        float: none
+    }
+    .popup-modal .card-title h5 span {
+        color: #7788B8;
+        font-size: 15px;
+        margin-right: 5px
+    }
+
+    .popup-modal .card-title img {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 20px;
+        margin: auto;
+        opacity: 0.5
+    }
+
+    .popup-review-content {
+        text-align: center;
+        padding: 20px 40px
+    }
+
+    .popup-review-content input {
+        max-width: 250px;
+        margin-bottom: 20px
+    }
+
+    .popup-review-content textarea {
+        margin-top: 0;
+        margin-bottom: 20px
+    }
+
+    .popup-review-content p {
+        color: #283F5C
+    }
+
+    .popup-review-content .btn.line {
+        margin: 0 10px 20px;
+        text-transform: capitalize;
+        font-weight: 600
+    }
+
+    .popup-review-content .btn.line.active {
+        border: 2px solid #283F5C
+    }
+
+    .popup-review-content.wide {
+        padding: 20px
+    }
+
+    .popup-review-content.wide .btn.line {
+        margin: 0 7px 20px
+    }
+
+    .popup-review-content.wide .left {
+        margin-left: 10px
+    }
+
+    .popup-review-content.wide .right {
+        margin-right: 10px
+    }
+
+    
+    /* .popup-modal {
+        overflow: hidden;
+        max-width: 700px;
+        margin: 0 auto
+    }
+.popup-wrapper {
+    width: 100%;
+    padding: 80px 0;
+    min-height: 660px;
+    background: #283F5C;
+    height: calc(100vh - 160px);
+    overflow: hidden
+}
+
+@media screen and (max-width:62em) {
+    .popup-wrapper {
+        padding: 90px 0 80px
+    }
+}
+
+
+
+
+
+.review-label {
+    width: 100%;
+    display: inline-block;
+    margin-bottom: 20px
+}
+
+.popup-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    margin: auto;
+    cursor: pointer;
+    text-align: center
+}
+
+@media screen and (max-width:62em) {
+    .popup-close {
+        right: 0;
+        left: 0
+    }
+    .popup-close img {
+        width: 50px;
+        height: 50px
+    }
+} */
+</style>

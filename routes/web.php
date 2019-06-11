@@ -24,6 +24,9 @@ Route::post('/login', 'SessionController@doLogin');
 Route::get('/register', 'SessionController@getRegister');
 Route::post('/register', 'SessionController@doRegister');
 Route::get('/logout', 'SessionController@doLogout');
+Route::get('/forget-password', 'SessionController@getForget');
+Route::post('/forget-password', 'SessionController@doForget');
+Route::get('/reset-password', 'SessionController@getResetPassword');
 
 // Onboarding
 Route::get('/welcome', 'WelcomeController@userType');
@@ -32,6 +35,7 @@ Route::get('/welcome/overview', 'WelcomeController@allSet');
 
 // Sponsors
 Route::get('/sponsor/welcome', 'SponsorController@welcome');
+Route::get('/sponsor-flow/introduction', 'SponsorController@intro');
 
 // Account Settings
 // Account Verification
@@ -141,22 +145,9 @@ Route::get('/investor-servicing/cap-table-mgmt/{type?}/{data?}', 'InvestorServic
 Route::get('/investor-servicing/distributions', 'InvestorServicingController@distributions');
 Route::get('/investor-servicing/reports', 'InvestorServicingController@reports');
 
-//
-
-/*
-// save post data into a session
-Route::post('/security-fund-flow/step-1/create/{details?}', 'SecurityFundFlow@saveData');
-Route::post('/security-fund-flow/step-1/create/{highlights?}', 'SecurityFundFlow@saveData');
-Route::post('/security-fund-flow/step-2/create/{ownership?}', 'SecurityFundFlow@saveData');
-Route::post('/security-fund-flow/step-4/create/{keyPoints?}', 'SecurityFundFlow@saveData');
-Route::post('/security-fund-flow/step-5/create/{capitalStack?}', 'SecurityFundFlow@saveData');
-Route::post('/security-fund-flow/step-6/create/{meetSponsors?}', 'SecurityFundFlow@saveData');
-Route::post('/security-fund-flow/step-7/create/preview', 'SecurityFundFlow@submitPreview');
-
 
 /*******************
     * ******* Files
-});
 **************/
 
 Route::get('/getFiles', 'FilesController@retrieve');
@@ -164,3 +155,10 @@ Route::resource('files', 'FilesController', ['only' => ['store', 'destroy']]);
 
 //diligence
 Route::get('/files/diligence/check', 'FilesController@checkDir');
+
+
+/*******************
+    * ******* Box API
+**************/
+
+Route::get('/box/access-token', 'BoxController@generateAccessToken');

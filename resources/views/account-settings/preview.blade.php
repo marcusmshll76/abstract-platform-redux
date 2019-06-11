@@ -670,7 +670,7 @@
                             </div>
                         </div>
                         <div class="card-content">
-                            <file-tree></file-tree>
+                            <box-component></box-component>
                         </div>
                     </div>
                 </div>

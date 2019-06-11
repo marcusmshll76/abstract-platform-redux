@@ -691,7 +691,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <file-tree></file-tree>
+                        <box-component></box-component>
                     </div>
                 </div>
             </div>

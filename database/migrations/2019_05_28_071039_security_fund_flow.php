@@ -67,7 +67,7 @@ class SecurityFundFlow extends Migration
             $table->string('loan-type')->nullable();
             $table->string('developed')->nullable();
             $table->string('existing-properties')->nullable();
-            $table->string('principles')->nullable();
+            $table->text('principles')->nullable();
             $table->string('key-points')->nullable();
             $table->timestamps();
         });

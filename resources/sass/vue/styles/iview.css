@@ -4837,13 +4837,13 @@ span.ivu-date-picker-cells-cell-disabled.ivu-date-picker-cells-cell-selected em 
    .ivu-input {
     display: inline-block;
     width: 100%;
-    height: 32px;
+    height: 45px;
     line-height: 1.5;
     padding: 4px 7px;
-    font-size: 12px;
+    font-size: 15px;
     border: 1px solid #bbb;
     border-radius: 4px;
-    color: #515a6e;
+    color: #283F5C;
     background-color: #fff;
     background-image: none;
     position: relative;
@@ -5050,3 +5050,87 @@ fieldset[disabled] .ivu-input:hover {
     justify-content: center;
 }
 .large .photo-upload-box{height:535px !important;}
+a{
+    text-decoration:none !important;
+}
+.principal-section .file-upload-box-filled{
+    padding-bottom: 10px !important;
+}
+.ivu-form .ivu-form-item-label {
+    text-align: right;
+    vertical-align: middle;
+    float: left;
+    font-size: 13px;
+    color: #000000;
+    line-height: 1;
+    padding: 10px 12px 10px 0;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box
+}
+
+.ivu-form-label-left .ivu-form-item-label {
+    text-align: left
+}
+
+.ivu-form-label-top .ivu-form-item-label {
+    float: none;
+    display: inline-block;
+    padding: 0 0 10px 0
+}
+
+.ivu-form-inline .ivu-form-item {
+    display: inline-block;
+    margin-right: 10px;
+    vertical-align: top
+}
+
+.ivu-form-item {
+    margin-bottom: 24px;
+    vertical-align: top;
+    zoom: 1
+}
+
+.ivu-form-item:after,
+.ivu-form-item:before {
+    content: "";
+    display: table
+}
+
+.ivu-form-item:after {
+    clear: both;
+    visibility: hidden;
+    font-size: 0;
+    height: 0
+}
+
+.ivu-form-item-content {
+    position: relative;
+    line-height: 32px;
+    font-size: 12px
+}
+
+.ivu-form-item .ivu-form-item {
+    margin-bottom: 0
+}
+
+.ivu-form-item .ivu-form-item .ivu-form-item-content {
+    margin-left: 0!important
+}
+
+.ivu-form-item-error-tip {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    line-height: 1;
+    padding-top: 6px;
+    color: #ed4014
+}
+
+.ivu-form-item-required .ivu-form-item-label:before {
+    content: '*';
+    display: inline-block;
+    margin-right: 4px;
+    line-height: 1;
+    font-size: 12px;
+    color: #ed4014
+}
