@@ -14,7 +14,12 @@
             
             <div class="card grey card-black margin-top-m">
                 <div class="card-content">
-                <principal-form next="yes" url="security-flow/step-6/create/meetSponsors" data="{{ json_encode($data) }}"></principal-form>
+                <principal-form 
+                    next="yes" 
+                    url="security-flow/step-6/create/meetSponsors" 
+                    data="{{ isset($data['principles']) ? $data['principles'] : '' }}"
+                    user="{{Auth::id()}}">
+                </principal-form>
                 </div>
             </div>
         </form>

@@ -65,7 +65,7 @@ class SecurityFlowProperty extends Migration
             $table->string('common-equity')->nullable();
             $table->string('mezzanine-debt')->nullable();
             $table->string('senior-debt')->nullable();
-            $table->string('principles')->nullable();
+            $table->text('principles')->nullable();
             $table->string('key-points')->nullable();
             $table->timestamps();
         });

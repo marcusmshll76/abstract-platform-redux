@@ -7,6 +7,9 @@ class SponsorController extends Controller {
     public function welcome() {
         return view('sponsors.welcome');
     }
+    public function intro() {
+        return view('sponsors.intro');
+    }
     public function __construct() {
         $this->middleware('auth');
         $this->middleware('auth.details');

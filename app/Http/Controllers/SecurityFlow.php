@@ -49,7 +49,16 @@ class SecurityFlow extends Controller
     }
 
     public function meetSponsors (Request $request) {
-        return view( 'security-flow.step-6.meet-sponsors', [ 'title' => 'Create Digital Security > Meet the Sponsors' ] )->with('data', $request->session()->get('security-flow'));
+        $userid = Auth::id();
+        $principles = DB::table('security_flow_property')
+            ->where('userid', $userid)
+            ->select('principles')
+            ->first();
+        $savedData = $request->session()->get('security-flow');
+        $principles == null ? $principles = array() : '';
+        $data = array_merge($savedData, $principles);
+
+        return view( 'security-flow.step-6.meet-sponsors', [ 'title' => 'Create Digital Security > Meet the Sponsors' ] )->with(compact('data'));
     }
 
     public function preview (Request $request) {
@@ -63,20 +72,20 @@ class SecurityFlow extends Controller
             ->value('bio');
         $data = $request->session()->get('security-flow');
         
-        return view( 'security-fund-flow.step-7.final', [ 'title' => 'Create Digital Security > Preview & Submit' ] )->with(compact('data', 'bio'));
+        return view( 'security-flow.step-7.final', [ 'title' => 'Create Digital Security > Preview & Submit' ] )->with(compact('data', 'bio'));
     }
 
     // Save Data into a session
     public function saveData (Request $request, $e) {
         
         if ($e != 'keyPoints' && $e != 'meetSponsors') {
-            $session_data = session( 'security-fund-flow', array() );
+            $session_data = session( 'security-flow', array() );
             $session_data = array_merge( $session_data, $_POST );
-            session( [ 'security-fund-flow' => $session_data ] );
+            session( [ 'security-flow' => $session_data ] );
         } else {
-            $session_data = session( 'security-fund-flow', array() );
+            $session_data = session( 'security-flow', array() );
             $session_data = array_merge( $session_data, $request->all() );
-            session( [ 'security-fund-flow' => $session_data ] );
+            session( [ 'security-flow' => $session_data ] );
         }
        
 
@@ -166,12 +175,12 @@ class SecurityFlow extends Controller
             'principle-title' => 'required'
         ]);
 
-        if (isset($request->session()->get('security-fund-flow')['key-point'])) {
-            $keyPoints = $request->session()->get('security-fund-flow')['key-point'];
+        if (isset($request->session()->get('security-flow')['key-point'])) {
+            $keyPoints = $request->session()->get('security-flow')['key-point'];
         }
 
-        if (isset($request->session()->get('security-fund-flow')['principles'])) {
-            $principles = $request->session()->get('security-fund-flow')['principles'];
+        if (isset($request->session()->get('security-flow')['principles'])) {
+            $principles = $request->session()->get('security-flow')['principles'];
         }
 
         if (isset($keyPoints) && isset($principles)) {

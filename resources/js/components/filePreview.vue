@@ -80,7 +80,7 @@ export default {
                 return error
             });
         } else {
-            self.loadingtxt = 'Access Denied, Please sign in to access private files'
+            self.loadingtxt = 'Access Denied, File not found'
         }
     }
 }

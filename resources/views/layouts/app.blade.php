@@ -20,6 +20,7 @@
     <script src="/js/custom.js"></script>
     <script src="/js/sectionscroll.js"></script>
     <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/BoxSdk.min.js"></script>
     <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 

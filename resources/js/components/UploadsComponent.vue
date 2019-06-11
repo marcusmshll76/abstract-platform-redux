@@ -60,6 +60,19 @@
             <p>Click or drag files here to upload</p>
         </div>
     </Upload>
+
+    <Upload
+        :name="elname"
+        :headers="{'X-CSRF-TOKEN': header}"
+        ref="upload"
+        v-if="type === 'text'" 
+        :action="action"
+        :on-success="success"
+        :max-size="2048"
+        :on-exceeded-size="maxSize"
+        :data="payload">
+        <a class="upload-text">{{ !title ? 'Upload File' : title }}</a>
+    </Upload>
 </div>
 </template>
 
@@ -78,7 +91,7 @@ export default {
     },
     methods: {
         success(res, file) { 
-            this.emit(done, res)
+            this.$emit('done', res)
         },
         maxSize(file) {}
     }
@@ -88,5 +101,8 @@ export default {
 <style scoped>
     .dust h5{
         color: #fff;
+    }
+    .upload-text:hover{
+        text-decoration: underline !important;
     }
 </style>

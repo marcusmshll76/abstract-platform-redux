@@ -2,11 +2,6 @@
 @section('title', 'Register')
 
 @section('content')
-<style>
-        header {
-            display: none !important
-        }
-    </style>
     <div class="container-fluid">
         <div class="row">
             <div class="col-xs-12 col-sm-8 col-md-6 col-lg-5 center">
@@ -62,3 +57,6 @@
         </div>
     </div>
 @endsection
+<style>
+    header { display: none !important }
+</style>
