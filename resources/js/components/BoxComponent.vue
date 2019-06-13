@@ -53,7 +53,6 @@ export default {
     },
     data() {
         return {
-            access: '',
             loading: true,
             loadingtxt: 'Preparing Diligence Documents',
             jsonDir: {},
@@ -67,23 +66,39 @@ export default {
         let boxinit = document.createElement('script');
         boxinit.setAttribute('src',"/js/BoxSdk.map");
         document.head.appendChild(boxinit);
-        this.getAccess();
     },
     mounted () {
-        const box = new BoxSdk();
-        const persistClient = new box.PersistentBoxClient({ accessTokenHandler: this.getAccess });
+        this.getAccess();
+        this.rootFolder()
     },
     methods: {
-        getAccess() {
-            var self = this
+        async getAccess() {
             let header = document.head.querySelector("[name~=csrf-token][content]").content
-            axios.get(config.boxToken, { headers: {'X-CSRF-TOKEN': header} }).then(resp => {
+            try {
+            /* axios.get(config.boxToken, { headers: {'X-CSRF-TOKEN': header} }).then(resp => {
                 self.access = resp.data.response
+                console.log(self.access)
                 return self.access
-            })
-            .catch((error) => {
-                return error
-            });
+            }) */
+            access = await axios.get(config.boxToken, { headers: {'X-CSRF-TOKEN': header} });
+            } catch (error) {
+                console.error(error);
+            }
+        },
+        rootFolder() {
+            console.log(access)
+            /* const box = new BoxSdk();
+            const persistClient = new box.PersistentBoxClient({ accessTokenHandler: this.getAccess, isCallback: true });
+            console.log(persistClient)
+            persistClient.folders.get({ id: "0", params: {fields: "name, item_collection"} })
+              .then(function (folder) {
+                  console.log('ben')
+                // var rootFolder = folder;
+                // var id = folder.id;
+              })
+              .catch(function (err) {
+                console.log(err);
+              }); */
         },
         checkDir () {
             var self  =  this

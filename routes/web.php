@@ -11,8 +11,20 @@
 |
 */
 
+Route::domain('{sub}.abstract.test')->group(function () {
+    /*******************
+        * ******* Investor Servicing, Sub Domain
+    **************/
+    Route::get('/choose-investment', 'SubInvestorServicingController@choose');
+    Route::get('/ownership-snapshot', 'SubInvestorServicingController@ownership');
+    Route::get('/tax-documents', 'SubInvestorServicingController@tax');
+    Route::get('/reports', 'SubInvestorServicingController@reports');
+});
+
+
 Route::get('/', function () {
-    return view('welcome');
+    $hostname = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : $_SERVER['SERVER_NAME'];
+    return view('welcome')->with('hostname', explode('.', $hostname, 2)[0]);
 });
 
 // Vue Router Fix
@@ -35,7 +47,7 @@ Route::get('/welcome/overview', 'WelcomeController@allSet');
 
 // Sponsors
 Route::get('/sponsor/welcome', 'SponsorController@welcome');
-Route::get('/sponsor-flow/introduction', 'SponsorController@intro');
+Route::get('/sponsor/introduction', 'SponsorController@intro');
 
 // Account Settings
 // Account Verification
@@ -144,6 +156,9 @@ Route::get('/investor-servicing/choose-investment', 'InvestorServicingController
 Route::get('/investor-servicing/cap-table-mgmt/{type?}/{data?}', 'InvestorServicingController@captable');
 Route::get('/investor-servicing/distributions', 'InvestorServicingController@distributions');
 Route::get('/investor-servicing/reports', 'InvestorServicingController@reports');
+Route::get('/investor-servicing/upload-new-property', 'InvestorServicingController@newProperty');
+Route::get('/investor-servicing/tax-document', 'InvestorServicingController@tax');
+Route::get('/investor-servicing/dst-reports', 'InvestorServicingController@dst');
 
 
 /*******************

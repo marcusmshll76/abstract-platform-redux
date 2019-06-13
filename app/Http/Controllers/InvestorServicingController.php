@@ -54,8 +54,20 @@ class InvestorServicingController extends Controller {
         return view( 'investor-servicing.distributions.index', [ 'title' => 'Distributions > Investor Servicing'] );
     }
 
+    public function newProperty() {
+        return view( 'investor-servicing.property.index', [ 'title' => 'Upload New Property > Investor Servicing'] );
+    }
+
+    public function tax() {
+        return view( 'investor-servicing.tax.index', [ 'title' => 'Tax Documents > Investor Servicing'] );
+    }
+
     public function reports() {
         return view( 'investor-servicing.reports.index', [ 'title' => 'Reports > Investor Servicing'] );
+    }
+
+    public function dst() {
+        return view( 'investor-servicing.dst.index', [ 'title' => 'Reports > Investor Servicing'] );
     }
 
     public function final (Request $request) {

@@ -6761,9 +6761,14 @@ header .navbar .nav-item ul li.active a {
 
 header .logo {
     margin: 7.5px 0;
-    display: inline-block
+    display: inline-block;
+    width: 80px;
+    height: auto;
 }
-
+.push-up-nav{
+    margin: 35px 0 !important;
+    width: 100px !important;
+}
 @media screen and (max-width:62em) {
     header {
         height: auto

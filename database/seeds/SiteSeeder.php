@@ -11,11 +11,18 @@ class SiteSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('sites')->insert([
+        $sites = [[
             'id' => '1',
             'host' => 'abstract.test',
             'name' => 'Abstract Tokenization',
-            'logo' => '/img/abstract-logo.png',
-        ]);
+            'logo' => '/img/abstract-logo.png'
+        ],
+        [
+            'id' => '2',
+            'host' => 'acg.abstract.test',
+            'name' => 'American Capital group',
+            'logo' => '/img/acg-logo.svg'
+        ]];
+        DB::table('sites')->insert($sites);
     }
 }

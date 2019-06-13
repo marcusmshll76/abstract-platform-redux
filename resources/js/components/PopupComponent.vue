@@ -24,7 +24,7 @@ export default {
         }
     },
     created () {
-        if (this.type === 'Investor Servicing Intro' && this.user != null) {
+        if (this.type === 'basic' && this.user != null) {
             this.popInterval() === true ? this.modal = true : this.modal = false
         }
 

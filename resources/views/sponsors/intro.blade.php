@@ -29,7 +29,7 @@
                                 </div>
                             </div>
                             <div class="welcome-box-button">
-                                <a href="/investor-servicing/choose-investment" class="btn full-width color-white">Go to Investor Servicing</a>
+                                <a href="/investor-servicing/upload-new-property" class="btn full-width color-white">Go to Investor Servicing</a>
                             </div>
                         </div>
                         <div class="col-xs-12 col-md-4">
@@ -37,7 +37,7 @@
                                 <div class="card">
                                     <div class="wb-item-wrap">
                                         <div class="wb-item-title">
-                                            <h3>Create Digital Seecurity</h3></div>
+                                            <h3>Create Digital Security</h3></div>
                                         <div class="wb-item-icon"><img src="/img/icon-security.svg"></div>
                                         <div class="wb-item-content">
                                             <p>Digitize a specific CRE Project or Fund once your account is approved.</p>
@@ -46,7 +46,8 @@
                                 </div>
                             </div>
                             <div class="welcome-box-button">
-                                <div class="btn full-width">Go To Account Set Up </div>
+                            <a href="/investor-servicing/upload-new-property" class="btn full-width color-white">
+                                Go To Account Set Up </a>
                             </div>
                         </div>
                     </div>
