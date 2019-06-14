@@ -9,7 +9,7 @@ import locale from 'iview/dist/locale/en-US';
 require('./bootstrap');
 require('../sass/vue/styles/iview.css');
 
-// require('dotenv').config();
+require('dotenv').config();
 
 window.Vue = require('vue');
 Vue.use(iView, { locale });

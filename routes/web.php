@@ -178,3 +178,23 @@ Route::get('/files/diligence/check', 'FilesController@checkDir');
 **************/
 
 Route::get('/box/access-token', 'BoxController@generateAccessToken');
+
+// Folders
+Route::get('/box/rootfolder', 'BoxController@rootFolder');
+Route::get('/box/folder/items/{id?}', 'BoxController@getFolderItems');
+Route::post('/box/folder/create', 'BoxController@createFolder');
+Route::post('/box/folder/update', 'BoxController@updateFolder');
+Route::get('/box/folder/delete/{id?}', 'BoxController@deleteFolder');
+Route::get('/box/folder/trash/{id?}', 'BoxController@permanentDeleteFolder');
+Route::post('/box/folder/copy', 'BoxController@copyFolder');
+
+// Files
+Route::get('/box/file/{id?}', 'BoxController@getFileInfo');
+Route::post('/box/file/update', 'BoxController@updateFileInfo');
+Route::get('/box/file/download/{id?}', 'BoxController@downloadFile');
+Route::resource('/box/file/upload', 'BoxController', ['only' => ['uploadFile']]);
+Route::get('/box/file/delete/{id?}', 'BoxController@deleteFile');
+Route::post('/box/file/replace', 'BoxController@updateFile');
+Route::post('/box/file/copy', 'BoxController@copyFile');
+Route::get('/box/file/embed/{id?}', 'BoxController@getEmbedLink');
+Route::get('/box/file/thumbnail/{id?}', 'BoxController@getThumbnail');

@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use \Firebase\JWT\JWT;
 use GuzzleHttp\Client;
+use BoxAU;
+
 
 class BoxController extends Controller
 {
@@ -56,6 +58,9 @@ class BoxController extends Controller
           $access_token = json_decode($data)->access_token;
 
           return $this->createUser($access_token, $config, $authenticationUrl, $key);
+          return response()->json([
+            'response' => $access_token
+          ]);
     }
 
     public function createUser($access_token, $config, $authenticationUrl, $key) {
@@ -117,5 +122,117 @@ class BoxController extends Controller
         return response()->json([
           'response' => $token
         ]);
-  }
+    }
+
+    public function rootFolder() {
+      return response()->json([
+        'response' => json_decode(BoxAU::getFolderInfo('0', true))
+      ]);
+    }
+
+    public function getFolderItems(Request $request, $id) {
+      return response()->json([
+        'response' => json_decode(BoxAU::getFolderItems($id, true))
+      ]);
+    }
+
+    public function createFolder(Request $request) {
+      $name = $request->get('name');
+      $parent_id = $request->get('parent_id');
+      return response()->json([
+        'response' => json_decode(BoxAU::createFolder($name, $parent_id, true))
+      ]);
+    }
+
+    public function updateFolder(Request $request) {
+      $name = $request->get('name');
+      $id = $request->get('id');
+      return response()->json([
+        'response' => json_decode(BoxAU::updateFolder($id, $name, true))
+      ]);
+    }
+
+    public function deleteFolder(Request $request, $id) {
+      return response()->json([
+        'response' => json_decode(BoxAU::deleteFolder($id, true))
+      ]);
+    }
+
+    public function permanentDeleteFolder(Request $request, $id) {
+      return response()->json([
+        'response' => json_decode(BoxAU::permanentDelete($id, true))
+      ]);
+    }
+
+    public function copyFolder(Request $request) {
+      $id = $request->get('id');
+      $destination = $request->get('destination');
+      return response()->json([
+        'response' => json_decode(BoxAU::copyFolder($id, $destination, true))
+      ]);
+    }
+
+    public function getFileInfo(Request $request, $id) {
+      $destination = $request->get('destination');
+      return response()->json([
+        'response' => json_decode(BoxAU::getFileInfo($id, true))
+      ]);
+    }
+
+    public function updateFileInfo(Request $request) {
+      $name = $request->get('name');
+      $id = $request->get('id');
+      return response()->json([
+        'response' => json_decode(BoxAU::updateFileInfo($id, $name, true))
+      ]);
+    }
+
+    public function downloadFile(Request $request, $id) {
+      return response()->json([
+        'response' => json_decode(BoxAU::downloadFile($id, $name, true))
+      ]);
+    }
+
+    public function uploadFile(Request $request) {
+      $file = $request->file('file');
+      $parent = $request->get('parent');
+      $name = $request->get('name');
+      return response()->json([
+        'response' => json_decode(BoxAU::uploadFile($file, $parent, $name, true))
+      ]);
+    }
+
+    public function deleteFile(Request $request, $id) {
+      return response()->json([
+        'response' => json_decode(BoxAU::deleteFile($id, true))
+      ]);
+    }
+
+    public function updateFile(Request $request) {
+      $name = $request->get('name');
+      $id = $request->get('id');
+      return response()->json([
+        'response' => json_decode(BoxAU::updateFile($name, $id, true))
+      ]);
+    }
+
+    public function copyFile(Request $request) {
+      $id = $request->get('id');
+      $destination = $request->get('destination');
+      return response()->json([
+        'response' => json_decode(BoxAU::copyFile($id, $destination, true))
+      ]);
+    }
+
+    public function getEmbedLink(Request $request, $id) {
+      return response()->json([
+        'response' => json_decode(BoxAU::getEmbedLink($id, true))
+      ]);
+    }
+
+    public function getThumbnail(Request $request, $id) {
+      return response()->json([
+        'response' => json_decode(BoxAU::getThumbnail($id, true))
+      ]);
+    }
 }

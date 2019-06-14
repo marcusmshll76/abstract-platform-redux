@@ -43,6 +43,7 @@ import config from '../libs/index.js'
 import { VueContext } from 'vue-context';
 
 const box = new BoxSdk();
+
 export default {
     name: "file-tree",
     display: "Nested",
@@ -81,12 +82,53 @@ export default {
         getAccess() {
             var self = this
             let header = document.head.querySelector("[name~=csrf-token][content]").content
-            self.access = axios.get(config.boxToken, { headers: {'X-CSRF-TOKEN': header} }).then(resp => {
-                return resp.data.response
+            axios.get(config.boxToken, { headers: {'X-CSRF-TOKEN': header} }).then(resp => {
+                self.access = resp.data.response
+                return self.access
             })
         },
+        createAppUser () {
+            console.log(process.env.DB_USER)
+            /* var sdkConfig = require('../libs/config.json');
+            var sdk = BoxSDK.getPreconfiguredInstance(sdkConfig);
+
+            // Get the service account client, used to create and manage app user accounts
+            // The enterprise ID is pre-populated by the JSON configuration,
+            // so you don't need to specify it here
+            var adminAPIClient = sdk.getAppAuthClient('enterprise');
+
+            adminAPIClient.users.get(adminAPIClient.CURRENT_USER_ID, null, function(err, currentUser) {
+                if(err) throw err;
+                console.log('Hello, ' + currentUser.name + '!');
+            });
+
+            // example:  filter user by name - aken2
+            /* var requestParam = {
+                qs: {
+                    filter_term: 'aken2'
+                }
+            }; 
+            requestParam,
+            */
+/*
+            adminAPIClient.get('/users', adminAPIClient.defaultResponseHandler(function(err, data) {
+            
+                data.entries.forEach(function(user) {
+                   console.log(user.name);
+
+                   /* var userClient = sdk.getAppAuthClient('user', user.id);
+
+                   // get root folder items
+                    userClient.folders.getItems('0', null, function(err, data) {
+                       console.log(data);
+                    }); */
+/*
+                });
+            })); */
+        },
         rootFolder() {
-            const boxClient = new box.BasicBoxClient({ accessToken: this.access });
+            this.createAppUser()
+            /* const boxClient = new box.BasicBoxClient({ accessToken: this.access });
             boxClient.folders.get({ id: "0", params: {fields: "name, path_collection"} })
               .then(function (folder) {
                   console.log(folder)
@@ -97,6 +139,17 @@ export default {
                 console.log(err);
               });
             /*
+
+            const boxSDK = require('box-node-sdk');  // Box SDK
+const fs = require('fs');                // File system for config
+
+// Fetch config file for instantiating SDK instance
+const configJSON = JSON.parse(fs.readFileSync('YOUR CONFIG FILE PATH'));
+
+// Instantiate instance of SDK using generated JSON config
+const sdk = boxSDK.getPreconfiguredInstance(configJSON);
+
+
             const persistClient = new box.PersistentBoxClient({ accessTokenHandler: this.getAccess, isCallback: true });
             console.log(persistClient)
             persistClient.folders.get({ id: "0", params: {fields: "name, item_collection"} })

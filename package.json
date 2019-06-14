@@ -22,6 +22,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "box-node-sdk": "^1.29.0",
         "chart.js": "^2.8.0",
         "directory-tree": "^2.2.3",
         "dotenv": "^8.0.0",
