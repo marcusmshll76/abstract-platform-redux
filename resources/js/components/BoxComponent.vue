@@ -81,9 +81,8 @@ export default {
         getAccess() {
             var self = this
             let header = document.head.querySelector("[name~=csrf-token][content]").content
-            axios.get(config.boxToken, { headers: {'X-CSRF-TOKEN': header} }).then(resp => {
-                self.access = resp.data.response
-                return self.access
+            self.access = axios.get(config.boxToken, { headers: {'X-CSRF-TOKEN': header} }).then(resp => {
+                return resp.data.response
             })
         },
         rootFolder() {
