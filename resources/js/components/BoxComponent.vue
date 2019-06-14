@@ -4,7 +4,6 @@
         <Icon type="ios-loading" size=18 class="spin-icon-load"></Icon>
         <div>{{ loadingtxt }}</div>
     </Spin>
-
     <div v-else>
         <div class="row contextArea drop" @contextmenu.prevent="$refs.menu.open">
             <nested-draggable @done="refresh" :txtindex="txt" :data="list" />
@@ -18,7 +17,7 @@
             </li>
         </vue-context>
     </div>
-    <Modal
+    <!-- <Modal
         v-model="upload"
         title="Upload A New File"
         @on-ok="save"
@@ -34,7 +33,7 @@
                 path="/diligence/"
                 @done="successUpload">
             </uploads-component>
-    </Modal>
+    </Modal> -->
 </div>
 </template>
 
@@ -43,6 +42,7 @@ import axios from 'axios'
 import config from '../libs/index.js'
 import { VueContext } from 'vue-context';
 
+const box = new BoxSdk();
 export default {
     name: "file-tree",
     display: "Nested",
@@ -53,6 +53,7 @@ export default {
     },
     data() {
         return {
+            access: '',
             loading: true,
             loadingtxt: 'Preparing Diligence Documents',
             jsonDir: {},
@@ -62,6 +63,11 @@ export default {
             ref: 1
         };
     },
+    watch: {
+        access: function (val) {
+            this.access != '' ? this.rootFolder() : ''
+        }
+    },
     created () {
         let boxinit = document.createElement('script');
         boxinit.setAttribute('src',"/js/BoxSdk.map");
@@ -69,25 +75,29 @@ export default {
     },
     mounted () {
         this.getAccess();
-        this.rootFolder()
+        this.loading = false;
     },
     methods: {
-        async getAccess() {
+        getAccess() {
+            var self = this
             let header = document.head.querySelector("[name~=csrf-token][content]").content
-            try {
-            /* axios.get(config.boxToken, { headers: {'X-CSRF-TOKEN': header} }).then(resp => {
+            axios.get(config.boxToken, { headers: {'X-CSRF-TOKEN': header} }).then(resp => {
                 self.access = resp.data.response
-                console.log(self.access)
                 return self.access
-            }) */
-            access = await axios.get(config.boxToken, { headers: {'X-CSRF-TOKEN': header} });
-            } catch (error) {
-                console.error(error);
-            }
+            })
         },
         rootFolder() {
-            console.log(access)
-            /* const box = new BoxSdk();
+            const boxClient = new box.BasicBoxClient({ accessToken: this.access });
+            boxClient.folders.get({ id: "0", params: {fields: "name, path_collection"} })
+              .then(function (folder) {
+                  console.log(folder)
+                var rootFolder = folder;
+                var id = folder.id;
+              })
+              .catch(function (err) {
+                console.log(err);
+              });
+            /*
             const persistClient = new box.PersistentBoxClient({ accessTokenHandler: this.getAccess, isCallback: true });
             console.log(persistClient)
             persistClient.folders.get({ id: "0", params: {fields: "name, item_collection"} })
@@ -100,6 +110,8 @@ export default {
                 console.log(err);
               }); */
         },
+
+        
         checkDir () {
             var self  =  this
             axios
@@ -164,7 +176,7 @@ export default {
             this.list = data
         },
         createFolder: function () {
-            var self = this
+           /*  var self = this
             let rootFolderId = "0";
             let folderName = "New Folder";
             persistClient.folders.create({ parent: { id: rootFolderId }, name: folderName })
@@ -178,7 +190,7 @@ export default {
               })
               .catch(function (err) {
                 console.log(err);
-              });
+              }); */
             
         },
         createFile: function () {
@@ -219,6 +231,7 @@ export default {
             let pos = this.list.length > 0 ? this.list.length-1 : 0
             this.list.splice(pos, 1);
         }
+
     },
 };
 </script>

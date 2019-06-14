@@ -15,5 +15,5 @@ export default {
 	saveFundKeyPoints: API_URL + 'security-flow/blur/keypoints',
 	checkDiligence: API_URL + 'files/diligence/check',
 	diligence: API_URL + 'files/diligence/create',
-	boxToken: API_URL + '/box/access-token'
+	boxToken: API_URL + 'box/access-token'
 };

@@ -5,7 +5,13 @@
 <form action="/account-settings/verification/preview/create" method="post">
 @csrf
 @if( isset( $success ) && $success )
-    <div class="success success-green"><p><strong>Congratulations submitted successfully</strong></p></div>
+<popup-component
+    title="Thanks for your Submission!"
+    type="recurring"
+    user="{{ $userid }}"
+    info="<h5>Our team will be in touch within 48 hours should we need any thing else from your end.  You’re one step closer to creating your first digital security!</h5>"
+    action="Got It!">
+</popup-component>
 @endif
 <div class="card margin-top-m">
         <div class="card-title blue">

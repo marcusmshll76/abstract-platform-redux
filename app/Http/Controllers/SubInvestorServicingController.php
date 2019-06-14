@@ -24,24 +24,24 @@ class SubInvestorServicingController extends Controller {
             ->union($property)
             ->get();
 
-        return view( 'investor-servicing-sub.choose.investment', [ 'title' => 'Choose Investment > Investor Servicing'] )->with(compact('data', 'userid'));
+        return view( 'subdomain.investor-servicing.choose.investment', [ 'title' => 'Choose Investment > Investor Servicing'] )->with(compact('data', 'userid'));
     }
 
     public function ownership(Request $request) {
         $data = [];
-        return view( 'investor-servicing-sub.cap.table', [ 'title' => 'Cap Table Management > Investor Servicing'] )->with(compact('data'));
+        return view( 'subdomain.investor-servicing.cap.table', [ 'title' => 'Cap Table Management > Investor Servicing'] )->with(compact('data'));
     }
 
     public function tax() {
-        return view( 'investor-servicing-sub.tax.index', [ 'title' => 'Tax Documents > Investor Servicing'] );
+        return view( 'subdomain.investor-servicing.tax.index', [ 'title' => 'Tax Documents > Investor Servicing'] );
     }
 
     public function reports() {
-        return view( 'investor-servicing-sub.reports.index', [ 'title' => 'Reports > Investor Servicing'] );
+        return view( 'subdomain.investor-servicing.reports.index', [ 'title' => 'Reports > Investor Servicing'] );
     }
 
     public function dst() {
-        return view( 'investor-servicing.dst.index', [ 'title' => 'Reports > Investor Servicing'] );
+        return view( 'subdomain.investor-servicing.dst.index', [ 'title' => 'Reports > Investor Servicing'] );
     }
 
     public function final (Request $request) {

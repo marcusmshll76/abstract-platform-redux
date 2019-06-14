@@ -46,7 +46,7 @@
                                 </div>
                             </div>
                             <div class="welcome-box-button">
-                            <a href="/investor-servicing/upload-new-property" class="btn full-width color-white">
+                            <a href="/account-settings/verification" class="btn full-width color-white">
                                 Go To Account Set Up </a>
                             </div>
                         </div>

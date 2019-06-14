@@ -55,8 +55,67 @@ class BoxController extends Controller
           $data = $response->getBody()->getContents();
           $access_token = json_decode($data)->access_token;
 
-          return response()->json([
-            'response' => $access_token
-        ]);
+          return $this->createUser($access_token, $config, $authenticationUrl, $key);
     }
+
+    public function createUser($access_token, $config, $authenticationUrl, $key) {
+
+      // Make the request
+      $userUrl = 'https://api.box.com/2.0/users';
+
+      $params = array(
+        'name' => 'Abstract Box Bots',
+        'is_platform_access_only' => true
+      );
+
+      $client = new Client([
+        'headers' => [ 
+          'Content-Type' => 'application/json',
+          'Authorization' => 'Bearer ' . $access_token
+        ]
+      ]);
+      $response = $client->post($userUrl, [
+        'body' => json_encode($params)
+      ]);
+
+      $user = json_decode($response->getBody()->getContents());
+
+      $claims = [
+        'iss' => $config->boxAppSettings->clientID,
+        'sub' => $user->id,
+        'box_sub_type' => 'user',
+        'aud' => $authenticationUrl,
+        // This is an identifier that helps protect against
+        // replay attacks
+        'jti' => base64_encode(random_bytes(64)),
+        // We give the assertion a lifetime of 45 seconds 
+        // before it expires
+        'exp' => time() + 45,
+        'kid' => $config->boxAppSettings->appAuth->publicKeyID
+      ];
+
+      // The API support "RS256", "RS384", and "RS512" encryption
+      $assertion = JWT::encode($claims, $key, 'RS512');
+
+      $params = [
+          'grant_type' => 'urn:ietf:params:oauth:grant-type:jwt-bearer',
+          'assertion' => $assertion,
+          'client_id' => $config->boxAppSettings->clientID,
+          'client_secret' => $config->boxAppSettings->clientSecret
+        ];
+
+        // Make the request
+        $client = new Client();
+        $response = $client->request('POST', $authenticationUrl, [
+          'form_params' => $params
+        ]);
+        
+        // Parse the JSON and extract the access token
+        $data = $response->getBody()->getContents();
+        $token = json_decode($data)->access_token;
+
+        return response()->json([
+          'response' => $token
+        ]);
+  }
 }

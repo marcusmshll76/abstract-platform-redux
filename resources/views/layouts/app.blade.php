@@ -45,9 +45,17 @@
                             <div class="header-toggle text-center">
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-4">
+                                    @if ($site -> host != 'abstract') 
+                                        <a href="/dashboard/investors">
+                                            <div class="header-toggle-item">
+                                                <p>Investors</p>
+                                            </div>
+                                        </a>
+                                    @else 
                                         <div class="header-toggle-item">
                                             <p>Investors</p>
                                         </div>
+                                    @endif
                                     </div>
                                     <div class="col-xs-12 col-sm-4">
                                         <div class="header-toggle-item active">

@@ -19,6 +19,10 @@ Route::domain('{sub}.abstract.test')->group(function () {
     Route::get('/ownership-snapshot', 'SubInvestorServicingController@ownership');
     Route::get('/tax-documents', 'SubInvestorServicingController@tax');
     Route::get('/reports', 'SubInvestorServicingController@reports');
+    Route::get('/dashboard/investors', 'SubInvestorDashboardController@investor');
+    Route::get('/dashboard/bank-account', 'SubInvestorDashboardController@bank');
+    Route::get('/dashboard/electronic-consent', 'SubInvestorDashboardController@consent');
+    Route::get('/dashboard/password-two-factor', 'SubInvestorDashboardController@password');
 });
 
 
@@ -26,9 +30,6 @@ Route::get('/', function () {
     $hostname = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : $_SERVER['SERVER_NAME'];
     return view('welcome')->with('hostname', explode('.', $hostname, 2)[0]);
 });
-
-// Vue Router Fix
-// Route::get('/{any}', 'SinglePageController@index')->where('any', '.*');
 
 // Sessions
 Route::get('/login', 'SessionController@getLogin')->name('login');
