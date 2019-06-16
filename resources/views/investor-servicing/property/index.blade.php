@@ -155,22 +155,20 @@
             </div>
             <div class="row margin-bottom-m padding-bottom-m border-bottom middle-xs">
                 <div class="col-xs-12 col-sm-9">
-                    <p class="no-margin">Investor bank routing Number for ACH Electronic Transaction or for WIRE TRANSFER?</p>
+                    <p class="no-margin">Are the providing routing numbers for ACH Electronic Transaction or for wire transfer?</p>
                 </div>
                 <div class="col-xs-12 col-sm-3">
                     <select class="no-margin">
                         <option value="" disabled="disabled" selected="selected">Select an option</option>
-                        <option value="option">option</option>
-                        <option value="option">option</option>
-                        <option value="option">option</option>
-                        <option value="option">option</option>
+                        <option value="ACH">ACH</option>
+                        <option value="wire">Wire Transfer</option>
                     </select>
                 </div>
             </div>
             <div class="row">
                 <div class="col-xs-12">
                     <h5>Investors Signed Subscription Documents</h5>
-                    <p>Please drap and drop your individual investors’ signed subscription Documents in the folder below:</p>
+                    <p>Please drag and drop your individual investors’ signed subscription Documents in the folder below:</p>
                     <div class="breadcrumb margin-top-m">
                         <p>All Files<img src="/img/icon-arrow-right.svg">Sponsor Company Name<img src="/img/icon-arrow-right.svg">Investor Servicing<img src="/img/icon-arrow-right.svg">Subscription Documents</p>
                     </div>
