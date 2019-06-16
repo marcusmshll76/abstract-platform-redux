@@ -15,7 +15,7 @@ class SecurityFundFlow extends Migration
     {
         Schema::create('security_fund_flow', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('userid')->unique();
+            $table->integer('userid')->nullable();
             $table->string('target-investor-irr')->nullable();
             $table->string('investment-profile')->nullable();
             $table->string('funds-due')->nullable();
@@ -80,6 +80,6 @@ class SecurityFundFlow extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('security_fund_flow');
     }
 }

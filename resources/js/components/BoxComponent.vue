@@ -38,6 +38,7 @@
 </template>
 
 <script>
+
 import axios from 'axios'
 import config from '../libs/index.js'
 import { VueContext } from 'vue-context';
@@ -88,7 +89,6 @@ export default {
             })
         },
         createAppUser () {
-            console.log(process.env.DB_USER)
             /* var sdkConfig = require('../libs/config.json');
             var sdk = BoxSDK.getPreconfiguredInstance(sdkConfig);
 
@@ -125,6 +125,7 @@ export default {
 /*
                 });
             })); */
+            
         },
         rootFolder() {
             this.createAppUser()
@@ -161,6 +162,7 @@ const sdk = boxSDK.getPreconfiguredInstance(configJSON);
               .catch(function (err) {
                 console.log(err);
               }); */
+              
         },
 
         
@@ -285,7 +287,7 @@ const sdk = boxSDK.getPreconfiguredInstance(configJSON);
         }
 
     },
-};
+}; 
 </script>
 
 <style>

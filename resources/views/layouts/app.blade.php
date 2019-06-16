@@ -33,7 +33,7 @@
                         <div class="col-xs-12 col-sm-4">
                             <div class="nav-logo">
                                 <a href="/">
-                                    @if ($site -> logo_dark)
+                                    @if ($site -> host !== 'abstract' && $site -> logo_dark)
                                         <img src="{{ $site -> logo_dark }}" class="logo push-up-nav">
                                     @else
                                         <img src="/img/abstract-logo.svg" class="logo">

@@ -25,7 +25,7 @@
                             <p>Your email address or password were incorrect!</p>
                         </div>
                     </div>
-        @endif
+                    @endif
                     <div class="row">
                         <div class="col-xs-12">
                             <p>Email</p><input type="text" name="email">
@@ -36,7 +36,10 @@
                     </div>
                 </div>
                 <div class="signup-footer"><button type="submit" class="large full-width white">Login</button></a>
-                    <p><a href="/forget-password">Forgot Password? </a></p>
+                    <p>Don’t have an account? <a href="/register">Register now</a></p><br/>
+                    @if( isset( $error ) && $error )
+                        <p><a href="/forget-password">Forgot Password? </a></p>
+                    @endif
                 </div>
                 @if ($site -> host != 'abstract')
                     <div class="footer-logo"><img src="/img/logo-light.svg">

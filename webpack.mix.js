@@ -1,6 +1,5 @@
 const mix = require('laravel-mix');
 mix.webpackConfig({
-    target: 'node',
     node: {
         fs: 'empty',
         net: 'empty',

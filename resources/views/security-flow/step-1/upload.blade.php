@@ -20,6 +20,8 @@
                             action="/files"
                             elname="image"
                             scope="private"
+                            field="digital-security"
+                            multi="yes"
                             path="/digital-security/photo-gallery/"
                             class="large margin-bottom-m-md">
                         </uploads-component>
@@ -32,6 +34,8 @@
                                     action="/files"
                                     elname="image"
                                     scope="private"
+                                    field="digital-security"
+                                    multi="yes"
                                     path="/digital-security/photo-gallery/"
                                     class="margin-bottom-m-md">
                                 </uploads-component>
@@ -43,6 +47,8 @@
                                         action="/files"
                                         elname="image"
                                         scope="private"
+                                        field="digital-security"
+                                        multi="yes"
                                         path="/digital-security/photo-gallery/"
                                         class="margin-bottom-m-md">
                                     </uploads-component>
@@ -58,6 +64,8 @@
                                         elname="image"
                                         scope="private"
                                         path="/digital-security/photo-gallery/"
+                                        field="digital-security"
+                                        multi="yes"
                                         class="margin-bottom-m-md">
                                     </uploads-component>
                                 </div>
@@ -70,6 +78,8 @@
                                         elname="image"
                                         scope="private"
                                         path="/digital-security/photo-gallery/"
+                                        field="digital-security"
+                                        multi="yes"
                                         class="margin-bottom-m-md">
                                     </uploads-component>
                                 </div>

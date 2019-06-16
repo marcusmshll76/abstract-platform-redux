@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Middleware;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\DB;
 use Closure;
 
 class IdentifySite {
@@ -10,7 +11,7 @@ class IdentifySite {
 
         $maybe_site = \DB::table('sites')->where('host', $subdomain)->first();
         // If we don't find a site, redirect to the first site.
-        if (!$maybe_site) {
+        if (!$maybe_site && $subdomain === 'abstract') {
             $primary = DB::table('sites')->where('id', 1)->first();
             return redirect('http://' . $primary->host);
         }

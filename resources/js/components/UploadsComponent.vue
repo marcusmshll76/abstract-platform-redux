@@ -78,7 +78,7 @@
 
 <script>
 export default {
-    props: ['type', 'action', 'title', 'icon', 'flat', 'path', 'elname', 'scope'],
+    props: ['type', 'action', 'title', 'field', 'multi', 'icon', 'flat', 'path', 'elname', 'scope'],
     data () {
         return {
             header: '',
@@ -86,11 +86,17 @@ export default {
         }
     },
     mounted(){
-        this.payload = { structure: this.path, access: this.scope }
+        this.payload = { 
+            structure: this.path, 
+            access: this.scope,
+            multi: this.multi,
+            field: this.field
+        }
         this.header = document.head.querySelector("[name~=csrf-token][content]").content
     },
     methods: {
         success(res, file) { 
+            console.log(res)
             this.$emit('done', res)
         },
         maxSize(file) {}

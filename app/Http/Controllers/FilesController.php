@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class FilesController extends Controller
@@ -30,7 +31,36 @@ class FilesController extends Controller
             // Set Private Path
             $user = Auth::id();
             if (isset($user)) { 
-                $filePath = $user . $request->get('structure') . $filename;
+                $filePath = $user . $request->get('structure') . $filename;  
+                $matchArr = [
+                    'user' => $user, 
+                    'field' => $request->get('field')
+                ];
+
+                $allfiles = DB::table('files')
+                    ->where($matchArr)
+                    ->first();
+
+                if ($request->get('multi') === 'no' && !empty($allfiles)) {
+                    Storage::disk('s3')->delete($allfiles->path);
+
+                    DB::table('files')
+                    ->where($matchArr)
+                    ->delete();
+
+                }
+
+                $payload = array(
+                    'user' => $user, 
+                    'field' => $request->get('field'),
+                    'name' => $filename,
+                    'path' => $filePath,
+                    'created_at' =>  \Carbon\Carbon::now(),
+                    'updated_at' => \Carbon\Carbon::now()
+                );
+
+                DB::table('files')->insert($payload);
+
             } else {
                 return response()->json([
                     'response' => 'Not Authenticated'
@@ -38,12 +68,15 @@ class FilesController extends Controller
             }
         } else{
             // Set Public Path
-            $filePath = 'public/' . $request->get('structure') . $filename;
+            $filePath = 'public/' . $request->get('structure') . $allfiles;
         }
-       
+        
         Storage::disk('s3')->put($filePath, file_get_contents($file));
+
         return response()->json([
-            'response' => 'File uploaded successfully'
+            'message' => 'File uploaded successfully',
+            'response' => $payload,
+            'status' => 200
         ]);
     }
 
@@ -52,42 +85,58 @@ class FilesController extends Controller
        $user = $request->query('user');
        $path = $request->query('path');
 
-       if (isset($user)) {
-            $filepath = $user . '/' . $path;
-       } else {
-            $filepath = $path;
-       }
+       $matchArr = [
+            'user' => $user, 
+            'field' => $request->query('field')
+        ];
 
+       if (isset($user)) {
+        
+            $allfiles = DB::table('files')
+                ->where($matchArr)
+                ->select('path')
+                ->get();
+
+            if (!empty($allfiles)) {
+                return $this->display($allfiles);
+            }
+
+       } else {
+            return $this->display($path);
+       }
+    }
+
+    // Display Files
+    public function display($a = null, $path = null) {
        $adapter = Storage::disk('s3')->getDriver()->getAdapter();
-       $files = Storage::disk('s3')->files($filepath);
+       if (!empty($path)) {
+            $files = Storage::disk('s3')->files($path);
+       } else {
+           $files = $a;
+       }
 
        $data = [];
        foreach ($files as $file) {
+           if (!empty($path)) {
+                $x = $file;
+           } else {
+                $x = $file->path;
+           }
             $command = $adapter->getClient()->getCommand('GetObject', [
                 'Bucket' => $adapter->getBucket(),
-                'Key'    => $adapter->getPathPrefix().$file
+                'Key'    => $adapter->getPathPrefix().$x
             ]);
             $request = $adapter->getClient()->createPresignedRequest($command, '+20 minute');
             $data[] = [
-                'name' => str_replace($filepath, '', $file),
                 'src' => (string) $request->getUri()
             ];
-        }
+        } 
         return response()->json($data);
     }
 
     // Delete Files
-    public function destroy($data) {
-       $user = $request->query('user');
-       $path = $request->query('path');
-
-       if (isset($user)) {
-            $filepath = $user . '/' . $path;
-       } else {
-            $filepath = $path;
-       }
-
-       Storage::disk('s3')->delete($filepath . $data);
+    public function destroy($filepath) {
+       Storage::disk('s3')->delete($filepath);
        
        return response()->json([
             'response' => 'File deleted successfully'
@@ -130,5 +179,4 @@ class FilesController extends Controller
             Storage::disk('s3')->move($odir, $ndir);
         }
    }
-
 }

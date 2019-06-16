@@ -29,11 +29,13 @@
                         <div class="col-xs-12 col-sm-4">
                             <uploads-component
                                 title="Upload Property Photo"
+                                type="single"
                                 action="/files"
                                 elname="image"
                                 scope="private"
-                                path="/property/"
-                                type="single">
+                                field="property image"
+                                multi="no"
+                                path="/property/images/">
                             </uploads-component>
                         </div>
                         <div class="col-xs-12 col-sm-8">
@@ -81,11 +83,13 @@
                         <div class="col-xs-12 col-sm-4">
                             <uploads-component
                                 title="Upload CapTable"
+                                type="single"
                                 action="/files"
-                                elname="image"
+                                elname="file"
                                 scope="private"
-                                path="/ownership/"
-                                type="single">
+                                field="property cap"
+                                multi="no"
+                                path="/property/cap/">
                             </uploads-component>
                         </div>
                         <div class="col-xs-12 col-sm-8">
@@ -177,7 +181,7 @@
                 <div class="col-xs-12">
                     <div class="content-footer">
                         <div class="row center-xs">
-                            <input type="submit" value="Submit">      
+                            <input type="submit" value="Submit">
                         </div>
                     </div>
                 </div>

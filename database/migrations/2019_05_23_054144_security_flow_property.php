@@ -15,7 +15,7 @@ class SecurityFlowProperty extends Migration
     {
         Schema::create('security_flow_property', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('userid')->unique();
+            $table->integer('userid')->nullable();
             $table->string('target-investor-irr')->nullable();
             $table->string('investment-profile')->nullable();
             $table->string('funds-due')->nullable();
@@ -78,6 +78,6 @@ class SecurityFlowProperty extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('security_flow_property');
     }
 }
