@@ -10,23 +10,30 @@
                 icon = string | optional
         ----
     ---->
+    <Spin v-if="loader" style="height:100px !important;">
+        <Icon type="ios-checkmark-circle-outline" size="22" class="color-green" v-if="sus" />
+        <Icon type="ios-loading" size="18" class="spin-icon-load" v-else></Icon>
+        <div>{{ loadertext }}</div>
+    </Spin>
+    <div v-else>
     <Upload
         :name="elname"
         :headers="{'X-CSRF-TOKEN': header}"
         ref="upload"
         v-if="type === 'single' || type === 'single-dust'" 
         :action="action"
+        :on-progress="progress"
         :on-success="success"
         :max-size="2048"
         :on-exceeded-size="maxSize"
         :data="payload">
         <div class="btn dust" v-if="type === 'single-dust'">
             <img v-if="!flat" :src="icon ? icon : '/img/icon-upload.svg'">
-            <h5>{{ !title ? 'Upload File' : title }} </h5>
+            <h5><Icon type="md-checkmark" v-if="sus" /> {{ !title ? 'Upload File' : title }} </h5>
         </div>
         <div class="file-upload-box" v-else>
             <img v-if="!flat" :src="icon ? icon : '/img/icon-upload.svg'">
-            <h5>{{ !title ? 'Upload File' : title }} </h5>
+            <h5><Icon type="md-checkmark" v-if="sus" /> {{ !title ? 'Upload File' : title }} </h5>
         </div>
     </Upload>
 
@@ -36,6 +43,7 @@
         ref="uploadPhotos"
         v-if="type === 'photos'" 
         :action="action"
+        :on-progress="progress"
         :on-success="success"
         :max-size="2048"
         :on-exceeded-size="maxSize"
@@ -53,11 +61,12 @@
         ref="uploadPhotos"
         v-if="type === 'multi-drag'" 
         :action="action"
+        :on-progress="progress"
         :on-success="success"
         :data="payload">
         <div style="padding: 20px 0">
             <Icon type="ios-cloud-upload" size="52" style="color: #283f5c"></Icon>
-            <p>Click or drag files here to upload</p>
+            <p><Icon type="md-checkmark" v-if="sus" /> Click or drag files here to upload</p>
         </div>
     </Upload>
 
@@ -67,12 +76,14 @@
         ref="upload"
         v-if="type === 'text'" 
         :action="action"
+        :on-progress="progress"
         :on-success="success"
         :max-size="2048"
         :on-exceeded-size="maxSize"
         :data="payload">
-        <a class="upload-text">{{ !title ? 'Upload File' : title }}</a>
+        <a class="upload-text"><Icon type="md-checkmark" v-if="sus" /> {{ !title ? 'Upload File' : title }}</a>
     </Upload>
+    </div>
 </div>
 </template>
 
@@ -81,11 +92,15 @@ export default {
     props: ['type', 'action', 'title', 'field', 'multi', 'icon', 'flat', 'path', 'elname', 'scope'],
     data () {
         return {
+            loadertext: 'Uploading',
+            loader: '',
+            sus: false,
             header: '',
             payload: {}
         }
     },
     mounted(){
+        console.log(this.field)
         this.payload = { 
             structure: this.path, 
             access: this.scope,
@@ -95,9 +110,18 @@ export default {
         this.header = document.head.querySelector("[name~=csrf-token][content]").content
     },
     methods: {
-        success(res, file) { 
-            console.log(res)
+        success(res, file) {
+            this.sus = true
+            this.loadertext = 'File Uploaded'
+            var self = this
+            setTimeout(function(){ 
+                self.loader = false; 
+            }, 2000);
+            
             this.$emit('done', res)
+        },
+        progress (event) {
+            this.loader = true
         },
         maxSize(file) {}
     }
@@ -110,5 +134,8 @@ export default {
     }
     .upload-text:hover{
         text-decoration: underline !important;
+    }
+    .color-green{
+        color: #2c9e1d;
     }
 </style>

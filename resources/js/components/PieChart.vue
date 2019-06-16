@@ -1,6 +1,6 @@
 <template>
   <div>
-   <pie-chart :data="chartData"></pie-chart>
+   <pie-chart class="pie" :data="chartData"></pie-chart>
   </div>
 </template>
 
@@ -70,3 +70,10 @@ export default {
   }
 };
 </script>
+<style>
+ .pie{
+   max-width: 200px;
+   height: auto;
+ }
+</style>
+

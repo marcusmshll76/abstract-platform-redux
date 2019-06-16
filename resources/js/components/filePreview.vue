@@ -1,7 +1,7 @@
 <template>
 <div class="filePreview">  
     <Spin v-if="loading">
-        <Icon type="ios-loading" size=18 class="spin-icon-load"></Icon>
+        <Icon type="ios-loading" size="18" class="spin-icon-load"></Icon>
         <div>{{ loadingtxt }}</div>
     </Spin> 
     <div v-else>
@@ -46,12 +46,12 @@
             <!--- Download Files -->
             <ul v-if="iname === 'file'">
                 <li v-for="(a, i) in files" :key="i">
-                    <a :href="a.src" target="_blank" download>{{ a.name ? a.name.split(/[\/ ]+/).pop() : '' }} <Icon type="md-cloud-download" /></a>
+                    <a :href="a.src" target="_blank" download>{{ a.path ? a.path.split(/[\/ ]+/).pop() : '' }} <Icon type="md-cloud-download" /></a>
                 </li>
             </ul>
         </div>
         <Spin v-else>
-            <Icon type="ios-cube-outline" size=18 />
+            <Icon type="ios-cube-outline" size="18" />
             <div>No Available Files, Please Upload the required files</div>
         </Spin>
     </div>
@@ -73,11 +73,12 @@ export default {
     created () {
         var self = this
         const url = self.scope === 'private' ? self.user ? '?user=' + self.user + '&&field=' + self.field : false : 'public?path=' + self.path
-        
+        console.log(self.field)
         if (url !== false) {
             axios
             .get(config.getFiles + url)
             .then(function(resp) {
+              console.log(resp)
               self.files = resp.data
               self.loading = false
             })

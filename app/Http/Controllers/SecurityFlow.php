@@ -75,6 +75,10 @@ class SecurityFlow extends Controller
         return view( 'security-flow.step-7.final', [ 'title' => 'Create Digital Security > Preview & Submit' ] )->with(compact('data', 'bio'));
     }
 
+    public function display (Request $request) {
+        dd($request->session()->get('security-flow'));
+    }
+
     // Save Data into a session
     public function saveData (Request $request, $e) {
         
@@ -83,9 +87,11 @@ class SecurityFlow extends Controller
             $session_data = array_merge( $session_data, $_POST );
             session( [ 'security-flow' => $session_data ] );
         } else {
-            $session_data = session( 'security-flow', array() );
-            $session_data = array_merge( $session_data, $request->all() );
-            session( [ 'security-flow' => $session_data ] );
+            if ($e === 'keyPoints') {
+                $request->session()->put('security-flow.key-points', $request->get('key-point'));
+            } else if ($e === 'meetSponsors') {
+                $request->session()->put('security-flow.principles', $request->get('principles'));
+            }
         }
        
 

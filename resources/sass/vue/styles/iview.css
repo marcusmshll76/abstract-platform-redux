@@ -3491,7 +3491,8 @@
 }
 
 .ivu-upload-list {
-    margin-top: 8px
+    margin-top: 8px;
+    display: none !important;
 }
 
 .ivu-upload-list-file {
@@ -5136,4 +5137,7 @@ a{
 }
 .dark-btn{
     background-image: linear-gradient(-2deg, #030303 0%, #D8D8D8 100%);
+}
+.cursor-hand{
+    cursor: pointer !important;
 }

@@ -106,6 +106,9 @@ Route::get('/security-flow/step-6/meet-sponsors', 'SecurityFlow@meetSponsors');
 Route::get('/security-flow/step-7/preview', 'SecurityFlow@preview');
 Route::get('/security-flow/preview', 'SecurityFlow@final');
 
+// 
+Route::get('/getTest', 'SecurityFlow@display');
+
 // save post data into a session
 Route::post('/security-flow/step-1/create/{details?}', 'SecurityFlow@saveData');
 Route::post('/security-flow/step-1/create/{highlights?}', 'SecurityFlow@saveData');
@@ -168,7 +171,6 @@ Route::get('/investor-servicing/dst-reports', 'InvestorServicingController@dst')
 
 Route::get('/getFiles', 'FilesController@retrieve');
 Route::get('/destroy/file', 'FilesController@destroy');
-Route::get('/getTest', 'FilesController@display');
 Route::resource('files', 'FilesController', ['only' => ['store']]);
 
 //diligence

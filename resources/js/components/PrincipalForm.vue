@@ -6,10 +6,12 @@
             <div class="col-xs-12 col-sm-4">
                 <uploads
                     type="single"
+                    title="Upload Photo"
                     action="/files"
                     elname="image"
                     scope="private"
-                    title="Upload Photo"
+                    :field="'principles' + mndex"
+                    multi="no"
                     :path="'/fund/principles/' + mndex + '/'"
                     @done="successUpload">
                 </uploads>
@@ -46,9 +48,11 @@
                                 iname="Single"
                                 scope="private"
                                 :user="user"
-                                :path="'/fund/principles/' + mndex + '/'"
-                                :index="index">
+                                :field="'principles' + parseInt(index + 1)"
+                                :path="'/fund/principles/' + parseInt(index + 1) + '/'"
+                                :index="0">
                             </previews>
+                            <br/><br/>
                         </div>
                         <div class="content-form">
                             <div class="row">
@@ -62,7 +66,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="margin-top-m"><a @click="handleRemove(index)">Remove</a></div>
+                        <div class="margin-top-m cursor-hand"><a @click="handleRemove(index)">Remove</a></div>
                     </div>
                     <div class="col-xs-12 col-sm-7 col-md-offset-1">
                         <p class="no-margin-top">Principle Bio</p>
@@ -122,7 +126,6 @@ export default {
     },
     created () {
         this.initData()
-        console.log(this.data)
     },
     methods: {
         initData() {
@@ -131,14 +134,11 @@ export default {
         },
         handleSubmit(e) {
             var self = this
-            console.log('called')
-            console.log(self.formDynamic)
             axios
                 .post(config.host + self.url, {
                     'principles': JSON.stringify(self.formDynamic)
                 })
                 .then(function(resp) {
-                    console.log(resp)
                     resp.request.status === 200 && self.next === 'yes' && e === 'next' ? window.location.href = resp.data : ''
                 })
                 .catch(function(error) {
@@ -159,7 +159,7 @@ export default {
                     this.formDynamic.push(p)
                     this.$refs[name].resetFields()
                     this.mndex++
-                    this.handleSubmit()
+                    this.handleSubmit('blur')
                 } else {
                     this.$Message.error('Fail!');
                 }
@@ -172,7 +172,8 @@ export default {
                 okText: 'Delete',
                 cancelText: 'Cancel',
                 onOk: () => {
-                    this.formDynamic[index].status = 0;
+                    this.formDynamic.splice(index, 1);
+                    this.handleSubmit('blur')
                 },
                 onCancel: () => {}
             });

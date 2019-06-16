@@ -24,9 +24,10 @@
                             <div class="col-xs-12 col-sm-4">
                                 <div class="presented-company">
                                 <file-preview
-                                    iname="Single" 
+                                    iname="Single"
                                     scope="private"
                                     user="{{Auth::id()}}"
+                                    field="companylogo"
                                     path="/account-settings/company-logo/"
                                     index="0">
                                 </file-preview>
@@ -48,9 +49,10 @@
                 </div>
                 <div class="card-content">
                     <file-preview
-                        iname="Digital Security Photo Gallery" 
+                        iname="Digital Security Photo Gallery"
                         scope="private"
                         user="{{Auth::id()}}"
+                        field="digital-security"
                         path="/digital-security/photo-gallery/">
                     </file-preview>
                 </div>
@@ -436,6 +438,7 @@
                                     iname="file"
                                     scope="private"
                                     user="{{Auth::id()}}"
+                                    field="cap-property"
                                     path="/ownership/">
                                 </file-preview>
                                 <div class="content-form">
@@ -672,7 +675,7 @@
                     @endif
                     <div class="row">
                         <div class="col-xs-12">
-                        <key-points url="security-flow/step-4/create/keyPoints" data="{{ isset($data['key-point']) ? $data['key-point'] : '' }}" next="no"></key-points>
+                            <key-points url="security-flow/step-4/create/keyPoints" data="{{ isset($data['key-points']) ? $data['key-points'] : '' }}" next="no"></key-points>
                         </div>
                     </div>
                 </div>
@@ -685,12 +688,12 @@
                 <div class="card-content">
                     <div class="card">
                         <div class="card-content">
-                        <principal-form
-                            preview="true"
-                            user="{{Auth::id()}}"
-                            url="security-flow/step-6/create/meetSponsors" 
-                            data="{{ isset($data) ? json_encode($data) : '' }}">
-                        </principal-form>
+                            <principal-form
+                                preview="true"
+                                url="security-flow/step-6/create/meetSponsors"
+                                data="{{ isset($data['principles']) ? $data['principles'] : '' }}"
+                                user="{{Auth::id()}}">
+                            </principal-form>
                         </div>
                     </div>
                 </div>
