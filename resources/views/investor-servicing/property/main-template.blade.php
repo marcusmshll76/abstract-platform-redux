@@ -41,11 +41,11 @@
                                 <a href="/account-settings/verification"><h5>Account Settings</h5></a>
                             </div>
                         </div>
-                        <!-- <div class="col-xs-12 col-sm-3">
+                        <div class="col-xs-12 col-sm-3">
                             <div class="dashboard-menu-tile"><img src="/img/icon-building.svg">
-                                <a href="/account-settings/verification"><h5>My Properties</h5></a>
+                                <a><h5>My Properties</h5></a>
                             </div>
-                        </div> -->
+                        </div>
                         <div class="col-xs-12 col-sm-3">
                             <div class="dashboard-menu-tile active"><img src="/img/icon-paper-settings-active.svg">
                                 <a href="/investor-servicing/choose-investment"><h5>Investor Servicing</h5></a>

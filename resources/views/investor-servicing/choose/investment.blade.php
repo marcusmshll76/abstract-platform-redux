@@ -11,10 +11,10 @@
             <div class="card-content">
                 <div class="row">
                     <div class="col-xs-12 col-sm-4 slider-upload">
-                        <a href="#">
+                        <a href="/investor-servicing/upload-new-property">
                             <div class="marketplace-card-image porperty-image"><img src="/img/icon-circle-plus.svg" class="icon-plus"></div>
                         </a>
-                        <a  href="/security-flow/step-1/upload-photos" class="btn full-width margin-top-s color-white">Upload New</a>
+                        <a  href="/investor-servicing/upload-new-property" class="btn full-width margin-top-s color-white">Upload New</a>
                     </div>
                     <div class="col-xs-12 col-sm-8">
                         <div class="owl-carousel owl-theme slider-two-item">
@@ -74,8 +74,8 @@
 </div>
 -->
 <popup-component
-    title="basic"
-    type="Investor Servicing Intro" 
+    title="Abstract Investor Servicing"
+    type="basic" 
     user="{{ $userid }}"
     info="<h5>We listened  to our Sponsor Network’s feedback and created a simplified Investor Servicing portal. </h5><p>Once you upload the relavent documentation, we will pass your property or fund through our diligenprocess in 48 hours or less. Next, you will receive an email with instructions on how to invite your investoto login to your personal portal and view investor servicing reporting.</p>"
     action="Got It!">

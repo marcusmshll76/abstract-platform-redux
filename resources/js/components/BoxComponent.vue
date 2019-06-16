@@ -57,7 +57,7 @@ export default {
         return {
             access: '',
             loading: true,
-            loadingtxt: 'Preparing Diligence Documents',
+            loadingtxt: 'Preparing Documents',
             jsonDir: {},
             list: [],
             upload: false,
@@ -77,7 +77,7 @@ export default {
     },
     mounted () {
         this.getAccess();
-        this.loading = false;
+        // this.loading = false;
     },
     methods: {
         getAccess() {

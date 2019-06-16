@@ -29,7 +29,7 @@
                                 </div>
                             </div>
                             <div class="welcome-box-button">
-                                <a href="/investor-servicing/upload-new-property" class="btn full-width color-white">Go to Investor Servicing</a>
+                                <a href="/investor-servicing/choose-investment" class="btn full-width color-white">Go to Investor Servicing</a>
                             </div>
                         </div>
                         <div class="col-xs-12 col-md-4">

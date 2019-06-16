@@ -25,7 +25,7 @@ class FilesController extends Controller
             $file = $request->file('file');
         }
         // File Name
-        $filename = time() . $file->getClientOriginalName();
+        $filename = time() . str_replace(' ', '', $file->getClientOriginalName());
 
         if ($request->get('access') === 'private') {
             // Set Private Path
@@ -128,6 +128,7 @@ class FilesController extends Controller
             ]);
             $request = $adapter->getClient()->createPresignedRequest($command, '+20 minute');
             $data[] = [
+                'path' => $x,
                 'src' => (string) $request->getUri()
             ];
         } 
@@ -135,8 +136,13 @@ class FilesController extends Controller
     }
 
     // Delete Files
-    public function destroy($filepath) {
+    public function destroy(Request $request) {
+       $filepath = $request->query('f');
        Storage::disk('s3')->delete($filepath);
+
+       DB::table('files')
+        ->where('path', $filepath)
+        ->delete();
        
        return response()->json([
             'response' => 'File deleted successfully'

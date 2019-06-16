@@ -167,8 +167,9 @@ Route::get('/investor-servicing/dst-reports', 'InvestorServicingController@dst')
 **************/
 
 Route::get('/getFiles', 'FilesController@retrieve');
+Route::get('/destroy/file', 'FilesController@destroy');
 Route::get('/getTest', 'FilesController@display');
-Route::resource('files', 'FilesController', ['only' => ['store', 'destroy']]);
+Route::resource('files', 'FilesController', ['only' => ['store']]);
 
 //diligence
 Route::get('/files/diligence/check', 'FilesController@checkDir');
