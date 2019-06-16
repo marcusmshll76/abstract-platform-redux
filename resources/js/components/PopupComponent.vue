@@ -44,7 +44,7 @@ export default {
         },
         call () {
             this.modal = false
-            if (this.url !== '') {
+            if (this.url && this.url != 'null') {
                 window.location.href = this.url
             }
         }

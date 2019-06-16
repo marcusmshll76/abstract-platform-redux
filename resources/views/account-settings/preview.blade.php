@@ -8,9 +8,10 @@
 <popup-component
     title="Thanks for your Submission!"
     type="recurring"
-    user="{{ $userid }}"
+    user="{{ Auth::id() }}"
     info="<h5>Our team will be in touch within 48 hours should we need any thing else from your end.  You’re one step closer to creating your first digital security!</h5>"
-    action="Got It!">
+    action="Got It!"
+    url="/investor-servicing/choose-investment">
 </popup-component>
 @endif
 <div class="card margin-top-m">
@@ -27,15 +28,14 @@
                 <div class="card-content">
                 <div class="row">
                     <div class="col-xs-12 col-sm-3">
-                        <div class="file-upload-box">
                             <file-preview
-                                iname="Single" 
+                                iname="Single"
                                 scope="private"
                                 user="{{Auth::id()}}"
+                                field="companylogo"
                                 path="/account-settings/company-logo/"
                                 index="0">
                             </file-preview>
-                        </div>
                         <div class="content-form">
                             <div class="row">
                                 <div class="col-xs-12">
@@ -279,56 +279,13 @@
                 </div>
                 
                 <div class="card-content">
-                <div class="row middle-xs">
-                    <div class="col-xs-12 col-sm-4 col-md-3">
-                        <div class="file-upload-box color-white">
-                            <file-preview
-                                iname="Single" 
-                                scope="private"
-                                user="{{Auth::id()}}"
-                                path="/account-settings/principles/"
-                                index="0">
-                            </file-preview>
-                            <!-- <img src="/img/icon-upload.svg">
-                            <h5>Upload Company Logo </h5> -->
-                        </div>
-                        <div class="content-form">
-                            <div class="row">
-                                <div class="col-xs-12">
-                                    <p>Company Name</p>
-
-                                    @if($errors->has('principle_company_name'))
-                                        <br/>
-                                        <small class="error-small"><em>*</em> <span> {{ $errors->first('principle_company_name') }} </span></small>
-                                    @endif
-                                    
-                                    <input type="text" value="{{ isset($data['principle_company_name']) ? $data['principle_company_name'] : '' }}" name="principle_company_name">
-                                </div>
-                                <div class="col-xs-12">
-                                    <p>Company Website</p>
-
-                                    @if($errors->has('principle_company_website'))
-                                        <br/>
-                                        <small class="error-small"><em>*</em> <span> {{ $errors->first('principle_company_website') }} </span></small>
-                                    @endif
-
-                                    <input type="text" value="{{ isset($data['principle_company_website']) ? $data['principle_company_website'] : '' }}" name="principle_company_website">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-7 col-md-offset-1">
-                        <p class="no-margin-top">Principle Bio</p>
-
-                        @if($errors->has('principle_website'))
-                            <small class="error-small"><em>*</em> <span> {{ $errors->first('principle_website') }} </span></small>
-                        @endif
-                        
-                        <textarea name="principle_website">{{ isset($data['principle_website']) ? $data['principle_website'] : '' }}</textarea>
-                    </div>
-                    <div class="col-xs-12 col-sm-1 margin-top-m-sm"><img src="/img/icon-large-arrow-right.svg"></div>
+                    <principal-form
+                        preview="true"
+                        url="/account-settings/create/principles"
+                        data="{{ isset($data['principles']) ? $data['principles'] : '' }}"
+                        user="{{Auth::id()}}">
+                    </principal-form>
                 </div>
-            </div>
                 
 
 

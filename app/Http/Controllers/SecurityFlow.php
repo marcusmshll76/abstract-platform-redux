@@ -76,7 +76,7 @@ class SecurityFlow extends Controller
     }
 
     public function display (Request $request) {
-        dd($request->session()->get('security-flow.principles'));
+        dd($request->session()->get('account-settings.principles'));
     }
 
     // Save Data into a session

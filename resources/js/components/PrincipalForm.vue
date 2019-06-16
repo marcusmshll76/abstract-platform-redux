@@ -1,7 +1,18 @@
 <template>
 <div>
+<Spin v-if="loading">
+    <Icon type="ios-loading" size="18" class="spin-icon-load"></Icon>
+    <div> {{ loadingtext }} </div>
+</Spin>
+<div v-else>
+<div class="card grey">
+<div class="card-content">
 <div class="principal-section">
     <Form ref="addPrincipal" :model="create" :rules="ruleValidate" v-if="!preview">
+        <div class="margin-bottom-m border-bottom full-width">
+            <input v-model="check" type="checkbox">
+            <span class="checkbox-p">Check this box to quickly add any Principals you have already attached to your account during Abstract’s Account Set Up. You can also manually add in other Princpals from your team below. </span>
+        </div>
         <div class="row margin-top-l">
             <div class="col-xs-12 col-sm-4">
                 <uploads
@@ -38,7 +49,7 @@
      </Form>
 
     <Form>
-     <div class="push-top-card" v-if="formDynamic">
+     <div class="push-top-card" :style="[!preview ? {'padding-top' : '60px'} : {}]" v-if="formDynamic">
         <div class="card margin-top-m" v-for="(item, index) in formDynamic" :key="index" v-if="item.status">
             <div class="card-content">
                 <div class="row">
@@ -78,6 +89,9 @@
         </div>
     </Form>
 </div>
+</div>
+</div>
+</div>
 <div class="row">
     <div class="col-xs-12">
         <div class="content-footer">
@@ -101,7 +115,10 @@ export default {
     },
     data() {
         return {
+            check: false,
             mndex: 1,
+            loading: false,
+            loadingtext: 'Pulling existing principles, hold on',
             formDynamic: [],
             create: {
                 bio: '',
@@ -124,10 +141,36 @@ export default {
             }
         }
     },
+    watch: {
+        check: function (val) {
+          val === true ? this.getPrinciples() : ''
+        }
+    },
     created () {
         this.initData()
     },
     methods: {
+        getPrinciples () {
+            var self = this
+            self.loading = true
+            self.loadingtext = 'Pulling existing principles, hold on'
+            axios
+            .get(config.getPrinciples)
+            .then(function(resp) {
+            if (resp.data.status === 200) {
+                self.formDynamic.push(JSON.parse(resp.data.response))
+                self.loading = false
+            } else {
+                self.loadingtext = 'You have no existing principles';
+                setTimeout(function(){ 
+                    self.loading = false
+                }, 2000);
+            }
+            })
+            .catch(function(error) {
+                return error
+            });
+        },
         initData() {
             this.data == '' || this.data == 'null' ? '' : this.formDynamic = JSON.parse(this.data)
             this.formDynamic.length ? this.mndex = this.formDynamic.length + 1 : ''
@@ -194,13 +237,16 @@ export default {
     color: rgb(255, 0, 0);
     cursor: pointer;
 }
-.push-top-card{
-    margin-top: 120px;
-}
 .push-top-card .card{
      padding: 30px;
 }
 .push-top-card .card .textarea{
     min-height: 95%;
+}
+input[type="checkbox"]{
+    background: #283F5C;
+}
+input[type="checkbox"]:checked{
+    background: #283F5C url("/img/icon-check-white.svg") no-repeat center !important;
 }
 </style>

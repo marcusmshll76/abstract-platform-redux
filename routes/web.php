@@ -83,6 +83,12 @@ Route::post('/account-settings/privacy', 'AccountSettingsController@updatePrivac
 Route::get('/account-settings/password', 'AccountSettingsController@passwordAnd2FA');
 Route::post('/account-settings/password', 'AccountSettingsController@updatePassword');
 
+// Get Principles
+Route::get('/principles/get', 'AccountSettingsController@getPrinciples');
+
+// Save Data
+Route::post('/account-settings/create/{principles?}', 'AccountSettingsController@saveData');
+
 
 /*******************
     * ******* Security Flow

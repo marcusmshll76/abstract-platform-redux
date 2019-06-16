@@ -35,9 +35,7 @@ class AccountVerification extends Migration
             $table->string('portfolio_activity_amount')->nullable();
             $table->string('assets_under_management')->nullable();
             $table->string('square_feet_managed')->nullable();
-            $table->string('principle_company_name')->nullable();
-            $table->string('principle_company_website')->nullable();
-            $table->string('principle_website')->nullable();
+            $table->text('principles')->nullable();
             $table->string('reference_type_1')->nullable();
             $table->string('reference_name_1')->nullable();
             $table->string('reference_phone_1')->nullable();
