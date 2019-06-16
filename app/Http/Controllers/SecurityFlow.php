@@ -76,7 +76,7 @@ class SecurityFlow extends Controller
     }
 
     public function display (Request $request) {
-        dd($request->session()->get('security-flow'));
+        dd($request->session()->get('security-flow.principles'));
     }
 
     // Save Data into a session
@@ -121,11 +121,11 @@ class SecurityFlow extends Controller
 
     // Submit Preview Data
     public function submitPreview(Request $request) {
-
+        
         $session_data = session( 'security-flow', array() );
         $session_data = array_merge( $session_data, $_POST );
         session( [ 'security-flow' => $session_data ] );
-
+        
         $this->validate($request, [
             'target-investor-irr' => 'required',
             'investment-profile' => 'required',
@@ -175,21 +175,18 @@ class SecurityFlow extends Controller
             'preferred-equity' => 'required',
             'common-equity' => 'required',
             'mezzanine-debt' => 'required',
-            'senior-debt' => 'required',
-            'principle-bio' => 'required',
-            'principle-full-name' => 'required',
-            'principle-title' => 'required'
+            'senior-debt' => 'required'
         ]);
 
-        if (isset($request->session()->get('security-flow')['key-point'])) {
-            $keyPoints = $request->session()->get('security-flow')['key-point'];
+        if (!empty($request->session()->get('security-flow.key-points'))) {
+            $keyPoints = $request->session()->get('security-flow.key-points');
         }
 
-        if (isset($request->session()->get('security-flow')['principles'])) {
-            $principles = $request->session()->get('security-flow')['principles'];
+        if (!empty($request->session()->get('security-flow.principles'))) {
+            $principles = $request->session()->get('security-flow.principles');
         }
 
-        if (isset($keyPoints) && isset($principles)) {
+        if (isset($keyPoints) && !empty(json_encode($principles))) {
             $userid = Auth::id();
             $payload = array(
                 'userid' => $userid,
@@ -247,6 +244,7 @@ class SecurityFlow extends Controller
             );
 
             DB::table('security_flow_property')->insert($payload);
+            $request->session()->forget('security-flow');
             return view( 'security-flow.step-7.final', [ 'title' => 'Security Flow -> Preview & Submit', 'success' => true ] );
 
         } else {
