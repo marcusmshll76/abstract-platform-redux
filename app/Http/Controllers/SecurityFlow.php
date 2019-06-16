@@ -49,16 +49,7 @@ class SecurityFlow extends Controller
     }
 
     public function meetSponsors (Request $request) {
-        $userid = Auth::id();
-        $principles = DB::table('security_flow_property')
-            ->where('userid', $userid)
-            ->select('principles')
-            ->first();
-        $savedData = $request->session()->get('security-flow');
-        $principles == null ? $principles = array() : '';
-        $data = array_merge($savedData, $principles);
-
-        return view( 'security-flow.step-6.meet-sponsors', [ 'title' => 'Create Digital Security > Meet the Sponsors' ] )->with(compact('data'));
+        return view( 'security-flow.step-6.meet-sponsors', [ 'title' => 'Create Digital Security > Meet the Sponsors' ] )->with('data', $request->session()->get('security-flow'));
     }
 
     public function preview (Request $request) {

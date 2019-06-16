@@ -78,7 +78,7 @@ class AccountSettingsController extends Controller {
         if ($principles) {
             return response()->json([
                 'message' => 'Account Settings Principles',
-                'response' => $principles,
+                'response' => $principles->principles,
                 'status' => 200
             ]);
         } else {

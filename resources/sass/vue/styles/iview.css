@@ -5037,7 +5037,6 @@ fieldset[disabled] .ivu-input:hover {
 .card-black{
     padding: 10px !important;
     background-image: linear-gradient(-178deg, #FFFFFF 80%, #D8D8D8 100%);
-    box-shadow: 2px 3px 2px 0 #283F5C, inset 0 1px 3px 0 rgba(0,0,0,0.50);
 }
 .color-white{
     color: #fff !important;

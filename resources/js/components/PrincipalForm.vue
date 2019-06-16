@@ -12,6 +12,7 @@
         <div class="margin-bottom-m border-bottom full-width">
             <input v-model="check" type="checkbox">
             <span class="checkbox-p">Check this box to quickly add any Principals you have already attached to your account during Abstract’s Account Set Up. You can also manually add in other Princpals from your team below. </span>
+            <br/><br/>
         </div>
         <div class="row margin-top-l">
             <div class="col-xs-12 col-sm-4">
@@ -158,8 +159,11 @@ export default {
             .get(config.getPrinciples)
             .then(function(resp) {
             if (resp.data.status === 200) {
-                self.formDynamic.push(JSON.parse(resp.data.response))
+                let a = JSON.parse(resp.data.response)
                 self.loading = false
+                a.map(function (x) {
+                    self.formDynamic.push(x)
+                });
             } else {
                 self.loadingtext = 'You have no existing principles';
                 setTimeout(function(){ 
