@@ -65,7 +65,7 @@ export default {
                   if (x[r]) {
                     let row = []
                     for (let c in x[r]) {
-                      if (c < 3) {
+                      if (c < 2) {
                         row.push(x[r][c])
                       }
                     }
@@ -75,7 +75,7 @@ export default {
                 var self = this
                 arr.map(function (x, i) {
                     labels.push(x[0])
-                    vs.push(self.cleanData(x[2]))
+                    vs.push(self.cleanData(x[1]))
                     colors.push(self.dynamicColors())
                 });
 
@@ -104,7 +104,7 @@ export default {
       if (e == 'null' || !e) {
         return 0;
       } else if (isNaN(e) === false) {
-        return e
+        return (e * 100).toFixed(2)
       } else if (e.indexOf('%') > -1) {
         return parseInt(e.replace(/\/%/g, ''))
       } else if (e.indexOf('percent') > -1) {

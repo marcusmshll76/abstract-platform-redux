@@ -55,7 +55,7 @@
                                 <tbody>
                                     <tr class="head-row">
                                         <th>Investor Name</th>
-                                        <th>Entity Name if Applicable</th>
+                                        <!-- <th>Entity Name if Applicable</th> -->
                                         <th>% Held</th>
                                         <!-- <th>Digital Securities Held</th>
                                         <th>Price Per</th>
@@ -64,21 +64,21 @@
                                     @if ($data->fn)
                                     <tr>
                                         <td data-th="Investor Name">{{ $data->fn.  ' '  .$data->ln }}</td>
-                                        <td data-th="Entity Name if Applicable"></td>
+                                        <!-- <td data-th="Entity Name if Applicable"></td> -->
                                         <td data-th="% Held">{{ $data->ow }}</td>
                                     </tr>
                                     @endif
                                     @if ($data->fn1)
                                     <tr>
                                         <td data-th="Investor Name">{{ $data->fn1.  ' '  .$data->ln1 }}</td>
-                                        <td data-th="Entity Name if Applicable"></td>
+                                        <!-- <td data-th="Entity Name if Applicable"></td> -->
                                         <td data-th="% Held">{{ $data->ow1 }}</td>
                                     </tr>
                                     @endif
                                     @if ($data->fn2)
                                     <tr>
                                         <td data-th="Investor Name">{{ $data->fn2.  ' '  .$data->ln2 }}</td>
-                                        <td data-th="Entity Name if Applicable"></td>
+                                        <!-- <td data-th="Entity Name if Applicable"></td> -->
                                         <td data-th="% Held">{{ $data->ow2 }}</td>
                                         <!-- <td data-th="Digital Securities Held">45,000,000</td>
                                         <td data-th="Price Per">$0.1</td>
@@ -90,14 +90,19 @@
                                             @if (!empty($cap))
                                                 <tr>
                                                     @foreach ($cap as $key => $m)
-                                                        @if ($key < 3)
-                                                            <td data-th="Investor Name">{{ $m }}</td>
+                                                        @if ($key < 2)
+                                                            @if ($key == 1) 
+                                                                <td>{{ $m ? sprintf("%.2f%%", $m * 100) : $m }}</td>
+                                                            @else
+                                                                <td>{{ $m }}</td>
+                                                            @endif
                                                         @endif
                                                     @endforeach
                                                 </tr>
                                             @endif
                                         @endforeach
                                     @endif
+                                    
                                 </tbody>
                             </table>
                         </div>

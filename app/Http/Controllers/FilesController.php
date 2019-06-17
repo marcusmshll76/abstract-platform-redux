@@ -96,16 +96,22 @@ class FilesController extends Controller
 
         $cells = array();
         $columns = array();
+        $total = array();
+        // $i = 0;
         foreach ($reader->getSheetIterator() as $sheet) {
             foreach ($sheet->getRowIterator() as $row) {
+                // $numItems = count($row);
                 foreach ($sheet->getRowIterator() as $count => $row) {
                     $rowData = array();
-                    if ($count > 1) {
+                    if ($count > 3) {
                         foreach ($row->getCells() as $key => $a) { 
                             array_push($rowData, $a->getValue());
                         }
                         array_push($cells, $rowData);
-                    } else {
+                        /* if(++$i === $numItems) {
+                            array_push($total, $a->getValue());
+                        } */
+                    } else if($count === 3) {
                         foreach ($row->getCells() as $key => $a) { 
                             array_push($columns, $a->getValue());
                         }
@@ -119,7 +125,8 @@ class FilesController extends Controller
             'message' => 'File Read successfully',
             'response' => [
                 'columns' => $columns,
-                'rows' => $cells
+                'rows' => $cells,
+                'total' => $total
             ],
             'status' => 200
         ]);  
