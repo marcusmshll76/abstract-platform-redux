@@ -49,6 +49,7 @@
                     <a :href="a.src" target="_blank" download>{{ a.path ? a.path.split(/[\/ ]+/).pop() : '' }} <Icon type="md-cloud-download" /></a>
                 </li>
             </ul>
+            <a class="btn full-width dust color-white" v-if="iname === 'filebutton'" :href="files[0].src" target="_blank" download>{{ title }}</a>
         </div>
         <Spin v-else>
             <Icon type="ios-cube-outline" size="18" />
@@ -62,7 +63,7 @@
 import axios from 'axios'
 import config from '../libs'
 export default {
-    props: ['user', 'path', 'field', 'scope', 'iname', 'index'],
+    props: ['title', 'user', 'path', 'field', 'scope', 'iname', 'index'],
     data () {
         return {
             files: [],

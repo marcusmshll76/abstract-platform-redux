@@ -46,12 +46,22 @@ class InvestorServicingController extends Controller {
                 $table = 'security_flow_property';
                 $q = 'property as name';
             }
+            if (!empty($request->session()->get('docsRead'))) {
+                
+                $docs = json_encode($request->session()->get('docsRead'));
+                DB::table($table)
+                    ->where('userid', $userid)
+                    ->where('id', $id)
+                    ->update(['captables' => $docs]);
+
+                    $request->session()->forget('docsRead');
+            }
             $data = DB::table($table)
                 ->where('userid', $userid)
                 ->where('id', $id)
-                ->select($q, 'investor-first-name as fn', 'investor-last-name as ln', 'ownership as ow', 'investor-first-name-1 as fn1', 'investor-last-name-1 as ln1', 'ownership-1 as ow1', 'investor-first-name-2 as fn2', 'investor-last-name-2 as ln2', 'ownership-2 as ow2')
+                ->select($q, 'captables', 'investor-first-name as fn', 'investor-last-name as ln', 'ownership as ow', 'investor-first-name-1 as fn1', 'investor-last-name-1 as ln1', 'ownership-1 as ow1', 'investor-first-name-2 as fn2', 'investor-last-name-2 as ln2', 'ownership-2 as ow2')
                 ->first();
-            return view( 'investor-servicing.cap.table', [ 'title' => 'Cap Table Management > Investor Servicing'] )->with(compact('data'));
+            return view( 'investor-servicing.cap.table', [ 'title' => 'Cap Table Management > Investor Servicing'] )->with(compact('data', 'type'));
         } else {
             return redirect('/investor-servicing/choose-investment');
         }

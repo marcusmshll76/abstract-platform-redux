@@ -8,12 +8,13 @@
 import PieChart from "../libs/PieChart.js";
 export default {
   name: "Pie",
-  props: ['data', 'type'],
+  props: ['data', 'type', 'cap'],
   components: {
     PieChart
   },
   data() {
     return {
+      dataArr: [],
       chartData: {
         labels: ["Not Enough Data"],
         datasets: [
@@ -40,7 +41,7 @@ export default {
           }
           this.chartData = a
         }
-        else if (this.type === 'cap table') {
+        else if (this.type === 'captable' && this.cap === '') {
           let a = {
             labels: [vals.fn + ' ' + vals.ln, vals.fn1 + ' ' + vals.ln1, vals.fn2 + ' ' + vals.ln2],
             datasets: [{
@@ -51,12 +52,59 @@ export default {
           }
           this.chartData = a
         }
+        else if (this.cap !== '') {
+          let labels = []
+          let vs = []
+          let colors = []
+            let o = JSON.parse(this.cap)
+            if (o) {
+              let x = o.original.response.rows
+              if (x != 'null' || x != '') {
+                let arr = []
+                for (let r in x) {
+                  if (x[r]) {
+                    let row = []
+                    for (let c in x[r]) {
+                      if (c < 3) {
+                        row.push(x[r][c])
+                      }
+                    }
+                    arr.push(row)
+                  }
+                }
+                var self = this
+                arr.map(function (x, i) {
+                    labels.push(x[0])
+                    vs.push(self.cleanData(x[2]))
+                    colors.push(self.dynamicColors())
+                });
+
+                let a = {
+                  labels: labels,
+                  datasets: [{
+                    label: "Cap Table",
+                    backgroundColor: colors,
+                    data: vs
+                  }]
+                }
+                this.chartData = a
+              }
+            }
+        }
     }
   },
   methods: {
+    dynamicColors () {
+       let r = Math.floor(Math.random() * 255);
+       let g = Math.floor(Math.random() * 255);
+       let b = Math.floor(Math.random() * 255);
+       return "rgb(" + r + "," + g + "," + b + ")";
+    },
     cleanData(e){
       if (e == 'null' || !e) {
         return 0;
+      } else if (isNaN(e) === false) {
+        return e
       } else if (e.indexOf('%') > -1) {
         return parseInt(e.replace(/\/%/g, ''))
       } else if (e.indexOf('percent') > -1) {

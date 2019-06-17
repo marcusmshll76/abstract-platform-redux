@@ -48,7 +48,8 @@
                                         path="/account-settings/company-logo/"
                                         multi="no"
                                         flat="true"
-                                        type="text">
+                                        type="text"
+                                        refresh="true">
                                     </uploads-component>
                                 </div>
                             </div>

@@ -253,6 +253,7 @@ class SecurityFlow extends Controller
 
             DB::table('security_flow_property')->insert($payload);
             $request->session()->forget('security-flow');
+            $request->session()->forget('docsRead');
             return view( 'security-flow.step-7.final', [ 'title' => 'Security Flow -> Preview & Submit', 'success' => true ] );
 
         } else {

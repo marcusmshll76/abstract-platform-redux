@@ -91,7 +91,7 @@
 import axios from 'axios'
 import config from '../libs'
 export default {
-    props: ['type', 'action', 'title', 'field', 'multi', 'icon', 'flat', 'path', 'elname', 'scope'],
+    props: ['type', 'action', 'title', 'field', 'multi', 'icon', 'flat', 'path', 'elname', 'scope', 'refresh'],
     data () {
         return {
             loadertext: 'Uploading file',
@@ -141,6 +141,7 @@ export default {
                 self.loader = false; 
                 self.loadertext = 'Uploading File';
             }, 2000);
+            this.refresh === 'true' ? window.location.reload() : ''
 
             this.$emit('done', res)
         },

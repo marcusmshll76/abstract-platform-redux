@@ -260,6 +260,7 @@ class SecurityFundFlow extends Controller
 
             DB::table('security_fund_flow')->insert($payload);
             $request->session()->forget('security-fund-flow');
+            $request->session()->forget('docsRead');
             return view( 'security-fund-flow.step-7.final', [ 'title' => 'Create Digital Security -> Preview & Submit', 'success' => true ] );
             
         } else {
