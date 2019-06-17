@@ -41,7 +41,7 @@
                         </div>
                         <div class="col-xs-12 col-sm-3">
                             <div class="dashboard-menu-tile"><img src="/img/icon-paper-settings.svg">
-                                <h5><a href="/investor-servicing/choose-investment">Investor Servicing</a></h5>
+                                <a href="/investor-servicing/choose-investment"><h5>Investor Servicing</h5></a>
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-3">
