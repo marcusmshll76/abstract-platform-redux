@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Box\Spout\Reader\Common\Creator\ReaderEntityFactory;
 
 class FilesController extends Controller
 
@@ -24,6 +25,7 @@ class FilesController extends Controller
             ]);
             $file = $request->file('file');
         }
+
         // File Name
         $filename = time() . str_replace(' ', '', $file->getClientOriginalName());
 
@@ -71,13 +73,30 @@ class FilesController extends Controller
             $filePath = 'public/' . $request->get('structure') . $allfiles;
         }
         
-        Storage::disk('s3')->put($filePath, file_get_contents($file));
+        // Storage::disk('s3')->put($filePath, file_get_contents($file));
+
+        $ext = pathinfo($filePath, PATHINFO_EXTENSION);
+        if ($ext == '.csv' || $ext == '.ods' || $ext == '.xlsx') {
+            // return $this->readDocFiles($file->getPathName());
+        }
 
         return response()->json([
             'message' => 'File uploaded successfully',
-            'response' => $payload,
+            'response' => $ext,
             'status' => 200
         ]);
+    }
+    public function readDocFiles($file) {
+        $reader = ReaderEntityFactory::createReaderFromFile($file);
+        $reader->open($file);
+        $cells = array();
+        foreach ($reader->getSheetIterator() as $sheet) {
+            foreach ($sheet->getRowIterator() as $row) {
+                array_push($cells, $row->getCells());
+            }
+        }
+        $reader->close();
+        return $cells;
     }
 
     // Retrieve Files

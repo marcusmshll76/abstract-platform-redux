@@ -5020,7 +5020,7 @@ fieldset[disabled] .ivu-input:hover {
  text-align: right;
 }
 
-.digital .active{
+.digital .left-nav-item-wrap .active{
     background-image: linear-gradient(-180deg, #283F5C 39%, #8E9385 100%);
 }
 .digital p, .digital a{
@@ -5030,6 +5030,13 @@ fieldset[disabled] .ivu-input:hover {
 .digital .active p, .digital .active a{
     color: #fff;
     font-weight: bold;
+}
+.porperty-image.marketplace-card-image{
+    overflow: hidden !important;
+}
+.remove-list-height h5{
+    line-height: 24px !important;
+    padding: 10px;
 }
 .long .btn{
     width: calc(100% - 40px) !important;

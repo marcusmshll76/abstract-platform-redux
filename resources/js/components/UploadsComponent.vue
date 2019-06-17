@@ -111,6 +111,7 @@ export default {
     },
     methods: {
         success(res, file) {
+            console.log(res)
             this.sus = true
             this.loadertext = 'File Uploaded'
             var self = this

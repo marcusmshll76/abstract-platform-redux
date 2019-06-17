@@ -112,9 +112,6 @@ Route::get('/security-flow/step-6/meet-sponsors', 'SecurityFlow@meetSponsors');
 Route::get('/security-flow/step-7/preview', 'SecurityFlow@preview');
 Route::get('/security-flow/preview', 'SecurityFlow@final');
 
-// 
-Route::get('/getTest', 'SecurityFlow@display');
-
 // save post data into a session
 Route::post('/security-flow/step-1/create/{details?}', 'SecurityFlow@saveData');
 Route::post('/security-flow/step-1/create/{highlights?}', 'SecurityFlow@saveData');
@@ -163,7 +160,7 @@ Route::post('/security-fund-flow/step-7/create/preview', 'SecurityFundFlow@submi
 **************/
 Route::get('/investor-servicing/k1', 'InvestorServicingController@k1');
 Route::get('/investor-servicing/choose-investment', 'InvestorServicingController@choose');
-Route::get('/investor-servicing/cap-table-mgmt/{type?}/{data?}', 'InvestorServicingController@captable');
+Route::get('/investor-servicing/cap-table-mgmt/{type?}/{rand?}/{id?}', 'InvestorServicingController@captable');
 Route::get('/investor-servicing/distributions', 'InvestorServicingController@distributions');
 Route::get('/investor-servicing/reports', 'InvestorServicingController@reports');
 Route::get('/investor-servicing/upload-new-property', 'InvestorServicingController@newProperty');
@@ -179,9 +176,10 @@ Route::get('/getFiles', 'FilesController@retrieve');
 Route::get('/destroy/file', 'FilesController@destroy');
 Route::resource('files', 'FilesController', ['only' => ['store']]);
 
-//diligence
+// Diligence
 Route::get('/files/diligence/check', 'FilesController@checkDir');
-
+// Test Files
+Route::get('/testCap', 'FilesController@readDocFiles');
 
 /*******************
     * ******* Box API

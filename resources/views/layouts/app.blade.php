@@ -9,10 +9,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1">
     <link rel="icon" type="image/png" href="/img/favicon.png">
-    <link rel="stylesheet" href="/css/lib/bootstrap.css">
+    <!-- <link rel="stylesheet" href="/css/lib/bootstrap.css"> -->
     <link rel="stylesheet" href="/css/lib/flexboxgrid.css">
     <link rel="stylesheet" href="/css/lib/jquery-ui.css">
-    <link rel="stylesheet" href="/css/lib/cs-select.css">
+    <!-- <link rel="stylesheet" href="/css/lib/cs-select.css"> -->
     <link rel="stylesheet" href="/css/lib/owl.theme.css">
     <link rel="stylesheet" href="/css/lib/owl.carousel.css">
     <link rel="stylesheet" href="/css/index.css">
@@ -21,6 +21,7 @@
     <script src="/js/sectionscroll.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/BoxSdk.min.js"></script>
+    @yield('jquery-js-top')
     <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 
