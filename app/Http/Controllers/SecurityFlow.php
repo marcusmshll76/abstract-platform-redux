@@ -173,9 +173,9 @@ class SecurityFlow extends Controller
             'mezzanine-debt' => 'required',
             'senior-debt' => 'required'
         ];
-        $rules = array_merge( $rules, $capRule);
+        $rulesCall = array_merge( $rules, $capRule);
         
-        $this->validate($request, $rules);
+        $this->validate($request, $rulesCall);
 
         if (!empty($request->session()->get('security-flow.key-points'))) {
             $keyPoints = $request->session()->get('security-flow.key-points');

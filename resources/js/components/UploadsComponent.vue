@@ -49,7 +49,7 @@
         :on-exceeded-size="maxSize"
         :data="payload">
         <div class="photo-upload-box">
-            <img :src="icon ? icon : '/img/icon-upload.svg'">
+            <img :src="src ? src : '/img/icon-upload.svg'">
         </div>
     </Upload>
 
@@ -88,14 +88,17 @@
 </template>
 
 <script>
+import axios from 'axios'
+import config from '../libs'
 export default {
     props: ['type', 'action', 'title', 'field', 'multi', 'icon', 'flat', 'path', 'elname', 'scope'],
     data () {
         return {
-            loadertext: 'Uploading',
+            loadertext: 'Uploading file',
             loader: '',
             sus: false,
             header: '',
+            src: '',
             payload: {}
         }
     },
@@ -110,15 +113,35 @@ export default {
         this.header = document.head.querySelector("[name~=csrf-token][content]").content
     },
     methods: {
+        getImage (res) {
+            var self = this
+            let user =  res.path.indexOf('/') > -1 ? res.path.split('/')[0] : ''
+
+            axios
+            .get(config.getFiles + '?user=' + user + '&&field=' + res.field)
+            .then(function(resp) {
+                
+                resp.data.map(function (x) {
+                    if (x.path === res.path) {
+                        self.src = x.src
+                    }
+                });
+                console.log(self.src)
+            })
+            .catch(function(error) {
+                return error
+            })
+        },
         success(res, file) {
-            console.log(res)
+            this.type === 'photos' ? this.getImage(res.response) : '' 
             this.sus = true
             this.loadertext = 'File Uploaded'
             var self = this
             setTimeout(function(){ 
                 self.loader = false; 
+                self.loadertext = 'Uploading File';
             }, 2000);
-            
+
             this.$emit('done', res)
         },
         progress (event) {
