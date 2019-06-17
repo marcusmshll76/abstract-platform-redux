@@ -20,6 +20,8 @@
                             action="/files"
                             elname="image"
                             scope="private"
+                            field="fund-digital-security"
+                            multi="yes"
                             path="/digital-security/fund/photo-gallery/"
                             class="large margin-bottom-m-md">
                         </uploads-component>
@@ -32,6 +34,8 @@
                                     action="/files"
                                     elname="image"
                                     scope="private"
+                                    field="fund-digital-security"
+                                    multi="yes"
                                     path="/digital-security/fund/photo-gallery/"
                                     class="margin-bottom-m-md">
                                 </uploads-component>
@@ -43,6 +47,8 @@
                                         action="/files"
                                         elname="image"
                                         scope="private"
+                                        field="fund-digital-security"
+                                        multi="yes"
                                         path="/digital-security/fund/photo-gallery/"
                                         class="margin-bottom-m-md">
                                     </uploads-component>
@@ -58,6 +64,8 @@
                                         elname="image"
                                         scope="private"
                                         path="/digital-security/fund/photo-gallery/"
+                                        field="fund-digital-security"
+                                        multi="yes"
                                         class="margin-bottom-m-md">
                                     </uploads-component>
                                 </div>
@@ -70,6 +78,8 @@
                                         elname="image"
                                         scope="private"
                                         path="/digital-security/fund/photo-gallery/"
+                                        field="fund-digital-security"
+                                        multi="yes"
                                         class="margin-bottom-m-md">
                                     </uploads-component>
                                 </div>

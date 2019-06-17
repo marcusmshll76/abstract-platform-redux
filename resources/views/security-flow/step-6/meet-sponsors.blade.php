@@ -11,17 +11,12 @@
         @csrf
             <h5>Team is Everything</h5>
             <p>Share the bios and backgrounds of your key team members. Let the investors know they’re in good hands!</p>
-            
-            <div class="card grey card-black margin-top-m">
-                <div class="card-content">
-                <principal-form 
-                    next="yes" 
-                    url="security-flow/step-6/create/meetSponsors" 
-                    data="{{ isset($data['principles']) ? $data['principles'] : '' }}"
-                    user="{{Auth::id()}}">
-                </principal-form>
-                </div>
-            </div>
+            <principal-form 
+                next="yes" 
+                url="security-flow/step-6/create/meetSponsors" 
+                data="{{ isset($data['principles']) ? $data['principles'] : '' }}"
+                user="{{Auth::id()}}">
+            </principal-form>
         </form>
     </div>
 </div>

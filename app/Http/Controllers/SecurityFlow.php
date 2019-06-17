@@ -231,7 +231,9 @@ class SecurityFlow extends Controller
                 'mezzanine-debt' => $request->get('mezzanine-debt'),
                 'senior-debt' => $request->get('senior-debt'),
                 'principles' => json_encode($principles),
-                'key-points' => $keyPoints
+                'key-points' => $keyPoints,
+                "created_at" =>  \Carbon\Carbon::now(),
+                "updated_at" => \Carbon\Carbon::now()
             );
 
             DB::table('security_flow_property')->insert($payload);
