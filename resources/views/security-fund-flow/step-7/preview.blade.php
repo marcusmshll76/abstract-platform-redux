@@ -12,13 +12,14 @@
         <div class="card">
             <div class="card-title dust has-button">
                 <h5>Digital Security Details</h5>
-                <div class="btn">Edit</div>
+                <a href="/security-fund-flow/step-1/upload-photos" class="btn color-white">Edit</a>
             </div>
             <div class="card-content">
                 <file-preview
                     iname="Digital Security Photo Gallery"
                     scope="private"
                     user="{{Auth::id()}}"
+                    field="fund-digital-security"
                     path="/digital-security/fund/photo-gallery/">
                 </file-preview>
             </div>

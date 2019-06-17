@@ -2,7 +2,7 @@
 @section('title', $title )
 
 @section('body')
-<form action="/security-flow/step-7/create/preview" method="post">
+<form action="/security-fund-flow/step-7/create/preview" method="post">
 @csrf
 @if( isset( $success ) && $success )
     <popup-component

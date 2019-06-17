@@ -57,6 +57,7 @@
                     <div class="col-xs-12 col-sm-4 col-md-3">
                         <div class="file-upload-box-filled">
                             <previews
+                                class="view-principles"
                                 iname="Single"
                                 scope="private"
                                 :user="user"
@@ -252,5 +253,8 @@ input[type="checkbox"]{
 }
 input[type="checkbox"]:checked{
     background: #283F5C url("/img/icon-check-white.svg") no-repeat center !important;
+}
+.view-principles{
+    margin-bottom: 20px !important;
 }
 </style>
