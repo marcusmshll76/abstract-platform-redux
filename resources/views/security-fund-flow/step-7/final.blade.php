@@ -787,7 +787,7 @@
                     @endif
                     <div class="row">
                         <div class="col-xs-12">
-                        <key-points url="security-fund-flow/step-4/create/keyPoints" data="{{ isset($data['key-point']) ? $data['key-point'] : '' }}" next="no"></key-points>
+                        <key-points url="security-fund-flow/step-4/create/keyPoints" data="{{ isset($data['key-points']) ? $data['key-points'] : '' }}" next="no"></key-points>
                         </div>
                     </div>
                 </div>
