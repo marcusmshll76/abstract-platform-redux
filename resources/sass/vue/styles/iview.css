@@ -5038,6 +5038,12 @@ fieldset[disabled] .ivu-input:hover {
     padding: 10px !important;
     background-image: linear-gradient(-178deg, #FFFFFF 80%, #D8D8D8 100%);
 }
+.button-edit .upload-text{
+    color: #fff !important;
+}
+.button-edit .upload-text:hover{
+    text-decoration: none !important;
+}
 .color-white{
     color: #fff !important;
 }

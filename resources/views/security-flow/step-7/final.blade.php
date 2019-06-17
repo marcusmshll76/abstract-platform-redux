@@ -23,26 +23,38 @@
             <div class="card grey margin-bottom-m">
                 <div class="card-title blue has-button">
                     <h5>Presented By:</h5>
-                    <div class="btn">Edit</div>
+                    <a href="/account-settings/verification/bio" class="btn color-white">Edit</a>
                 </div>
                 <div class="card-content">
                     <div class="card equal-padding">
                         <div class="row">
                             <div class="col-xs-12 col-sm-4">
                                 <div class="presented-company">
-                                <file-preview
-                                    iname="Single"
-                                    scope="private"
-                                    user="{{Auth::id()}}"
-                                    field="companylogo"
-                                    path="/account-settings/company-logo/"
-                                    index="0">
-                                </file-preview>
+                                    <file-preview
+                                        iname="Single"
+                                        scope="private"
+                                        user="{{Auth::id()}}"
+                                        field="companylogo"
+                                        path="/account-settings/company-logo/"
+                                        index="0">
+                                    </file-preview>
+                                    <uploads-component
+                                        class="button-edit"
+                                        title="Change Logo"
+                                        action="/files"
+                                        elname="image"
+                                        scope="private"
+                                        field="companylogo"
+                                        path="/account-settings/company-logo/"
+                                        multi="no"
+                                        flat="true"
+                                        type="text">
+                                    </uploads-component>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-8">
                                 <div class="presented-description">
-                                    <p class="color-white">Cephas Partners is a private equity firm specializing in alternative investments with a primary focus on real estate related opportunities. Cephas was originally formed in 2012 to assist affiliates of The Blackstone Group in managing complex real estate transactions on three different continents. Cephas Partners seeks to maximize opportunities for its investors, partners and employees and leave a legacy of generosity.</p>
+                                    <p class="color-white">{{ isset($bio) ? $bio : '' }}</p>
                                 </div>
                             </div>
                         </div>
@@ -52,7 +64,7 @@
             <div class="card margin-bottom-m">
                 <div class="card-title blue has-button">
                     <h5>Digital Security Details</h5>
-                    <div class="btn">Edit</div>
+                    <a href="/security-flow/step-1/choose" class="btn color-white">Edit</a>
                 </div>
                 <div class="card-content">
                     <file-preview
@@ -67,7 +79,7 @@
             <div class="card grey margin-bottom-m margin-top-m">
                 <div class="card-title blue has-button">
                     <h5>Deal Highlights</h5>
-                    <div class="btn">Edit</div>
+                    <a href="/security-flow/step-1/highlights" class="btn color-white">Edit</a>
                 </div>
                 <div class="card-content">
                             <div class="row">
@@ -199,7 +211,7 @@
             <div class="card grey margin-bttom-m margin-top-m">
                 <div class="card-title blue has-button">
                     <h5>Property Details</h5>
-                    <div class="btn">Edit</div>
+                    <a href="/security-flow/step-1/details" class="btn color-white">Edit</a>
                 </div>
                 <div class="card-content">
                         <div class="row">
@@ -434,7 +446,7 @@
             <div class="card grey margin-bttom-m margin-top-m">
                 <div class="card-title blue has-button">
                     <h5>Investment Details</h5>
-                    <div class="btn">Edit</div>
+                    <a href="/security-flow/step-2/ownership" class="btn color-white">Edit</a>
                 </div>
                 <div class="card-content">
                         <div class="row">
@@ -595,7 +607,6 @@
             <div class="card grey margin-bottom-m">
                 <div class="card-title blue has-button">
                     <h5>Diligence & Deal Documents</h5>
-                    <div class="btn">Edit</div>
                 </div>
                 <div class="card-content">
                     <div class="row">
@@ -616,7 +627,7 @@
             <div class="card grey margin-bottom-m">
                 <div class="card-title blue has-button">
                     <h5>Capital Stack</h5>
-                    <div class="btn">Edit</div>
+                    <a href="/security-flow/step-5/capital-stack" class="btn color-white">Edit</a>
                 </div>
                 <div class="card-content">
                     <div class="row">
@@ -673,7 +684,6 @@
             <div class="card grey margin-bottom-m">
                 <div class="card-title blue has-button">
                     <h5>Key Deal Points</h5>
-                    <div class="btn">Edit</div>
                 </div>
                 <div class="card-content">
                     @if($errors->has('key-point'))
@@ -690,7 +700,7 @@
             <div class="card grey margin-bottom-m">
                 <div class="card-title blue has-button">
                     <h5>Meet the Principles</h5>
-                    <div class="btn">Edit</div>
+                    <a href="/security-flow/step-6/meet-sponsors" class="btn color-white">Edit</a>
                 </div>
                 <div class="card-content">
                     <div class="card">
