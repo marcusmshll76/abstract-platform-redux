@@ -23,7 +23,7 @@
             <div class="card grey margin-top-m">
                 <div class="card-title dust has-button">
                     <h5>Sponsor Info</h5>
-                    <div class="btn">Edit</div>
+                    <a href="/account-settings/verification" class="btn color-white">Edit</a>
                 </div>
                 <div class="card-content">
                 <div class="row">
@@ -219,7 +219,7 @@
             <div class="card grey margin-top-m">
                 <div class="card-title dust has-button">
                     <h5>Sponsor Bio</h5>
-                    <div class="btn">Edit</div>
+                    <a href="/account-settings/verification/bio" class="btn color-white">Edit</a>
                 </div>
 
                 <div class="card-content">
@@ -275,7 +275,7 @@
             <div class="card grey margin-top-m">
                 <div class="card-title dust has-button">
                     <h5>Meet the Principles, Property Owners or Fund Managers</h5>
-                    <div class="btn">Edit</div>
+                    <a href="/account-settings/verification/principles" class="btn color-white">Edit</a>
                 </div>
                 
                 <div class="card-content">
@@ -293,7 +293,7 @@
             <div class="card grey margin-top-m">
                 <div class="card-title dust has-button">
                     <h5>Professional References</h5>
-                    <div class="btn">Edit</div>
+                    <a href="/account-settings/verification/references" class="btn color-white">Edit</a>
                 </div>
                 
             <div class="card-content">

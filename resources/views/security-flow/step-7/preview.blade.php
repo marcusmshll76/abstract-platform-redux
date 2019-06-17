@@ -12,7 +12,7 @@
         <div class="card">
             <div class="card-title dust has-button">
                 <h5>Digital Security Details</h5>
-                <a href="/account-settings/verification/bio" class="btn color-white">Edit</a>
+                <a href="/security-flow/step-1/choose" class="btn color-white">Edit</a>
             </div>
             <div class="card-content">
                 <file-preview
