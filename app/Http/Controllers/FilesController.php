@@ -96,7 +96,6 @@ class FilesController extends Controller
 
         $cells = array();
         $columns = array();
-        $total = array();
         // $i = 0;
         foreach ($reader->getSheetIterator() as $sheet) {
             foreach ($sheet->getRowIterator() as $row) {
@@ -108,9 +107,6 @@ class FilesController extends Controller
                             array_push($rowData, $a->getValue());
                         }
                         array_push($cells, $rowData);
-                        /* if(++$i === $numItems) {
-                            array_push($total, $a->getValue());
-                        } */
                     } else if($count === 3) {
                         foreach ($row->getCells() as $key => $a) { 
                             array_push($columns, $a->getValue());
@@ -119,6 +115,7 @@ class FilesController extends Controller
                 }
             }
         }
+        $total = array_pop($cells);
         $reader->close();
         Storage::disk('local')->delete($file);
         return response()->json([
