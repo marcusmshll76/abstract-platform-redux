@@ -68,7 +68,7 @@ class SessionController extends Controller {
             'profile_image' => '/img/default-profile.png',
         ]);
 
-        $this->redirectTo = '/onboard';
+        $this->redirectTo = '/sponsor/introduction';
         return $this->login($request);
     }
 

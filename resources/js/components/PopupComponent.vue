@@ -2,13 +2,15 @@
     <div>
         <Modal
         v-model="modal"
+        on-cancel="call"
         class="popup-modal">
             <div class="card-title dust" slot="header">
                 <h5>{{ title }}</h5>
             </div>
             <div class="popup-review-content">
                 <span v-html="info"></span>
-                <a v-if="action" class="btn color-white" @click="modal = false">{{ action }}</a>
+                <br/>
+                <a v-if="action" class="btn color-white" @click="call">{{ action }}</a>
             </div>
             <div slot="footer"></div>
         </Modal>
@@ -17,14 +19,14 @@
 <script>
 import Cookies from 'js-cookie';
 export default {
-    props: ['title', 'info', 'type', 'user', 'action'],
+    props: ['title', 'info', 'type', 'user', 'url', 'action'],
     data () {
         return {
             modal: true
         }
     },
     created () {
-        if (this.type === 'Investor Servicing Intro' && this.user != null) {
+        if (this.type === 'basic' && this.user != null) {
             this.popInterval() === true ? this.modal = true : this.modal = false
         }
 
@@ -38,6 +40,12 @@ export default {
             } else {
                 Cookies.set('popup', val, { expires: 364 })
                 return true
+            }
+        },
+        call () {
+            this.modal = false
+            if (this.url && this.url != 'null') {
+                window.location.href = this.url
             }
         }
     }

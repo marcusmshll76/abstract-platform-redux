@@ -31,15 +31,31 @@
                 <div class="navbar">
                     <div class="row middle-xs no-margin">
                         <div class="col-xs-12 col-sm-4">
-                            <div class="nav-logo"><a href="/"><img src="/img/logo-dark-w-type.svg" class="logo"></a></div>
+                            <div class="nav-logo">
+                                <a href="/">
+                                    @if ($site -> host !== 'abstract' && $site -> logo_dark)
+                                        <img src="{{ $site -> logo_dark }}" class="logo push-up-nav">
+                                    @else
+                                        <img src="/img/abstract-logo.svg" class="logo">
+                                    @endif
+                                </a>
+                            </div>
                         </div>
                         <div class="col-xs-12 col-sm-4">
                             <div class="header-toggle text-center">
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-4">
+                                    @if ($site -> host != 'abstract') 
+                                        <a href="/dashboard/investors">
+                                            <div class="header-toggle-item">
+                                                <p>Investors</p>
+                                            </div>
+                                        </a>
+                                    @else 
                                         <div class="header-toggle-item">
                                             <p>Investors</p>
                                         </div>
+                                    @endif
                                     </div>
                                     <div class="col-xs-12 col-sm-4">
                                         <div class="header-toggle-item active">

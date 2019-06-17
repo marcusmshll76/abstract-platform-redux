@@ -29,7 +29,7 @@ class AddPrivacySettings extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumns( [ 'electronic_document_consent', 'signee_first_name', 'signee_last_name', 'signee_email' ] );
+            // $table->dropColumns( [ 'electronic_document_consent', 'signee_first_name', 'signee_last_name', 'signee_email' ] );
         });
     }
 }

@@ -23,7 +23,9 @@
                                 action="/files"
                                 elname="file"
                                 scope="private"
+                                field="cap-property"
                                 path="/ownership/"
+                                multi="no"
                                 flat="true"
                                 type="single-dust">
                             </uploads-component>

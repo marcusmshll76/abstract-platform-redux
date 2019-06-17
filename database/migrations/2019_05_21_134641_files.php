@@ -15,10 +15,11 @@ class Files extends Migration
     {
         Schema::create('files', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('title');
-            $table->string('path');
-            $table->double('size', 8, 2)->default(0);
-            $table->unsignedInteger('auth_by');
+            $table->unsignedInteger('user')->nullable();
+            $table->string('name')->nullable();
+            $table->string('field')->nullable();
+            $table->string('path')->nullable();
+            $table->string('status')->default('unverified');
             $table->timestamps();
         });
     }
@@ -30,6 +31,6 @@ class Files extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('files');
     }
 }

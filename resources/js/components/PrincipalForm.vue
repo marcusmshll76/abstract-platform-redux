@@ -1,15 +1,29 @@
 <template>
 <div>
+<Spin v-if="loading">
+    <Icon type="ios-loading" size="18" class="spin-icon-load"></Icon>
+    <div> {{ loadingtext }} </div>
+</Spin>
+<div v-else>
+<div class="card grey">
+<div class="card-content">
 <div class="principal-section">
     <Form ref="addPrincipal" :model="create" :rules="ruleValidate" v-if="!preview">
+        <div class="margin-bottom-m border-bottom full-width">
+            <input v-model="check" type="checkbox">
+            <span class="checkbox-p">Check this box to quickly add any Principals you have already attached to your account during Abstract’s Account Set Up. You can also manually add in other Princpals from your team below. </span>
+            <br/><br/>
+        </div>
         <div class="row margin-top-l">
             <div class="col-xs-12 col-sm-4">
                 <uploads
                     type="single"
+                    title="Upload Photo"
                     action="/files"
                     elname="image"
                     scope="private"
-                    title="Upload Photo"
+                    :field="'principles' + mndex"
+                    multi="no"
                     :path="'/fund/principles/' + mndex + '/'"
                     @done="successUpload">
                 </uploads>
@@ -36,7 +50,7 @@
      </Form>
 
     <Form>
-     <div class="push-top-card" v-if="formDynamic">
+     <div class="push-top-card" :style="[!preview ? {'padding-top' : '60px'} : {}]" v-if="formDynamic">
         <div class="card margin-top-m" v-for="(item, index) in formDynamic" :key="index" v-if="item.status">
             <div class="card-content">
                 <div class="row">
@@ -46,9 +60,11 @@
                                 iname="Single"
                                 scope="private"
                                 :user="user"
-                                :path="'/fund/principles/' + mndex + '/'"
-                                :index="index">
+                                :field="'principles' + parseInt(index + 1)"
+                                :path="'/fund/principles/' + parseInt(index + 1) + '/'"
+                                :index="0">
                             </previews>
+                            <br/><br/>
                         </div>
                         <div class="content-form">
                             <div class="row">
@@ -62,7 +78,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="margin-top-m"><a @click="handleRemove(index)">Remove</a></div>
+                        <div class="margin-top-m cursor-hand"><a @click="handleRemove(index)">Remove</a></div>
                     </div>
                     <div class="col-xs-12 col-sm-7 col-md-offset-1">
                         <p class="no-margin-top">Principle Bio</p>
@@ -73,6 +89,9 @@
         </div>
         </div>
     </Form>
+</div>
+</div>
+</div>
 </div>
 <div class="row">
     <div class="col-xs-12">
@@ -97,7 +116,10 @@ export default {
     },
     data() {
         return {
+            check: false,
             mndex: 1,
+            loading: false,
+            loadingtext: 'Pulling existing principles, hold on',
             formDynamic: [],
             create: {
                 bio: '',
@@ -120,25 +142,50 @@ export default {
             }
         }
     },
+    watch: {
+        check: function (val) {
+          val === true ? this.getPrinciples() : ''
+        }
+    },
     created () {
         this.initData()
-        console.log(this.data)
     },
     methods: {
+        getPrinciples () {
+            var self = this
+            self.loading = true
+            self.loadingtext = 'Pulling existing principles, hold on'
+            axios
+            .get(config.getPrinciples)
+            .then(function(resp) {
+            if (resp.data.status === 200) {
+                let a = JSON.parse(resp.data.response)
+                self.loading = false
+                a.map(function (x) {
+                    self.formDynamic.push(x)
+                });
+            } else {
+                self.loadingtext = 'You have no existing principles';
+                setTimeout(function(){ 
+                    self.loading = false
+                }, 2000);
+            }
+            })
+            .catch(function(error) {
+                return error
+            });
+        },
         initData() {
             this.data == '' || this.data == 'null' ? '' : this.formDynamic = JSON.parse(this.data)
             this.formDynamic.length ? this.mndex = this.formDynamic.length + 1 : ''
         },
         handleSubmit(e) {
             var self = this
-            console.log('called')
-            console.log(self.formDynamic)
             axios
                 .post(config.host + self.url, {
                     'principles': JSON.stringify(self.formDynamic)
                 })
                 .then(function(resp) {
-                    console.log(resp)
                     resp.request.status === 200 && self.next === 'yes' && e === 'next' ? window.location.href = resp.data : ''
                 })
                 .catch(function(error) {
@@ -159,7 +206,7 @@ export default {
                     this.formDynamic.push(p)
                     this.$refs[name].resetFields()
                     this.mndex++
-                    this.handleSubmit()
+                    this.handleSubmit('blur')
                 } else {
                     this.$Message.error('Fail!');
                 }
@@ -172,7 +219,8 @@ export default {
                 okText: 'Delete',
                 cancelText: 'Cancel',
                 onOk: () => {
-                    this.formDynamic[index].status = 0;
+                    this.formDynamic.splice(index, 1);
+                    this.handleSubmit('blur')
                 },
                 onCancel: () => {}
             });
@@ -193,13 +241,16 @@ export default {
     color: rgb(255, 0, 0);
     cursor: pointer;
 }
-.push-top-card{
-    margin-top: 120px;
-}
 .push-top-card .card{
      padding: 30px;
 }
 .push-top-card .card .textarea{
     min-height: 95%;
+}
+input[type="checkbox"]{
+    background: #283F5C;
+}
+input[type="checkbox"]:checked{
+    background: #283F5C url("/img/icon-check-white.svg") no-repeat center !important;
 }
 </style>

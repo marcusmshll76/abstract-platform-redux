@@ -49,16 +49,7 @@ class SecurityFlow extends Controller
     }
 
     public function meetSponsors (Request $request) {
-        $userid = Auth::id();
-        $principles = DB::table('security_flow_property')
-            ->where('userid', $userid)
-            ->select('principles')
-            ->first();
-        $savedData = $request->session()->get('security-flow');
-        $principles == null ? $principles = array() : '';
-        $data = array_merge($savedData, $principles);
-
-        return view( 'security-flow.step-6.meet-sponsors', [ 'title' => 'Create Digital Security > Meet the Sponsors' ] )->with(compact('data'));
+        return view( 'security-flow.step-6.meet-sponsors', [ 'title' => 'Create Digital Security > Meet the Sponsors' ] )->with('data', $request->session()->get('security-flow'));
     }
 
     public function preview (Request $request) {
@@ -75,6 +66,10 @@ class SecurityFlow extends Controller
         return view( 'security-flow.step-7.final', [ 'title' => 'Create Digital Security > Preview & Submit' ] )->with(compact('data', 'bio'));
     }
 
+    public function display (Request $request) {
+        dd($request->session()->get('account-settings.principles'));
+    }
+
     // Save Data into a session
     public function saveData (Request $request, $e) {
         
@@ -83,9 +78,11 @@ class SecurityFlow extends Controller
             $session_data = array_merge( $session_data, $_POST );
             session( [ 'security-flow' => $session_data ] );
         } else {
-            $session_data = session( 'security-flow', array() );
-            $session_data = array_merge( $session_data, $request->all() );
-            session( [ 'security-flow' => $session_data ] );
+            if ($e === 'keyPoints') {
+                $request->session()->put('security-flow.key-points', $request->get('key-point'));
+            } else if ($e === 'meetSponsors') {
+                $request->session()->put('security-flow.principles', $request->get('principles'));
+            }
         }
        
 
@@ -115,11 +112,11 @@ class SecurityFlow extends Controller
 
     // Submit Preview Data
     public function submitPreview(Request $request) {
-
+        
         $session_data = session( 'security-flow', array() );
         $session_data = array_merge( $session_data, $_POST );
         session( [ 'security-flow' => $session_data ] );
-
+        
         $this->validate($request, [
             'target-investor-irr' => 'required',
             'investment-profile' => 'required',
@@ -169,21 +166,18 @@ class SecurityFlow extends Controller
             'preferred-equity' => 'required',
             'common-equity' => 'required',
             'mezzanine-debt' => 'required',
-            'senior-debt' => 'required',
-            'principle-bio' => 'required',
-            'principle-full-name' => 'required',
-            'principle-title' => 'required'
+            'senior-debt' => 'required'
         ]);
 
-        if (isset($request->session()->get('security-flow')['key-point'])) {
-            $keyPoints = $request->session()->get('security-flow')['key-point'];
+        if (!empty($request->session()->get('security-flow.key-points'))) {
+            $keyPoints = $request->session()->get('security-flow.key-points');
         }
 
-        if (isset($request->session()->get('security-flow')['principles'])) {
-            $principles = $request->session()->get('security-flow')['principles'];
+        if (!empty($request->session()->get('security-flow.principles'))) {
+            $principles = $request->session()->get('security-flow.principles');
         }
 
-        if (isset($keyPoints) && isset($principles)) {
+        if (isset($keyPoints) && !empty(json_encode($principles))) {
             $userid = Auth::id();
             $payload = array(
                 'userid' => $userid,
@@ -241,6 +235,7 @@ class SecurityFlow extends Controller
             );
 
             DB::table('security_flow_property')->insert($payload);
+            $request->session()->forget('security-flow');
             return view( 'security-flow.step-7.final', [ 'title' => 'Security Flow -> Preview & Submit', 'success' => true ] );
 
         } else {

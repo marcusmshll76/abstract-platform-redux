@@ -45,15 +45,6 @@ class AccountSettingsController extends Controller {
         return view( 'account-settings.principles', [ 'title' => 'Account Settings -> Meet The Principles'] )->with('data', $request->session()->get('account-settings'));
     }
 
-    public function createPrinciples(Request $request) {    
-
-        $session_data = session( 'account-settings', array() );
-        $session_data = array_merge( $session_data, $_POST );
-        session( [ 'account-settings' => $session_data ] );
-
-        return redirect('/account-settings/verification/references');
-    }
-
     public function references(Request $request) {
         return view( 'account-settings.references', [ 'title' => 'Account Settings -> Professional References' ] )->with('data', $request->session()->get('account-settings'));
     }
@@ -76,6 +67,66 @@ class AccountSettingsController extends Controller {
         $session_data = array_merge( $session_data, $_POST );
         session( [ 'account-settings' => $session_data ] );
         return redirect('/account-settings/verification/preview');
+    }
+
+    public function getPrinciples(Request $request) {
+        $userid = Auth::id();
+        $principles = DB::table('account_verification')
+            ->where('userid', $userid)
+            ->select('principles')
+            ->first();
+        if ($principles) {
+            return response()->json([
+                'message' => 'Account Settings Principles',
+                'response' => $principles->principles,
+                'status' => 200
+            ]);
+        } else {
+            return response()->json([
+                'message' => 'Failed',
+                'status' => 490
+            ]);
+        }
+    }
+
+    // Save Data into a session
+    public function saveData (Request $request, $e) {
+        
+        if ($e != 'principles' && $e != 'meetSponsors') {
+            $session_data = session( 'account-settings', array() );
+            $session_data = array_merge( $session_data, $_POST );
+            session( [ 'account-settings' => $session_data ] );
+        } else {
+            if ($e === 'keyPoints') {
+                $request->session()->put('account-settings.key-points', $request->get('key-point'));
+            } else if ($e === 'principles') {
+                $request->session()->put('account-settings.principles', $request->get('principles'));
+            }
+        }
+       
+
+        switch ($e) {
+            case "details":
+                return redirect('/account-settings/step-1/highlights');
+                break;
+            case "highlights":
+                return redirect('/account-settings/step-2/ownership');
+                break;
+            case "ownership":
+                return redirect('/account-settings/step-3/diligence');
+                break;
+            case "keyPoints":
+                return ('/account-settings/step-5/capital-stack');
+                break;
+            case "capitalStack":
+                return redirect('/account-settings/step-6/meet-sponsors');
+                break;
+            case "principles":
+                return ('/account-settings/verification/references');
+                break;
+            default:
+                return redirect('/account-settings/step-1/choose');
+        }
     }
 
     /*******************
@@ -112,9 +163,6 @@ class AccountSettingsController extends Controller {
             'portfolio_activity_amount' => 'required',
             'assets_under_management' => 'required',
             'square_feet_managed' => 'required',
-            'principle_company_name' => 'required',
-            'principle_company_website' => 'required',
-            'principle_website' => 'required',
             'reference_type_1' => 'required',
             'reference_name_1' => 'required',
             'reference_phone_1' => 'required',
@@ -133,52 +181,57 @@ class AccountSettingsController extends Controller {
             'reference_email_4' => 'required|email'
         ]);
         
-        $userid = Auth::id();
-        $payload = array(
-            'userid' => $userid,
-            'company_name' => $request->get('company_name'),
-            'company_website' => $request->get('company_website'),
-            'first_name' => $request->get('first_name'),
-            'work_phone' => $request->get('work_phone'),
-            'company_address' => $request->get('company_address'),
-            'company_address_2' => $request->get('company_address_2'),
-            'last_name' => $request->get('last_name'),
-            'mobile' => $request->get('mobile'),
-            'city' => $request->get('city'),
-            'state' => $request->get('state'),
-            'zip' => $request->get('zip'),
-            'email' => $request->get('email'),
-            'job_title' => $request->get('job_title'),
-            'tin' => $request->get('tin'),
-            'country' => $request->get('country'),
-            'bio' => $request->get('bio'),
-            'portfolio_activity_amount' => $request->get('portfolio_activity_amount'),
-            'assets_under_management' => $request->get('assets_under_management'),
-            'square_feet_managed' => $request->get('square_feet_managed'),
-            'principle_company_name' => $request->get('principle_company_name'),
-            'principle_company_website' => $request->get('principle_company_website'),
-            'principle_website' => $request->get('principle_website'),
-            'reference_type_1' => $request->get('reference_type_1'),
-            'reference_name_1' => $request->get('reference_name_1'),
-            'reference_phone_1' => $request->get('reference_phone_1'),
-            'reference_email_1' => $request->get('reference_email_1'),
-            'reference_type_2' => $request->get('reference_type_2'),
-            'reference_name_2' => $request->get('reference_name_2'),
-            'reference_phone_2' => $request->get('reference_phone_2'),
-            'reference_email_2' => $request->get('reference_email_2'),
-            'reference_type_3' => $request->get('reference_type_3'),
-            'reference_name_3' => $request->get('reference_name_3'),
-            'reference_phone_3' => $request->get('reference_phone_3'),
-            'reference_email_3' => $request->get('reference_email_3'),
-            'reference_type_4' => $request->get('reference_type_4'),
-            'reference_name_4' => $request->get('reference_name_4'),
-            'reference_phone_4' => $request->get('reference_phone_4'),
-            'reference_email_4' => $request->get('reference_email_4'),
-        );
+        if (!empty($request->session()->get('account-settings.principles'))) {
+            $principles = $request->session()->get('account-settings.principles');
+        }
 
-        DB::table('account_verification')->insert($payload);
-        
-        return view( 'account-settings.preview', [ 'title' => 'Account Settings -> Preview', 'success' => true ] );
+        if (!empty(json_encode($principles))) {
+            $userid = Auth::id();
+            $payload = array(
+                'userid' => $userid,
+                'company_name' => $request->get('company_name'),
+                'company_website' => $request->get('company_website'),
+                'first_name' => $request->get('first_name'),
+                'work_phone' => $request->get('work_phone'),
+                'company_address' => $request->get('company_address'),
+                'company_address_2' => $request->get('company_address_2'),
+                'last_name' => $request->get('last_name'),
+                'mobile' => $request->get('mobile'),
+                'city' => $request->get('city'),
+                'state' => $request->get('state'),
+                'zip' => $request->get('zip'),
+                'email' => $request->get('email'),
+                'job_title' => $request->get('job_title'),
+                'tin' => $request->get('tin'),
+                'country' => $request->get('country'),
+                'bio' => $request->get('bio'),
+                'portfolio_activity_amount' => $request->get('portfolio_activity_amount'),
+                'assets_under_management' => $request->get('assets_under_management'),
+                'square_feet_managed' => $request->get('square_feet_managed'),
+                'principles' => $principles,
+                'reference_type_1' => $request->get('reference_type_1'),
+                'reference_name_1' => $request->get('reference_name_1'),
+                'reference_phone_1' => $request->get('reference_phone_1'),
+                'reference_email_1' => $request->get('reference_email_1'),
+                'reference_type_2' => $request->get('reference_type_2'),
+                'reference_name_2' => $request->get('reference_name_2'),
+                'reference_phone_2' => $request->get('reference_phone_2'),
+                'reference_email_2' => $request->get('reference_email_2'),
+                'reference_type_3' => $request->get('reference_type_3'),
+                'reference_name_3' => $request->get('reference_name_3'),
+                'reference_phone_3' => $request->get('reference_phone_3'),
+                'reference_email_3' => $request->get('reference_email_3'),
+                'reference_type_4' => $request->get('reference_type_4'),
+                'reference_name_4' => $request->get('reference_name_4'),
+                'reference_phone_4' => $request->get('reference_phone_4'),
+                'reference_email_4' => $request->get('reference_email_4'),
+            );
+
+            DB::table('account_verification')->insert($payload);
+            return view( 'account-settings.preview', [ 'title' => 'Account Settings -> Preview', 'success' => true ] );
+        } else {
+            return view( 'account-settings.preview', [ 'title' => 'Account Settings -> Preview', 'error' => true ] );
+        }
     }
 
     public function wallets() {
