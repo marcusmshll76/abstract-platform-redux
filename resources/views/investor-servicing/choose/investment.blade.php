@@ -24,9 +24,18 @@
                                 <div class="marketplace-card-image porperty-image">
                                     <div class="marketplace-card-image-description">
                                         <h5>{{ $investment->name }}</h5>
-                                        <p>{{ isset($investment->fakeType) &&  $investment->fakeType === 'property' ? 'Property digital security' : 'Fund digital security' }}</p>
+                                        <p>
+                                        @if (isset($investment->fakeType) &&  $investment->fakeType === 'property')
+                                            Property digital security
+
+                                        @elseif (isset($investment->fakeType) &&  $investment->fakeType === 'sproperty')
+                                            Property
+                                        @else
+                                            Fund digital security
+                                        @endif
+                                        </p>
                                     </div>
-                                    @if ($investment->fakeType !== 'property')
+                                    @if ($investment->fakeType === 'fund')
                                         <file-preview
                                             iname="Single"
                                             scope="private"
@@ -37,7 +46,7 @@
                                         </file-preview>
                                     </div>
                                     <a href="{{'/investor-servicing/cap-table-mgmt/'. $investment->fakeType. '/'.strtolower(str_random(100)). '/' .$investment->id }}" class="btn full-width margin-top-s color-white">Select</a>
-                                    @else
+                                    @elseif ($investment->fakeType === 'property')
                                         <file-preview
                                             iname="Single"
                                             scope="private"
@@ -46,9 +55,19 @@
                                             path="/digital-security/photo-gallery/"
                                             index="0">
                                         </file-preview>
-
-                                </div>
-                                <a href="{{'/investor-servicing/cap-table-mgmt/'. $investment->fakeType. '/'.strtolower(str_random(100)). '/' .$investment->id }}" class="btn full-width margin-top-s color-white">Select</a>
+                                    </div>
+                                    <a href="{{'/investor-servicing/cap-table-mgmt/'. $investment->fakeType. '/'.strtolower(str_random(100)). '/' .$investment->id }}" class="btn full-width margin-top-s color-white">Select</a>
+                                    @elseif ($investment->fakeType === 'sproperty')
+                                        <file-preview
+                                            iname="Single"
+                                            scope="private"
+                                            user="{{Auth::id()}}"
+                                            field="property-image"
+                                            path="/property/images/"
+                                            index="0">
+                                        </file-preview>
+                                    </div>
+                                    <a href="{{'/investor-servicing/cap-table-mgmt/'. $investment->fakeType. '/'.strtolower(str_random(100)). '/' .$investment->id }}" class="btn full-width margin-top-s color-white">Select</a>
                                 @endif
                             </div>
                             @endforeach

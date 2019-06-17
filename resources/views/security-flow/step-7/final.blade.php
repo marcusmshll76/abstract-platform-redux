@@ -19,7 +19,7 @@
         <h5>Preview & Submit</h5></div>
     <div class="card-content">
             <h5>Final Review</h5>
-            <p>Plesae review and ensure all information provided it is correct. To make changes, click the Edit link in the section you wish to change. Hit Submit at the bottom of the page when you are ready to send in your digital security for review.</p>
+            <p>Please review and ensure all information provided it is correct. To make changes, click the Edit link in the section you wish to change. Hit Submit at the bottom of the page when you are ready to send in your digital security for review.</p>
             <div class="card grey margin-bottom-m">
                 <div class="card-title blue has-button">
                     <h5>Presented By:</h5>

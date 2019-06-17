@@ -154,6 +154,8 @@ Route::post('/security-fund-flow/step-5/create/{capitalStack?}', 'SecurityFundFl
 Route::post('/security-fund-flow/step-6/create/{meetSponsors?}', 'SecurityFundFlow@saveData');
 Route::post('/security-fund-flow/step-7/create/preview', 'SecurityFundFlow@submitPreview');
 
+// Property
+Route::post('/property/create/new', 'Property@submitPreview');
 
 /*******************
     * ******* Investor Servicing
@@ -163,7 +165,7 @@ Route::get('/investor-servicing/choose-investment', 'InvestorServicingController
 Route::get('/investor-servicing/cap-table-mgmt/{type?}/{rand?}/{id?}', 'InvestorServicingController@captable');
 Route::get('/investor-servicing/distributions', 'InvestorServicingController@distributions');
 Route::get('/investor-servicing/reports', 'InvestorServicingController@reports');
-Route::get('/investor-servicing/upload-new-property', 'InvestorServicingController@newProperty');
+Route::get('/investor-servicing/upload-new-property', 'Property@newProperty');
 Route::get('/investor-servicing/tax-document', 'InvestorServicingController@tax');
 Route::get('/investor-servicing/dst-reports', 'InvestorServicingController@dst');
 

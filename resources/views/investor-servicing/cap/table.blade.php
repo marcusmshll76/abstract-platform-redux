@@ -61,21 +61,21 @@
                                         <th>Price Per</th>
                                         <th>Value</th> -->
                                     </tr>
-                                    @if ($data->fn)
+                                    @if (isset($data->fn))
                                     <tr>
                                         <td data-th="Investor Name">{{ $data->fn.  ' '  .$data->ln }}</td>
                                         <!-- <td data-th="Entity Name if Applicable"></td> -->
                                         <td data-th="% Held">{{ $data->ow }}</td>
                                     </tr>
                                     @endif
-                                    @if ($data->fn1)
+                                    @if (isset($data->fn1))
                                     <tr>
                                         <td data-th="Investor Name">{{ $data->fn1.  ' '  .$data->ln1 }}</td>
                                         <!-- <td data-th="Entity Name if Applicable"></td> -->
                                         <td data-th="% Held">{{ $data->ow1 }}</td>
                                     </tr>
                                     @endif
-                                    @if ($data->fn2)
+                                    @if (isset($data->fn2))
                                     <tr>
                                         <td data-th="Investor Name">{{ $data->fn2.  ' '  .$data->ln2 }}</td>
                                         <!-- <td data-th="Entity Name if Applicable"></td> -->
