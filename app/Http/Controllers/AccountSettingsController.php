@@ -225,6 +225,8 @@ class AccountSettingsController extends Controller {
                 'reference_name_4' => $request->get('reference_name_4'),
                 'reference_phone_4' => $request->get('reference_phone_4'),
                 'reference_email_4' => $request->get('reference_email_4'),
+                "created_at" =>  \Carbon\Carbon::now(),
+                "updated_at" => \Carbon\Carbon::now()
             );
 
             DB::table('account_verification')->insert($payload);

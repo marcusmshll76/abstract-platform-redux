@@ -69,6 +69,7 @@ class SecurityFundFlow extends Migration
             $table->string('existing-properties')->nullable();
             $table->text('principles')->nullable();
             $table->string('key-points')->nullable();
+            $table->string('status')->default('Not Approved');
             $table->timestamps();
         });
     }

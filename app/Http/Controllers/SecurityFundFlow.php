@@ -241,7 +241,9 @@ class SecurityFundFlow extends Controller
                 'developed' => $request->get('developed'),
                 'existing-properties' => $request->get('existing-properties'),
                 'principles' => json_encode($principles),
-                'key-points' => $keyPoints
+                'key-points' => $keyPoints,
+                "created_at" =>  \Carbon\Carbon::now(),
+                "updated_at" => \Carbon\Carbon::now()
             );
 
             DB::table('security_fund_flow')->insert($payload);
