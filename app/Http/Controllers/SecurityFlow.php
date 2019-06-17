@@ -116,8 +116,22 @@ class SecurityFlow extends Controller
         $session_data = session( 'security-flow', array() );
         $session_data = array_merge( $session_data, $_POST );
         session( [ 'security-flow' => $session_data ] );
-        
-        $this->validate($request, [
+
+        $capRule = [];
+        if(empty($request->session()->get('docsRead'))) {
+            $capRule = [
+                'investor-first-name' => 'required',
+                'investor-last-name' => 'required',
+                'ownership' => 'required',
+                'investor-first-name-1' => 'required',
+                'investor-last-name-1' => 'required',
+                'ownership-1' => 'required',
+                'investor-first-name-2' => 'required',
+                'investor-last-name-2' => 'required',
+                'ownership-2' => 'required',
+            ];
+        }
+        $rules = [
             'target-investor-irr' => 'required',
             'investment-profile' => 'required',
             'funds-due' => 'required',
@@ -149,15 +163,6 @@ class SecurityFlow extends Controller
             'payoff_date' => 'required',
             'loan-type' => 'required',
             'developed' => 'required',
-            'investor-first-name' => 'required',
-            'investor-last-name' => 'required',
-            'ownership' => 'required',
-            'investor-first-name-1' => 'required',
-            'investor-last-name-1' => 'required',
-            'ownership-1' => 'required',
-            'investor-first-name-2' => 'required',
-            'investor-last-name-2' => 'required',
-            'ownership-2' => 'required',
             'pro-frorma-noi' => 'required',
             'distribution-frequency' => 'required',
             'equity-raise-floor-amount' => 'required',
@@ -167,7 +172,10 @@ class SecurityFlow extends Controller
             'common-equity' => 'required',
             'mezzanine-debt' => 'required',
             'senior-debt' => 'required'
-        ]);
+        ];
+        $rules = array_merge( $rules, $capRule);
+        
+        $this->validate($request, $rules);
 
         if (!empty($request->session()->get('security-flow.key-points'))) {
             $keyPoints = $request->session()->get('security-flow.key-points');
@@ -175,6 +183,12 @@ class SecurityFlow extends Controller
 
         if (!empty($request->session()->get('security-flow.principles'))) {
             $principles = $request->session()->get('security-flow.principles');
+        }
+
+        if (!empty($request->session()->get('docsRead'))) {
+            $docsRead = json_encode($request->session()->get('docsRead'));
+        } else {
+            $docsRead = '';
         }
 
         if (isset($keyPoints) && !empty(json_encode($principles))) {
@@ -231,6 +245,7 @@ class SecurityFlow extends Controller
                 'mezzanine-debt' => $request->get('mezzanine-debt'),
                 'senior-debt' => $request->get('senior-debt'),
                 'principles' => json_encode($principles),
+                'captables' => $docsRead,
                 'key-points' => $keyPoints,
                 "created_at" =>  \Carbon\Carbon::now(),
                 "updated_at" => \Carbon\Carbon::now()

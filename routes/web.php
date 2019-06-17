@@ -179,7 +179,7 @@ Route::resource('files', 'FilesController', ['only' => ['store']]);
 // Diligence
 Route::get('/files/diligence/check', 'FilesController@checkDir');
 // Test Files
-Route::get('/testCap', 'FilesController@readDocFiles');
+Route::get('/testCap', 'InvestorServicingController@getSession');
 
 /*******************
     * ******* Box API

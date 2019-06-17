@@ -56,6 +56,9 @@ class InvestorServicingController extends Controller {
             return redirect('/investor-servicing/choose-investment');
         }
     }
+    public function getSession(Request $request) {
+        return $request->session()->get('docsRead');
+    }
 
     public function distributions() {
         return view( 'investor-servicing.distributions.index', [ 'title' => 'Distributions > Investor Servicing'] );

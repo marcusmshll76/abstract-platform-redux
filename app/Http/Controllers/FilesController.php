@@ -73,30 +73,56 @@ class FilesController extends Controller
             $filePath = 'public/' . $request->get('structure') . $allfiles;
         }
         
-        // Storage::disk('s3')->put($filePath, file_get_contents($file));
+        Storage::disk('s3')->put($filePath, file_get_contents($file));
 
         $ext = pathinfo($filePath, PATHINFO_EXTENSION);
-        if ($ext == '.csv' || $ext == '.ods' || $ext == '.xlsx') {
-            // return $this->readDocFiles($file->getPathName());
+        if ($ext == 'csv' || $ext == 'ods' || $ext == 'xlsx' || $ext == 'XLSX') {
+            Storage::disk('local')->put($filePath, file_get_contents($file));
+            $r =  $this->readDocFiles($filePath);
+            $request->session()->put('docsRead', $r);   
         }
 
         return response()->json([
             'message' => 'File uploaded successfully',
-            'response' => $ext,
+            'response' => $payload,
             'status' => 200
         ]);
     }
-    public function readDocFiles($file) {
+
+    public function readDocFiles($path) {
+        $file = storage_path('app/' . $path);
         $reader = ReaderEntityFactory::createReaderFromFile($file);
         $reader->open($file);
+
         $cells = array();
+        $columns = array();
         foreach ($reader->getSheetIterator() as $sheet) {
             foreach ($sheet->getRowIterator() as $row) {
-                array_push($cells, $row->getCells());
+                foreach ($sheet->getRowIterator() as $count => $row) {
+                    $rowData = array();
+                    if ($count > 1) {
+                        foreach ($row->getCells() as $key => $a) { 
+                            array_push($rowData, $a->getValue());
+                        }
+                        array_push($cells, $rowData);
+                    } else {
+                        foreach ($row->getCells() as $key => $a) { 
+                            array_push($columns, $a->getValue());
+                        }
+                    }
+                }
             }
         }
         $reader->close();
-        return $cells;
+        Storage::disk('local')->delete($file);
+        return response()->json([
+            'message' => 'File Read successfully',
+            'response' => [
+                'columns' => $columns,
+                'rows' => $cells
+            ],
+            'status' => 200
+        ]);  
     }
 
     // Retrieve Files

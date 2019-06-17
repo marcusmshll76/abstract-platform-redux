@@ -56,6 +56,7 @@ class SecurityFlowProperty extends Migration
             $table->string('investor-first-name-2')->nullable();
             $table->string('investor-last-name-2')->nullable();
             $table->string('ownership-2')->nullable();
+            $table->text('captables')->nullable();
             $table->string('pro-frorma-noi')->nullable();
             $table->string('distribution-frequency')->nullable();
             $table->string('equity-raise-floor-amount')->nullable();
