@@ -6,7 +6,7 @@
     <div class="card-title blue">
         <h5>Choose or Upload New Property</h5></div>
     <div class="card-content">
-        <p>Add a new Property or choose an Approved Property below to utilize our automated Investor Servicing portal. </p>
+        <p>Add a new Property or choose an Approved Property below to utilize our automated Investor Servicing portal.</p>
         <div class="card grey margin-top-m">
             <div class="card-content">
                 <div class="row">
@@ -17,39 +17,46 @@
                         <a  href="/investor-servicing/upload-new-property" class="btn full-width margin-top-s color-white">Upload New</a>
                     </div>
                     <div class="col-xs-12 col-sm-8">
+                        @if (!empty($data))
                         <div class="owl-carousel owl-theme slider-two-item">
                             @foreach ($data as $key=>$investment)
                             <div class="item">
                                 <div class="marketplace-card-image porperty-image">
                                     <div class="marketplace-card-image-description">
                                         <h5>{{ $investment->name }}</h5>
-                                        <p>{{ isset($investment->p) ? 'Property digital security' : 'Fund digital security' }}</p>
+                                        <p>{{ isset($investment->fakeType) &&  $investment->fakeType === 'property' ? 'Property digital security' : 'Fund digital security' }}</p>
                                     </div>
-                                    @if ($investment->f)
+                                    @if ($investment->fakeType !== 'property')
                                         <file-preview
-                                            iname="Single" 
+                                            iname="Single"
                                             scope="private"
                                             user="{{Auth::id()}}"
+                                            field="fund-digital-security"
                                             path="/digital-security/fund/photo-gallery/"
-                                            index="{{ $key }}">
+                                            index="0">
                                         </file-preview>
                                     </div>
-                                    <a href="{{'/investor-servicing/cap-table-mgmt/fund/'.$investment->id}}" class="btn full-width margin-top-s color-white">Select</a>
+                                    <a href="{{'/investor-servicing/cap-table-mgmt/'. $investment->fakeType. '/'.strtolower(str_random(100)). '/' .$investment->id }}" class="btn full-width margin-top-s color-white">Select</a>
                                     @else
-                                    <file-preview
-                                        iname="Single" 
-                                        scope="private"
-                                        user="{{Auth::id()}}"
-                                        path="/digital-security/photo-gallery/"
-                                        index="$key">
-                                    </file-preview>
+                                        <file-preview
+                                            iname="Single"
+                                            scope="private"
+                                            user="{{Auth::id()}}"
+                                            field="digital-security"
+                                            path="/digital-security/photo-gallery/"
+                                            index="0">
+                                        </file-preview>
 
                                 </div>
-                                <a href="{{'/investor-servicing/cap-table-mgmt/property/'.$investment->id}}" class="btn full-width margin-top-s color-white">Select</a>
+                                <a href="{{'/investor-servicing/cap-table-mgmt/'. $investment->fakeType. '/'.strtolower(str_random(100)). '/' .$investment->id }}" class="btn full-width margin-top-s color-white">Select</a>
                                 @endif
                             </div>
-                            @endforeach 
+                            @endforeach
                         </div>
+                        @else
+                        <p class="no-margin-top margin-left-s">Choose Approved Property or Digital Security:</p>
+                        <p class="margin-left-s margin-top-l">You have no APPROVED Properties or Digital Securities.</p>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -81,6 +88,6 @@
     action="Got It!">
 </popup-component>
 @endsection
-@section('jquery-js')
+@section('jquery-js-top')
     <script src="/js/owl.carousel.min.js"></script>
 @stop

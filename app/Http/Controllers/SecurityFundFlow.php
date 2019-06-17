@@ -113,6 +113,20 @@ class SecurityFundFlow extends Controller
         session( [ 'security-fund-flow' => $session_data ] );
 
         // Validations
+        $capRule = [];
+        if(empty($request->session()->get('docsRead'))) {
+            $capRule = [
+                'investor-first-name' => 'required',
+                'investor-last-name' => 'required',
+                'ownership' => 'required',
+                'investor-first-name-1' => 'required',
+                'investor-last-name-1' => 'required',
+                'ownership-1' => 'required',
+                'investor-first-name-2' => 'required',
+                'investor-last-name-2' => 'required',
+                'ownership-2' => 'required',
+            ];
+        }
         $condRule = [];
         if ($request->get('fund-type') === 'Yes') {
             $condRule = [
@@ -156,15 +170,6 @@ class SecurityFundFlow extends Controller
             'zip' => 'required',
             'country' => 'required',
             'fund-description' => 'required',
-            'investor-first-name' => 'required',
-            'investor-last-name' => 'required',
-            'ownership' => 'required',
-            'investor-first-name-1' => 'required',
-            'investor-last-name-1' => 'required',
-            'ownership-1' => 'required',
-            'investor-first-name-2' => 'required',
-            'investor-last-name-2' => 'required',
-            'ownership-2' => 'required',
             'minimum-raise-amount' => 'required',
             'distribution-frequency' => 'required',
             'maximum-raise-amount' => 'required',
@@ -174,7 +179,7 @@ class SecurityFundFlow extends Controller
             'mezzanine-debt' => 'required',
             'senior-debt' => 'required'
         ];
-        $rules = array_merge( $rules, $condRule );
+        $rules = array_merge( $rules, $condRule, $capRule);
         $this->validate($request, $rules);
         
         if (!empty($request->session()->get('security-fund-flow.key-points'))) {
@@ -183,6 +188,12 @@ class SecurityFundFlow extends Controller
 
         if (!empty($request->session()->get('security-fund-flow.principles'))) {
             $principles = $request->session()->get('security-fund-flow.principles');
+        }
+
+        if (!empty($request->session()->get('docsRead'))) {
+            $docsRead = json_encode($request->session()->get('docsRead'));
+        } else {
+            $docsRead = '';
         }
 
         if (isset($keyPoints) && isset($principles)) {
@@ -242,6 +253,7 @@ class SecurityFundFlow extends Controller
                 'existing-properties' => $request->get('existing-properties'),
                 'principles' => json_encode($principles),
                 'key-points' => $keyPoints,
+                'captables' => $docsRead,
                 "created_at" =>  \Carbon\Carbon::now(),
                 "updated_at" => \Carbon\Carbon::now()
             );

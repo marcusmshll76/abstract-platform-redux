@@ -13,8 +13,8 @@
                 <div class="row">
                     <div class="col-xs-12 col-sm-4">
                         <div class="card">
-                            <div class="card-title blue">
-                                <h5>Ownership Allocation for Castle Stone</h5></div>
+                            <div class="card-title blue remove-list-height">
+                                <h5>Ownership Allocation for {{ isset($data) ? $data->name : '' }}</h5></div>
                             <div class="card-content">
                                 <!-- type="cap table" -->
                                 <pie-chart type="empty" data="{{ isset($data) ? json_encode($data) : '' }}"></pie-chart>
@@ -39,31 +39,31 @@
                                     <tr class="head-row">
                                         <th>Investor Name</th>
                                         <th>% Held</th>
-                                        <th>Digital Securities Held</th>
+                                        <!-- <th>Digital Securities Held</th>
                                         <th>Price Per</th>
-                                        <th>Value</th>
+                                        <th>Value</th> -->
                                     </tr>
+                                    @if ($data->fn)
                                     <tr>
-                                        <td data-th="Investor Name">Carl Berg</td>
-                                        <td data-th="% Held">45</td>
-                                        <td data-th="Digital Securities Held">45,000,000</td>
-                                        <td data-th="Price Per">$0.1</td>
-                                        <td data-th="Value">$450,000</td>
+                                        <td data-th="Investor Name">{{ $data->fn.  ' '  .$data->ln }}</td>
+                                        <td data-th="% Held">{{ $data->ow }}</td>
                                     </tr>
+                                    @endif
+                                    @if ($data->fn1)
                                     <tr>
-                                        <td data-th="Investor Name">Carl Berg</td>
-                                        <td data-th="% Held">45</td>
-                                        <td data-th="Digital Securities Held">45,000,000</td>
-                                        <td data-th="Price Per">$0.1</td>
-                                        <td data-th="Value">$450,000</td>
+                                        <td data-th="Investor Name">{{ $data->fn1.  ' '  .$data->ln1 }}</td>
+                                        <td data-th="% Held">{{ $data->ow1 }}</td>
                                     </tr>
+                                    @endif
+                                    @if ($data->fn2)
                                     <tr>
-                                        <td data-th="Investor Name">Carl Berg</td>
-                                        <td data-th="% Held">45</td>
-                                        <td data-th="Digital Securities Held">45,000,000</td>
+                                        <td data-th="Investor Name">{{ $data->fn2.  ' '  .$data->ln2 }}</td>
+                                        <td data-th="% Held">{{ $data->ow2 }}</td>
+                                        <!-- <td data-th="Digital Securities Held">45,000,000</td>
                                         <td data-th="Price Per">$0.1</td>
-                                        <td data-th="Value">$450,000</td>
+                                        <td data-th="Value">$450,000</td> -->
                                     </tr>
+                                    @endif
                                 </tbody>
                             </table>
                         </div>

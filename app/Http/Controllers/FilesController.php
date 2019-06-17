@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Box\Spout\Reader\Common\Creator\ReaderEntityFactory;
 
 class FilesController extends Controller
 
@@ -24,6 +25,7 @@ class FilesController extends Controller
             ]);
             $file = $request->file('file');
         }
+
         // File Name
         $filename = time() . str_replace(' ', '', $file->getClientOriginalName());
 
@@ -73,11 +75,54 @@ class FilesController extends Controller
         
         Storage::disk('s3')->put($filePath, file_get_contents($file));
 
+        $ext = pathinfo($filePath, PATHINFO_EXTENSION);
+        if ($ext == 'csv' || $ext == 'ods' || $ext == 'xlsx' || $ext == 'XLSX') {
+            Storage::disk('local')->put($filePath, file_get_contents($file));
+            $r =  $this->readDocFiles($filePath);
+            $request->session()->put('docsRead', $r);   
+        }
+
         return response()->json([
             'message' => 'File uploaded successfully',
             'response' => $payload,
             'status' => 200
         ]);
+    }
+
+    public function readDocFiles($path) {
+        $file = storage_path('app/' . $path);
+        $reader = ReaderEntityFactory::createReaderFromFile($file);
+        $reader->open($file);
+
+        $cells = array();
+        $columns = array();
+        foreach ($reader->getSheetIterator() as $sheet) {
+            foreach ($sheet->getRowIterator() as $row) {
+                foreach ($sheet->getRowIterator() as $count => $row) {
+                    $rowData = array();
+                    if ($count > 1) {
+                        foreach ($row->getCells() as $key => $a) { 
+                            array_push($rowData, $a->getValue());
+                        }
+                        array_push($cells, $rowData);
+                    } else {
+                        foreach ($row->getCells() as $key => $a) { 
+                            array_push($columns, $a->getValue());
+                        }
+                    }
+                }
+            }
+        }
+        $reader->close();
+        Storage::disk('local')->delete($file);
+        return response()->json([
+            'message' => 'File Read successfully',
+            'response' => [
+                'columns' => $columns,
+                'rows' => $cells
+            ],
+            'status' => 200
+        ]);  
     }
 
     // Retrieve Files

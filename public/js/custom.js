@@ -42,7 +42,42 @@ $(document).ready(function() {
     }
   });
 })
-
+$(document).ready(function() {
+  $('.slider-two-item').owlCarousel({
+    items: 2,
+    loop: false,
+    center: false,
+    margin: 20,
+    nav:true,
+    mouseDrag: true,
+    touchDrag: true,
+    callbacks: true,
+    autoHeight:false,
+    URLhashListener: true,
+    autoplayHoverPause: false,
+    startPosition: 'URLHash',
+    autoplay:false,
+    autoplayTimeout:6000,
+    autoplaySpeed:1500,
+    autoplayHoverPause:false,
+    smartSpeed:800,
+    responsiveClass:true,
+    responsive:{
+      0:{
+          items:1,
+          nav:true
+      },
+      600:{
+          items:2,
+          nav:true
+      },
+      1000:{
+          items:2,
+          nav:true
+      },
+    }
+  });
+})
 // Content slide open
 $(document).ready(function () {
   $('#close-search').click(function(){
