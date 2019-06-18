@@ -7,7 +7,7 @@
         <h5>Investor Cap Table</h5>
     </div>
     <div class="card-content">
-        <p>Select a new Distribution Type, fill in the data inputs, then create and preview or hit send. Distributions will be sent to ALL positions tied to the deal.</p>
+        <p>Fill in the Pro Rata data inputs, then hit submit to preview or immediately download a CSV file.  Abstract will alert you within 48 hours when distributions reports are uploaded to the Investor Servicing Portal and ready for your investors to view.</p>
         <div class="card grey margin-top-m">
             <div class="card-content">
                 <form>
@@ -18,11 +18,7 @@
                                 <div class="row">
                                     <div class="col-xs-12">
                                         <div class="square-icon"><img src="/img/icon-water-tap.svg"></div>
-                                        <p>Allocate Waterfall</p>
-                                    </div>
-                                    <div class="col-xs-12">
-                                        <div class="square-icon"><img src="/img/icon-globe.svg"></div>
-                                        <p>Allocate Waterfall</p>
+                                        <p>Allocate Pro-Rata</p>  
                                     </div>
                                 </div>
                             </div>
@@ -50,7 +46,6 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-xs-12">
-                                        <p>*This Distribution will be sent to 7 positions tied to the deal. </p>
                                     </div>
                                 </div>
                                 <div class="row margin-top-m">

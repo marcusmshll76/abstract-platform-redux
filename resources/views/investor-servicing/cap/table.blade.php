@@ -22,7 +22,7 @@
                         </div>
                         <p>Has your cap table changed?</p>
                         <uploads-component
-                                title="Upload New Captable"
+                                title="Upload New Cap Table"
                                 action="/files"
                                 elname="file"
                                 scope="private"
