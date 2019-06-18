@@ -1,10 +1,10 @@
 @extends('investor-servicing.investor-K-1.main-template')
-@section('title', "Investor K-1s > Investor Servicing")
+@section('title', "Tax Documents > Investor Servicing")
 
 @section('body')
 <div class="card margin-top-m">
     <div class="card-title blue">
-        <h5>Investor K-1s</h5>
+        <h5>Tax Documents</h5>
     </div>
     <div class="card-content">
         <p>Choose which tax document you are uploading, choose the year, upload the tax document then hit Submit. Your investor tax documents will be uploaded to the Investor Servicing portal within 48 hours for viewing.</p>

@@ -11,12 +11,25 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::domain('{sub}.abstract.test')->group(function () {
+    /*******************
+        * ******* Investor Servicing, Sub Domain
+    **************/
+    Route::get('/choose-investment', 'SubInvestorServicingController@choose');
+    Route::get('/ownership-snapshot', 'SubInvestorServicingController@ownership');
+    Route::get('/tax-documents', 'SubInvestorServicingController@tax');
+    Route::get('/reports', 'SubInvestorServicingController@reports');
+    Route::get('/dashboard/investors', 'SubInvestorDashboardController@investor');
+    Route::get('/dashboard/bank-account', 'SubInvestorDashboardController@bank');
+    Route::get('/dashboard/electronic-consent', 'SubInvestorDashboardController@consent');
+    Route::get('/dashboard/password-two-factor', 'SubInvestorDashboardController@password');
 });
 
-// Vue Router Fix
-// Route::get('/{any}', 'SinglePageController@index')->where('any', '.*');
+
+Route::get('/', function () {
+    $hostname = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : $_SERVER['SERVER_NAME'];
+    return view('welcome')->with('hostname', explode('.', $hostname, 2)[0]);
+});
 
 // Sessions
 Route::get('/login', 'SessionController@getLogin')->name('login');
@@ -35,7 +48,7 @@ Route::get('/welcome/overview', 'WelcomeController@allSet');
 
 // Sponsors
 Route::get('/sponsor/welcome', 'SponsorController@welcome');
-Route::get('/sponsor-flow/introduction', 'SponsorController@intro');
+Route::get('/sponsor/introduction', 'SponsorController@intro');
 
 // Account Settings
 // Account Verification
@@ -69,6 +82,12 @@ Route::get('/account-settings/privacy', 'AccountSettingsController@privacy');
 Route::post('/account-settings/privacy', 'AccountSettingsController@updatePrivacy');
 Route::get('/account-settings/password', 'AccountSettingsController@passwordAnd2FA');
 Route::post('/account-settings/password', 'AccountSettingsController@updatePassword');
+
+// Get Principles
+Route::get('/principles/get', 'AccountSettingsController@getPrinciples');
+
+// Save Data
+Route::post('/account-settings/create/{principles?}', 'AccountSettingsController@saveData');
 
 
 /*******************
@@ -135,30 +154,67 @@ Route::post('/security-fund-flow/step-5/create/{capitalStack?}', 'SecurityFundFl
 Route::post('/security-fund-flow/step-6/create/{meetSponsors?}', 'SecurityFundFlow@saveData');
 Route::post('/security-fund-flow/step-7/create/preview', 'SecurityFundFlow@submitPreview');
 
+// Property
+Route::post('/property/create/new', 'Property@submitPreview');
 
 /*******************
     * ******* Investor Servicing
 **************/
 Route::get('/investor-servicing/k1', 'InvestorServicingController@k1');
 Route::get('/investor-servicing/choose-investment', 'InvestorServicingController@choose');
-Route::get('/investor-servicing/cap-table-mgmt/{type?}/{data?}', 'InvestorServicingController@captable');
-Route::get('/investor-servicing/distributions', 'InvestorServicingController@distributions');
-Route::get('/investor-servicing/reports', 'InvestorServicingController@reports');
+Route::get('/investor-servicing/cap-table-mgmt/{type?}/{rand?}/{id?}', 'InvestorServicingController@captable');
+Route::get('/investor-servicing/reports/{type?}/{rand?}/{id?}', 'InvestorServicingController@reports');
+Route::get('/investor-servicing/upload-new-property', 'Property@newProperty');
+Route::get('/investor-servicing/tax-document', 'InvestorServicingController@tax');
+Route::get('/investor-servicing/reports/dt/{type?}/{rand?}/{id?}', 'InvestorServicingController@dst');
 
+Route::post('/reports/create/new', 'InvestorServicingController@reportsCreate');
+
+// Distributions
+Route::post('/distributions/create/new', 'Distributions@submitDistributions');
+Route::get('/investor-servicing/distributions/{type?}/{rand?}/{id?}', 'Distributions@distributions');
+Route::get('/investor-servicing/distributions/preview/{type?}/{rand?}/{id?}', 'Distributions@preview');
+Route::post('/distributions/preview/new', 'Distributions@download');
+
+// Tax
+Route::get('/investor-servicing/tax-document/{type?}/{rand?}/{id?}', 'InvestorServicingController@tax');
+Route::post('/tax/create/new', 'InvestorServicingController@taxCreate');
 
 /*******************
     * ******* Files
 **************/
 
 Route::get('/getFiles', 'FilesController@retrieve');
-Route::resource('files', 'FilesController', ['only' => ['store', 'destroy']]);
+Route::get('/destroy/file', 'FilesController@destroy');
+Route::resource('files', 'FilesController', ['only' => ['store']]);
 
-//diligence
+// Diligence
 Route::get('/files/diligence/check', 'FilesController@checkDir');
-
+// Test Files
+Route::get('/testCap', 'FilesController@readDocFiles');
 
 /*******************
     * ******* Box API
 **************/
 
 Route::get('/box/access-token', 'BoxController@generateAccessToken');
+
+// Folders
+Route::get('/box/rootfolder', 'BoxController@rootFolder');
+Route::get('/box/folder/items/{id?}', 'BoxController@getFolderItems');
+Route::post('/box/folder/create', 'BoxController@createFolder');
+Route::post('/box/folder/update', 'BoxController@updateFolder');
+Route::get('/box/folder/delete/{id?}', 'BoxController@deleteFolder');
+Route::get('/box/folder/trash/{id?}', 'BoxController@permanentDeleteFolder');
+Route::post('/box/folder/copy', 'BoxController@copyFolder');
+
+// Files
+Route::get('/box/file/{id?}', 'BoxController@getFileInfo');
+Route::post('/box/file/update', 'BoxController@updateFileInfo');
+Route::get('/box/file/download/{id?}', 'BoxController@downloadFile');
+Route::resource('/box/file/upload', 'BoxController', ['only' => ['uploadFile']]);
+Route::get('/box/file/delete/{id?}', 'BoxController@deleteFile');
+Route::post('/box/file/replace', 'BoxController@updateFile');
+Route::post('/box/file/copy', 'BoxController@copyFile');
+Route::get('/box/file/embed/{id?}', 'BoxController@getEmbedLink');
+Route::get('/box/file/thumbnail/{id?}', 'BoxController@getThumbnail');

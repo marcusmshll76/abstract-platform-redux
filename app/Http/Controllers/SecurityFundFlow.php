@@ -70,15 +70,16 @@ class SecurityFundFlow extends Controller
 
     // Save Data into a session
     public function saveData (Request $request, $e) {
-        
         if ($e != 'keyPoints' && $e != 'meetSponsors') {
             $session_data = session( 'security-fund-flow', array() );
             $session_data = array_merge( $session_data, $_POST );
             session( [ 'security-fund-flow' => $session_data ] );
         } else {
-            $session_data = session( 'security-fund-flow', array() );
-            $session_data = array_merge( $session_data, $request->all() );
-            session( [ 'security-fund-flow' => $session_data ] );
+            if ($e === 'keyPoints') {
+                $request->session()->put('security-fund-flow.key-points', $request->get('key-point'));
+            } else if ($e === 'meetSponsors') {
+                $request->session()->put('security-fund-flow.principles', $request->get('principles'));
+            }
         }
        
         switch ($e) {
@@ -112,6 +113,20 @@ class SecurityFundFlow extends Controller
         session( [ 'security-fund-flow' => $session_data ] );
 
         // Validations
+        $capRule = [];
+        if(empty($request->session()->get('capRead'))) {
+            $capRule = [
+                'investor-first-name' => 'required',
+                'investor-last-name' => 'required',
+                'ownership' => 'required',
+                'investor-first-name-1' => 'required',
+                'investor-last-name-1' => 'required',
+                'ownership-1' => 'required',
+                'investor-first-name-2' => 'required',
+                'investor-last-name-2' => 'required',
+                'ownership-2' => 'required',
+            ];
+        }
         $condRule = [];
         if ($request->get('fund-type') === 'Yes') {
             $condRule = [
@@ -155,15 +170,6 @@ class SecurityFundFlow extends Controller
             'zip' => 'required',
             'country' => 'required',
             'fund-description' => 'required',
-            'investor-first-name' => 'required',
-            'investor-last-name' => 'required',
-            'ownership' => 'required',
-            'investor-first-name-1' => 'required',
-            'investor-last-name-1' => 'required',
-            'ownership-1' => 'required',
-            'investor-first-name-2' => 'required',
-            'investor-last-name-2' => 'required',
-            'ownership-2' => 'required',
             'minimum-raise-amount' => 'required',
             'distribution-frequency' => 'required',
             'maximum-raise-amount' => 'required',
@@ -173,15 +179,21 @@ class SecurityFundFlow extends Controller
             'mezzanine-debt' => 'required',
             'senior-debt' => 'required'
         ];
-        $rules = array_merge( $rules, $condRule );
+        $rules = array_merge( $rules, $condRule, $capRule);
         $this->validate($request, $rules);
         
-        if (isset($request->session()->get('security-fund-flow')['key-point'])) {
-            $keyPoints = $request->session()->get('security-fund-flow')['key-point'];
+        if (!empty($request->session()->get('security-fund-flow.key-points'))) {
+            $keyPoints = $request->session()->get('security-fund-flow.key-points');
         }
 
-        if (isset($request->session()->get('security-fund-flow')['principles'])) {
-            $principles = $request->session()->get('security-fund-flow')['principles'];
+        if (!empty($request->session()->get('security-fund-flow.principles'))) {
+            $principles = $request->session()->get('security-fund-flow.principles');
+        }
+
+        if (!empty($request->session()->get('capRead'))) {
+            $capRead = json_encode($request->session()->get('capRead'));
+        } else {
+            $capRead = '';
         }
 
         if (isset($keyPoints) && isset($principles)) {
@@ -240,11 +252,15 @@ class SecurityFundFlow extends Controller
                 'developed' => $request->get('developed'),
                 'existing-properties' => $request->get('existing-properties'),
                 'principles' => json_encode($principles),
-                'key-points' => $keyPoints
+                'key-points' => $keyPoints,
+                'captables' => $capRead,
+                "created_at" =>  \Carbon\Carbon::now(),
+                "updated_at" => \Carbon\Carbon::now()
             );
 
             DB::table('security_fund_flow')->insert($payload);
-            
+            $request->session()->forget('security-fund-flow');
+            $request->session()->forget('capRead');
             return view( 'security-fund-flow.step-7.final', [ 'title' => 'Create Digital Security -> Preview & Submit', 'success' => true ] );
             
         } else {

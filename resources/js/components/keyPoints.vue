@@ -4,7 +4,9 @@
         <small class="error-small"><em>*</em> <span> Key deal points required </span></small>
         <br/>
     </span>
-    <vue-editor v-model="content" :editorToolbar="customToolbar" @blur="saveData('blur')"></vue-editor>
+    <vue-editor v-model="content" :editorToolbar="customToolbar" @blur="saveData('blur')">
+        <span v-html="data"></span>
+    </vue-editor>
         <a @click="saveData('submit')" class="btn margin-key-m color-white fl-right" v-if="next === 'yes'">Next</a>
         <br/><br/><br/><br/>
 </div>
@@ -14,6 +16,7 @@
 import axios from 'axios'
 import config from '../libs'
 import { VueEditor } from 'vue2-editor';
+const bbb = '';
 export default {
     props: ['data', 'next', 'url'],
     components: {
@@ -29,6 +32,9 @@ export default {
             ]
         };
     },
+    render(createElement) {
+        return createElement;
+    },
     created () {
         this.content = this.data
         if (this.next !== 'yes' && this.content === '') {
@@ -36,7 +42,7 @@ export default {
         } else {
             this.error = false
         }
-    },
+    }, 
     methods: {
         saveData(e) {
             var self = this

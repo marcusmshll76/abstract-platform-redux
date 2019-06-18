@@ -15,16 +15,16 @@
                                 <p><a href="/investor-servicing/choose-investment"> Choose an <br/>investment</a></p>
                             </div>
                             <div class="left-nav-item active">
-                                <p><a>Cap Table <br/>Management </a></p>
+                                <p><a href="{{'/investor-servicing/cap-table-mgmt/'. $type. '/'.strtolower(str_random(100)). '/' .$id }}">Cap Table <br/>Management </a></p>
                             </div>
                             <div class="left-nav-item">
-                                <p><a>Distributions</a></p>
+                                <p><a href="{{'/investor-servicing/distributions/'. $type. '/'.strtolower(str_random(100)). '/' .$id }}">Distributions</a></p>
                             </div>
                             <div class="left-nav-item">
-                                <p><a>Investor K-1s</a></p>
+                                <p><a href="{{'/investor-servicing/tax-document/'. $type. '/'.strtolower(str_random(100)). '/' .$id }}">Tax Documents</a></p>
                             </div>
                             <div class="left-nav-item">
-                                <p><a>Reports</a></p>
+                                <p><a href="{{'/investor-servicing/reports/'. $type. '/'.strtolower(str_random(100)). '/' .$id }}">Reports</a></p>
                             </div>
                         </div>
                     </div>
@@ -35,7 +35,7 @@
                     <div class="row">
                         <div class="col-xs-12 col-sm-3">
                             <div class="dashboard-menu-tile"><img src="/img/icon-user-etting-blue.svg">
-                                <h5><a href="/account-settings/verification">Account Settings</a></h5>
+                                <a href="/account-settings/verification"><h5>Account Settings</h5></a>
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-3">
@@ -45,12 +45,12 @@
                         </div>
                         <div class="col-xs-12 col-sm-3">
                             <div class="dashboard-menu-tile active"><img src="/img/icon-paper-settings-active.svg">
-                                <h5><a href="/investor-servicing/choose-investment">Investor Servicing</a></h5>
+                                <a href="/investor-servicing/choose-investment"><h5>Investor Servicing</h5></a>
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-3">
                             <div class="dashboard-menu-tile"><img src="/img/icon-security-blue.svg">
-                                <h5><a href="/security-fund-flow/step-1/choose">Create Digital Security</a></h5>
+                                <a href="/security-fund-flow/step-1/choose"><h5>Create Digital Security</h5></a>
                             </div>
                         </div>
                     </div>

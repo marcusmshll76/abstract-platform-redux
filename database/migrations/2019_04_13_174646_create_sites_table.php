@@ -18,6 +18,7 @@ class CreateSitesTable extends Migration
             $table->string('host');
             $table->string('name');
             $table->string('logo');
+            $table->string('logo_dark');
             $table->timestamps();
         });
     }

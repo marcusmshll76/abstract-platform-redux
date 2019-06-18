@@ -3485,13 +3485,15 @@
 /* uploads *****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 .ivu-upload{
     cursor: pointer;
+    overflow: hidden !important;
 }
 .ivu-upload input[type=file] {
     display: none
 }
 
 .ivu-upload-list {
-    margin-top: 8px
+    margin-top: 8px;
+    display: none !important;
 }
 
 .ivu-upload-list-file {
@@ -5019,7 +5021,7 @@ fieldset[disabled] .ivu-input:hover {
  text-align: right;
 }
 
-.digital .active{
+.digital .left-nav-item-wrap .active{
     background-image: linear-gradient(-180deg, #283F5C 39%, #8E9385 100%);
 }
 .digital p, .digital a{
@@ -5030,13 +5032,25 @@ fieldset[disabled] .ivu-input:hover {
     color: #fff;
     font-weight: bold;
 }
+.porperty-image.marketplace-card-image{
+    overflow: hidden !important;
+}
+.remove-list-height h5{
+    line-height: 24px !important;
+    padding: 10px;
+}
 .long .btn{
     width: calc(100% - 40px) !important;
 }
 .card-black{
     padding: 10px !important;
     background-image: linear-gradient(-178deg, #FFFFFF 80%, #D8D8D8 100%);
-    box-shadow: 2px 3px 2px 0 #283F5C, inset 0 1px 3px 0 rgba(0,0,0,0.50);
+}
+.button-edit .upload-text{
+    color: #fff !important;
+}
+.button-edit .upload-text:hover{
+    text-decoration: none !important;
 }
 .color-white{
     color: #fff !important;
@@ -5048,6 +5062,7 @@ fieldset[disabled] .ivu-input:hover {
     display: -webkit-flex;
     display: flex;
     justify-content: center;
+    overflow: hidden !important;
 }
 .large .photo-upload-box{height:535px !important;}
 a{
@@ -5060,12 +5075,16 @@ a{
     text-align: right;
     vertical-align: middle;
     float: left;
-    font-size: 13px;
-    color: #000000;
+    font-size: 14px;
+    font-weight: bold;
+    color: #283F5C;
     line-height: 1;
     padding: 10px 12px 10px 0;
     -webkit-box-sizing: border-box;
     box-sizing: border-box
+}
+.checkbox-p{
+    color: #283F5C;
 }
 
 .ivu-form-label-left .ivu-form-item-label {
@@ -5133,4 +5152,10 @@ a{
     line-height: 1;
     font-size: 12px;
     color: #ed4014
+}
+.dark-btn{
+    background-image: linear-gradient(-2deg, #030303 0%, #D8D8D8 100%);
+}
+.cursor-hand{
+    cursor: pointer !important;
 }

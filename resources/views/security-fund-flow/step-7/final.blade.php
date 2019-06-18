@@ -5,7 +5,14 @@
 <form action="/security-fund-flow/step-7/create/preview" method="post">
 @csrf
 @if( isset( $success ) && $success )
-    <div class="success success-green"><p><strong>Congratulations submitted successfully</strong></p></div>
+    <popup-component
+        title="Thanks for your Submission!"
+        type="recurring" 
+        user="{{ Auth::id() }}"
+        info="<h5>Our team will be in touch within 48 hours should we need anything. You’re one step closer to creating your first digital security!</h5>"
+        action="Got It!"
+        url="/investor-servicing/choose-investment">
+    </popup-component>
 @endif
 <div class="card margin-top-m">
     <div class="card-title blue">
@@ -16,7 +23,7 @@
             <div class="card grey margin-bottom-m">
                 <div class="card-title blue has-button">
                     <h5>Presented By:</h5>
-                    <div class="btn">Edit</div>
+                    <a href="/account-settings/verification/bio" class="btn color-white">Edit</a>
                 </div>
                 <div class="card-content">
                     <div class="card equal-padding">
@@ -24,12 +31,26 @@
                             <div class="col-xs-12 col-sm-4">
                                 <div class="presented-company">
                                     <file-preview
-                                        iname="Single" 
+                                        iname="Single"
                                         scope="private"
                                         user="{{Auth::id()}}"
+                                        field="companylogo"
                                         path="/account-settings/company-logo/"
                                         index="0">
                                     </file-preview>
+                                    <uploads-component
+                                        class="button-edit"
+                                        title="Change Logo"
+                                        action="/files"
+                                        elname="image"
+                                        scope="private"
+                                        field="companylogo"
+                                        path="/account-settings/company-logo/"
+                                        multi="no"
+                                        flat="true"
+                                        type="text"
+                                        refresh="true">
+                                    </uploads-component>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-8">
@@ -44,13 +65,14 @@
             <div class="card margin-bottom-m">
                 <div class="card-title blue has-button">
                     <h5>Digital Security Details</h5>
-                    <div class="btn">Edit</div>
+                    <a href="/security-fund-flow/step-1/upload-photos" class="btn color-white">Edit</a>
                 </div>
                 <div class="card-content">
-                    <file-preview
-                        iname="Digital Security Photo Gallery" 
+                <file-preview
+                        iname="Digital Security Photo Gallery"
                         scope="private"
                         user="{{Auth::id()}}"
+                        field="fund-digital-security"
                         path="/digital-security/fund/photo-gallery/">
                     </file-preview>
                 </div>
@@ -58,7 +80,7 @@
             <div class="card grey margin-bottom-m margin-top-m">
                 <div class="card-title blue has-button">
                     <h5>Fund Highlights</h5>
-                    <div class="btn">Edit</div>
+                    <a href="/security-fund-flow/step-1/highlights" class="btn color-white">Edit</a>
                 </div>
                 <div class="card-content">
                     <div class="row">
@@ -188,7 +210,7 @@
             <div class="card grey margin-bttom-m margin-top-m">
                 <div class="card-title blue has-button">
                     <h5>Fund Details</h5>
-                    <div class="btn">Edit</div>
+                    <a href="/security-fund-flow/step-1/details" class="btn color-white">Edit</a>
                 </div>
                 
 <div class="card-content">
@@ -529,20 +551,22 @@
             </div>
             <div class="card grey margin-bttom-m margin-top-m">
                 <div class="card-title blue has-button">
-                    <h5>Fund Details</h5>
-                    <div class="btn">Edit</div>
+                    <h5>Investment Details</h5>
+                    <a href="/security-fund-flow/step-2/ownership" class="btn color-white">Edit</a>
                 </div>
                 <div class="card-content">
                     <div class="row">
                         <div class="col-xs-12 col-sm-6">
                             <h5>Existing Investor Ownership</h5>
                             <p>Please upload your cap table; our preferred method of data transfer. However, if you have 3 or less investors on your cap table, you may enter their information mannually below. </p>
-                            <file-preview
-                                iname="file"
-                                scope="private"
-                                user="{{Auth::id()}}"
-                                path="/fund/ownership/">
-                            </file-preview>
+                                <file-preview
+                                    iname="file"
+                                    scope="private"
+                                    user="{{Auth::id()}}"
+                                    field="fund-cap-property"
+                                    path="/ownership/">
+                                </file-preview>
+
                             <div class="content-form">
                                 <div class="row margin-bottom-l-md">
                                     <div class="col-xs-12 col-md-4">
@@ -677,7 +701,6 @@
             <div class="card grey margin-bottom-m">
                 <div class="card-title blue has-button">
                     <h5>Diligence & Deal Documents</h5>
-                    <div class="btn">Edit</div>
                 </div>
                 <div class="card-content">
                     <div class="row">
@@ -698,7 +721,7 @@
             <div class="card grey margin-bottom-m">
                 <div class="card-title blue has-button">
                     <h5>Capital Stack</h5>
-                    <div class="btn">Edit</div>
+                    <a href="/security-fund-flow/step-5/capital-stack" class="btn color-white">Edit</a>
                 </div>
                 <div class="card-content">
                     <div class="row">
@@ -757,7 +780,6 @@
             <div class="card grey margin-bottom-m">
                 <div class="card-title blue has-button">
                     <h5>Key Deal Points</h5>
-                    <div class="btn">Edit</div>
                 </div>
                 <div class="card-content">
                     @if($errors->has('key-point'))
@@ -766,7 +788,7 @@
                     @endif
                     <div class="row">
                         <div class="col-xs-12">
-                        <key-points url="security-fund-flow/step-4/create/keyPoints" data="{{ isset($data['key-point']) ? $data['key-point'] : '' }}" next="no"></key-points>
+                        <key-points url="security-fund-flow/step-4/create/keyPoints" data="{{ isset($data['key-points']) ? $data['key-points'] : '' }}" next="no"></key-points>
                         </div>
                     </div>
                 </div>
@@ -774,17 +796,17 @@
             <div class="card grey margin-bottom-m">
                 <div class="card-title blue has-button">
                     <h5>Meet the Principles</h5>
-                    <div class="btn">Edit</div>
+                    <a href="/security-fund-flow/step-6/meet-sponsors" class="btn color-white">Edit</a>
                 </div>
                 <div class="card-content">
                     <div class="card">
                         <div class="card-content">
-                        <principal-form
-                            preview="true"
-                            user="{{Auth::id()}}"
-                            url="security-fund-flow/step-6/create/meetSponsors" 
-                            data="{{ isset($data) ? json_encode($data) : '' }}">
-                        </principal-form>
+                            <principal-form
+                                preview="true"
+                                url="security-fund-flow/step-6/create/meetSponsors"
+                                data="{{ isset($data['principles']) ? $data['principles'] : '' }}"
+                                user="{{Auth::id()}}">
+                            </principal-form>
                                 
                         </div>
                     </div>

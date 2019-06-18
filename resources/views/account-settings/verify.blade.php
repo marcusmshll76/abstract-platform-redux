@@ -15,12 +15,14 @@
             <div class="card-content">
                 <div class="row">
                     <div class="col-xs-12 col-sm-3">
-                        <uploads-component
+                            <uploads-component
                                 title="Upload Company Logo"
                                 action="/files"
                                 elname="image"
                                 scope="private"
+                                field="companylogo"
                                 path="/account-settings/company-logo/"
+                                multi="no"
                                 type="single">
                             </uploads-component>
 

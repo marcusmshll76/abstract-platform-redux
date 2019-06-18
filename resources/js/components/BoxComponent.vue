@@ -4,7 +4,6 @@
         <Icon type="ios-loading" size=18 class="spin-icon-load"></Icon>
         <div>{{ loadingtxt }}</div>
     </Spin>
-
     <div v-else>
         <div class="row contextArea drop" @contextmenu.prevent="$refs.menu.open">
             <nested-draggable @done="refresh" :txtindex="txt" :data="list" />
@@ -18,7 +17,7 @@
             </li>
         </vue-context>
     </div>
-    <Modal
+    <!-- <Modal
         v-model="upload"
         title="Upload A New File"
         @on-ok="save"
@@ -34,14 +33,17 @@
                 path="/diligence/"
                 @done="successUpload">
             </uploads-component>
-    </Modal>
+    </Modal> -->
 </div>
 </template>
 
 <script>
+
 import axios from 'axios'
 import config from '../libs/index.js'
 import { VueContext } from 'vue-context';
+
+const box = new BoxSdk();
 
 export default {
     name: "file-tree",
@@ -55,7 +57,7 @@ export default {
         return {
             access: '',
             loading: true,
-            loadingtxt: 'Preparing Diligence Documents',
+            loadingtxt: 'Preparing Documents',
             jsonDir: {},
             list: [],
             upload: false,
@@ -63,15 +65,19 @@ export default {
             ref: 1
         };
     },
+    watch: {
+        access: function (val) {
+            this.access != '' ? this.rootFolder() : ''
+        }
+    },
     created () {
         let boxinit = document.createElement('script');
         boxinit.setAttribute('src',"/js/BoxSdk.map");
         document.head.appendChild(boxinit);
-        this.getAccess();
     },
     mounted () {
-        const box = new BoxSdk();
-        const persistClient = new box.PersistentBoxClient({ accessTokenHandler: this.getAccess });
+        this.getAccess();
+        // this.loading = false;
     },
     methods: {
         getAccess() {
@@ -81,10 +87,85 @@ export default {
                 self.access = resp.data.response
                 return self.access
             })
-            .catch((error) => {
-                return error
-            });
         },
+        createAppUser () {
+            /* var sdkConfig = require('../libs/config.json');
+            var sdk = BoxSDK.getPreconfiguredInstance(sdkConfig);
+
+            // Get the service account client, used to create and manage app user accounts
+            // The enterprise ID is pre-populated by the JSON configuration,
+            // so you don't need to specify it here
+            var adminAPIClient = sdk.getAppAuthClient('enterprise');
+
+            adminAPIClient.users.get(adminAPIClient.CURRENT_USER_ID, null, function(err, currentUser) {
+                if(err) throw err;
+                console.log('Hello, ' + currentUser.name + '!');
+            });
+
+            // example:  filter user by name - aken2
+            /* var requestParam = {
+                qs: {
+                    filter_term: 'aken2'
+                }
+            }; 
+            requestParam,
+            */
+/*
+            adminAPIClient.get('/users', adminAPIClient.defaultResponseHandler(function(err, data) {
+            
+                data.entries.forEach(function(user) {
+                   console.log(user.name);
+
+                   /* var userClient = sdk.getAppAuthClient('user', user.id);
+
+                   // get root folder items
+                    userClient.folders.getItems('0', null, function(err, data) {
+                       console.log(data);
+                    }); */
+/*
+                });
+            })); */
+            
+        },
+        rootFolder() {
+            this.createAppUser()
+            /* const boxClient = new box.BasicBoxClient({ accessToken: this.access });
+            boxClient.folders.get({ id: "0", params: {fields: "name, path_collection"} })
+              .then(function (folder) {
+                  console.log(folder)
+                var rootFolder = folder;
+                var id = folder.id;
+              })
+              .catch(function (err) {
+                console.log(err);
+              });
+            /*
+
+            const boxSDK = require('box-node-sdk');  // Box SDK
+const fs = require('fs');                // File system for config
+
+// Fetch config file for instantiating SDK instance
+const configJSON = JSON.parse(fs.readFileSync('YOUR CONFIG FILE PATH'));
+
+// Instantiate instance of SDK using generated JSON config
+const sdk = boxSDK.getPreconfiguredInstance(configJSON);
+
+
+            const persistClient = new box.PersistentBoxClient({ accessTokenHandler: this.getAccess, isCallback: true });
+            console.log(persistClient)
+            persistClient.folders.get({ id: "0", params: {fields: "name, item_collection"} })
+              .then(function (folder) {
+                  console.log('ben')
+                // var rootFolder = folder;
+                // var id = folder.id;
+              })
+              .catch(function (err) {
+                console.log(err);
+              }); */
+              
+        },
+
+        
         checkDir () {
             var self  =  this
             axios
@@ -149,7 +230,7 @@ export default {
             this.list = data
         },
         createFolder: function () {
-            var self = this
+           /*  var self = this
             let rootFolderId = "0";
             let folderName = "New Folder";
             persistClient.folders.create({ parent: { id: rootFolderId }, name: folderName })
@@ -163,7 +244,7 @@ export default {
               })
               .catch(function (err) {
                 console.log(err);
-              });
+              }); */
             
         },
         createFile: function () {
@@ -204,8 +285,9 @@ export default {
             let pos = this.list.length > 0 ? this.list.length-1 : 0
             this.list.splice(pos, 1);
         }
+
     },
-};
+}; 
 </script>
 
 <style>

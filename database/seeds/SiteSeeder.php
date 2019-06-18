@@ -11,11 +11,24 @@ class SiteSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('sites')->insert([
+        $sites = [[
             'id' => '1',
-            'host' => 'abstract.test',
+            'host' => 'abstract',
             'name' => 'Abstract Tokenization',
-            'logo' => '/img/abstract-logo.png',
-        ]);
+            'logo' => '/img/abstract-logo.svg',
+            'logo_dark' => '/img/abstract-logo.svg',
+            "created_at" =>  \Carbon\Carbon::now(),
+            "updated_at" => \Carbon\Carbon::now()
+        ],
+        [
+            'id' => '2',
+            'host' => 'acg',
+            'name' => 'American Capital group',
+            'logo' => '/img/acg-logo.svg',
+            'logo_dark' => '/img/acg-dark-logo.svg',
+            "created_at" =>  \Carbon\Carbon::now(),
+            "updated_at" => \Carbon\Carbon::now()
+        ]];
+        DB::table('sites')->insert($sites);
     }
 }

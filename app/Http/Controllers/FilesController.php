@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Box\Spout\Reader\Common\Creator\ReaderEntityFactory;
 
 class FilesController extends Controller
 
@@ -23,14 +25,45 @@ class FilesController extends Controller
             ]);
             $file = $request->file('file');
         }
+
         // File Name
-        $filename = time() . $file->getClientOriginalName();
+        $filename = time() . str_replace(' ', '', $file->getClientOriginalName());
+        $section = $request->get('section');
 
         if ($request->get('access') === 'private') {
             // Set Private Path
             $user = Auth::id();
             if (isset($user)) { 
-                $filePath = $user . $request->get('structure') . $filename;
+                $filePath = $user . $request->get('structure') . $filename;  
+                $matchArr = [
+                    'user' => $user, 
+                    'field' => $request->get('field')
+                ];
+
+                $allfiles = DB::table('files')
+                    ->where($matchArr)
+                    ->first();
+
+                if ($request->get('multi') === 'no' && !empty($allfiles)) {
+                    Storage::disk('s3')->delete($allfiles->path);
+
+                    DB::table('files')
+                    ->where($matchArr)
+                    ->delete();
+
+                }
+
+                $payload = array(
+                    'user' => $user, 
+                    'field' => $request->get('field'),
+                    'name' => $filename,
+                    'path' => $filePath,
+                    'created_at' =>  \Carbon\Carbon::now(),
+                    'updated_at' => \Carbon\Carbon::now()
+                );
+
+                DB::table('files')->insert($payload);
+
             } else {
                 return response()->json([
                     'response' => 'Not Authenticated'
@@ -38,13 +71,77 @@ class FilesController extends Controller
             }
         } else{
             // Set Public Path
-            $filePath = 'public/' . $request->get('structure') . $filename;
+            $filePath = 'public/' . $request->get('structure') . $allfiles;
         }
-       
+        
         Storage::disk('s3')->put($filePath, file_get_contents($file));
+
+        $ext = pathinfo($filePath, PATHINFO_EXTENSION);
+        if ($ext == 'csv' || $ext == 'ods' || $ext == 'xlsx' || $ext == 'XLSX') {
+            if ($section === 'captable') {
+                Storage::disk('local')->put($filePath, file_get_contents($file));
+                $r =  $this->readDocFiles($filePath);
+                $request->session()->put('capRead', $r);
+            } else if ($section === 'reports') {
+                $request->session()->put('reportRead', $filePath);
+            } else if ($section === 'tax') {
+                $request->session()->put('taxRead', $filePath);
+            }
+        } else {
+            if ($section === 'tax') {
+                $request->session()->put('taxRead', $filePath);
+            } else if ($section === 'reports') {
+                $request->session()->put('reportRead', $filePath);
+            } else {
+                // $request->session()->put('docsRead', $r);
+            }
+        }
+
         return response()->json([
-            'response' => 'File uploaded successfully'
+            'message' => 'File uploaded successfully',
+            'response' => $payload,
+            'status' => 200
         ]);
+    }
+
+    public function readDocFiles($path) {
+        $file = storage_path('app/' . $path);
+        $reader = ReaderEntityFactory::createReaderFromFile($file);
+        $reader->open($file);
+
+        $cells = array();
+        $columns = array();
+        // $i = 0;
+        foreach ($reader->getSheetIterator() as $sheet) {
+            foreach ($sheet->getRowIterator() as $row) {
+                // $numItems = count($row);
+                foreach ($sheet->getRowIterator() as $count => $row) {
+                    $rowData = array();
+                    if ($count > 3) {
+                        foreach ($row->getCells() as $key => $a) { 
+                            array_push($rowData, $a->getValue());
+                        }
+                        array_push($cells, $rowData);
+                    } else if($count === 3) {
+                        foreach ($row->getCells() as $key => $a) { 
+                            array_push($columns, $a->getValue());
+                        }
+                    }
+                }
+            }
+        }
+        $total = array_pop($cells);
+        $reader->close();
+        Storage::disk('local')->delete($file);
+        return response()->json([
+            'message' => 'File Read successfully',
+            'response' => [
+                'columns' => $columns,
+                'rows' => $cells,
+                'total' => $total
+            ],
+            'status' => 200
+        ]);  
     }
 
     // Retrieve Files
@@ -52,42 +149,64 @@ class FilesController extends Controller
        $user = $request->query('user');
        $path = $request->query('path');
 
-       if (isset($user)) {
-            $filepath = $user . '/' . $path;
-       } else {
-            $filepath = $path;
-       }
+       $matchArr = [
+            'user' => $user, 
+            'field' => $request->query('field')
+        ];
 
+       if (isset($user)) {
+        
+            $allfiles = DB::table('files')
+                ->where($matchArr)
+                ->select('path')
+                ->get();
+
+            if (!empty($allfiles)) {
+                return $this->display($allfiles);
+            }
+
+       } else {
+            return $this->display($path);
+       }
+    }
+
+    // Display Files
+    public function display($a = null, $path = null) {
        $adapter = Storage::disk('s3')->getDriver()->getAdapter();
-       $files = Storage::disk('s3')->files($filepath);
+       if (!empty($path)) {
+            $files = Storage::disk('s3')->files($path);
+       } else {
+           $files = $a;
+       }
 
        $data = [];
        foreach ($files as $file) {
+           if (!empty($path)) {
+                $x = $file;
+           } else {
+                $x = $file->path;
+           }
             $command = $adapter->getClient()->getCommand('GetObject', [
                 'Bucket' => $adapter->getBucket(),
-                'Key'    => $adapter->getPathPrefix().$file
+                'Key'    => $adapter->getPathPrefix().$x
             ]);
             $request = $adapter->getClient()->createPresignedRequest($command, '+20 minute');
             $data[] = [
-                'name' => str_replace($filepath, '', $file),
+                'path' => $x,
                 'src' => (string) $request->getUri()
             ];
-        }
+        } 
         return response()->json($data);
     }
 
     // Delete Files
-    public function destroy($data) {
-       $user = $request->query('user');
-       $path = $request->query('path');
+    public function destroy(Request $request) {
+       $filepath = $request->query('f');
+       Storage::disk('s3')->delete($filepath);
 
-       if (isset($user)) {
-            $filepath = $user . '/' . $path;
-       } else {
-            $filepath = $path;
-       }
-
-       Storage::disk('s3')->delete($filepath . $data);
+       DB::table('files')
+        ->where('path', $filepath)
+        ->delete();
        
        return response()->json([
             'response' => 'File deleted successfully'
@@ -130,5 +249,4 @@ class FilesController extends Controller
             Storage::disk('s3')->move($odir, $ndir);
         }
    }
-
 }

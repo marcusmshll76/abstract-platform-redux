@@ -13,22 +13,42 @@
                 <div class="row">
                     <div class="col-xs-12 col-sm-4">
                         <div class="card">
-                            <div class="card-title blue">
-                                <h5>Ownership Allocation for Castle Stone</h5></div>
+                            <div class="card-title blue remove-list-height">
+                                <h5>Ownership Allocation for {{ isset($data) ? $data->name : '' }}</h5></div>
                             <div class="card-content">
                                 <!-- type="cap table" -->
-                                <pie-chart type="empty" data="{{ isset($data) ? json_encode($data) : '' }}"></pie-chart>
+                                <pie-chart type="captable" cap="{{ !empty(json_decode($data->captables)) ? $data->captables : '' }}" data="{{ isset($data) ? json_encode($data) : '' }}"></pie-chart>
                             </div>
                         </div>
                         <p>Has your cap table changed?</p>
                         <uploads-component
+                        @if ($type === 'fund')
+                            <uploads-component
                                 title="Upload New Cap Table"
                                 action="/files"
                                 elname="file"
                                 scope="private"
+                                field="fund-cap-property"
                                 path="/ownership/"
-                                type="text">
+                                multi="no"
+                                section="captable"
+                                type="text"
+                                refresh="true">
                             </uploads-component>
+                        @else
+                            <uploads-component
+                                title="Upload New Cap Table"
+                                action="/files"
+                                elname="file"
+                                scope="private"
+                                field="cap-property"
+                                path="/ownership/"
+                                multi="no"
+                                section="captable"
+                                type="text"
+                                refresh="true">
+                            </uploads-component>
+                        @endif
                     </div>
                     <div class="col-xs-12 col-sm-8">
                         <div class="card">
@@ -38,32 +58,54 @@
                                 <tbody>
                                     <tr class="head-row">
                                         <th>Investor Name</th>
+                                        <!-- <th>Entity Name if Applicable</th> -->
                                         <th>% Held</th>
-                                        <th>Digital Securities Held</th>
+                                        <!-- <th>Digital Securities Held</th>
                                         <th>Price Per</th>
-                                        <th>Value</th>
+                                        <th>Value</th> -->
                                     </tr>
+                                    @if (isset($data->fn))
                                     <tr>
-                                        <td data-th="Investor Name">Carl Berg</td>
-                                        <td data-th="% Held">45</td>
-                                        <td data-th="Digital Securities Held">45,000,000</td>
-                                        <td data-th="Price Per">$0.1</td>
-                                        <td data-th="Value">$450,000</td>
+                                        <td data-th="Investor Name">{{ $data->fn.  ' '  .$data->ln }}</td>
+                                        <!-- <td data-th="Entity Name if Applicable"></td> -->
+                                        <td data-th="% Held">{{ $data->ow }}</td>
                                     </tr>
+                                    @endif
+                                    @if (isset($data->fn1))
                                     <tr>
-                                        <td data-th="Investor Name">Carl Berg</td>
-                                        <td data-th="% Held">45</td>
-                                        <td data-th="Digital Securities Held">45,000,000</td>
-                                        <td data-th="Price Per">$0.1</td>
-                                        <td data-th="Value">$450,000</td>
+                                        <td data-th="Investor Name">{{ $data->fn1.  ' '  .$data->ln1 }}</td>
+                                        <!-- <td data-th="Entity Name if Applicable"></td> -->
+                                        <td data-th="% Held">{{ $data->ow1 }}</td>
                                     </tr>
+                                    @endif
+                                    @if (isset($data->fn2))
                                     <tr>
-                                        <td data-th="Investor Name">Carl Berg</td>
-                                        <td data-th="% Held">45</td>
-                                        <td data-th="Digital Securities Held">45,000,000</td>
+                                        <td data-th="Investor Name">{{ $data->fn2.  ' '  .$data->ln2 }}</td>
+                                        <!-- <td data-th="Entity Name if Applicable"></td> -->
+                                        <td data-th="% Held">{{ $data->ow2 }}</td>
+                                        <!-- <td data-th="Digital Securities Held">45,000,000</td>
                                         <td data-th="Price Per">$0.1</td>
-                                        <td data-th="Value">$450,000</td>
+                                        <td data-th="Value">$450,000</td> -->
                                     </tr>
+                                    @endif
+                                    @if (isset($data->captables))
+                                        @foreach (json_decode($data->captables)->original->response->rows as $cap)
+                                            @if (!empty($cap))
+                                                <tr>
+                                                    @foreach ($cap as $key => $m)
+                                                        @if ($key < 2)
+                                                            @if ($key == 1) 
+                                                                <td>{{ $m ? sprintf("%.2f%%", $m * 100) : $m }}</td>
+                                                            @else
+                                                                <td>{{ $m }}</td>
+                                                            @endif
+                                                        @endif
+                                                    @endforeach
+                                                </tr>
+                                            @endif
+                                        @endforeach
+                                    @endif
+                                    
                                 </tbody>
                             </table>
                         </div>
@@ -72,7 +114,25 @@
                                 <div class="btn full-width">PDF</div>
                             </div>
                             <div class="col-xs-12 col-sm-6">
-                                <div class="btn full-width dust">CSV</div>
+                            @if ($type === 'fund')
+                                <file-preview
+                                    iname="filebutton"
+                                    scope="private"
+                                    user="{{Auth::id()}}"
+                                    field="fund-cap-property"
+                                    path="/ownership/"
+                                    title="CSV">
+                                </file-preview>
+                            @else
+                                <file-preview
+                                    iname="filebutton"
+                                    title="CSV"
+                                    scope="private"
+                                    user="{{Auth::id()}}"
+                                    field="cap-property"
+                                    path="/ownership/">
+                                </file-preview>
+                            @endif
                             </div>
                         </div>
                     </div>
@@ -105,7 +165,7 @@
                                 </div>
                             </div>
                             <div class="footer-button-next">
-                                <div class="btn">Next</div>
+                                <a href="{{'/investor-servicing/distributions/'. $type. '/'.strtolower(str_random(100)). '/' .$id }}" class="btn color-white">Next</a>
                             </div>
                         </div>
                     </div>

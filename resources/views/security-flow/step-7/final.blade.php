@@ -5,36 +5,57 @@
 <form action="/security-flow/step-7/create/preview" method="post">
 @csrf
 @if( isset( $success ) && $success )
-    <div class="success success-green"><p><strong>Congratulations submitted successfully</strong></p></div>
+    <popup-component
+        title="Thanks for your Submission!"
+        type="recurring" 
+        user="{{ Auth::id() }}"
+        info="<h5>Our team will be in touch within 48 hours should we need anything. You’re one step closer to creating your first digital security!</h5>"
+        action="Got It!"
+        url="/investor-servicing/choose-investment">
+    </popup-component>
 @endif
 <div class="card margin-top-m">
     <div class="card-title blue">
         <h5>Preview & Submit</h5></div>
     <div class="card-content">
             <h5>Final Review</h5>
-            <p>Plesae review and ensure all information provided it is correct. To make changes, click the Edit link in the section you wish to change. Hit Submit at the bottom of the page when you are ready to send in your digital security for review.</p>
+            <p>Please review and ensure all information provided it is correct. To make changes, click the Edit link in the section you wish to change. Hit Submit at the bottom of the page when you are ready to send in your digital security for review.</p>
             <div class="card grey margin-bottom-m">
                 <div class="card-title blue has-button">
                     <h5>Presented By:</h5>
-                    <div class="btn">Edit</div>
+                    <a href="/account-settings/verification/bio" class="btn color-white">Edit</a>
                 </div>
                 <div class="card-content">
                     <div class="card equal-padding">
                         <div class="row">
                             <div class="col-xs-12 col-sm-4">
                                 <div class="presented-company">
-                                <file-preview
-                                    iname="Single" 
-                                    scope="private"
-                                    user="{{Auth::id()}}"
-                                    path="/account-settings/company-logo/"
-                                    index="0">
-                                </file-preview>
+                                    <file-preview
+                                        iname="Single"
+                                        scope="private"
+                                        user="{{Auth::id()}}"
+                                        field="companylogo"
+                                        path="/account-settings/company-logo/"
+                                        index="0">
+                                    </file-preview>
+                                    <uploads-component
+                                        class="button-edit"
+                                        title="Change Logo"
+                                        action="/files"
+                                        elname="image"
+                                        scope="private"
+                                        field="companylogo"
+                                        path="/account-settings/company-logo/"
+                                        multi="no"
+                                        flat="true"
+                                        type="text"
+                                        refresh="true">
+                                    </uploads-component>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-8">
                                 <div class="presented-description">
-                                    <p class="color-white">Cephas Partners is a private equity firm specializing in alternative investments with a primary focus on real estate related opportunities. Cephas was originally formed in 2012 to assist affiliates of The Blackstone Group in managing complex real estate transactions on three different continents. Cephas Partners seeks to maximize opportunities for its investors, partners and employees and leave a legacy of generosity.</p>
+                                    <p class="color-white">{{ isset($bio) ? $bio : '' }}</p>
                                 </div>
                             </div>
                         </div>
@@ -44,13 +65,14 @@
             <div class="card margin-bottom-m">
                 <div class="card-title blue has-button">
                     <h5>Digital Security Details</h5>
-                    <div class="btn">Edit</div>
+                    <a href="/security-flow/step-1/choose" class="btn color-white">Edit</a>
                 </div>
                 <div class="card-content">
                     <file-preview
-                        iname="Digital Security Photo Gallery" 
+                        iname="Digital Security Photo Gallery"
                         scope="private"
                         user="{{Auth::id()}}"
+                        field="digital-security"
                         path="/digital-security/photo-gallery/">
                     </file-preview>
                 </div>
@@ -58,7 +80,7 @@
             <div class="card grey margin-bottom-m margin-top-m">
                 <div class="card-title blue has-button">
                     <h5>Deal Highlights</h5>
-                    <div class="btn">Edit</div>
+                    <a href="/security-flow/step-1/highlights" class="btn color-white">Edit</a>
                 </div>
                 <div class="card-content">
                             <div class="row">
@@ -190,7 +212,7 @@
             <div class="card grey margin-bttom-m margin-top-m">
                 <div class="card-title blue has-button">
                     <h5>Property Details</h5>
-                    <div class="btn">Edit</div>
+                    <a href="/security-flow/step-1/details" class="btn color-white">Edit</a>
                 </div>
                 <div class="card-content">
                         <div class="row">
@@ -372,7 +394,7 @@
                                                     echo 'Checked';
                                                 }
                                             ?>
-                                             value="" name="loan-type">
+                                             value="Amortizing" name="loan-type">
                                         </div>
                                         <div class="col-xs-12 col-sm-6">
                                             <p>Interest Only</p><input type="radio" 
@@ -425,7 +447,7 @@
             <div class="card grey margin-bttom-m margin-top-m">
                 <div class="card-title blue has-button">
                     <h5>Investment Details</h5>
-                    <div class="btn">Edit</div>
+                    <a href="/security-flow/step-2/ownership" class="btn color-white">Edit</a>
                 </div>
                 <div class="card-content">
                         <div class="row">
@@ -436,6 +458,7 @@
                                     iname="file"
                                     scope="private"
                                     user="{{Auth::id()}}"
+                                    field="cap-property"
                                     path="/ownership/">
                                 </file-preview>
                                 <div class="content-form">
@@ -585,7 +608,6 @@
             <div class="card grey margin-bottom-m">
                 <div class="card-title blue has-button">
                     <h5>Diligence & Deal Documents</h5>
-                    <div class="btn">Edit</div>
                 </div>
                 <div class="card-content">
                     <div class="row">
@@ -606,7 +628,7 @@
             <div class="card grey margin-bottom-m">
                 <div class="card-title blue has-button">
                     <h5>Capital Stack</h5>
-                    <div class="btn">Edit</div>
+                    <a href="/security-flow/step-5/capital-stack" class="btn color-white">Edit</a>
                 </div>
                 <div class="card-content">
                     <div class="row">
@@ -663,7 +685,6 @@
             <div class="card grey margin-bottom-m">
                 <div class="card-title blue has-button">
                     <h5>Key Deal Points</h5>
-                    <div class="btn">Edit</div>
                 </div>
                 <div class="card-content">
                     @if($errors->has('key-point'))
@@ -672,7 +693,7 @@
                     @endif
                     <div class="row">
                         <div class="col-xs-12">
-                        <key-points url="security-flow/step-4/create/keyPoints" data="{{ isset($data['key-point']) ? $data['key-point'] : '' }}" next="no"></key-points>
+                            <key-points url="security-flow/step-4/create/keyPoints" data="{{ isset($data['key-points']) ? $data['key-points'] : '' }}" next="no"></key-points>
                         </div>
                     </div>
                 </div>
@@ -680,17 +701,17 @@
             <div class="card grey margin-bottom-m">
                 <div class="card-title blue has-button">
                     <h5>Meet the Principles</h5>
-                    <div class="btn">Edit</div>
+                    <a href="/security-flow/step-6/meet-sponsors" class="btn color-white">Edit</a>
                 </div>
                 <div class="card-content">
                     <div class="card">
                         <div class="card-content">
-                        <principal-form
-                            preview="true"
-                            user="{{Auth::id()}}"
-                            url="security-flow/step-6/create/meetSponsors" 
-                            data="{{ isset($data) ? json_encode($data) : '' }}">
-                        </principal-form>
+                            <principal-form
+                                preview="true"
+                                url="security-flow/step-6/create/meetSponsors"
+                                data="{{ isset($data['principles']) ? $data['principles'] : '' }}"
+                                user="{{Auth::id()}}">
+                            </principal-form>
                         </div>
                     </div>
                 </div>

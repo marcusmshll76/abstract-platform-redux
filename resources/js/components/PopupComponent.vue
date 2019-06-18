@@ -2,13 +2,15 @@
     <div>
         <Modal
         v-model="modal"
+        on-cancel="call"
         class="popup-modal">
             <div class="card-title dust" slot="header">
                 <h5>{{ title }}</h5>
             </div>
             <div class="popup-review-content">
                 <span v-html="info"></span>
-                <a v-if="action" class="btn color-white" @click="modal = false">{{ action }}</a>
+                <br/>
+                <a v-if="action" class="btn color-white" @click="call">{{ action }}</a>
             </div>
             <div slot="footer"></div>
         </Modal>
@@ -17,14 +19,14 @@
 <script>
 import Cookies from 'js-cookie';
 export default {
-    props: ['title', 'info', 'type', 'user', 'action'],
+    props: ['title', 'info', 'type', 'user', 'url', 'action', 'download'],
     data () {
         return {
             modal: true
         }
     },
     created () {
-        if (this.type === 'Investor Servicing Intro' && this.user != null) {
+        if (this.type === 'basic' && this.user != null) {
             this.popInterval() === true ? this.modal = true : this.modal = false
         }
 
@@ -38,6 +40,46 @@ export default {
             } else {
                 Cookies.set('popup', val, { expires: 364 })
                 return true
+            }
+        },
+        call () {
+            this.modal = false
+            if (this.url && this.url != 'null') {
+                if (this.download == 'true') {
+                    this.download_file(this.url, 'Some Name')
+                } else {
+                    window.location.href = this.url
+                }
+                
+            }
+        },
+        download_file(fileURL, fileName) {
+            // for non-IE
+            if (!window.ActiveXObject) {
+                var save = document.createElement('a');
+                save.href = fileURL;
+                save.target = '_blank';
+                var filename = fileURL.substring(fileURL.lastIndexOf('/')+1);
+                save.download = fileName || filename;
+	               if ( navigator.userAgent.toLowerCase().match(/(ipad|iphone|safari)/) && navigator.userAgent.search("Chrome") < 0) {
+	        			document.location = save.href; 
+                    // window event not working here
+			        }else{
+		                var evt = new MouseEvent('click', {
+		                    'view': window,
+		                    'bubbles': true,
+		                    'cancelable': false
+		                });
+		                save.dispatchEvent(evt);
+		                (window.URL || window.webkitURL).revokeObjectURL(save.href);
+			        }	
+            }
+            // for IE < 11
+            else if ( !! window.ActiveXObject && document.execCommand)     {
+                var _window = window.open(fileURL, '_blank');
+                _window.document.close();
+                _window.document.execCommand('SaveAs', true, fileName || fileURL)
+                _window.close();
             }
         }
     }

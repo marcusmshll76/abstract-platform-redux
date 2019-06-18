@@ -9,10 +9,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1">
     <link rel="icon" type="image/png" href="/img/favicon.png">
-    <link rel="stylesheet" href="/css/lib/bootstrap.css">
+    <!-- <link rel="stylesheet" href="/css/lib/bootstrap.css"> -->
     <link rel="stylesheet" href="/css/lib/flexboxgrid.css">
     <link rel="stylesheet" href="/css/lib/jquery-ui.css">
-    <link rel="stylesheet" href="/css/lib/cs-select.css">
+    <!-- <link rel="stylesheet" href="/css/lib/cs-select.css"> -->
     <link rel="stylesheet" href="/css/lib/owl.theme.css">
     <link rel="stylesheet" href="/css/lib/owl.carousel.css">
     <link rel="stylesheet" href="/css/index.css">
@@ -21,6 +21,7 @@
     <script src="/js/sectionscroll.js"></script>
     <script src="/js/bootstrap.min.js"></script>
     <script src="/js/BoxSdk.min.js"></script>
+    @yield('jquery-js-top')
     <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 
@@ -31,15 +32,31 @@
                 <div class="navbar">
                     <div class="row middle-xs no-margin">
                         <div class="col-xs-12 col-sm-4">
-                            <div class="nav-logo"><a href="/"><img src="/img/logo-dark-w-type.svg" class="logo"></a></div>
+                            <div class="nav-logo">
+                                <a href="/">
+                                    @if ($site -> host !== 'abstract' && $site -> logo_dark)
+                                        <img src="{{ $site -> logo_dark }}" class="logo push-up-nav">
+                                    @else
+                                        <img src="/img/abstract-logo.svg" class="logo">
+                                    @endif
+                                </a>
+                            </div>
                         </div>
                         <div class="col-xs-12 col-sm-4">
                             <div class="header-toggle text-center">
                                 <div class="row">
                                     <div class="col-xs-12 col-sm-4">
+                                    @if ($site -> host != 'abstract') 
+                                        <a href="/dashboard/investors">
+                                            <div class="header-toggle-item">
+                                                <p>Investors</p>
+                                            </div>
+                                        </a>
+                                    @else 
                                         <div class="header-toggle-item">
                                             <p>Investors</p>
                                         </div>
+                                    @endif
                                     </div>
                                     <div class="col-xs-12 col-sm-4">
                                         <div class="header-toggle-item active">
