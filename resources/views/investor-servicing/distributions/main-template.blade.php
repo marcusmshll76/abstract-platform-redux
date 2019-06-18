@@ -21,7 +21,7 @@
                                 <p><a>Distributions</a></p>
                             </div>
                             <div class="left-nav-item">
-                                <p><a>Investor K-1s</a></p>
+                                <p><a>Tax Documents</a></p>
                             </div>
                             <div class="left-nav-item">
                                 <p><a>Reports</a></p>

@@ -13,7 +13,7 @@
     user="{{ Auth::id() }}"
     info="<h5>Thank you, your property has been uploaded. </h5><p>Please allow 48 hours for our team to review and approve. Once approved, you will receive an email with instructions on how to easily invite your investors to join and view performance reports on Abstract’s Investor Servicing portal.</p>"
     action="Got It!"
-    url="/sponsor/introduction">
+    url="/investor-servicing/choose-investment">
 </popup-component>
 @endif
 <form action="/property/create/new" method="post">
@@ -115,6 +115,7 @@
                                 scope="private"
                                 field="property-cap"
                                 multi="no"
+                                section="captable"
                                 path="/property/cap/">
                             </uploads-component>
                         </div>

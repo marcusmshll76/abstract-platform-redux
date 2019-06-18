@@ -30,6 +30,7 @@
                                 field="fund-cap-property"
                                 path="/ownership/"
                                 multi="no"
+                                section="captable"
                                 type="text"
                                 refresh="true">
                             </uploads-component>
@@ -42,6 +43,7 @@
                                 field="cap-property"
                                 path="/ownership/"
                                 multi="no"
+                                section="captable"
                                 type="text"
                                 refresh="true">
                             </uploads-component>

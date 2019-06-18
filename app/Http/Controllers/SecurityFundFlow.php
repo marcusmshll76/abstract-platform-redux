@@ -114,7 +114,7 @@ class SecurityFundFlow extends Controller
 
         // Validations
         $capRule = [];
-        if(empty($request->session()->get('docsRead'))) {
+        if(empty($request->session()->get('capRead'))) {
             $capRule = [
                 'investor-first-name' => 'required',
                 'investor-last-name' => 'required',
@@ -190,10 +190,10 @@ class SecurityFundFlow extends Controller
             $principles = $request->session()->get('security-fund-flow.principles');
         }
 
-        if (!empty($request->session()->get('docsRead'))) {
-            $docsRead = json_encode($request->session()->get('docsRead'));
+        if (!empty($request->session()->get('capRead'))) {
+            $capRead = json_encode($request->session()->get('capRead'));
         } else {
-            $docsRead = '';
+            $capRead = '';
         }
 
         if (isset($keyPoints) && isset($principles)) {
@@ -253,14 +253,14 @@ class SecurityFundFlow extends Controller
                 'existing-properties' => $request->get('existing-properties'),
                 'principles' => json_encode($principles),
                 'key-points' => $keyPoints,
-                'captables' => $docsRead,
+                'captables' => $capRead,
                 "created_at" =>  \Carbon\Carbon::now(),
                 "updated_at" => \Carbon\Carbon::now()
             );
 
             DB::table('security_fund_flow')->insert($payload);
             $request->session()->forget('security-fund-flow');
-            $request->session()->forget('docsRead');
+            $request->session()->forget('capRead');
             return view( 'security-fund-flow.step-7.final', [ 'title' => 'Create Digital Security -> Preview & Submit', 'success' => true ] );
             
         } else {
