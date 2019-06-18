@@ -41,7 +41,7 @@ class SessionController extends Controller {
     public function doLogin(Request $request) {
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials, true)) {
-            if( $request->site->id ) {
+            if( $request->site->id == 1 ) {
                 return redirect()->intended('/sponsor/introduction');
             } else {
                 $redirect()->intended('/investor-servicing/choose-investment');
