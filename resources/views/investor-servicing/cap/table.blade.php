@@ -21,6 +21,7 @@
                             </div>
                         </div>
                         <p>Has your cap table changed?</p>
+                        <uploads-component
                         @if ($type === 'fund')
                             <uploads-component
                                 title="Upload New Cap Table"

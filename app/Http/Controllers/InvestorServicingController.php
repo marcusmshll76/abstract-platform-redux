@@ -184,7 +184,7 @@ class InvestorServicingController extends Controller {
             ->select($q, 'id')
             ->first();
 
-        return view( 'investor-servicing.dst.index', [ 'title' => 'Reports > Investor Servicing'] )->with(compact('data', 'type'));
+        return view( 'investor-servicing.dst.index', [ 'title' => 'Reports > Investor Servicing'] )->with(compact('data', 'type', 'id'));
     }
 
     public function final (Request $request) {
