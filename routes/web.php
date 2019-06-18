@@ -166,7 +166,7 @@ Route::get('/investor-servicing/cap-table-mgmt/{type?}/{rand?}/{id?}', 'Investor
 Route::get('/investor-servicing/reports/{type?}/{rand?}/{id?}', 'InvestorServicingController@reports');
 Route::get('/investor-servicing/upload-new-property', 'Property@newProperty');
 Route::get('/investor-servicing/tax-document', 'InvestorServicingController@tax');
-Route::get('/investor-servicing/dst-reports', 'InvestorServicingController@dst');
+Route::get('/investor-servicing/reports/dt/{type?}/{rand?}/{id?}', 'InvestorServicingController@dst');
 
 Route::post('/reports/create/new', 'InvestorServicingController@reportsCreate');
 
@@ -191,7 +191,7 @@ Route::resource('files', 'FilesController', ['only' => ['store']]);
 // Diligence
 Route::get('/files/diligence/check', 'FilesController@checkDir');
 // Test Files
-Route::get('/testCap', 'InvestorServicingController@getSession');
+Route::get('/testCap', 'FilesController@readDocFiles');
 
 /*******************
     * ******* Box API

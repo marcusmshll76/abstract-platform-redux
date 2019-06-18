@@ -178,10 +178,6 @@
                                         section="tax"
                                         path="/tax/documents/">
                                     </uploads-component>
-                                    @if (isset( $errors ) && $errors )
-                                        <br/>
-                                        <small class="error-small"><em>*</em> <span> Please upload a tax document to continue </span></small>
-                                    @endif
                                 </div>
                                 </div>
                         </div>

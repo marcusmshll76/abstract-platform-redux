@@ -139,7 +139,7 @@ class InvestorServicingController extends Controller {
                 'type' =>  $type,
                 'quater' => $request->get('quater'),
                 'month' => $request->get('month'),
-                'year' => $request->get('year'), 
+                'year' => $request->get('year'),
                 'file' =>  $reportRead,
                 "created_at" =>  \Carbon\Carbon::now(),
                 "updated_at" => \Carbon\Carbon::now()
@@ -166,8 +166,25 @@ class InvestorServicingController extends Controller {
         return view( 'investor-servicing.reports.index', [ 'title' => 'Reports > Investor Servicing'] )->with(compact('type', 'id'));
     }
 
-    public function dst() {
-        return view( 'investor-servicing.dst.index', [ 'title' => 'Reports > Investor Servicing'] );
+    public function dst(Request $request, $type, $rand, $id) {
+        $userid = Auth::id();
+        if ($type === 'fund') {
+            $table = 'security_fund_flow';
+            $q = 'fund-name as name';
+        } else if ($type === 'property') {
+            $table = 'security_flow_property';
+            $q = 'property as name';
+        } else if ($type === 'sproperty') {
+            $table = 'property';
+            $q = 'opportunity_name as name';
+        }
+
+        $data = DB::table($table)
+            ->where('userid', $userid)
+            ->select($q, 'id')
+            ->first();
+
+        return view( 'investor-servicing.dst.index', [ 'title' => 'Reports > Investor Servicing'] )->with(compact('data', 'type'));
     }
 
     public function final (Request $request) {
@@ -176,7 +193,6 @@ class InvestorServicingController extends Controller {
             ->where('userid', $userid)
             ->value('bio');
         $data = $request->session()->get('security-flow');
-        
         return view( 'security-fund-flow.step-7.final', [ 'title' => 'Create Digital Security > Preview & Submit' ] )->with(compact('data', 'bio'));
     }
 }

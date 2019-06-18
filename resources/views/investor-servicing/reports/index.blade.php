@@ -188,10 +188,6 @@
                                                             section="reports"
                                                             path="/reports/documents/">
                                                         </uploads-component>
-                                                        @if (isset( $errors ) && $errors )
-                                                            <br/>
-                                                            <small class="error-small"><em>*</em> <span> Please upload investor report to continue </span></small>
-                                                        @endif
                                                 </div>
                                             </div>
                                         </div>
