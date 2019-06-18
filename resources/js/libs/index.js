@@ -3,7 +3,7 @@ function getApiUrl() {
 	if (hn === 'abstract.test') {
 		return 'http://abstract.test/'
 	} else {
-		return 'https://abstract.com/'
+		return window.location.hostname
 	}
 }
 const API_URL = getApiUrl();
