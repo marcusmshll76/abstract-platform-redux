@@ -82,23 +82,7 @@
         </div>
     </div>
 </div>
-<!-- 
-<div class="card margin-top-m">
-    <div class="card-title blue">
-        <h5>Choose an Investment</h5>
-    </div>
-    <div class="card-content">
-        <h5>Choose a Live Property or Fund</h5>
-        <p>Select any investments below to view Investor Servicing and send reports to all positions tied to the investment.</p>
-        <div class="card grey margin-top-m">
-            <div class="card-content">
-                <div class="owl-carousel owl-theme default-slider">
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
--->
+
 <popup-component
     title="Abstract Investor Servicing"
     type="basic" 

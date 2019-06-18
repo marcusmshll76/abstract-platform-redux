@@ -162,7 +162,7 @@
                                 </div>
                             </div>
                             <div class="footer-button-next">
-                                <div class="btn">Next</div>
+                                <a href="{{'/investor-servicing/distributions/'. $type. '/'.strtolower(str_random(100)). '/' .$id }}" class="btn color-white">Next</a>
                             </div>
                         </div>
                     </div>

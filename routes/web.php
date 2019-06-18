@@ -163,12 +163,14 @@ Route::post('/property/create/new', 'Property@submitPreview');
 Route::get('/investor-servicing/k1', 'InvestorServicingController@k1');
 Route::get('/investor-servicing/choose-investment', 'InvestorServicingController@choose');
 Route::get('/investor-servicing/cap-table-mgmt/{type?}/{rand?}/{id?}', 'InvestorServicingController@captable');
-Route::get('/investor-servicing/distributions', 'InvestorServicingController@distributions');
 Route::get('/investor-servicing/reports', 'InvestorServicingController@reports');
 Route::get('/investor-servicing/upload-new-property', 'Property@newProperty');
 Route::get('/investor-servicing/tax-document', 'InvestorServicingController@tax');
 Route::get('/investor-servicing/dst-reports', 'InvestorServicingController@dst');
 
+// Distributions
+Route::post('/distributions/create/new', 'Distributions@submitDistributions');
+Route::get('/investor-servicing/distributions/{type?}/{rand?}/{id?}', 'Distributions@distributions');
 
 /*******************
     * ******* Files
