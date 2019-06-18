@@ -110,9 +110,9 @@
                         </div>
                         <div class="col-xs-12 col-sm-4 last-xs">
                             <ul class="nav-item margin-right-s">
-                                <li>Login</li>
+                                <li><a href="/login">Login</a></li>
                                 <li>
-                                    <div class="btn">Sign Up</div>
+                                    <div class="btn"><a href="/register">Sign Up</a></div>
                                 </li>
                             </ul>
                         </div>
