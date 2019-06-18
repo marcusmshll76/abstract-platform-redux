@@ -621,7 +621,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <box-component></box-component>
+                    <box-component struc="diligence"></box-component>
                     </div>
                 </div>
             </div>

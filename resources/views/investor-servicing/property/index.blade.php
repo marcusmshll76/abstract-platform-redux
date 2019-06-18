@@ -226,7 +226,7 @@
                     <div class="breadcrumb margin-top-m">
                         <p>All Files<img src="/img/icon-arrow-right.svg">Sponsor Company Name<img src="/img/icon-arrow-right.svg">Investor Servicing<img src="/img/icon-arrow-right.svg">Subscription Documents</p>
                     </div>
-                    <box-component></box-component>
+                    <box-component struc="investor-servicing"></box-component>
                 </div>
             </div>
             <div class="row prop-new">
