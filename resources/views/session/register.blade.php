@@ -16,13 +16,13 @@
                                     <p>Account</p><img src="/img/icon-check-orange.svg">
                                 </div>
                                 <div class="col-xs-3">
-                                    <p>User Dashboard</p><img src="/img/icon-check-white.svg">
+                                  <p>User Dashboard</p><img src="/img/icon-check-white-circle.svg">
                                 </div>
                                 <div class="col-xs-3">
-                                    <p>Create Digital Security</p><img src="/img/icon-check-white.svg">
+                                    <p>Create Digital Security</p><img src="/img/icon-check-white-circle.svg">
                                 </div>
                                 <div class="col-xs-3">
-                                    <p>Invest</p><img src="/img/icon-check-white.svg">
+                                    <p>Investment Marketplace</p><img src="/img/icon-check-white-circle.svg">
                                 </div>
                             </div>
                             <div class="divider"></div>
