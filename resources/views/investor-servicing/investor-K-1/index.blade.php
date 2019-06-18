@@ -1,10 +1,10 @@
 @extends('investor-servicing.investor-K-1.main-template')
-@section('title', "Investor K-1s > Investor Servicing")
+@section('title', "Tax Documents > Investor Servicing")
 
 @section('body')
 <div class="card margin-top-m">
     <div class="card-title blue">
-        <h5>Investor K-1s</h5>
+        <h5>Tax Documents</h5>
     </div>
     <div class="card-content">
         <p>Upload Organization’s Prepared K-1, clarify the K-1s year, and then choose a date for our team to email this deal’s K-1 to ALL positions tied to the deal.</p>
