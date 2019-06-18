@@ -27,7 +27,7 @@ class Property extends Controller
         session( [ 'property' => $session_data ] );
 
         $capRule= [];
-        if(empty($request->session()->get('docsRead'))) {
+        if(empty($request->session()->get('capRead'))) {
             $capRule = [
                 'investor-full-name' => 'required',
                 'investor-entity-name' => 'required',
@@ -53,10 +53,10 @@ class Property extends Controller
 
         $this->validate($request, $rulesCall);
 
-        if (!empty($request->session()->get('docsRead'))) {
-            $docsRead = json_encode($request->session()->get('docsRead'));
+        if (!empty($request->session()->get('capRead'))) {
+            $capRead = json_encode($request->session()->get('capRead'));
         } else {
-            $docsRead = '';
+            $capRead = '';
         }
 
         $userid = Auth::id();
@@ -79,6 +79,7 @@ class Property extends Controller
             'investor-entity-name-2'=> $request->get('investor-entity-name-2'),
             'ownership-2'=> $request->get('ownership-2'),
             'bankTransfer'=> $request->get('bankTransfer'),
+            'captables' => $capRead,
             "created_at" =>  \Carbon\Carbon::now(),
             "updated_at" => \Carbon\Carbon::now()
         );
@@ -86,7 +87,7 @@ class Property extends Controller
         DB::table('property')->insert($payload);
         
         $request->session()->forget('property');
-        $request->session()->forget('docsRead');
+        $request->session()->forget('capRead');
         
         return view( 'investor-servicing.property.index', [ 'title' => 'Upload New Property > Investor Servicing', 'success' => true ] );
     }

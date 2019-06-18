@@ -55,15 +55,15 @@ class InvestorServicingController extends Controller {
                 $table = 'property';
                 $q = 'opportunity_name as name';
             }
-            if (!empty($request->session()->get('docsRead'))) {
+            if (!empty($request->session()->get('capRead'))) {
                 
-                $docs = json_encode($request->session()->get('docsRead'));
+                $docs = json_encode($request->session()->get('capRead'));
                 DB::table($table)
                     ->where('userid', $userid)
                     ->where('id', $id)
                     ->update(['captables' => $docs]);
 
-                    $request->session()->forget('docsRead');
+                    $request->session()->forget('capRead');
             }
             if ($type === 'sproperty') {
                 $data = DB::table($table)
@@ -83,12 +83,46 @@ class InvestorServicingController extends Controller {
             return redirect('/investor-servicing/choose-investment');
         }
     }
-    public function getSession(Request $request) {
-        return $request->session()->get('docsRead');
+
+    public function taxCreate (Request $request) {
+        $type = $request->get('tid');
+        $id = $request->get('did');
+        $userid = Auth::id();
+        $rules = [
+            'document' => 'required',
+            'year' => 'required',
+        ];
+        $this->validate($request, $rules);
+        if (!empty($request->session()->get('taxRead'))) {
+            $taxRead = $request->session()->get('taxRead');
+            $payload = [
+                'userid' => $userid,
+                'parent' => $id,
+                'type' =>  $type,
+                'document' => $request->get('document'),
+                'year' => $request->get('year'), 
+                'file' =>  $taxRead,
+                "created_at" =>  \Carbon\Carbon::now(),
+                "updated_at" => \Carbon\Carbon::now()
+            ];
+    
+            DB::table('taxs')->insert($payload);
+            $request->session()->forget('taxRead');
+            return redirect('/investor-servicing/reports');
+        } else {
+            return view( 'investor-servicing.tax.index', [ 'title' => 'Tax Documents > Investor Servicing', 'errors' => true] )->with(compact('type', 'id'));
+        }
+        
+
+
     }
 
-    public function tax() {
-        return view( 'investor-servicing.tax.index', [ 'title' => 'Tax Documents > Investor Servicing'] );
+    public function getSession(Request $request) {
+        return $request->session()->get('capRead');
+    }
+
+    public function tax(Request $request, $type, $rand, $id) {
+        return view( 'investor-servicing.tax.index', [ 'title' => 'Tax Documents > Investor Servicing'] )->with(compact('type', 'id'));
     }
 
     public function reports() {

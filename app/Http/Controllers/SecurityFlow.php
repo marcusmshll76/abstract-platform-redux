@@ -118,7 +118,7 @@ class SecurityFlow extends Controller
         session( [ 'security-flow' => $session_data ] );
 
         $capRule = [];
-        if(empty($request->session()->get('docsRead'))) {
+        if(empty($request->session()->get('capRead'))) {
             $capRule = [
                 'investor-first-name' => 'required',
                 'investor-last-name' => 'required',
@@ -185,10 +185,10 @@ class SecurityFlow extends Controller
             $principles = $request->session()->get('security-flow.principles');
         }
 
-        if (!empty($request->session()->get('docsRead'))) {
-            $docsRead = json_encode($request->session()->get('docsRead'));
+        if (!empty($request->session()->get('capRead'))) {
+            $capRead = json_encode($request->session()->get('capRead'));
         } else {
-            $docsRead = '';
+            $capRead = '';
         }
 
         if (isset($keyPoints) && !empty(json_encode($principles))) {
@@ -245,7 +245,7 @@ class SecurityFlow extends Controller
                 'mezzanine-debt' => $request->get('mezzanine-debt'),
                 'senior-debt' => $request->get('senior-debt'),
                 'principles' => json_encode($principles),
-                'captables' => $docsRead,
+                'captables' => $capRead,
                 'key-points' => $keyPoints,
                 "created_at" =>  \Carbon\Carbon::now(),
                 "updated_at" => \Carbon\Carbon::now()
@@ -253,7 +253,7 @@ class SecurityFlow extends Controller
 
             DB::table('security_flow_property')->insert($payload);
             $request->session()->forget('security-flow');
-            $request->session()->forget('docsRead');
+            $request->session()->forget('capRead');
             return view( 'security-flow.step-7.final', [ 'title' => 'Security Flow -> Preview & Submit', 'success' => true ] );
 
         } else {

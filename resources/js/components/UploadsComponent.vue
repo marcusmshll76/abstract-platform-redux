@@ -91,7 +91,7 @@
 import axios from 'axios'
 import config from '../libs'
 export default {
-    props: ['type', 'action', 'title', 'field', 'multi', 'icon', 'flat', 'path', 'elname', 'scope', 'refresh'],
+    props: ['type', 'action', 'title', 'field', 'multi', 'icon', 'flat', 'path', 'elname', 'scope', 'refresh', 'section'],
     data () {
         return {
             loadertext: 'Uploading file',
@@ -105,7 +105,8 @@ export default {
     mounted(){
         console.log(this.field)
         this.payload = { 
-            structure: this.path, 
+            structure: this.path,
+            section: this.section,
             access: this.scope,
             multi: this.multi,
             field: this.field

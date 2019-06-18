@@ -115,6 +115,7 @@
                                 scope="private"
                                 field="property-cap"
                                 multi="no"
+                                section="captable"
                                 path="/property/cap/">
                             </uploads-component>
                         </div>

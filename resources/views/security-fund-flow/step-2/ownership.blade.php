@@ -26,6 +26,7 @@
                                 scope="private"
                                 field="fund-cap-property"
                                 path="/ownership/"
+                                section="captable"
                                 multi="no"
                                 flat="true"
                                 type="single-dust">

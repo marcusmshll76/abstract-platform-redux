@@ -28,6 +28,7 @@ class FilesController extends Controller
 
         // File Name
         $filename = time() . str_replace(' ', '', $file->getClientOriginalName());
+        $section = $request->get('section');
 
         if ($request->get('access') === 'private') {
             // Set Private Path
@@ -77,9 +78,19 @@ class FilesController extends Controller
 
         $ext = pathinfo($filePath, PATHINFO_EXTENSION);
         if ($ext == 'csv' || $ext == 'ods' || $ext == 'xlsx' || $ext == 'XLSX') {
-            Storage::disk('local')->put($filePath, file_get_contents($file));
-            $r =  $this->readDocFiles($filePath);
-            $request->session()->put('docsRead', $r);   
+            if ($section === 'captable') {
+                Storage::disk('local')->put($filePath, file_get_contents($file));
+                $r =  $this->readDocFiles($filePath);
+                $request->session()->put('capRead', $r);
+            } else if ($section === 'tax') {
+                $request->session()->put('taxRead', $filePath);
+            }
+        } else {
+            if ($section === 'tax') {
+                $request->session()->put('taxRead', $filePath);
+            } else {
+                // $request->session()->put('docsRead', $r);
+            }
         }
 
         return response()->json([

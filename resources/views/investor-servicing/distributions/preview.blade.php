@@ -123,7 +123,7 @@
                                     </div>
                                 </div>
                                 <div class="footer-button-next">
-                                    <input type="submit" value="Next">
+                                <a href="{{'/investor-servicing/tax-document/'. $type. '/'.strtolower(str_random(100)). '/' .$id }}" class="btn color-white">Next</a>
                                 </div>
                             </div>
                         </div>

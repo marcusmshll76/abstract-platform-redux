@@ -25,6 +25,7 @@
                                 scope="private"
                                 field="cap-property"
                                 path="/ownership/"
+                                section="captable"
                                 multi="no"
                                 flat="true"
                                 type="single-dust">

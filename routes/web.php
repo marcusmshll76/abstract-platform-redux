@@ -172,8 +172,11 @@ Route::get('/investor-servicing/dst-reports', 'InvestorServicingController@dst')
 Route::post('/distributions/create/new', 'Distributions@submitDistributions');
 Route::get('/investor-servicing/distributions/{type?}/{rand?}/{id?}', 'Distributions@distributions');
 Route::get('/investor-servicing/distributions/preview/{type?}/{rand?}/{id?}', 'Distributions@preview');
-
 Route::post('/distributions/preview/new', 'Distributions@download');
+
+// Tax
+Route::get('/investor-servicing/tax-document/{type?}/{rand?}/{id?}', 'InvestorServicingController@tax');
+Route::post('/tax/create/new', 'InvestorServicingController@taxCreate');
 
 /*******************
     * ******* Files
