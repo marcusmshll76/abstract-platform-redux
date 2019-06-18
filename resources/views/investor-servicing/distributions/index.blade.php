@@ -17,7 +17,7 @@
     <div class="card-title blue">
         <h5>Distributions</h5></div>
     <div class="card-content">
-        <p> Fill in the Pro Rata data inputs, then create and preview to download a esv file immediately. Abstract will alert you within 48 hours when distributions report will be uploaded to the investor servicing portal, ready to view and/or send to all positions tied to the deal.</p>
+        <p>Fill in the Pro Rata data inputs, then hit submit to preview or immediately download a CSV file.  Abstract will alert you within 48 hours when distributions reports are uploaded to the Investor Servicing Portal and ready for your investors to view.</p>
         <div class="card grey pad-bottom-open margin-top-m">
             <div class="card-content">
                 <form action="/distributions/create/new" method="post">
@@ -29,8 +29,8 @@
                             <div class="distribution-icon-container">
                                 <div class="row">
                                     <div class="col-xs-12">
-                                        <div class="square-icon"><img src="/img/icon-globe.svg"></div>
-                                        <p>Allocate Pro Rata</p>
+                                        <div class="square-icon"><img src="/img/icon-water-tap.svg"></div>
+                                        <p>Allocate Pro-Rata</p>  
                                     </div>
                                 </div>
                             </div>
