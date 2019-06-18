@@ -15,19 +15,16 @@
                                 <p><a href="/investor-servicing/choose-investment"> Choose an <br/>investment</a></p>
                             </div>
                             <div class="left-nav-item">
-                                <p><a>Upload New <br/>Property</a></p>
+                                <p><a href="{{'/investor-servicing/cap-table-mgmt/'. $type. '/'.strtolower(str_random(100)). '/' .$id }}">Cap Table <br/>Management </a></p>
                             </div>
                             <div class="left-nav-item">
-                                <p><a>Cap Table <br/>Management </a></p>
-                            </div>
-                            <div class="left-nav-item">
-                                <p><a>Distributions</a></p>
+                                <p><a href="{{'/investor-servicing/distributions/'. $type. '/'.strtolower(str_random(100)). '/' .$id }}">Distributions</a></p>
                             </div>
                             <div class="left-nav-item active">
-                                <p><a>Tax Documents</a></p>
+                                <p><a href="{{'/investor-servicing/tax-document/'. $type. '/'.strtolower(str_random(100)). '/' .$id }}">Tax Documents</a></p>
                             </div>
                             <div class="left-nav-item">
-                                <p><a>Reports</a></p>
+                                <p><a href="{{'/investor-servicing/reports/'. $type. '/'.strtolower(str_random(100)). '/' .$id }}">Reports</a></p>
                             </div>
                         </div>
                     </div>
