@@ -1,5 +1,7 @@
 function getApiUrl() {
 	let hn = window.location.hostname;
+	return 'http://' + hn + '/';
+	
 	if (hn === 'abstract.test') {
 		return 'http://abstract.test/'
 	} else {

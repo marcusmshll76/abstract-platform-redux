@@ -30,12 +30,9 @@ class Property extends Controller
         if(empty($request->session()->get('capRead'))) {
             $capRule = [
                 'investor-full-name' => 'required',
-                'investor-entity-name' => 'required',
                 'ownership' => 'required',
                 'investor-full-name-1' => 'required',
-                'investor-entity-name-1' => 'required',
                 'ownership-1' => 'required',
-                'investor-full-name-2' => 'required',
                 'investor-entity-name-2' => 'required',
                 'ownership-2' => 'required',
             ];
