@@ -201,7 +201,7 @@
                                             </div>
                                             <div class="row margin-top-m">
                                                 <div class="col-xs-12 col-sm-6">
-                                                    <div class="btn full-width margin-bottom-m-sm"><a href="/public/img/happy-investor-k1.pdf">PDF</a></div>
+                                                    <div class="btn full-width margin-bottom-m-sm"><a href="/public/img/happy-investor-k1.pdf" style="color: #fff !important;">PDF</a></div>
                                                 </div>
                                                 <div class="col-xs-12 col-sm-6">
                                                     <div class="btn dust full-width">CSV</div>
