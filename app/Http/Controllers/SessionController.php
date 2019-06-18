@@ -44,7 +44,7 @@ class SessionController extends Controller {
             if( $request->site->id == 1 ) {
                 return redirect()->intended('/sponsor/introduction');
             } else {
-                $redirect()->intended('/investor-servicing/choose-investment');
+                redirect()->intended('/investor-servicing/choose-investment');
             }
         } else {
             return view('session.login', [ 'error' => true ] );
