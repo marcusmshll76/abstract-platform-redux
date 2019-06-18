@@ -193,15 +193,15 @@
                                         </div>
                                         <div class="col-xs-12 col-md-6 padding-left-l-lg">
                                             <div class="content-form">
-                                                <p class="no-margin">Choose an Available Tax Document:</p>
+                                                <p class="no-margin">Choose an Available Document:</p>
                                                 <select>
                                                     <option value="" selected="selected">Select an option</option>
-                                                    <option value="option">2018 - Sample Investor K1</option>
+                                                    <option value="option">2018 - DST Report</option>
                                                 </select>
                                             </div>
                                             <div class="row margin-top-m">
                                                 <div class="col-xs-12 col-sm-6">
-                                                    <div class="btn full-width margin-bottom-m-sm"><a href="/img/happy-investor-k1.pdf" style="color: #fff !important;" target="_blank">PDF</a></div>
+                                                    <div class="btn full-width margin-bottom-m-sm"><a href="/img/dst-report.pdf" style="color: #fff !important;" target="_blank">PDF</a></div>
                                                 </div>
                                                 <div class="col-xs-12 col-sm-6">
                                                     <div class="btn dust full-width">CSV</div>
