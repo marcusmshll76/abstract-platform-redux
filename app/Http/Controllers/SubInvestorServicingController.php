@@ -27,8 +27,8 @@ class SubInvestorServicingController extends Controller {
         return view( 'subdomain.investor-servicing.choose.investment', [ 'title' => 'Choose Investment > Investor Servicing'] )->with(compact('data', 'userid'));
     }
 
-    public function ownership(Request $request) {
-        $data = [];
+    public function ownership(Request $request, $type, $rand, $id) {
+        
         return view( 'subdomain.investor-servicing.cap.table', [ 'title' => 'Cap Table Management > Investor Servicing'] )->with(compact('data'));
     }
 

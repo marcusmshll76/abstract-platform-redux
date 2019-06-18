@@ -38,21 +38,31 @@
                             <a href="/account-settings/verification"><h5>Account Settings</h5></a>
                             </div>
                         </div>
-                        <div class="col-xs-12 col-sm-3">
-                            <div class="dashboard-menu-tile"><img src="/img/icon-building.svg">
-                                <h5>My Properties</h5>
+                        @if ($site -> host == 'abstract')
+                            <div class="col-xs-12 col-sm-3">
+                                <div class="dashboard-menu-tile"><img src="/img/icon-building.svg">
+                                    <h5>My Properties</h5>
+                                </div>
                             </div>
-                        </div>
+                        @endif
                         <div class="col-xs-12 col-sm-3">
                             <div class="dashboard-menu-tile active"><img src="/img/icon-paper-settings-active.svg">
-                                <a href="/investor-servicing/choose-investment"><h5>Investor Servicing</h5></a>
+                                <a href="/investor-servicing/choose-investment"><h5>
+                                @if ($site -> host == 'abstract') 
+                                    Investor Servicing
+                                @else
+                                    Your Investments
+                                @endif
+                            </h5></a>
                             </div>
                         </div>
+                        @if ($site -> host == 'abstract')
                         <div class="col-xs-12 col-sm-3">
                             <div class="dashboard-menu-tile"><img src="/img/icon-security-blue.svg">
                                 <a href="/security-fund-flow/step-1/choose"><h5>Create Digital Security</h5></a>
                             </div>
                         </div>
+                        @endif
                     </div>
                 </div>
                 @yield('body')

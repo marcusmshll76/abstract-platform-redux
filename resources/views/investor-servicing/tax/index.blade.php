@@ -18,6 +18,7 @@
                 <input type="hidden" name="did" value="{{$id}}" />
                 <input type="hidden" name="tid" value="{{$type}}" />
                 <div class="row">
+                @if ($site -> host == 'abstract')
                         <div class="col-xs-12 col-md-6 padding-right-l-lg border-right-lg">
                             <div class="card equal-padding margin-bottom-m">
                                 <div class="row middle-xs">
@@ -181,6 +182,7 @@
                                 </div>
                                 </div>
                         </div>
+                    @endif
                         <div class="col-xs-12 col-md-6 padding-left-l-lg">
                             <div class="row">
                                 <div class="col-xs-12">
