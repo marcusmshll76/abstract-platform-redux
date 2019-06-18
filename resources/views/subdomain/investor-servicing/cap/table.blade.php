@@ -14,9 +14,47 @@
                     <div class="col-xs-12 col-sm-4">
                         <div class="marketplace-card-image porperty-image">
                             <div class="marketplace-card-image-description">
-                                <h5>Mullbery Place Portland, OR</h5>
-                                <p>Mixed Family</p>
-                            </div><img src="/img/img-demo-1.jpg"></div>
+                                <h5>{{!empty($data) ? $data->name : '' }}</h5>
+                                <p class="color-white">
+                                        @if (isset($type) &&  $type === 'property')
+                                            Property digital security
+
+                                        @elseif (isset($type) &&  $type === 'sproperty')
+                                            Property
+                                        @else
+                                            Fund digital security
+                                        @endif
+                                </p>
+                            </div>
+                            @if ($type === 'fund')
+                                        <file-preview
+                                            iname="Single"
+                                            scope="private"
+                                            user="{{Auth::id()}}"
+                                            field="fund-digital-security"
+                                            path="/digital-security/fund/photo-gallery/"
+                                            index="0">
+                                        </file-preview>
+                                    @elseif ($type === 'property')
+                                        <file-preview
+                                            iname="Single"
+                                            scope="private"
+                                            user="{{Auth::id()}}"
+                                            field="digital-security"
+                                            path="/digital-security/photo-gallery/"
+                                            index="0">
+                                        </file-preview>
+                                    @elseif ($type === 'sproperty')
+                                        <file-preview
+                                            iname="Single"
+                                            scope="private"
+                                            user="{{Auth::id()}}"
+                                            field="property-image"
+                                            path="/property/images/"
+                                            index="0">
+                                        </file-preview>
+                                @endif
+                        </div>
                     </div>
                     <div class="col-xs-12 col-sm-8">
                         <div class="stats-container">
@@ -26,7 +64,7 @@
                                         <div class="card-title blue">
                                             <h5>Percentage OwnerShip</h5></div>
                                         <div class="card-content">
-                                            <h4>1.22%</h4></div>
+                                            <h4>59.52%</h4></div>
                                     </div>
                                 </div>
                             </div>
@@ -40,7 +78,7 @@
                                                 <div class="col-xs-12 col-md-6 col-lg-3">
                                                     <div class="card equal-padding">
                                                         <p>Capital Contributed</p>
-                                                        <h4>$1,000,000</h4></div>
+                                                        <h4>$12,500,000 </h4></div>
                                                 </div>
                                                 <div class="col-xs-12 col-md-6 col-lg-3">
                                                     <div class="card equal-padding margin-top-m-md">
@@ -50,7 +88,7 @@
                                                 <div class="col-xs-12 col-md-6 col-lg-3">
                                                     <div class="card equal-padding margin-top-m-lg">
                                                         <p>Capital Contributed</p>
-                                                        <h4>$1,000,000</h4></div>
+                                                        <h4>$12,500,000</h4></div>
                                                 </div>
                                                 <div class="col-xs-12 col-md-6 col-lg-3">
                                                     <div class="card equal-padding margin-top-m-lg">
@@ -61,6 +99,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                
                             </div>
                             <div class="row">
                                 <div class="col-xs-12">
@@ -106,7 +145,7 @@
                                 </div>
                             </div>
                             <div class="footer-button-next">
-                                <input type="submit" value="Next">
+                                <a href="{{'/investor-servicing/tax-document/'. $type. '/'.strtolower(str_random(100)). '/' .$id }}" class="btn color-white">Next</a>
                             </div>
                         </div>
                     </div>

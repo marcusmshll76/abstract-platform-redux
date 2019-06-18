@@ -16,7 +16,7 @@ Route::domain('{sub}.abstract.test')->group(function () {
         * ******* Investor Servicing, Sub Domain
     **************/
     Route::get('/choose-investment', 'SubInvestorServicingController@choose');
-    Route::get('/ownership-snapshot', 'SubInvestorServicingController@ownership');
+    
     Route::get('/tax-documents', 'SubInvestorServicingController@tax');
     Route::get('/reports', 'SubInvestorServicingController@reports');
     Route::get('/dashboard/investors', 'SubInvestorDashboardController@investor');
@@ -167,6 +167,7 @@ Route::get('/investor-servicing/reports/{type?}/{rand?}/{id?}', 'InvestorServici
 Route::get('/investor-servicing/upload-new-property', 'Property@newProperty');
 Route::get('/investor-servicing/tax-document', 'InvestorServicingController@tax');
 Route::get('/investor-servicing/reports/dt/{type?}/{rand?}/{id?}', 'InvestorServicingController@dst');
+Route::get('/ownership-snapshot/{type?}/{rand?}/{id?}', 'InvestorServicingController@ownershipCap');
 
 Route::post('/reports/create/new', 'InvestorServicingController@reportsCreate');
 

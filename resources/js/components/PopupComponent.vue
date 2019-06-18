@@ -141,7 +141,7 @@ export default {
 
     .popup-review-content {
         text-align: center;
-        padding: 20px 40px
+        padding: 20px;
     }
 
     .popup-review-content input {
