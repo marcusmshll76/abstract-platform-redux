@@ -633,7 +633,7 @@
                             </div>
                         </div>
                         <div class="card-content">
-                            <box-component struc="account-setting"></box-component>
+                            <box-component struc="account-settings"></box-component>
                         </div>
                     </div>
                 </div>
