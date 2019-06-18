@@ -22,7 +22,7 @@
                     <div class="col-xs-12 col-md-6"><input type="search"></div>
                 </div>
                 <div class="row">
-                    <box-component></box-component>
+                    <box-component struc="diligence"></box-component>
                 </div>
                 <div class="row">
                     <div class="col-xs-12">

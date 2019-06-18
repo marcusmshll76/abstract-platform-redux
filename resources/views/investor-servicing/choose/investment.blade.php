@@ -87,7 +87,7 @@
     title="Abstract Investor Servicing"
     type="basic" 
     user="{{ $userid }}"
-    info="<h5>We listened  to our Sponsor Network’s feedback and created a simplified Investor Servicing portal. </h5><p>Once you upload the relavent documentation, we will pass your property or fund through our diligenprocess in 48 hours or less. Next, you will receive an email with instructions on how to invite your investoto login to your personal portal and view investor servicing reporting.</p>"
+    info="<h5>We listened  to our Sponsor Network’s feedback and created a simplified Investor Servicing portal. </h5><p>Once you upload the relavent documentation, we will pass your property or fund through our diligen process in 48 hours or less. Next, you will receive an email with instructions on how to invite your investoto login to your personal portal and view investor servicing reporting.</p>"
     action="Got It!">
 </popup-component>
 @endsection
