@@ -41,7 +41,11 @@ class SessionController extends Controller {
     public function doLogin(Request $request) {
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials, true)) {
-            if( $request->site->id == 1 ) {
+            // @TODO this is a temp workaround for the demo
+            $hostname = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : $_SERVER['SERVER_NAME'];
+            $subdomain = explode('.', $hostname, 2)[0];
+
+            if( $subdomain == 'abstract' ) {
                 return redirect()->intended('/sponsor/introduction');
             } else {
                 redirect()->intended('/investor-servicing/choose-investment');
