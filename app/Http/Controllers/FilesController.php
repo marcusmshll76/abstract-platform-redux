@@ -82,12 +82,16 @@ class FilesController extends Controller
                 Storage::disk('local')->put($filePath, file_get_contents($file));
                 $r =  $this->readDocFiles($filePath);
                 $request->session()->put('capRead', $r);
+            } else if ($section === 'reports') {
+                $request->session()->put('reportRead', $filePath);
             } else if ($section === 'tax') {
                 $request->session()->put('taxRead', $filePath);
             }
         } else {
             if ($section === 'tax') {
                 $request->session()->put('taxRead', $filePath);
+            } else if ($section === 'reports') {
+                $request->session()->put('reportRead', $filePath);
             } else {
                 // $request->session()->put('docsRead', $r);
             }

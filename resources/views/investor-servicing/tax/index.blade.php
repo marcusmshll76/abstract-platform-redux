@@ -26,7 +26,7 @@
                                     </div>
                                     <div class="col-xs-12 col-sm-6 col-md-6">
                                         <select name="document" class="no-margin-top">
-                                            <option value="" disabled="disabled" selected="selected">Select an option</option>
+                                            <option value="{{ isset($data['document']) ? $data['document'] : '' }}" disabled="disabled" selected="selected">{{ isset($data['document']) ? $data['document'] : 'Select an option' }}</option>
                                             <option value="Schedule K-1">Schedule K-1</option>
                                             <option value="Schedule E">Schedule E</option>
                                         </select>

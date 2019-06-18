@@ -85,6 +85,9 @@ class InvestorServicingController extends Controller {
     }
 
     public function taxCreate (Request $request) {
+        $session_data = session( 'tax', array() );
+        $session_data = array_merge( $session_data, $_POST );
+        session( [ 'tax' => $session_data ] );
         $type = $request->get('tid');
         $id = $request->get('did');
         $userid = Auth::id();
@@ -105,16 +108,50 @@ class InvestorServicingController extends Controller {
                 "created_at" =>  \Carbon\Carbon::now(),
                 "updated_at" => \Carbon\Carbon::now()
             ];
-    
+            
             DB::table('taxs')->insert($payload);
             $request->session()->forget('taxRead');
-            return redirect('/investor-servicing/reports');
+            return redirect('/investor-servicing/reports/'. $type. '/'.strtolower(str_random(100)). '/' .$id);
         } else {
-            return view( 'investor-servicing.tax.index', [ 'title' => 'Tax Documents > Investor Servicing', 'errors' => true] )->with(compact('type', 'id'));
+            $data = $request->session()->get('tax');
+            return view( 'investor-servicing.tax.index', [ 'title' => 'Tax Documents > Investor Servicing', 'errors' => true] )->with(compact('data', 'type', 'id'));
         }
-        
+    }
 
-
+    public function reportsCreate (Request $request) {
+        $session_data = session( 'report', array() );
+        $session_data = array_merge( $session_data, $_POST );
+        session( [ 'report' => $session_data ] );
+        $type = $request->get('tid');
+        $id = $request->get('did');
+        $userid = Auth::id();
+        $rules = [
+            'quater' => 'required',
+            'year' => 'required',
+            'month' => 'required',
+        ];
+        $this->validate($request, $rules);
+        if (!empty($request->session()->get('reportRead'))) {
+            $reportRead = $request->session()->get('reportRead');
+            $payload = [
+                'userid' => $userid,
+                'parent' => $id,
+                'type' =>  $type,
+                'quater' => $request->get('quater'),
+                'month' => $request->get('month'),
+                'year' => $request->get('year'), 
+                'file' =>  $reportRead,
+                "created_at" =>  \Carbon\Carbon::now(),
+                "updated_at" => \Carbon\Carbon::now()
+            ];
+            
+            DB::table('reports')->insert($payload);
+            $request->session()->forget('reportRead');
+            return redirect('/investor-servicing/reports/dt/'. $type. '/'.strtolower(str_random(100)). '/' .$id);
+        } else {
+            $data = $request->session()->get('report');
+            return view( 'investor-servicing.tax.index', [ 'title' => 'Reports > Investor Servicing', 'errors' => true] )->with(compact('data', 'type', 'id'));
+        }
     }
 
     public function getSession(Request $request) {
@@ -125,8 +162,8 @@ class InvestorServicingController extends Controller {
         return view( 'investor-servicing.tax.index', [ 'title' => 'Tax Documents > Investor Servicing'] )->with(compact('type', 'id'));
     }
 
-    public function reports() {
-        return view( 'investor-servicing.reports.index', [ 'title' => 'Reports > Investor Servicing'] );
+    public function reports(Request $request, $type, $rand, $id) {
+        return view( 'investor-servicing.reports.index', [ 'title' => 'Reports > Investor Servicing'] )->with(compact('type', 'id'));
     }
 
     public function dst() {
