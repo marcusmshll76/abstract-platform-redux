@@ -78,17 +78,13 @@ class InvestorServicingController extends Controller {
                 ->select($q, 'captables', 'investor-first-name as fn', 'investor-last-name as ln', 'ownership as ow', 'investor-first-name-1 as fn1', 'investor-last-name-1 as ln1', 'ownership-1 as ow1', 'investor-first-name-2 as fn2', 'investor-last-name-2 as ln2', 'ownership-2 as ow2')
                 ->first();
             }
-            return view( 'investor-servicing.cap.table', [ 'title' => 'Cap Table Management > Investor Servicing'] )->with(compact('data', 'type'));
+            return view( 'investor-servicing.cap.table', [ 'title' => 'Cap Table Management > Investor Servicing'] )->with(compact('data', 'type', 'id'));
         } else {
             return redirect('/investor-servicing/choose-investment');
         }
     }
     public function getSession(Request $request) {
         return $request->session()->get('docsRead');
-    }
-
-    public function distributions() {
-        return view( 'investor-servicing.distributions.index', [ 'title' => 'Distributions > Investor Servicing'] );
     }
 
     public function tax() {
