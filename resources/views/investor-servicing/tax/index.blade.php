@@ -185,22 +185,7 @@
                             <div class="row">
                                 <div class="col-xs-12">
                                     <div class="content-form">
-                                        <p class="no-margin">Choose an Available Tax Document:</p>
-                                        <select>
-                                            <option value="" disabled="disabled" selected="selected">Select an option</option>
-                                            <option value="option">option</option>
-                                            <option value="option">option</option>
-                                            <option value="option">option</option>
-                                            <option value="option">option</option>
-                                        </select>
-                                    </div>
-                                    <div class="row margin-top-m">
-                                        <div class="col-xs-12 col-sm-6">
-                                            <div class="btn full-width margin-bottom-m-sm">PDF</div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-6">
-                                            <div class="btn dust full-width margin-bottom-m-sm">CSV</div>
-                                        </div>
+                                        <p class="no-margin">You have no tax documents available at this time.</p>
                                     </div>
                                 </div>
                             </div>
