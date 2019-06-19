@@ -62,9 +62,11 @@
                                 <div class="col-xs-12">
                                     <div class="card margin-top-m-sm">
                                         <div class="card-title blue">
-                                            <h5>Percentage OwnerShip</h5></div>
+                                            <h5>Percentage OwnerShip</h5>
+                                        </div>
                                         <div class="card-content">
-                                            <h4>59.52%</h4></div>
+                                            <h4>1.22%</h4>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -72,40 +74,65 @@
                                 <div class="col-xs-12">
                                     <div class="card grey margin-top-m">
                                         <div class="card-title blue">
-                                            <h5>Performance Overview</h5></div>
-                                        <div class="card-content">
-                                            <div class="row">
+                                            <h5>Performance Overview</h5>
+                                        </div>
+                                        <div class="card-content overview-card">
+                                            <div class="row margin-bottom-m">
                                                 <div class="col-xs-12 col-md-6 col-lg-3">
                                                     <div class="card equal-padding">
                                                         <p>Capital Contributed</p>
-                                                        <h4>$12,500,000 </h4></div>
+                                                        <h4>$1,000,000</h4>
+                                                    </div>
                                                 </div>
                                                 <div class="col-xs-12 col-md-6 col-lg-3">
                                                     <div class="card equal-padding margin-top-m-md">
-                                                        <p>Cash Flow to Date </p>
-                                                        <h4>$136,554</h4></div>
+                                                        <p>Cummulative Return</p>
+                                                        <h4>18%</h4>
+                                                    </div>
                                                 </div>
                                                 <div class="col-xs-12 col-md-6 col-lg-3">
                                                     <div class="card equal-padding margin-top-m-lg">
-                                                        <p>Capital Contributed</p>
-                                                        <h4>$12,500,000</h4></div>
+                                                        <p>Current Annualized</p>
+                                                        <h4>11%</h4>
+                                                    </div>
                                                 </div>
                                                 <div class="col-xs-12 col-md-6 col-lg-3">
                                                     <div class="card equal-padding margin-top-m-lg">
-                                                        <p>Cash Flow to Date </p>
-                                                        <h4>$136,554</h4></div>
+                                                        <p>Current Occupancy</p>
+                                                        <h4>95%</h4>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-12 col-md-6 col-lg-4">
+                                                    <div class="card equal-padding">
+                                                        <p>Investment Date</p>
+                                                        <h4>09/30/2017</h4>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-12 col-md-6 col-lg-4">
+                                                    <div class="card equal-padding margin-top-m-md">
+                                                        <p>Cash Flow To Date</p>
+                                                        <h4>$134,644</h4>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-12 col-md-6 col-lg-4">
+                                                    <div class="card equal-padding margin-top-m-lg">
+                                                        <p>Current Cash Flow</p>
+                                                        <h4>$18,000</h4>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                
                             </div>
                             <div class="row">
                                 <div class="col-xs-12">
                                     <div class="card grey margin-top-m">
                                         <div class="card-title blue">
-                                            <h5>Distributions Overview</h5></div>
+                                            <h5>Distributions Overview</h5>
+                                        </div>
                                         <div class="card-content">
                                             <div class="distributions-chart"></div>
                                         </div>
