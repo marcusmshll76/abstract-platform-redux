@@ -65,7 +65,7 @@
                                             <h5>Percentage OwnerShip</h5>
                                         </div>
                                         <div class="card-content">
-                                            <h4>1.22%</h4>
+                                            <h4>26.19%</h4>
                                         </div>
                                     </div>
                                 </div>
@@ -81,7 +81,7 @@
                                                 <div class="col-xs-12 col-md-6 col-lg-3">
                                                     <div class="card equal-padding">
                                                         <p>Capital Contributed</p>
-                                                        <h4>$1,000,000</h4>
+                                                        <h4>$5,500,000</h4>
                                                     </div>
                                                 </div>
                                                 <div class="col-xs-12 col-md-6 col-lg-3">
