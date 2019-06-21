@@ -31,7 +31,8 @@ class CapTableHelper {
                 'investment_amount' => $investor['capital'],
                 'contributed'       => $investor['date'],
                 'entity_name'       => $investor['entity_name'],
-                'share'             => $investor['stake']
+                'share'             => $investor['stake'],
+                'type'              => 'sproperty', // @TODO make dynamic
             ] );
         }
 

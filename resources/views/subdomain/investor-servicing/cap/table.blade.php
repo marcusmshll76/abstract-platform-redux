@@ -14,15 +14,15 @@
                     <div class="col-xs-12 col-sm-4">
                         <div class="marketplace-card-image porperty-image">
                             <div class="marketplace-card-image-description">
-                                <h5>{{!empty($data) ? $data->name : '' }}</h5>
+                                <h5>{{!empty($property_details) ? $property_details->opportunity_name : '' }}</h5>
                                 <p class="color-white">
                                         @if (isset($type) &&  $type === 'property')
-                                            Property digital security
+                                            Property (Digital Security)
 
                                         @elseif (isset($type) &&  $type === 'sproperty')
                                             Property
                                         @else
-                                            Fund digital security
+                                            Fund (Digital Security)
                                         @endif
                                 </p>
                             </div>
@@ -62,10 +62,10 @@
                                 <div class="col-xs-12">
                                     <div class="card margin-top-m-sm">
                                         <div class="card-title blue">
-                                            <h5>Percentage OwnerShip</h5>
+                                            <h5>Percentage Ownership</h5>
                                         </div>
                                         <div class="card-content">
-                                            <h4>26.19%</h4>
+                                            <h4>{{ round( $investment_details->share * 100, 2 ) }}%</h4>
                                         </div>
                                     </div>
                                 </div>
@@ -81,25 +81,25 @@
                                                 <div class="col-xs-12 col-md-6 col-lg-3">
                                                     <div class="card equal-padding">
                                                         <p>Capital Contributed</p>
-                                                        <h4>$5,500,000</h4>
+                                                        <h4>${{ number_format( $investment_details->investment_amount ) }}</h4>
                                                     </div>
                                                 </div>
                                                 <div class="col-xs-12 col-md-6 col-lg-3">
                                                     <div class="card equal-padding margin-top-m-md">
                                                         <p>Cummulative Return</p>
-                                                        <h4>18%</h4>
+                                                        <h4></h4>
                                                     </div>
                                                 </div>
                                                 <div class="col-xs-12 col-md-6 col-lg-3">
                                                     <div class="card equal-padding margin-top-m-lg">
                                                         <p>Current Annualized</p>
-                                                        <h4>11%</h4>
+                                                        <h4></h4>
                                                     </div>
                                                 </div>
                                                 <div class="col-xs-12 col-md-6 col-lg-3">
                                                     <div class="card equal-padding margin-top-m-lg">
                                                         <p>Current Occupancy</p>
-                                                        <h4>95%</h4>
+                                                        <h4></h4>
                                                     </div>
                                                 </div>
                                             </div>
@@ -107,19 +107,19 @@
                                                 <div class="col-xs-12 col-md-6 col-lg-4">
                                                     <div class="card equal-padding">
                                                         <p>Investment Date</p>
-                                                        <h4>09/30/2017</h4>
+                                                        <h4>{{ $investment_details->contributed }}</h4>
                                                     </div>
                                                 </div>
                                                 <div class="col-xs-12 col-md-6 col-lg-4">
                                                     <div class="card equal-padding margin-top-m-md">
                                                         <p>Cash Flow To Date</p>
-                                                        <h4>$134,644</h4>
+                                                        <h4></h4>
                                                     </div>
                                                 </div>
                                                 <div class="col-xs-12 col-md-6 col-lg-4">
                                                     <div class="card equal-padding margin-top-m-lg">
                                                         <p>Current Cash Flow</p>
-                                                        <h4>$18,000</h4>
+                                                        <h4></h4>
                                                     </div>
                                                 </div>
                                             </div>

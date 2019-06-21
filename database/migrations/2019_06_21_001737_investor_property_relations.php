@@ -27,8 +27,9 @@ class InvestorPropertyRelations extends Migration
             $table->integer('propertyid');
             $table->integer('investment_amount');
             $table->date('contributed');
-            $table->string('entity_name')->nullable();;
+            $table->string('entity_name')->nullable();
             $table->float('share');
+            $table->string('type');
         } );
 
         // Add invite code functionality for investors
