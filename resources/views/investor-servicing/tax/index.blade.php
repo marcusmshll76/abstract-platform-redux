@@ -186,8 +186,43 @@
                         <div class="col-xs-12 col-md-6 padding-left-l-lg">
                             <div class="row">
                                 <div class="col-xs-12">
-                                    <div class="content-form">
-                                        <p class="no-margin">You have no tax documents available at this time.</p>
+                                        <div class="card equal-padding margin-bottom-m">
+                                            <div class="row middle-xs">
+                                                <div class="col-xs-12 col-sm-6 col-md-6 text-left">
+                                                    <p class="no-margin">Choose Tax Document:</p>
+                                                </div>
+                                                <div class="col-xs-12 col-sm-6 col-md-6">
+                                                    <select name="document" class="no-margin-top">
+                                                        <option disabled="disabled" selected="selected">Select An Option</option>
+                                                        <option value="Schedule K-1">Schedule K-1</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row middle-xs">
+                                                <div class="col-xs-12 col-sm-6 col-md-6 text-left">
+                                                        <p class="no-margin">Choose Tax Year:</p>
+                                                    </div>
+                                                    <div class="col-xs-12 col-sm-6 col-md-6">
+                                                        <select name="document" class="no-margin-top">
+                                                            <option disabled="disabled" selected="selected">Select An Option</option>
+                                                            <option value="2018">2018</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row middle-xs">
+                                                <div class="col-xs-12 col-md-4">
+                                                    <div class="row">
+                                                        <div class="col-xs-12 col-sm-6">
+                                                            <div class="btn full-width margin-bottom-m-sm"><a href="/img/happy-investor-k1.pdf" style="color: #fff !important;" target="_blank">PDF</a></div>
+                                                        </div>
+                                                        <div class="col-xs-12 col-sm-6">
+                                                            <div class="btn dust full-width">CSV</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

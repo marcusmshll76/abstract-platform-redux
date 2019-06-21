@@ -19,24 +19,26 @@ class InvestorServicingController extends Controller {
 
     public function choose(Request $request) {
         $userid = Auth::id();
-        $property = DB::table('property')
-            ->where('userid', $userid)
+        $properties = array();
+
+        // First, fetch all of my investments.
+        $my_investments = DB::table( 'investments' )
+            ->where( 'userid', $userid )
+            ->pluck('propertyid');
+
+        // Next, determine which are visible on this microsite.
+        $valid_microsite_sponsors = DB::table('microsite_sponsors' )
+            ->select( 'sponsorid' )
+            ->where( 'siteid', $request->site->id )
+            ->pluck( 'sponsorid' );
+
+        // Now, fetch each property that matches
+        // @TODO support more than just the property table
+        $data = DB::table('property')
+            ->whereIn('userid', $valid_microsite_sponsors)
+            ->whereIn('id', $my_investments)
             ->select('opportunity_name as name', 'id')
-            ->addSelect(DB::raw("'sproperty' as fakeType"));
-
-        $cproperty = DB::table('security_flow_property')
-            ->where('userid', $userid)
-            ->select('property as name', 'id')
-            ->addSelect(DB::raw("'property' as fakeType"));
-        
-        // $property = $property->addSelect(DB::raw("'property' as fakeType"));
-
-        $data = DB::table('security_fund_flow')
-            ->where('userid', $userid)
-            ->select('fund-name as name', 'id')
-            ->addSelect(DB::raw("'fund' as fakeType"))
-            ->union($property)
-            ->union($cproperty)
+            ->addSelect(DB::raw("'sproperty' as fakeType"))
             ->get();
 
         return view( 'investor-servicing.choose.investment', [ 'title' => 'Choose Investment > Investor Servicing'] )->with(compact('data', 'userid'));
@@ -61,7 +63,7 @@ class InvestorServicingController extends Controller {
                 DB::table($table)
                     ->where('userid', $userid)
                     ->where('id', $id)
-                    ->update(['captables' => $docs]);
+                    ->upate(['captables' => $docs]);
 
                     $request->session()->forget('capRead');
             }
@@ -78,6 +80,7 @@ class InvestorServicingController extends Controller {
                 ->select($q, 'captables', 'investor-first-name as fn', 'investor-last-name as ln', 'ownership as ow', 'investor-first-name-1 as fn1', 'investor-last-name-1 as ln1', 'ownership-1 as ow1', 'investor-first-name-2 as fn2', 'investor-last-name-2 as ln2', 'ownership-2 as ow2')
                 ->first();
             }
+
             return view( 'investor-servicing.cap.table', [ 'title' => 'Cap Table Management > Investor Servicing'] )->with(compact('data', 'type', 'id'));
         } else {
             return redirect('/investor-servicing/choose-investment');
@@ -86,40 +89,16 @@ class InvestorServicingController extends Controller {
     public function ownershipCap (Request $request, $type, $rand, $id) {
         $userid = Auth::id();
         if (isset($type) && isset($id)) {
-            if ($type === 'fund') {
-                $table = 'security_fund_flow';
-                $q = 'fund-name as name';
-            } else if ($type === 'property') {
-                $table = 'security_flow_property';
-                $q = 'property as name';
-            } else if ($type === 'sproperty') {
-                $table = 'property';
-                $q = 'opportunity_name as name';
-            }
-            if (!empty($request->session()->get('capRead'))) {
+            $property_details = DB::table( 'property' )
+            ->where( 'id', $id )
+            ->first();
+        
+            $investment_details = DB::table( 'investments' )
+                ->where( 'userid', $userid )
+                ->where( 'propertyid', $id )
+                ->first();
                 
-                $docs = json_encode($request->session()->get('capRead'));
-                DB::table($table)
-                    ->where('userid', $userid)
-                    ->where('id', $id)
-                    ->update(['captables' => $docs]);
-
-                    $request->session()->forget('capRead');
-            }
-            if ($type === 'sproperty') {
-                $data = DB::table($table)
-                ->where('userid', $userid)
-                ->where('id', $id)
-                ->select($q, 'captables')
-                ->first();
-            } else {
-                $data = DB::table($table)
-                ->where('userid', $userid)
-                ->where('id', $id)
-                ->select($q, 'captables', 'investor-first-name as fn', 'investor-last-name as ln', 'ownership as ow', 'investor-first-name-1 as fn1', 'investor-last-name-1 as ln1', 'ownership-1 as ow1', 'investor-first-name-2 as fn2', 'investor-last-name-2 as ln2', 'ownership-2 as ow2')
-                ->first();
-            }
-            return view( 'subdomain.investor-servicing.cap.table', [ 'title' => 'Cap Table Management > Investor Servicing'] )->with(compact('data', 'type', 'id'));
+            return view( 'subdomain.investor-servicing.cap.table', [ 'title' => 'Cap Table Management > Investor Servicing'] )->with(compact('property_details', 'investment_details', 'type', 'id'));
         } else {
             return redirect('/investor-servicing/choose-investment');
         }

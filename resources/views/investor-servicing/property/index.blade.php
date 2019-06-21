@@ -104,7 +104,7 @@
             <div class="row margin-bottom-m padding-bottom-m border-bottom">
                 <div class="col-xs-12">
                     <h5>Cap Table:</h5>
-                    <p>Fill in the below property details and upload one photo of the property.</p>
+                    <p>Upload your property's cap table.</p>
                     <div class="row margin-top-m">
                         <div class="col-xs-12 col-sm-4">
                             <uploads-component
@@ -119,94 +119,12 @@
                                 path="/property/cap/">
                             </uploads-component>
                         </div>
-                        <div class="col-xs-12 col-sm-8">
-                            <div class="content-form">
-                                <div class="row margin-bottom-l-md">
-                                    <div class="col-xs-12 col-md-4">
-                                        <p>Investor Full Name</p>
-                                        @if($errors->has('investor-full-name'))
-                                            <br/>
-                                            <small class="error-small"><em>*</em> <span> {{ $errors->first('investor-full-name') }} </span></small>
-                                        @endif
-                                        <input value="{{ isset($data['investor-full-name']) ? $data['investor-full-name'] : '' }}" name="investor-full-name" type="text">
-                                    </div>
-                                    <div class="col-xs-12 col-md-4">
-                                        <p>Entity Name If Applicable</p>
-                                        @if($errors->has('investor-entity-name'))
-                                            <br/>
-                                            <small class="error-small"><em>*</em> <span> {{ $errors->first('investor-entity-name') }} </span></small>
-                                        @endif
-                                        <input name="investor-entity-name" value="{{ isset($data['investor-entity-name']) ? $data['investor-entity-name'] : '' }}" type="text">
-                                    </div>
-                                    <div class="col-xs-12 col-md-4">
-                                        <p>% Ownership</p>
-                                        @if($errors->has('ownership'))
-                                            <br/>
-                                            <small class="error-small"><em>*</em> <span> {{ $errors->first('ownership') }} </span></small>
-                                        @endif
-                                        <input type="text" value="{{ isset($data['ownership']) ? $data['ownership'] : '' }}" name="ownership">
-                                    </div>
-                                </div>
-                                <div class="row margin-bottom-l-md">
-                                    <div class="col-xs-12 col-md-4">
-                                        <p>Investor Full Name</p>
-                                        @if($errors->has('investor-full-name-1'))
-                                            <br/>
-                                            <small class="error-small"><em>*</em> <span> {{ $errors->first('investor-full-name-1') }} </span></small>
-                                        @endif
-                                        <input value="{{ isset($data['investor-full-name-1']) ? $data['investor-full-name-1'] : '' }}" type="text" name="investor-full-name-1">
-                                    </div>
-                                    <div class="col-xs-12 col-md-4">
-                                        <p>Entity Name If Applicable</p>
-                                        @if($errors->has('investor-entity-name-1'))
-                                            <br/>
-                                            <small class="error-small"><em>*</em> <span> {{ $errors->first('investor-entity-name-1') }} </span></small>
-                                        @endif
-                                        <input type="text" value="{{ isset($data['investor-entity-name-1']) ? $data['investor-entity-name-1'] : '' }}" name="investor-entity-name-1">
-                                    </div>
-                                    <div class="col-xs-12 col-md-4">
-                                        <p>% Ownership</p>
-                                        @if($errors->has('ownership-1'))
-                                            <br/>
-                                            <small class="error-small"><em>*</em> <span> {{ $errors->first('ownership-1') }} </span></small>
-                                        @endif
-                                        <input type="text" value="{{ isset($data['ownership-1']) ? $data['ownership-1'] : '' }}" name="ownership-1">
-                                    </div>
-                                </div>
-                                <div class="row margin-bottom-l-sm">
-                                    <div class="col-xs-12 col-md-4">
-                                        <p>Investor Full Name</p>
-                                        @if($errors->has('investor-full-name-2'))
-                                            <br/>
-                                            <small class="error-small"><em>*</em> <span> {{ $errors->first('investor-full-name-2') }} </span></small>
-                                        @endif
-                                        <input type="text" value="{{ isset($data['investor-full-name-2']) ? $data['investor-full-name-2'] : '' }}" name="investor-full-name-2">
-                                    </div>
-                                    <div class="col-xs-12 col-md-4">
-                                        <p>Entity Name If Applicable</p>
-                                        @if($errors->has('investor-entity-name-2'))
-                                            <br/>
-                                            <small class="error-small"><em>*</em> <span> {{ $errors->first('investor-entity-name-2') }} </span></small>
-                                        @endif
-                                        <input type="text" value="{{ isset($data['investor-entity-name-2']) ? $data['investor-entity-name-2'] : '' }}" name="investor-entity-name-2">
-                                    </div>
-                                    <div class="col-xs-12 col-md-4">
-                                        <p>% Ownership</p>
-                                        @if($errors->has('ownership-2'))
-                                            <br/>
-                                            <small class="error-small"><em>*</em> <span> {{ $errors->first('ownership-2') }} </span></small>
-                                        @endif
-                                        <input type="text" value="{{ isset($data['ownership-2']) ? $data['ownership-2'] : '' }}" name="ownership-2">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
             <div class="row margin-bottom-m padding-bottom-m border-bottom middle-xs">
                 <div class="col-xs-12 col-sm-9">
-                    <p class="no-margin">Are the providing routing numbers for ACH Electronic Transaction or for wire transfer?</p>
+                    <p class="no-margin">Are the provided routing numbers for ACH Electronic Transaction or for wire transfer?</p>
                     @if($errors->has('bankTransfer'))
                         <small class="error-small"><em>*</em> <span> {{ $errors->first('bankTransfer') }} </span></small>
                     @endif

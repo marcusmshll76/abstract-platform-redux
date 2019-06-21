@@ -15,7 +15,7 @@ class AddBasicAccountInfoToUser extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->renameColumn('name', 'first_name');
-            $table->string('last_name')->after('name');
+            $table->string('last_name')->after('name')->nullable();
             $table->integer('site_id');
             $table->string('profile_image');
         });

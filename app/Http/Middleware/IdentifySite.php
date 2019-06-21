@@ -7,11 +7,10 @@ use Closure;
 class IdentifySite {
     public function handle($request, Closure $next) {
         $hostname = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : $_SERVER['SERVER_NAME'];
-        $subdomain = explode('.', $hostname, 2)[0];
 
-        $maybe_site = \DB::table('sites')->where('host', $subdomain)->first();
+        $maybe_site = \DB::table('sites')->where('host', $hostname)->first();
         // If we don't find a site, redirect to the first site.
-        if (!$maybe_site && $subdomain === 'abstract') {
+        if (!$maybe_site) {
             $primary = DB::table('sites')->where('id', 1)->first();
             return redirect('http://' . $primary->host);
         }

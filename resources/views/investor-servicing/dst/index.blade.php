@@ -586,7 +586,7 @@
                                         <div class="col-xs-12 col-md-4">
                                             <div class="row">
                                                 <div class="col-xs-12 col-sm-6">
-                                                    <div class="btn full-width margin-bottom-m-sm">PDF</div>
+                                                    <div class="btn full-width margin-bottom-m-sm"><a href="/img/dst-report.pdf" style="color: #fff !important;" target="_blank">PDF</a></div>
                                                 </div>
                                                 <div class="col-xs-12 col-sm-6">
                                                     <div class="btn dust full-width">CSV</div>

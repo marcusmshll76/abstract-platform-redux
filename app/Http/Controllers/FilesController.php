@@ -150,7 +150,6 @@ class FilesController extends Controller
        $path = $request->query('path');
 
        $matchArr = [
-            'user' => $user, 
             'field' => $request->query('field')
         ];
 

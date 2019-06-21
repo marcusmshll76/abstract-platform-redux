@@ -13,7 +13,7 @@ class SiteSeeder extends Seeder
     {
         $sites = [[
             'id' => '1',
-            'host' => 'abstract',
+            'host' => 'abstract.inc.treyventures.com',
             'name' => 'Abstract Tokenization',
             'logo' => '/img/abstract-logo.svg',
             'logo_dark' => '/img/abstract-logo.svg',
@@ -22,7 +22,7 @@ class SiteSeeder extends Seeder
         ],
         [
             'id' => '2',
-            'host' => 'acg',
+            'host' => 'acg.abstract.inc.treyventures.com',
             'name' => 'American Capital group',
             'logo' => '/img/acg-logo.svg',
             'logo_dark' => '/img/acg-dark-logo.svg',
