@@ -36,6 +36,8 @@ Route::get('/login', 'SessionController@getLogin')->name('login');
 Route::post('/login', 'SessionController@doLogin');
 Route::get('/register', 'SessionController@getRegister');
 Route::post('/register', 'SessionController@doRegister');
+Route::get('/invite/{invitecode?}', 'SessionController@getInvite');
+Route::post('/invite/{invitecode?}', 'SessionController@doInvite');
 Route::get('/logout', 'SessionController@doLogout');
 Route::get('/forget-password', 'SessionController@getForget');
 Route::post('/forget-password', 'SessionController@doForget');
