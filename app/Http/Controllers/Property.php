@@ -26,17 +26,6 @@ class Property extends Controller
         $session_data = array_merge( $session_data, $_POST );
         session( [ 'property' => $session_data ] );
 
-        $capRule= [];
-        if(empty($request->session()->get('capRead'))) {
-            $capRule = [
-                'investor-full-name' => 'required',
-                'ownership' => 'required',
-                'investor-full-name-1' => 'required',
-                'ownership-1' => 'required',
-                'investor-entity-name-2' => 'required',
-                'ownership-2' => 'required',
-            ];
-        }
         $rules = [
             'opportunity_name' => 'required',
             'opportunity_address' => 'required',
@@ -46,9 +35,8 @@ class Property extends Controller
             'country' => 'required',
             'bankTransfer' => 'required',
         ];
-        $rulesCall = array_merge( $rules, $capRule);
 
-        $this->validate($request, $rulesCall);
+        $this->validate($request, $rules );
 
         if (!empty($request->session()->get('capRead'))) {
             $capRead = json_encode($request->session()->get('capRead'));
@@ -66,22 +54,27 @@ class Property extends Controller
             'state'=> $request->get('state'),
             'zipcode'=> $request->get('zipcode'),
             'country'=> $request->get('country'),
-            'investor-full-name'=> $request->get('investor-full-name'),
-            'investor-entity-name'=> $request->get('investor-entity-name'),
-            'ownership'=> $request->get('ownership'),
-            'investor-full-name-1'=> $request->get('investor-full-name-1'),
-            'investor-entity-name-1'=> $request->get('investor-entity-name-1'),
-            'ownership-1'=> $request->get('ownership-1'),
-            'investor-full-name-2'=> $request->get('investor-full-name-2'),
-            'investor-entity-name-2'=> $request->get('investor-entity-name-2'),
-            'ownership-2'=> $request->get('ownership-2'),
             'bankTransfer'=> $request->get('bankTransfer'),
             'captables' => $capRead,
             "created_at" =>  \Carbon\Carbon::now(),
             "updated_at" => \Carbon\Carbon::now()
         );
 
-        DB::table('property')->insert($payload);
+        // If a cap table file was uploaded, populate the appropriate information
+        $cap_table = json_decode( $capRead );
+        $investor_details = [];
+        foreach( $cap_table->original->response->rows as $row ) {
+            $investor_details[] = [
+                'entity_name'   => $row[0],
+                'stake'         => $row[1],
+                'date'          => substr( $row[2]->date, 0, strpos( $row[2]->date, ' ' ) ),
+                'capital'       => $row[3],
+                'email'         => $row[4]
+            ];
+        }
+        
+       $property_id = DB::table('property')->insertGetId($payload);
+       \CapTableHelper::process_cap_table( $property_id, $investor_details );
         
         $request->session()->forget('property');
         $request->session()->forget('capRead');

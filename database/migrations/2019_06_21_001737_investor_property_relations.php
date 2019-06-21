@@ -25,13 +25,15 @@ class InvestorPropertyRelations extends Migration
             $table->bigIncrements('id');
             $table->integer('userid');
             $table->integer('propertyid');
-            $table->string('entity_name');
+            $table->integer('investment_amount');
+            $table->date('contributed');
+            $table->string('entity_name')->nullable();;
             $table->float('share');
         } );
 
         // Add invite code functionality for investors
         Schema::table( 'users', function( Blueprint $table) {
-            $table->string('invite_code');
+            $table->string('invite_code')->nullable();;
         });
     }
 

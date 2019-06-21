@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class SessionController extends Controller {
 
@@ -63,14 +64,21 @@ class SessionController extends Controller {
         $site_id = $request->site->id;
 
         // @TODO validation
-        User::create([
+        $user_id = User::create([
             'first_name'    => $first_name,
             'last_name'     => $last_name,
             'email'         => $email,
             'password'      => Hash::make($password),
             'site_id'       => $site_id,
             'profile_image' => '/img/default-profile.png',
-        ]);
+        ])->id;
+
+        // If the user is registering on the primary site, make them a "sponsor" for the subsite
+        if( $request->site->id == 1 ) {
+            DB::table( 'microsite_sponsors' )->insert(
+                [ 'sponsorid' => $user_id, 'siteid' => 2 ]
+            );
+        }
 
         $this->redirectTo = '/sponsor/introduction';
         return $this->login($request);
