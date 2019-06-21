@@ -5,8 +5,8 @@ function getApiUrl() {
 	} else {
 		return 'http://acg.abstract.inc.treyventures.com/';
 	}
-
-	/* if (hn === 'abstract.test') {
+	/* 
+	if (hn === 'abstract.test') {
 		return 'http://abstract.test/'
 	} else {
 		return 'http://acg.abstract.test/'

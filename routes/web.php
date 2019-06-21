@@ -16,8 +16,6 @@ Route::domain('{sub}.abstract.test')->group(function () {
         * ******* Investor Servicing, Sub Domain
     **************/
     Route::get('/choose-investment', 'SubInvestorServicingController@choose');
-    
-    Route::get('/tax-documents', 'SubInvestorServicingController@tax');
     Route::get('/reports', 'SubInvestorServicingController@reports');
     Route::get('/dashboard/investors', 'SubInvestorDashboardController@investor');
     Route::get('/dashboard/bank-account', 'SubInvestorDashboardController@bank');
@@ -89,6 +87,7 @@ Route::get('/principles/get', 'AccountSettingsController@getPrinciples');
 // Save Data
 Route::post('/account-settings/create/{principles?}', 'AccountSettingsController@saveData');
 
+Route::get('/tax-documents/{type?}/{rand?}/{id?}', 'SubInvestorServicingController@tax');
 
 /*******************
     * ******* Security Flow

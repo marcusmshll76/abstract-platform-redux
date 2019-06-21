@@ -28,12 +28,72 @@ class SubInvestorServicingController extends Controller {
     }
 
     public function ownership(Request $request, $type, $rand, $id) {
-        
-        return view( 'subdomain.investor-servicing.cap.table', [ 'title' => 'Cap Table Management > Investor Servicing'] )->with(compact('data'));
+        $userid = Auth::id();
+        if (isset($type) && isset($id)) {
+            if ($type === 'fund') {
+                $table = 'security_fund_flow';
+                $q = 'fund-name as name';
+            } else if ($type === 'property') {
+                $table = 'security_flow_property';
+                $q = 'property as name';
+            } else if ($type === 'sproperty') {
+                $table = 'property';
+                $q = 'opportunity_name as name';
+            }
+
+            if ($type === 'sproperty') {
+                $data = DB::table($table)
+                ->where('userid', $userid)
+                ->where('id', $id)
+                ->select($q, 'captables')
+                ->first();
+            } else {
+                $data = DB::table($table)
+                ->where('userid', $userid)
+                ->where('id', $id)
+                ->select($q, 'captables', 'investor-first-name as fn', 'investor-last-name as ln', 'ownership as ow', 'investor-first-name-1 as fn1', 'investor-last-name-1 as ln1', 'ownership-1 as ow1', 'investor-first-name-2 as fn2', 'investor-last-name-2 as ln2', 'ownership-2 as ow2')
+                ->first();
+            }
+
+            return view( 'subdomain.investor-servicing.cap.table', [ 'title' => 'Cap Table Management > Investor Servicing'] )->with(compact('data'));
+        } 
+
     }
 
-    public function tax() {
-        return view( 'subdomain.investor-servicing.tax.index', [ 'title' => 'Tax Documents > Investor Servicing'] );
+    public function tax(Request $request, $type, $rand, $id) {
+
+        $userid = Auth::id();
+        if (isset($type) && isset($id)) {
+            if ($type === 'fund') {
+                $table = 'security_fund_flow';
+                $q = 'fund-name as name';
+            } else if ($type === 'property') {
+                $table = 'security_flow_property';
+                $q = 'property as name';
+            } else if ($type === 'sproperty') {
+                $table = 'property';
+                $q = 'opportunity_name as name';
+            }
+
+            if ($type === 'sproperty') {
+                $data = DB::table($table)
+                ->where('userid', $userid)
+                ->where('id', $id)
+                ->select($q, 'captables')
+                ->first();
+            } else {
+                $data = DB::table($table)
+                ->where('userid', $userid)
+                ->where('id', $id)
+                ->select($q, 'captables', 'investor-first-name as fn', 'investor-last-name as ln', 'ownership as ow', 'investor-first-name-1 as fn1', 'investor-last-name-1 as ln1', 'ownership-1 as ow1', 'investor-first-name-2 as fn2', 'investor-last-name-2 as ln2', 'ownership-2 as ow2')
+                ->first();
+            }
+
+            return view( 'subdomain.investor-servicing.tax.index', [ 'title' => 'Tax Documents > Investor Servicing'] )->with(compact('data', 'type', 'id'));
+        } else {
+            return redirect('/investor-servicing/choose-investment');
+        }
+        
     }
 
     public function reports() {

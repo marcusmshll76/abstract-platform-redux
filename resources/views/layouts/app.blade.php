@@ -35,7 +35,7 @@
                             <div class="nav-logo">
                                 <a href="/">
                                     @if ($site -> host !== 'abstract' && $site -> logo_dark)
-                                        <img src="{{ $site -> logo_dark }}" class="logo push-up-nav">
+                                        <img style="width:90px; height:auto; margin:35px 20px 20px 20px;" src="{{ $site -> logo_dark }}" class="logo push-up-nav">
                                     @else
                                         <img src="/img/abstract-logo.svg" class="logo">
                                     @endif
@@ -92,7 +92,13 @@
                                 </div>
                             </div>
                             <div class="nav-item">
-                                <div class="nav-notification"><img src="/img/icon-bell.svg"></div>
+                                <div class="nav-notification">
+                                @if ($site -> host !== 'abstract')
+                                    <img style="margin-top:30px;" src="/img/icon-bell.svg">
+                                @else
+                                    <img src="/img/icon-bell.svg">
+                                @endif
+                                </div>
                             </div>
                         </div>
                     </div>
