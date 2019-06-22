@@ -71,7 +71,7 @@ class InvestorServicingController extends Controller {
                 DB::table($table)
                     ->where('userid', $userid)
                     ->where('id', $id)
-                    ->upate(['captables' => $docs]);
+                    ->update(['captables' => $docs]);
 
                     $request->session()->forget('capRead');
             }

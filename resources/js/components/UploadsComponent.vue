@@ -29,21 +29,37 @@
         :data="payload">
         <!-- @TODO <Button type="primary">Upload</Button> -->
         <div class="btn dust" v-if="type === 'single-dust'">
-            <img v-if="!flat || !sus" :src="src ? src : '/img/icon-upload.svg'">
+            <span v-if="src !== '' && elname === 'image'">
+                <img :src="src ? src : '/img/icon-upload.svg'">
+            </span>
+            <span v-else>
+                <img v-if="!flat && !sus" :src="src ? src : '/img/icon-upload.svg'">
+            </span>
             <h5>
-                <Icon type="md-checkmark" v-if="sus" /> 
-                <span v-if="src !== '' && elname === 'image'" style="font-weight:normal !important;">Loading...</span>
-                <span v-else>{{ !title ? 'Upload File' : title }}</span> 
+                <!-- <Icon type="md-checkmark" v-if="sus" /> -->
+                <span v-if="src !== '' && elname === 'image'" style="font-weight:normal !important;"></span>
+                <span v-else><span v-if="sus">Re-</span>{{ !title ? 'Upload File' : title }}</span>
             </h5>
         </div>
         <div class="file-upload-box" v-bind:class="{ 'uploadcomplete-img': src !== '' }" v-else>
-            <img v-if="!flat || !sus" :src="src ? src : '/img/icon-upload.svg'">
-            <h5><Icon type="md-checkmark" v-if="sus && elname !== 'image'" /> 
-                <span v-if="src !== '' && elname === 'image'"  style="font-weight:normal !important;">Loading...</span>
-                <span v-else>{{ !title ? 'Upload File' : title }}</span>
+            <span v-if="src !== '' && elname === 'image'">
+                <img :src="src ? src : '/img/icon-upload.svg'">
+            </span>
+            <span v-else>
+                <img v-if="!flat && !sus" :src="src ? src : '/img/icon-upload.svg'">
+            </span>
+            <h5>
+                <!-- <Icon type="md-checkmark" v-if="sus && elname !== 'image'" /> --> 
+                <span v-if="src !== '' && elname === 'image'"  style="font-weight:normal !important;"></span>
+                <span v-else><span v-if="sus">Re-</span>{{ !title ? 'Upload File' : title }}</span>
             </h5>
         </div>
     </Upload>
+    <div v-if="type === 'single' || type === 'single-dust'">
+        <li v-if="sus && elname !== 'image'" style="list-style:none !important;">
+            <a><Icon type="md-document" style="margin-right:10px;" /> {{ fileOld.name }}</a>
+        </li>
+    </div>
 
     <Upload
         :name="elname"
@@ -107,6 +123,7 @@ export default {
             sus: false,
             header: '',
             src: '',
+            fileOld: '',
             payload: {}
         }
     },
@@ -140,6 +157,7 @@ export default {
             })
         },
         success(res, file) {
+            this.fileOld = file;
             console.log(res);
             this.type === 'photos' ? this.getImage(res.response) : ''
             this.elname === 'image' && !this.flat ? this.getImage(res.response) : ''

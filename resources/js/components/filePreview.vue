@@ -1,10 +1,10 @@
 <template>
 <div class="filePreview">  
-    <Spin v-if="loading">
+    <Spin v-if="loading && iname !== 'filebutton'">
         <Icon type="ios-loading" size="18" class="spin-icon-load"></Icon>
         <div>{{ loadingtxt }}</div>
     </Spin> 
-    <div v-else>
+    <div v-if="!loading && iname !== 'filebutton'">
         <div v-if="files.length > 0">
             <!--- Display Static indexes -->
             <div class="row" v-if="iname === 'Digital Security Photo Gallery'">
@@ -49,13 +49,14 @@
                     <a :href="a.src" target="_blank" download>{{ a.path ? a.path.split(/[\/ ]+/).pop() : '' }} <Icon type="md-cloud-download" /></a>
                 </li>
             </ul>
-            <a class="btn full-width dust color-white" v-if="iname === 'filebutton'" :href="files[0].src" target="_blank" download>{{ title }}</a>
         </div>
         <Spin v-else>
             <Icon type="ios-cube-outline" size="18" />
             <div>No Available Files, Please Upload the required files</div>
         </Spin>
     </div>
+    <a v-if="iname === 'filebutton'" :href="files[0] ? files[0].src : '#not-found'" target="_blank" download>
+        <Button class="btn full-width color-white" :loading="loading"> <b style="font-size:14px;">{{ title }}</b></Button></a>
 </div>
 </template>
 
