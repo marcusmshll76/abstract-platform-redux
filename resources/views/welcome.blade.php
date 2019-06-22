@@ -112,7 +112,7 @@
                             <ul class="nav-item margin-right-s">
                                 <li><a href="/login">Login</a></li>
                                 <li>
-                                    <div class="btn"><a href="/register">Sign Up</a></div>
+                                    <div class="btn color-white"><a href="/register">Sign Up</a></div>
                                 </li>
                             </ul>
                         </div>

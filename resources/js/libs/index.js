@@ -1,18 +1,18 @@
 function getApiUrl() {
 	let hn = window.location.hostname;
-	/* return 'http://' + hn + '/';
+	return 'http://' + hn + '/';
 	
 	if( hn === 'abstract.inc.treyventures.com' ) {
 		return 'http://abstract.inc.treyventures.com/';
 	} else {
 		return 'http://acg.abstract.inc.treyventures.com/';
-	} */
+	}
 	
-	if (hn === 'abstract.test') {
+	/* if (hn === 'abstract.test') {
 		return 'http://abstract.test/'
 	} else {
 		return 'http://acg.abstract.test/'
-	} 
+	} */ 
 }
 const API_URL = getApiUrl();
 export default {
