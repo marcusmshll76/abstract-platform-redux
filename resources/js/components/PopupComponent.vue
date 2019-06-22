@@ -101,7 +101,7 @@ export default {
         right: 20px;
         margin: auto;
         cursor: pointer;
-        text-align: center;
+        text-align: left !important;
         background: rgba(255, 255, 255, 0.2);
         border-radius: 5px;
         padding: 7px;
@@ -116,7 +116,7 @@ export default {
         border: none !important;
     }
     .popup-modal .card-title {
-        text-align: center;
+        text-align: left;
         position: relative;
         width: 100%;
         border-radius:0;
@@ -140,7 +140,7 @@ export default {
     }
 
     .popup-review-content {
-        text-align: center;
+        text-align: text;
         padding: 20px;
     }
 
@@ -169,7 +169,7 @@ export default {
     }
 
     .popup-review-content.wide {
-        padding: 20px
+        padding: 10px 15px
     }
 
     .popup-review-content.wide .btn.line {
@@ -183,7 +183,9 @@ export default {
     .popup-review-content.wide .right {
         margin-right: 10px
     }
-
+    .popup-modal .ivu-modal{
+        min-width: 70vw !important;
+    }
     
     /* .popup-modal {
         overflow: hidden;

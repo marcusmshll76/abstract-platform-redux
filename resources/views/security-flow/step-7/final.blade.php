@@ -462,7 +462,7 @@
                                     path="/ownership/">
                                 </file-preview>
                                 <div class="content-form">
-                                    <div class="row margin-bottom-l-md">
+                                    <!--<div class="row margin-bottom-l-md">
                                         <div class="col-xs-12 col-md-4">
                                             <p>Investor First Name</p>
                                             @if($errors->has('investor-first-name'))
@@ -539,7 +539,7 @@
                                             @endif
                                             <input type="text" value="{{ isset($data['ownership-2']) ? $data['ownership-2'] : '' }}" name="ownership-2">
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-6">

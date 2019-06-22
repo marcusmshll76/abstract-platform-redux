@@ -31,7 +31,7 @@
                     </div>
                 @endif
                     <div class="col-xs-12 col-sm-8">
-                        @if (!empty($data))
+                        @if (!$data->isEmpty())
                         <div class="owl-carousel owl-theme slider-two-item">
                             @foreach ($data as $key=>$investment)
                             <div class="item">
@@ -88,7 +88,7 @@
                         </div>
                         @else
                         <p class="no-margin-top margin-left-s">Choose Approved Property or Digital Security:</p>
-                        <p class="margin-left-s margin-top-l">You have no APPROVED Properties or Digital Securities.</p>
+                        <p class="margin-left-s">You have no APPROVED Properties or Digital Securities.</p>
                         @endif
                     </div>
                 </div>

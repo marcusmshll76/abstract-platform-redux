@@ -93,11 +93,7 @@
                             </div>
                             <div class="nav-item">
                                 <div class="nav-notification">
-                                @if ($site -> host !== 'abstract')
-                                    <img style="margin-top:30px;" src="/img/icon-bell.svg">
-                                @else
                                     <img src="/img/icon-bell.svg">
-                                @endif
                                 </div>
                             </div>
                         </div>

@@ -59,7 +59,6 @@ class Property extends Controller
             "created_at" =>  \Carbon\Carbon::now(),
             "updated_at" => \Carbon\Carbon::now()
         );
-
         // If a cap table file was uploaded, populate the appropriate information
         $cap_table = json_decode( $capRead );
         $investor_details = [];

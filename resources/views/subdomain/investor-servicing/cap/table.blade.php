@@ -65,12 +65,8 @@
                                             <h5>Percentage Ownership</h5>
                                         </div>
                                         <div class="card-content">
-<<<<<<< HEAD
-                                            <h4>26.19%</h4></div>
-=======
                                             <h4>{{ round( $investment_details->share * 100, 2 ) }}%</h4>
                                         </div>
->>>>>>> 52b7af2846879d093aac411a8ddbf69167aaa7fd
                                     </div>
                                 </div>
                             </div>
@@ -90,20 +86,6 @@
                                                 </div>
                                                 <div class="col-xs-12 col-md-6 col-lg-3">
                                                     <div class="card equal-padding margin-top-m-md">
-<<<<<<< HEAD
-                                                        <p>Cash Flow to Date </p>
-                                                        <h4>$85,554</h4></div>
-                                                </div>
-                                                <div class="col-xs-12 col-md-6 col-lg-3">
-                                                    <div class="card equal-padding margin-top-m-lg">
-                                                        <p>Capital Contributed</p>
-                                                        <h4>$5,500,000 </h4></div>
-                                                </div>
-                                                <div class="col-xs-12 col-md-6 col-lg-3">
-                                                    <div class="card equal-padding margin-top-m-lg">
-                                                        <p>Cash Flow to Date </p>
-                                                        <h4>$85,554</h4></div>
-=======
                                                         <p>Cummulative Return</p>
                                                         <h4></h4>
                                                     </div>
@@ -139,7 +121,6 @@
                                                         <p>Current Cash Flow</p>
                                                         <h4></h4>
                                                     </div>
->>>>>>> 52b7af2846879d093aac411a8ddbf69167aaa7fd
                                                 </div>
                                             </div>
                                         </div>
@@ -153,7 +134,9 @@
                                             <h5>Distributions Overview</h5>
                                         </div>
                                         <div class="card-content">
-                                            <div class="distributions-chart"></div>
+                                            <div class="distributions-chart">
+                                                <bar-chart></bar-chart>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -164,14 +147,23 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="content-footer">
-                            <div class="footer-button-back"><img src="/img/icon-arrow-back.svg">
-                                <h5>Back</h5></div>
+                            <a href="/investor-servicing/choose-investment" class="footer-button-back"><img src="/img/icon-arrow-back.svg">
+                                <h5>Back</h5></a>
                             <div class="row center-xs">
                                 <div class="col-xs-12 col-sm-6 col-md-4">
-                                    <div class="content-footer-step">
+                                <div class="content-footer-step">
                                         <div class="row">
                                             <div class="col-xs">
+                                                <div class="step-item"></div>
+                                            </div>
+                                            <div class="col-xs">
                                                 <div class="step-item active"></div>
+                                            </div>
+                                            <div class="col-xs">
+                                                <div class="step-item"></div>
+                                            </div>
+                                            <div class="col-xs">
+                                                <div class="step-item"></div>
                                             </div>
                                             <div class="col-xs">
                                                 <div class="step-item"></div>

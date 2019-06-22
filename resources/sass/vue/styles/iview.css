@@ -5159,3 +5159,9 @@ a{
 .cursor-hand{
     cursor: pointer !important;
 }
+.presented-company{
+    padding-bottom: 46px !important;
+}
+.absolute{
+    position: absolute !important;
+}

@@ -16,13 +16,16 @@ Route::domain('{sub}.abstract.test')->group(function () {
         * ******* Investor Servicing, Sub Domain
     **************/
     Route::get('/choose-investment', 'SubInvestorServicingController@choose');
-    Route::get('/reports', 'SubInvestorServicingController@reports');
-    Route::get('/dashboard/investors', 'SubInvestorDashboardController@investor');
-    Route::get('/dashboard/bank-account', 'SubInvestorDashboardController@bank');
-    Route::get('/dashboard/electronic-consent', 'SubInvestorDashboardController@consent');
-    Route::get('/dashboard/password-two-factor', 'SubInvestorDashboardController@password');
 });
 
+// @todo Protect routes
+    Route::get('/tax-documents/{type?}/{rand?}/{id?}', 'SubInvestorServicingController@tax');
+    Route::get('/reports/{type?}/{rand?}/{id?}', 'SubInvestorServicingController@reports');
+    // settings
+    Route::get('/account-settings/investor-info', 'SubInvestorServicingController@investorInfo');
+    Route::get('/account-settings/bank-account', 'SubInvestorServicingController@bank');
+    Route::get('/account-settings/electronic-consent', 'SubInvestorServicingController@consent');
+    Route::get('/account-settings/password-two-factor', 'SubInvestorServicingController@password');
 
 Route::get('/', function () {
     $hostname = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : $_SERVER['SERVER_NAME'];
@@ -88,8 +91,6 @@ Route::get('/principles/get', 'AccountSettingsController@getPrinciples');
 
 // Save Data
 Route::post('/account-settings/create/{principles?}', 'AccountSettingsController@saveData');
-
-Route::get('/tax-documents/{type?}/{rand?}/{id?}', 'SubInvestorServicingController@tax');
 
 /*******************
     * ******* Security Flow

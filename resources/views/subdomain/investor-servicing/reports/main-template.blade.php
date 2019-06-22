@@ -15,16 +15,13 @@
                                 <p><a href="/investor-servicing/choose-investment"> Choose an <br/>investment</a></p>
                             </div>
                             <div class="left-nav-item">
-                                <p><a>Cap Table <br/>Management </a></p>
+                                <p><a href="{{'/ownership-snapshot/'. $type. '/'.strtolower(str_random(100)). '/' .$id }}">Ownership Distribution &amp; <br/> Performance </a></p>
                             </div>
                             <div class="left-nav-item">
-                                <p><a>Distributions</a></p>
-                            </div>
-                            <div class="left-nav-item">
-                                <p><a>Tax Documents</a></p>
+                                <p><a href="{{'/tax-documents/'. $type. '/'.strtolower(str_random(100)). '/' .$id }}">Tax Documents</a></p>
                             </div>
                             <div class="left-nav-item active">
-                                <p><a>Reports</a></p>
+                                <p><a href="{{'/reports/'. $type. '/'.strtolower(str_random(100)). '/' .$id }}">Reports</a></p>
                             </div>
                         </div>
                     </div>
@@ -35,12 +32,12 @@
                     <div class="row">
                         <div class="col-xs-12 col-sm-3">
                             <div class="dashboard-menu-tile"><img src="/img/icon-user-etting-blue.svg">
-                                <h5><a href="/account-settings/verification">Account Settings</a></h5>
+                                <a href="/account-settings/verification"><h5>Account Settings</h5></a>
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-3">
                             <div class="dashboard-menu-tile active"><img src="/img/icon-paper-settings-active.svg">
-                                <h5><a href="/investor-servicing/choose-investment">Investor Servicing</a></h5>
+                                <a href="/investor-servicing/choose-investment"><h5>Your Investments</h5></a>
                             </div>
                         </div>
                     </div>

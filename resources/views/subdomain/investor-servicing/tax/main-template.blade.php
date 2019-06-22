@@ -15,19 +15,13 @@
                                 <p><a href="/investor-servicing/choose-investment"> Choose an <br/>investment</a></p>
                             </div>
                             <div class="left-nav-item">
-                                <p><a>Upload New <br/>Property</a></p>
-                            </div>
-                            <div class="left-nav-item">
-                                <p><a>Cap Table <br/>Management </a></p>
-                            </div>
-                            <div class="left-nav-item">
-                                <p><a>Distributions</a></p>
+                                <p><a href="{{'/ownership-snapshot/'. $type. '/'.strtolower(str_random(100)). '/' .$id }}">Ownership Distribution &amp; <br/> Performance </a></p>
                             </div>
                             <div class="left-nav-item active">
-                                <p><a>Tax Documents</a></p>
+                                <p><a href="{{'/tax-documents/'. $type. '/'.strtolower(str_random(100)). '/' .$id }}">Tax Documents</a></p>
                             </div>
                             <div class="left-nav-item">
-                                <p><a>Reports</a></p>
+                                <p><a href="{{'/reports/'. $type. '/'.strtolower(str_random(100)). '/' .$id }}">Reports</a></p>
                             </div>
                         </div>
                     </div>
@@ -43,7 +37,7 @@
                         </div>
                         <div class="col-xs-12 col-sm-3">
                             <div class="dashboard-menu-tile active"><img src="/img/icon-paper-settings-active.svg">
-                                <a href="/investor-servicing/choose-investment"><h5>Investor Servicing</h5></a>
+                                <a href="/investor-servicing/choose-investment"><h5>Your Investments</h5></a>
                             </div>
                         </div>
                     </div>

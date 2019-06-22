@@ -31,7 +31,7 @@ class InvestorServicingController extends Controller {
             ->select( 'sponsorid' )
             ->where( 'siteid', $request->site->id )
             ->pluck( 'sponsorid' );
-
+            
         // Now, fetch each property that matches
         // @TODO support more than just the property table
         $data = DB::table('property')
@@ -39,7 +39,7 @@ class InvestorServicingController extends Controller {
             ->whereIn('id', $my_investments)
             ->select('opportunity_name as name', 'id')
             ->addSelect(DB::raw("'sproperty' as fakeType"))
-            ->get();
+            ->get(); 
 
         return view( 'investor-servicing.choose.investment', [ 'title' => 'Choose Investment > Investor Servicing'] )->with(compact('data', 'userid'));
     }

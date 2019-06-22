@@ -32,7 +32,7 @@
                             </uploads-component>
 
                             <div class="content-form">
-                                <div class="row margin-bottom-l-md">
+                                <!-- <div class="row margin-bottom-l-md">
                                     <div class="col-xs-12 col-md-4">
                                         <p>Investor First Name</p><input value="{{ isset($data['investor-first-name']) ? $data['investor-first-name'] : '' }}" name="investor-first-name" type="text">
                                     </div>
@@ -64,7 +64,7 @@
                                     <div class="col-xs-12 col-md-4">
                                         <p>% Ownership</p><input type="text" value="{{ isset($data['ownership-2']) ? $data['ownership-2'] : '' }}" name="ownership-2">
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-6">

@@ -12,9 +12,7 @@ class SubInvestorDashboardController extends Controller {
         $this->middleware('auth.details');
     }
 
-    public function investor() {
-        return view( 'subdomain.dashboard.investor-info.index', [ 'title' => 'Investor Information > Investor Servicing'] );
-    }
+    
 
     public function bank() {
         return view( 'subdomain.dashboard.bank-account.index', [ 'title' => 'Bank Account > Investor Servicing'] );

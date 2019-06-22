@@ -35,7 +35,7 @@
                     <div class="row">
                         <div class="col-xs-12 col-sm-3">
                             <div class="dashboard-menu-tile"><img src="/img/icon-user-etting-blue.svg">
-                            <a href="/account-settings/verification"><h5>Account Settings</h5></a>
+                            <a href="{{ $site -> host == 'abstract' ? '/account-settings/verification' : '/account-settings/investor-info' }}"><h5>Account Settings</h5></a>
                             </div>
                         </div>
                         @if ($site -> host == 'abstract')

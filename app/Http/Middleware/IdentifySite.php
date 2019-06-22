@@ -13,6 +13,8 @@ class IdentifySite {
         if (!$maybe_site) {
             $primary = DB::table('sites')->where('id', 1)->first();
             return redirect('http://' . $primary->host);
+        } else {
+            $maybe_site->host = explode('.', $hostname, 2)[0];
         }
         
         $request->site = $maybe_site;
