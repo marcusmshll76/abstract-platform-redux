@@ -110,18 +110,6 @@
                                             <div class="col-xs">
                                                 <div class="step-item active"></div>
                                             </div>
-                                            <div class="col-xs">
-                                                <div class="step-item"></div>
-                                            </div>
-                                            <div class="col-xs">
-                                                <div class="step-item"></div>
-                                            </div>
-                                            <div class="col-xs">
-                                                <div class="step-item"></div>
-                                            </div>
-                                            <div class="col-xs">
-                                                <div class="step-item"></div>
-                                            </div>
                                         </div>
                                         <div class="step-divider"></div>
                                     </div>

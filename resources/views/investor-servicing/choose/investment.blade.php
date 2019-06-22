@@ -5,7 +5,7 @@
 <div class="card margin-top-m">
     <div class="card-title blue">
         <h5>
-        @if ($site -> host == 'abstract') 
+        @if ($site->id == 1) 
             Choose or Upload New Property
         @else
             Choose an Investment
@@ -13,7 +13,7 @@
     </h5></div>
     <div class="card-content">
         <p>
-            @if ($site -> host == 'abstract') 
+            @if ($site->id == 1) 
                 Add a new Property or choose an Approved Property below to utilize our automated Investor Servicing portal.
             @else
                 Select an investment below to view all investment details.
@@ -22,7 +22,7 @@
         <div class="card grey margin-top-m">
             <div class="card-content">
                 <div class="row">
-                @if ($site -> host == 'abstract')
+                @if ($site->id == 1) 
                     <div class="col-xs-12 col-sm-4 slider-upload">
                         <a href="/investor-servicing/upload-new-property">
                             <div class="marketplace-card-image porperty-image"><img src="/img/icon-circle-plus.svg" class="icon-plus"></div>
@@ -96,7 +96,7 @@
         </div>
     </div>
 </div>
-@if ($site -> host == 'abstract')
+@if ($site->id == 1) 
 <popup-component
     title="Abstract Investor Servicing"
     type="basic" 

@@ -99,7 +99,7 @@
 import axios from 'axios'
 import config from '../libs'
 export default {
-    props: ['type', 'action', 'title', 'field', 'multi', 'icon', 'flat', 'path', 'elname', 'scope', 'refresh', 'section'],
+    props: ['type', 'action', 'title', 'field', 'multi', 'icon', 'flat', 'path', 'elname', 'scope', 'refresh', 'section', 'small'],
     data () {
         return {
             loadertext: 'Uploading file',

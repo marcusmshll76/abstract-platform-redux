@@ -19,27 +19,35 @@ class InvestorServicingController extends Controller {
 
     public function choose(Request $request) {
         $userid = Auth::id();
-        $properties = array();
 
-        // First, fetch all of my investments.
-        $my_investments = DB::table( 'investments' )
-            ->where( 'userid', $userid )
-            ->pluck('propertyid');
+        if( $request->site->id == 1 ) {
+            // @TODO support more than just the property table
+            $data = DB::table('property')
+                ->where( 'userid', $userid )
+                ->select('opportunity_name as name', 'id')
+                ->addSelect(DB::raw("'sproperty' as fakeType"))
+                ->get();
+        } else {
+            // First, fetch all of my investments.
+            $my_investments = DB::table( 'investments' )
+                ->where( 'userid', $userid )
+                ->pluck('propertyid');
 
-        // Next, determine which are visible on this microsite.
-        $valid_microsite_sponsors = DB::table('microsite_sponsors' )
-            ->select( 'sponsorid' )
-            ->where( 'siteid', $request->site->id )
-            ->pluck( 'sponsorid' );
-            
-        // Now, fetch each property that matches
-        // @TODO support more than just the property table
-        $data = DB::table('property')
-            ->whereIn('userid', $valid_microsite_sponsors)
-            ->whereIn('id', $my_investments)
-            ->select('opportunity_name as name', 'id')
-            ->addSelect(DB::raw("'sproperty' as fakeType"))
-            ->get(); 
+            // Next, determine which are visible on this microsite.
+            $valid_microsite_sponsors = DB::table('microsite_sponsors' )
+                ->select( 'sponsorid' )
+                ->where( 'siteid', $request->site->id )
+                ->pluck( 'sponsorid' );
+
+            // Now, fetch each property that matches
+            // @TODO support more than just the property table
+            $data = DB::table('property')
+                ->whereIn('userid', $valid_microsite_sponsors)
+                ->whereIn('id', $my_investments)
+                ->select('opportunity_name as name', 'id')
+                ->addSelect(DB::raw("'sproperty' as fakeType"))
+                ->get();
+        }
 
         return view( 'investor-servicing.choose.investment', [ 'title' => 'Choose Investment > Investor Servicing'] )->with(compact('data', 'userid'));
     }

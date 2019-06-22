@@ -1,6 +1,10 @@
 @extends('account-settings.verification-template')
 @section('title', $title )
-
+<style>
+.fix-verify{
+    margin-top:30px;
+}
+</style>
 @section('body')
 <form action="/account-settings/verification/create" method="post">
 @csrf
@@ -10,20 +14,21 @@
     </div>
     <div class="card-content">
         <h5>About the Sponsor</h5>
-        <p>Connect your Sponsor Bio now and this information can automaically be connected to the digital securities you create for Abstract’s Marketplace. Investors will look at your Sponsor Bio to learn more about your company’s history.</p>
+        <p>Providing the following information now will save time when using other facets of our platform AND help us quickly approve your Sponsor Account.</p>
         <div class="card grey margin-top-m">
             <div class="card-content">
                 <div class="row">
                     <div class="col-xs-12 col-sm-3">
                             <uploads-component
-                                title="Upload Company Logo"
+                                title="Upload Sponsor Logo"
                                 action="/files"
                                 elname="image"
                                 scope="private"
                                 field="companylogo"
                                 path="/account-settings/company-logo/"
                                 multi="no"
-                                type="single">
+                                type="single"
+                                class="small">
                             </uploads-component>
 
                         <div class="content-form">
@@ -40,7 +45,7 @@
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-9">
-                        <div class="content-form">
+                        <div class="content-form fix-verify">
                             <div class="row">
                                 <div class="col-xs-12 col-sm-4">
                                     <div class="row">
