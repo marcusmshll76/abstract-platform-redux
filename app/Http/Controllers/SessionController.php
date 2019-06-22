@@ -86,7 +86,6 @@ class SessionController extends Controller {
             $this->redirectTo = '/investor-servicing/choose-investment';
         }
 
-        $this->redirectTo = '/sponsor/introduction';
         return $this->login($request);
     }
 
