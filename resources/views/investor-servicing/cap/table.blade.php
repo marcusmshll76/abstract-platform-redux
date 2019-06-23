@@ -109,29 +109,13 @@
                             </table>
                         </div>
                         <div class="row margin-top-m">
-                            <div class="col-xs-12 col-sm-6">
+                            <!-- <div class="col-xs-12 col-sm-6">
                                 <div class="btn full-width">PDF</div>
-                            </div>
+                            </div> -->
                             <div class="col-xs-12 col-sm-6">
-                            @if ($type === 'fund')
-                                <file-preview
-                                    iname="filebutton"
-                                    scope="private"
-                                    user="{{Auth::id()}}"
-                                    field="fund-cap-property"
-                                    path="/ownership/"
-                                    title="CSV">
-                                </file-preview>
-                            @else
-                                <file-preview
-                                    iname="filebutton"
-                                    title="CSV"
-                                    scope="private"
-                                    user="{{Auth::id()}}"
-                                    field="cap-property"
-                                    path="/ownership/">
-                                </file-preview>
-                            @endif
+                                <a href="/investor-servicing/cap-table/download/sproperty/{{$id}}">
+                                    <div class="btn full-width">CSV</div>
+                                </a>
                             </div>
                         </div>
                     </div>

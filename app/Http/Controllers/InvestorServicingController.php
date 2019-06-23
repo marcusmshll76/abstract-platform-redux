@@ -223,4 +223,37 @@ class InvestorServicingController extends Controller {
         $data = $request->session()->get('security-flow');
         return view( 'security-fund-flow.step-7.final', [ 'title' => 'Create Digital Security > Preview & Submit' ] )->with(compact('data', 'bio'));
     }
+
+    public function downloadCapTableCSV( Request $request, $type, $property_id ) {
+        if( $type != 'sproperty' ) {
+            // @TODO implement
+            return;
+        }
+
+        // Ensure this is our property
+        $property = DB::table('property')->select('userid')->where( 'id', $property_id )->first();
+        if( $property->userid != Auth::id() ) {
+            return redirect( '/' );
+        }
+
+        // Fetch the cap table
+        $cap_table = \CapTableHelper::get_cap_table( $property_id );
+        
+        ob_clean();
+        header('Pragma: public');
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+        header('Cache-Control: private', false);
+        header('Content-Type: text/csv');
+        header('Content-Disposition: attachment;filename=' . $property_id . '_cap_table.csv');    
+        if(isset($cap_table['0'])){
+            $fp = fopen('php://output', 'w');
+            fputcsv($fp, array_keys($cap_table['0']));
+            foreach($cap_table AS $values){
+                fputcsv($fp, $values);
+            }
+            fclose($fp);
+        }
+        ob_flush();
+    }
 }
