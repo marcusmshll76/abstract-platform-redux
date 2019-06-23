@@ -137,14 +137,11 @@ class Distributions extends Controller
                                         }
                                     }
                                 }
+                                $fmt = new \NumberFormatter( 'en_US', \NumberFormatter::CURRENCY );
+                                $currency = 'USD';
+                                $z = $fmt->parseCurrency( $totalAmount, $currency );
                                 $o = str_replace('%','', $percent);
-                                if (strpos($totalAmount, ',') !== false) {
-                                    $z = preg_replace('/,+/', '', $totalAmount);
-                                } else if (strpos($totalAmount, '$') !== false) {
-                                    $z = preg_replace('/\$+/', '', $totalAmount);
-                                } else {
-                                    $z = $totalAmount;
-                                }
+
                                 $pval = ($o / 100) * preg_replace('/,+/', '', $z);
                                 
                                 array_push($cellArr, WriterEntityFactory::createCell('$'.number_format($pval)));

@@ -74,6 +74,29 @@ EOD;
         return true;
     }
 
+    public static function get_cap_table( $property_id ) {
+        $cap = DB::table('investments')
+            ->where('investments.propertyid', $property_id )
+            ->join('users', 'investments.userid', '=', 'users.id')
+            ->get();
+        
+        $cap_table = [];
+
+        foreach( $cap as $investor ) {
+            $cap_table[] = [
+                'Investor First Name'       => $investor->first_name,
+                'Investor Last Name'        => $investor->last_name,
+                'Investor Email Address'    => $investor->email,
+                'Investor Entity'           => $investor->entity_name,
+                'Contribution Date'         => $investor->contributed,
+                'Contributed Capital'       => $investor->investment_amount,
+                'Equity Stake'              => $investor->share * 100 . '%'
+            ];
+        }
+
+        return $cap_table;
+    }
+
     private static function generate_invite_code( $length = 10 ) {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $charactersLength = strlen($characters);

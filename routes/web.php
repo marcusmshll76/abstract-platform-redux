@@ -165,6 +165,7 @@ Route::post('/property/create/new', 'Property@submitPreview');
 Route::get('/investor-servicing/k1', 'InvestorServicingController@k1');
 Route::get('/investor-servicing/choose-investment', 'InvestorServicingController@choose');
 Route::get('/investor-servicing/cap-table-mgmt/{type?}/{rand?}/{id?}', 'InvestorServicingController@captable');
+Route::get('/investor-servicing/cap-table/download/{type?}/{id?}', 'InvestorServicingController@downloadCapTableCSV');
 Route::get('/investor-servicing/reports/{type?}/{rand?}/{id?}', 'InvestorServicingController@reports');
 Route::get('/investor-servicing/upload-new-property', 'Property@newProperty');
 Route::get('/investor-servicing/tax-document', 'InvestorServicingController@tax');

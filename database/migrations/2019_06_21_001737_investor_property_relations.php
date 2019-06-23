@@ -28,7 +28,7 @@ class InvestorPropertyRelations extends Migration
             $table->integer('investment_amount');
             $table->date('contributed');
             $table->string('entity_name')->nullable();
-            $table->float('share');
+            $table->double('share', 15, 8);
             $table->string('type');
         } );
 
