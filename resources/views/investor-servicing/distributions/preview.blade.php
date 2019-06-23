@@ -95,7 +95,7 @@
                         <div class="col-xs-12">
                             <div class="content-footer">
                                 <div class="row center-xs margin-top-m">
-                                    <input type="submit" value="View CSV">
+                                    <input type="submit" value="Download Distribution Amounts">
                                 </div>
                                 <br/>
                                 <div class="row center-xs">
