@@ -1,7 +1,7 @@
 <template>
 <div class="full-width" id="file-drag-drop" v-bind:class="{ 'dragover': dragTrue }">
     <div class="row contextArea drop drop-files" ref="fileform" @contextmenu.prevent="$refs.menu.open">
-        <nested-draggable @done="refresh" :struc="struc" :txtindex="txt" :data="list" />
+        <nested-draggable @moved="moved" @done="refresh" :struc="struc" :txtindex="txt" :data="list" />
     </div>
     <vue-context ref="menu">
         <li>
@@ -38,7 +38,7 @@ export default {
     watch: {
         list: function (n, o) {
             Cookies.remove(this.struc);
-            Cookies.set(this.struc, this.list, {
+            Cookies.set(this.struc, n, {
                 expires: 364
             })
         }
@@ -57,7 +57,8 @@ export default {
     },
     created () {
         let lup = Cookies.get(this.struc)
-        if (lup !== undefined || lup.length > 0) {
+        if (lup !== undefined && lup.length > 0) {
+            console.log(lup)
             this.list = JSON.parse(lup);
         } else {
             // console.log(this.struc)
@@ -127,7 +128,6 @@ export default {
                 }];
             }
         }
-        Cookies.remove(this.struc);
         Cookies.set(this.struc, this.list, {
             expires: 364
         })
@@ -153,6 +153,15 @@ export default {
         }
     },
     methods: {
+        moved (res) {
+            console.log('You moved' + res.draggedContext.element.name);
+            if (this.struc) {
+                Cookies.remove(this.struc);
+                Cookies.set(this.struc, this.list, {
+                    expires: 364
+                })
+            }
+        },
         successBox(res, file) {
             this.upload = false;
             this.list.push({

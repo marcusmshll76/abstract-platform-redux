@@ -1,6 +1,6 @@
 <template>
 <div>
-    <draggable class="dragArea" tag="ul" :move="checkMove" :list="subdata" :group="{ name: 'g1' }">
+    <draggable class="dragArea" tag="ul" :move="moved" :list="subdata" :group="{ name: 'g1' }">
         <li v-for="(path, index) in subdata" :key="path.name">
             <a>
                 <label v-show="!path.edit" @click="handleClick(index)" :style="[path.type ? {'font-weight' : 'bold'} : '']"> 
@@ -14,7 +14,7 @@
                     <input v-model="value" v-on:blur="rename(index);" @keyup.enter="rename(index)">
                 </span>
             </a>
-                <nested-draggable :struc="struc" :data="path.data" />
+                <nested-draggable @moved="moved" :data="path.data" />
         </li>
     </draggable>
     <!-- <Modal
@@ -49,12 +49,11 @@ import draggable from "vuedraggable";
 import { directive as onClickaway } from 'vue-clickaway';
 import { VueContext } from 'vue-context';
 import { VueEditor } from 'vue2-editor';
-import Cookies from 'js-cookie';
 export default {
     directives: {
         onClickaway: onClickaway
     },
-    props: ['data', 'struc', 'txtindex'],
+    props: ['data', 'txtindex'],
     data() {
         return {
             subdata: [],
@@ -84,15 +83,8 @@ export default {
         this.subdata = this.data
     },
     methods: {
-        checkMove: function(evt){
-            console.log('You moved' + evt.draggedContext.element.name);
-            Cookies.remove(this.struc);
-            Cookies.set(this.struc, this.list, {
-                expires: 364
-            })
-            console.log(this.struc)
-            console.log(Cookies.get(this.struc))
-
+        moved: function(evt){
+            this.$emit('moved', evt)
         },
         handleClick: function(index) {
             this.clickCount++
