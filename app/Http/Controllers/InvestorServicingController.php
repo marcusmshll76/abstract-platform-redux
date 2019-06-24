@@ -105,8 +105,14 @@ class InvestorServicingController extends Controller {
                 ->where( 'userid', $userid )
                 ->where( 'propertyid', $id )
                 ->first();
+            
+            $distributions = DB::table( 'distributions' )
+                ->where( 'userid', $userid )
+                ->where( 'property_id', $id )
+                ->select('totalAmount','name')
+                ->get();
                 
-            return view( 'subdomain.investor-servicing.cap.table', [ 'title' => 'Cap Table Management > Investor Servicing'] )->with(compact('property_details', 'investment_details', 'type', 'id'));
+            return view( 'subdomain.investor-servicing.cap.table', [ 'title' => 'Cap Table Management > Investor Servicing'] )->with(compact('property_details', 'investment_details', 'distributions', 'type', 'id'));
         } else {
             return redirect('/investor-servicing/choose-investment');
         }

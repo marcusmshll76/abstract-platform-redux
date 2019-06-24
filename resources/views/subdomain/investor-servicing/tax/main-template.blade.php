@@ -12,7 +12,7 @@
                         <br/>
                         <div class="left-nav-item-wrap">
                             <div class="left-nav-item">
-                                <p><a href="/investor-servicing/choose-investment"> Choose an <br/>investment</a></p>
+                                <p><a href="/investor-servicing/choose-investment"> Choose an <br/>Investment</a></p>
                             </div>
                             <div class="left-nav-item">
                                 <p><a href="{{'/ownership-snapshot/'. $type. '/'.strtolower(str_random(100)). '/' .$id }}">Ownership Distribution &amp; <br/> Performance </a></p>
@@ -32,7 +32,7 @@
                     <div class="row">
                         <div class="col-xs-12 col-sm-3">
                             <div class="dashboard-menu-tile"><img src="/img/icon-user-etting-blue.svg">
-                                <a href="/account-settings/verification"><h5>Account Settings</h5></a>
+                                <a href="{{ $site -> host === 'abstract' ? '/account-settings/verification' : '/account-settings/investor-info' }}"><h5>Account Settings</h5></a>
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-3">

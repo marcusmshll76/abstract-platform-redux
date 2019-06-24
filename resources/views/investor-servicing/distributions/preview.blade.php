@@ -95,7 +95,8 @@
                         <div class="col-xs-12">
                             <div class="content-footer">
                                 <div class="row center-xs margin-top-m">
-                                    <input type="submit" value="Download Distribution Amounts">
+                                    <input type="submit" value="Download CSV of Distributions">
+                                    <a href="/nacha" class="btn color-white mrg-left" download>Download NACHA File</a>
                                 </div>
                                 <br/>
                                 <div class="row center-xs">

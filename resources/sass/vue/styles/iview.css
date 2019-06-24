@@ -5168,3 +5168,12 @@ a{
 .ivu-load-loop{
     animation: ani-demo-spin 1s linear infinite;
 }
+@media(max-width:1183px) {
+    .dashboard-menu-tile-container .col-sm-3:last-child img{
+        width: 77px;
+        height: auto;
+    }
+}
+.mrg-left{
+    margin-left: 10px !important;
+}

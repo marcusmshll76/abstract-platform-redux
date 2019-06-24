@@ -156,7 +156,7 @@ class Distributions extends Controller
 
                     $payload = [
                         'userid' => $userid,
-                        'parent' => $id,
+                        'property_id' => $id,
                         'type' => $type,
                         'name' => $request->get('name'),
                         'date' => $request->get('date'), 
@@ -200,7 +200,7 @@ class Distributions extends Controller
 
         $data = DB::table('distributions')
         ->where('userid', $userid)
-        ->where('parent', $id)
+        ->where('property_id', $id)
         ->where('name', $name)
         ->select('file')
         ->first();

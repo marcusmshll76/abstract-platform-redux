@@ -80,7 +80,7 @@
                                         <input type="text" value="{{ isset($data['state']) ? $data['state'] : '' }}" name="state">
                                     </div>
                                     <div class="col-xs-12 col-sm-4">
-                                        <p>ZipCode</p>
+                                        <p>Zip Code</p>
                                         @if($errors->has('zipcode'))
                                             <br/>
                                             <small class="error-small"><em>*</em> <span> {{ $errors->first('zipcode') }} </span></small>
@@ -140,7 +140,7 @@
             <div class="row">
                 <div class="col-xs-12">
                     <h5>Investors Signed Subscription Documents</h5>
-                    <p>Please drag and drop your individual investors’ signed subscription Documents in the folder below:</p>
+                    <p>Please drag and drop to the space below the signed investor subscription documents or the operating agreement signed by your investors:</p>
                     <div class="breadcrumb margin-top-m">
                         <p>All Files<img src="/img/icon-arrow-right.svg">Sponsor Company Name<img src="/img/icon-arrow-right.svg">Investor Servicing<img src="/img/icon-arrow-right.svg">Subscription Documents</p>
                     </div>

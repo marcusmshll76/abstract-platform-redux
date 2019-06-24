@@ -12,7 +12,7 @@
                         <br/>
                         <div class="left-nav-item-wrap">
                             <div class="left-nav-item">
-                                <p><a href="/investor-servicing/choose-investment"> Choose an <br/>investment</a></p>
+                                <p><a href="/investor-servicing/choose-investment"> Choose an <br/>Investment</a></p>
                             </div>
                             <div class="left-nav-item">
                                 <p><a>Cap Table <br/>Management </a></p>

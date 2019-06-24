@@ -128,14 +128,17 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-xs-12">
+                                <div class="col-xs-12 col-sm-12">
                                     <div class="card grey margin-top-m">
                                         <div class="card-title blue">
                                             <h5>Distributions Overview</h5>
                                         </div>
                                         <div class="card-content">
-                                            <div class="distributions-chart">
-                                                <bar-chart></bar-chart>
+                                            <div>
+                                                <bar-chart data="{{
+                                                    json_encode(array('distributions'=>json_encode($distributions),
+                                                        'investment'=>json_encode($investment_details)))
+                                                }}" type="manual"></bar-chart>
                                             </div>
                                         </div>
                                     </div>

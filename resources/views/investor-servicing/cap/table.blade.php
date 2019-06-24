@@ -7,7 +7,7 @@
         <h5>Cap Table Management</h5></div>
     <div class="card-content">
         <h5>Real Time Investor Cap Table</h5>
-        <p>Download a PDF or CSV file below, if your cap table has changed, please upload a new one and we will contact you as soon as it has been re-approved and updated in our system.</p>
+        <p>Download a CSV file below, if your cap table has changed, please upload a new one and we will contact you as soon as it has been re-approved and updated in our system.</p>
         <div class="card grey margin-top-m">
             <div class="card-content">
                 <div class="row">

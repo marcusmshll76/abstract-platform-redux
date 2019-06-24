@@ -12,7 +12,7 @@
                         <br/>
                         <div class="left-nav-item-wrap">
                             <div class="left-nav-item">
-                                <p><a href="/investor-servicing/choose-investment"> Choose an <br/>investment</a></p>
+                                <p><a href="/investor-servicing/choose-investment"> Choose an <br/>Investment</a></p>
                             </div>
                             <div class="left-nav-item">
                                 <p><a href="/account-settings/investor-information">Investor Information</a></p>
@@ -35,7 +35,7 @@
                     <div class="row">
                         <div class="col-xs-12 col-sm-3">
                             <div class="dashboard-menu-tile active"><img src="/img/icon-user-etting.svg">
-                                <a href="/account-settings/verification"><h5>Account Settings</h5></a>
+                                <a href="{{ $site -> host === 'abstract' ? '/account-settings/verification' : '/account-settings/investor-info' }}"><h5>Account Settings</h5></a>
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-3">
