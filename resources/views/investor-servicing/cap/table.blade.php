@@ -117,6 +117,11 @@
                                     <div class="btn full-width">CSV</div>
                                 </a>
                             </div>
+                            <div class="col-xs-12 col-sm-6">
+                                <a>
+                                    <div class="btn full-width">Export All Data</div>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
