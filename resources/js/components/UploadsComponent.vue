@@ -57,7 +57,7 @@
     </Upload>
     <div v-if="type === 'single' || type === 'single-dust'">
         <li v-if="sus && elname !== 'image'" style="list-style:none !important;">
-            <a><Icon type="md-document" style="margin-right:10px;" /> {{ fileOld.name }}</a>
+            <a><Icon type="md-document" style="margin-right:5px;" /> {{ fileOld.name }}</a>
         </li>
     </div>
 
