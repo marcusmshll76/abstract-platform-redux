@@ -95,8 +95,10 @@
                         <div class="col-xs-12">
                             <div class="content-footer">
                                 <div class="row center-xs margin-top-m">
-                                    <input type="submit" value="Download CSV of Distributions">
-                                    <a href="/nacha" class="btn color-white mrg-left" download>Download NACHA File</a>
+                                    <!-- <input type="submit" value="Download CSV of Distributions"> -->
+                                    <!-- @remove and update dynamically -->
+                                    <a href="/28912SAIAS232/DistributionExport-932422.xlsx" class="btn color-white mrg-left" download>Download CSV of Distributions</a>
+                                    <a href="/28912SAIAS232/PopulatedACH-3223454.txt" class="btn color-white mrg-left" download>Download NACHA File</a>
                                 </div>
                                 <br/>
                                 <div class="row center-xs">
