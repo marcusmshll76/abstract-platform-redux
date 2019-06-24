@@ -8,7 +8,7 @@
 @section('body')
 <div class="card margin-top-m">
     <div class="card-title blue">
-        <h5>Task Documents</h5></div>
+        <h5>Tax Documents</h5></div>
     <div class="card-content">
         <p class="no-margin-top">Choose an available Tax Document then select PDF or CSV to view or downloaod. </p>
         <form action="/subdomain/tax/create" method="POST">
@@ -79,10 +79,10 @@
                         </div>
                         <div class="row margin-top-m">
                             <div class="col-xs-12 col-sm-6">
-                                <a href="public/img/happy-investor-k1.pdf" download class="btn full-width margin-bottom-m-md color-white">Preview</a>
+                                <a href="/28912SAIAS232/happy-investor-k1.pdf" download class="btn full-width margin-bottom-m-md color-white">Preview</a>
                             </div>
                             <div class="col-xs-12 col-sm-6">
-                                <a href="public/img/happy-investor-k1.pdf" download class="btn dust full-width color-white">Download</a>
+                                <a href="/28912SAIAS232/happy-investor-k1.pdf" download class="btn dust full-width color-white">Download</a>
                             </div>
                         </div>
                     </div>

@@ -14,10 +14,10 @@
                     <input v-model="value" v-on:blur="rename(index);" @keyup.enter="rename(index)">
                 </span>
             </a>
-                <nested-draggable :data="path.data" />
+                <nested-draggable :struc="struc" :data="path.data" />
         </li>
     </draggable>
-    <Modal
+    <!-- <Modal
         v-model="editor"
         title="Man"
         @on-ok="save"
@@ -29,7 +29,7 @@
                     <label v-show="!data[docindex].edit" @click="handleClick(docindex)" :style="[data[docindex].type ? {'font-weight' : 'bold'} : '']"> 
                         <Icon type="ios-folder-open" v-if="data[docindex].type" />
                         <Icon type="ios-paper-outline" v-else />
-                        {{ data[docindex].name }} 
+                        {{ data[docindex].name }}
                     </label>
                     <span v-show="data[docindex].edit === true">
                         <Icon type="ios-folder-open" v-if="data[docindex].type"/>
@@ -40,7 +40,7 @@
             </p>
             <vue-editor v-model="content"></vue-editor>
             <span slot="footer"></span>
-    </Modal>
+    </Modal> -->
 </div>
 </template>
 
@@ -49,11 +49,12 @@ import draggable from "vuedraggable";
 import { directive as onClickaway } from 'vue-clickaway';
 import { VueContext } from 'vue-context';
 import { VueEditor } from 'vue2-editor';
+import Cookies from 'js-cookie';
 export default {
     directives: {
         onClickaway: onClickaway
     },
-    props: ['data', 'txtindex'],
+    props: ['data', 'struc', 'txtindex'],
     data() {
         return {
             subdata: [],
@@ -85,13 +86,20 @@ export default {
     methods: {
         checkMove: function(evt){
             console.log('You moved' + evt.draggedContext.element.name);
+            Cookies.remove(this.struc);
+            Cookies.set(this.struc, this.list, {
+                expires: 364
+            })
+            console.log(this.struc)
+            console.log(Cookies.get(this.struc))
+
         },
         handleClick: function(index) {
             this.clickCount++
             if (this.clickCount === 1) {
               this.clickTimer = setTimeout(() => {
                 this.clickCount = 0
-                this.openEditor(index)
+                // this.openEditor(index)
               }, 450)
             }
             if (this.clickCount === 2) {

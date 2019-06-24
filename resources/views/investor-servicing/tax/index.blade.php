@@ -336,7 +336,7 @@
                                                 <div class="col-xs-12 col-md-12">
                                                     <div class="row">
                                                         <div class="col-xs-12 col-sm-6">
-                                                            <a href="/img/happy-investor-k1.pdf" style="color: #fff !important;" target="_blank"> 
+                                                            <a href="/28912SAIAS232/happy-investor-k1.pdf" style="color: #fff !important;" target="_blank"> 
                                                                 <div class="btn full-width margin-bottom-m-sm">PDF</div>
                                                             </a>
                                                         </div>

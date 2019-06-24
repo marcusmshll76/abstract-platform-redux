@@ -33,7 +33,6 @@ export default {
     },
   }),
   created () {
-    /*
     if (this.type === 'distribution') {
       if (this.data && this.data != 'null') {
         let d = JSON.parse(this.data)
@@ -64,12 +63,12 @@ export default {
         }
         this.chartData = a
       }
-    } */
+    }
     if (this.type === 'manual') {
         let a = {
           labels: ['December','January','February','March','April','May'],
           datasets: [{
-            label: ['Distribution Overview'],
+            label: ['Distribution Amount'],
             backgroundColor: ['#4d73be', '#4d73be', '#4d73be', '#4d73be', '#4d73be', '#4d73be'],
             data: [22000, 21800, 21200, 22900, 21930, 23000]
           }]

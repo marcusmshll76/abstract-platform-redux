@@ -87,19 +87,19 @@
                                                 <div class="col-xs-12 col-md-6 col-lg-3">
                                                     <div class="card equal-padding margin-top-m-md">
                                                         <p>Cummulative Return</p>
-                                                        <h4></h4>
+                                                        <h4>18%</h4>
                                                     </div>
                                                 </div>
                                                 <div class="col-xs-12 col-md-6 col-lg-3">
                                                     <div class="card equal-padding margin-top-m-lg">
                                                         <p>Current Annualized</p>
-                                                        <h4></h4>
+                                                        <h4>6.5%</h4>
                                                     </div>
                                                 </div>
                                                 <div class="col-xs-12 col-md-6 col-lg-3">
                                                     <div class="card equal-padding margin-top-m-lg">
                                                         <p>Current Occupancy</p>
-                                                        <h4></h4>
+                                                        <h4>95%</h4>
                                                     </div>
                                                 </div>
                                             </div>
@@ -107,19 +107,19 @@
                                                 <div class="col-xs-12 col-md-6 col-lg-4">
                                                     <div class="card equal-padding">
                                                         <p>Investment Date</p>
-                                                        <h4>{{ $investment_details->contributed }}</h4>
+                                                        <h4><!-- {{ $investment_details->contributed }} --> 06/31/2018</h4>
                                                     </div>
                                                 </div>
                                                 <div class="col-xs-12 col-md-6 col-lg-4">
                                                     <div class="card equal-padding margin-top-m-md">
                                                         <p>Cash Flow To Date</p>
-                                                        <h4></h4>
+                                                        <h4>$138,200</h4>
                                                     </div>
                                                 </div>
                                                 <div class="col-xs-12 col-md-6 col-lg-4">
                                                     <div class="card equal-padding margin-top-m-lg">
                                                         <p>Current Cash Flow</p>
-                                                        <h4></h4>
+                                                        <h4>$46,800</h4>
                                                     </div>
                                                 </div>
                                             </div>

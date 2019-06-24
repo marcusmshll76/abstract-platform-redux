@@ -1,7 +1,7 @@
 <template>
 <div class="full-width" id="file-drag-drop" v-bind:class="{ 'dragover': dragTrue }">
     <div class="row contextArea drop drop-files" ref="fileform" @contextmenu.prevent="$refs.menu.open">
-        <nested-draggable @done="refresh" :txtindex="txt" :data="list" />
+        <nested-draggable @done="refresh" :struc="struc" :txtindex="txt" :data="list" />
     </div>
     <vue-context ref="menu">
         <li>
@@ -37,12 +37,13 @@ export default {
     },
     watch: {
         list: function (n, o) {
-            Cookies.set(this.struc, n, {
+            Cookies.remove(this.struc);
+            Cookies.set(this.struc, this.list, {
                 expires: 364
             })
         }
     },
-    data() {
+    data () {
         return {
             list: [],
             upload: false,
@@ -54,12 +55,13 @@ export default {
             dragTrue: false
         };
     },
-    created() {
+    created () {
         let lup = Cookies.get(this.struc)
-        if (lup != null) {
+        if (lup !== undefined || lup.length > 0) {
             this.list = JSON.parse(lup);
         } else {
-            if (this.struc === 'diligence' && lup == 'null') {
+            // console.log(this.struc)
+            if (this.struc === 'diligence') {
                 this.list = [{
                         name: 'Title Survey & Zoning Diligence',
                         type: 'folder',
@@ -89,7 +91,7 @@ export default {
                     }
                 ];
             }
-            if (this.struc === 'account-settings' && lup == 'null') {
+            if (this.struc === 'account-settings') {
                 this.list = [{
                         name: 'Sponsor Track Record',
                         type: 'folder',
@@ -116,7 +118,7 @@ export default {
                     }
                 ];
             }
-            if (this.struc === 'investor-servicing' && lup == 'null') {
+            if (this.struc === 'investor-servicing') {
                 this.list = [{
                     name: 'Investor Subscription Documents',
                     type: 'folder',
@@ -124,12 +126,11 @@ export default {
                     data: []
                 }];
             }
-            Cookies.set(this.struc, this.list, {
-                expires: 364
-            })
         }
-        // this.preventReload()
-        // this.dirJson()
+        Cookies.remove(this.struc);
+        Cookies.set(this.struc, this.list, {
+            expires: 364
+        })
     },
     mounted() {
         this.dragAndDropCapable = this.determineDragAndDropCapable();
@@ -158,8 +159,6 @@ export default {
                 name: file.name,
                 edit: false
             });
-
-            console.log(file)
         },
         dirJson() {
             generator.generate('/').then(function (tree) {
@@ -203,8 +202,8 @@ export default {
         },
         save: function () {},
         cancel: function () {
-            let pos = this.list.length > 0 ? this.list.length - 1 : 0
-            this.list.splice(pos, 1);
+            // let pos = this.list.length > 0 ? this.list.length - 1 : 0
+            // this.list.splice(pos, 1);
         },
         determineDragAndDropCapable() {
             var div = document.createElement('div');

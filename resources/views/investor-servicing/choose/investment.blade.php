@@ -106,7 +106,7 @@
 </popup-component>
 @else
 <popup-component
-    title="{{ ucwords($site -> host). ' Investor Servicing' }}"
+    title="{{ strtoupper($site -> host). ' Investor Servicing' }}"
     type="basic"
     user="sub{{ $userid }}"
     info="<h5>Welcome</h5><p>Upon closing this pop up, you will be taken to the properties you have invested in with ACG.  Please don’t forget to go to your Account Settings page and  finish filling out  all pertinent information as well as your Bank Details for distributions/payments.</p>"
