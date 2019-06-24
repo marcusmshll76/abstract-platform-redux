@@ -83,14 +83,27 @@ EOD;
         $cap_table = [];
 
         foreach( $cap as $investor ) {
+            $n = explode(" ",$investor->entity_name);
+            $firstName = array_shift($n);
+            $lastName = join(" ",$n);
             $cap_table[] = [
-                'Investor First Name'       => $investor->first_name,
-                'Investor Last Name'        => $investor->last_name,
-                'Investor Email Address'    => $investor->email,
-                'Investor Entity'           => $investor->entity_name,
-                'Contribution Date'         => $investor->contributed,
-                'Contributed Capital'       => $investor->investment_amount,
-                'Equity Stake'              => $investor->share * 100 . '%'
+                /* 
+                    'Investor First Name'       => $investor->first_name,
+                    'Investor Last Name'        => $investor->last_name,
+                    'Investor Email Address'    => $investor->email,
+                    'Investor Entity'           => $investor->entity_name,
+                    'Contribution Date'         => $investor->contributed,
+                    'Contributed Capital'       => $investor->investment_amount,
+                    'Equity Stake'              => $investor->share * 100 . '%'
+
+                    Per Abel's specifications we should make this changes
+                 */
+                    'Investor First Name'       => $firstName,
+                    'Investor Last Name'        => $lastName,
+                    'Investor Entity'           => '',
+                    'Contribution Date'         => $investor->contributed,
+                    'Contributed Capital'       => '$' . number_format($investor->investment_amount),
+                    'Equity Stake'              => $investor->share * 100 . '%'
             ];
         }
 
