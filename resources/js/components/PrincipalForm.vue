@@ -5,8 +5,6 @@
     <div> {{ loadingtext }} </div>
 </Spin>
 <div v-else>
-<div class="card grey">
-<div class="card-content">
 <div class="principal-section">
     <Form ref="addPrincipal" :model="create" :rules="ruleValidate" v-if="!preview">
         <div class="margin-bottom-m border-bottom full-width" v-if="!type">
@@ -96,8 +94,6 @@
         </div>
         </div>
     </Form>
-</div>
-</div>
 </div>
 </div>
 <div class="row">

@@ -5244,3 +5244,7 @@ a{
     color: white;
     margin: 0
 }
+
+.header-toggle .col-sm-6{
+    padding: 0 !important;
+}
