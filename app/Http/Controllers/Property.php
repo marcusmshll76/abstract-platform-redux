@@ -207,7 +207,7 @@ class Property extends Controller
             }   
     }
 
-    public function recap(Request $request) {
-        return view( 'my-properties.popup', [ 'title' => 'Investment Metrics > Properties'] );
+    public function recap(Request $request, $type, $rand, $id) {
+        return view( 'my-properties.popup', [ 'title' => 'Investment Metrics > Properties'] )->with(compact('type', 'id'));
     }
 }

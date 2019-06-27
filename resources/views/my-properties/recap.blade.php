@@ -77,7 +77,7 @@
             <div class="col-xs-12">
                 <div class="content-footer">
                     <div class="footer-button-next">
-                        <a href="/create/recap/metrics" class="btn">Next</a>
+                        <a href="{{ '/create/recap/metrics/'.$type.'/'.strtolower(str_random(100)).'/'.$id }}" class="btn">Next</a>
                     </div>
                 </div>
             </div>

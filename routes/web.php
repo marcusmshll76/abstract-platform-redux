@@ -163,11 +163,18 @@ Route::post('/property/create/new', 'Property@submitPreview');
 Route::get('/properties/pending', 'Property@pending');
 Route::get('/properties/approved', 'Property@approved');
 // for the demo
-Route::get('/create/recap/metrics', 'Property@recap');
+Route::get('/create/recap/metrics/{type?}/{rand}/{id?}', 'Property@recap');
+
+/*******************
+    * ******* Marketplace
+**************/
+Route::get('/marketplace/new/{type?}/{rand}/{id?}', 'Marketplace@new');
+Route::get('/marketplace/learn/more', 'Marketplace@mcg');
 
 Route::get('/properties/choose/sticker/{type?}/{rand}/{id?}', 'Property@sticker');
 Route::get('/investment/metrics/{type?}/{rand}/{id?}', 'Property@metrics');
 Route::get('/edit/security-flow/{type?}/{id?}', 'Property@edit');
+
 
 /*******************
     * ******* Investor Servicing

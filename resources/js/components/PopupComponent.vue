@@ -3,13 +3,16 @@
         <Modal
         v-model="modal"
         on-cancel="call"
+        v-bind:class="{ 'auto-pop' : loader === 'true' }"
         class="popup-modal">
             <div class="card-title dust" slot="header">
                 <h5>{{ title }}</h5>
             </div>
             <div class="popup-review-content">
                 <span v-html="info"></span>
+                <Icon class="spin-yellow" v-if="loader === 'true'" type="ios-loading" />
                 <br/>
+                <span v-if="loadermsg" v-html="loadermsg"></span>
                 <a v-if="action" class="btn color-white" @click="call">{{ action }}</a>
             </div>
             <div slot="footer"></div>
@@ -19,16 +22,19 @@
 <script>
 import Cookies from 'js-cookie';
 export default {
-    props: ['title', 'info', 'type', 'user', 'url', 'action', 'download', 'loadermsg'],
+    props: ['title', 'info', 'type', 'user', 'url', 'action', 'download', 'loadermsg', 'loader'],
     data () {
         return {
             modal: true
         }
     },
     created () {
+
         if (this.type === 'basic' && this.user != null) {
             this.popInterval() === true ? this.modal = true : this.modal = false
         }
+
+        this.loader === 'true' ? this.autoRedirect() : ''
 
     },
     methods: {
@@ -81,6 +87,13 @@ export default {
                 _window.document.execCommand('SaveAs', true, fileName || fileURL)
                 _window.close();
             }
+        },
+        autoRedirect() {
+            var self = this
+            setTimeout(function(){
+                window.location.href = self.url 
+            }
+            , 3000);
         }
     }
 }
@@ -94,6 +107,9 @@ export default {
     }
     .popup-modal .ivu-modal-content{
         overflow: hidden;
+    }
+    .auto-pop .ivu-modal-close{
+        display:none !important;
     }
     .popup-modal .ivu-modal-close{
         position: fixed;
@@ -186,54 +202,9 @@ export default {
     .popup-modal .ivu-modal{
         min-width: 70vw !important;
     }
-    
-    /* .popup-modal {
-        overflow: hidden;
-        max-width: 700px;
-        margin: 0 auto
+    .spin-yellow{
+        color: #CCCC00;
+        font-size: 24px;
+         animation: ani-demo-spin 1s linear infinite;
     }
-.popup-wrapper {
-    width: 100%;
-    padding: 80px 0;
-    min-height: 660px;
-    background: #283F5C;
-    height: calc(100vh - 160px);
-    overflow: hidden
-}
-
-@media screen and (max-width:62em) {
-    .popup-wrapper {
-        padding: 90px 0 80px
-    }
-}
-
-
-
-
-
-.review-label {
-    width: 100%;
-    display: inline-block;
-    margin-bottom: 20px
-}
-
-.popup-close {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    margin: auto;
-    cursor: pointer;
-    text-align: center
-}
-
-@media screen and (max-width:62em) {
-    .popup-close {
-        right: 0;
-        left: 0
-    }
-    .popup-close img {
-        width: 50px;
-        height: 50px
-    }
-} */
 </style>
