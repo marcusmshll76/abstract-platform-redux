@@ -19,7 +19,7 @@
 <script>
 import Cookies from 'js-cookie';
 export default {
-    props: ['title', 'info', 'type', 'user', 'url', 'action', 'download'],
+    props: ['title', 'info', 'type', 'user', 'url', 'action', 'download', 'loadermsg'],
     data () {
         return {
             modal: true

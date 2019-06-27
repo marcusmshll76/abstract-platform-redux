@@ -235,10 +235,9 @@
                         @endif
                         <select name="opportunity-type">
                             <option value="{{ isset($data['opportunity-type']) ? $data['opportunity-type'] : '' }}" selected="selected">{{ isset($data['opportunity-type']) ? $data['opportunity-type'] : 'Select an option' }}</option>
-                            <option value="option">option</option>
-                            <option value="option">option</option>
-                            <option value="option">option</option>
-                            <option value="option">option</option>
+                            <option value="option">Core</option>
+                            <option value="option">Value-Added</option>
+                            <option value="option">Opportunistic</option>
                         </select>
                     </div>
                 </div>
@@ -251,10 +250,8 @@
                         @endif
                         <select name="type-of-fund">
                             <option value="{{ isset($data['type-of-fund']) ? $data['type-of-fund'] : '' }}" selected="selected">{{ isset($data['type-of-fund']) ? $data['type-of-fund'] : 'Select an option' }}</option>
-                            <option value="option">option</option>
-                            <option value="option">option</option>
-                            <option value="option">option</option>
-                            <option value="option">option</option>
+                            <option value="option">Closed End</option>
+                            <option value="option">Opened End</option>
                         </select>
                     </div>
                     <div class="col-xs-12 col-sm-6">
@@ -383,10 +380,15 @@
                                         @endif
                                         <select name="property-type-pledged">
                                             <option value="{{ isset($data['property-type-pledged']) ? $data['property-type-pledged'] : '' }}" selected="selected">{{ isset($data['property-type-pledged']) ? $data['property-type-pledged'] : 'Select an option' }}</option>
-                                            <option value="option">option</option>
-                                            <option value="option">option</option>
-                                            <option value="option">option</option>
-                                            <option value="option">option</option>
+                                            <option value="option">Healthcare</option>
+                                            <option value="option">Hospital</option>
+                                            <option value="option">Industrial</option>
+                                            <option value="option">Land</option>
+                                            <option value="option">Multifamily</option>
+                                            <option value="option">Office</option>
+                                            <option value="option">Portfolio</option>
+                                            <option value="option">Retail</option>
+                                            <option value="option">Specialty</option>
                                         </select>
                                     </div>
                                     <div class="col-xs-12 col-md-4">
@@ -399,10 +401,11 @@
                                             <option value="{{ isset($data['market-focus']) ? $data['market-focus'] : '' }}" disabled="disabled" selected="selected">
                                             {{ isset($data['market-focus']) ? $data['market-focus'] : 'Select an option' }}
                                             </option>
-                                            <option value="option">option</option>
-                                            <option value="option">option</option>
-                                            <option value="option">option</option>
-                                            <option value="option">option</option>
+                                            <option value="option">Northwest</option>
+                                            <option value="option">Northeast</option>
+                                            <option value="option">Midwest</option>
+                                            <option value="option">Southwest</option>
+                                            <option value="option">Southeast</option>
                                         </select>
                                     </div>
                                 </div>
