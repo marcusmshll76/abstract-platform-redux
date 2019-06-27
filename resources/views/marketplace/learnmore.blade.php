@@ -10,13 +10,57 @@
             <h5>Marketplace</h5></div>
         <div class="card-content">
             <div class="row">
-                <div class="col-xs-12 col-sm-4">
+            @if (!$data->isEmpty())
+            @foreach ($data as $key=>$property)
+            <div class="col-xs-12 col-sm-4">
                     <div class="card">
                         <div class="marketplace-card-image porperty-image">
                             <div class="marketplace-card-image-description">
-                                <h5>Mullbery Place Portland, OR</h5>
-                                <p>Mixed Family</p>
-                            </div><img src="/img/img-demo-1.jpg"></div>
+                                <h5>{{ $property->name }}</h5>
+                                <p>@if (isset($property->fakeType) &&  $property->fakeType === 'property')
+                                            Property digital security
+
+                                        @elseif (isset($property->fakeType) &&  $property->fakeType === 'sproperty')
+                                            Property
+                                        @else
+                                            Fund digital security
+                                        @endif</p>
+                            </div>
+                            @if ($property->fakeType === 'fund')
+                                        <file-preview
+                                            iname="Single"
+                                            scope="private"
+                                            user="{{Auth::id()}}"
+                                            field="fund-digital-security"
+                                            path="/digital-security/fund/photo-gallery/"
+                                            index="0">
+                                        </file-preview>
+                                    </div>
+
+                                    @elseif ($property->fakeType === 'property')
+                                        <file-preview
+                                            iname="Single"
+                                            scope="private"
+                                            user="{{Auth::id()}}"
+                                            field="digital-security"
+                                            path="/digital-security/photo-gallery/"
+                                            index="0">
+                                        </file-preview>
+                                    </div>
+                                    
+                                    @elseif ($property->fakeType === 'sproperty')
+                                        <file-preview
+                                            iname="Single"
+                                            scope="private"
+                                            user="{{Auth::id()}}"
+                                            field="property-image"
+                                            path="/property/images/"
+                                            index="0">
+                                        </file-preview>
+                                    </div>
+                                    
+                                @endif
+
                         <div class="marketplace-card-info">
                             <div class="row">
                                 <div class="col-xs-12 col-sm-8">
@@ -63,7 +107,10 @@
                             <div class="btn full-width">Learn More</div>
                         </div>
                     </div>
-                </div>
+                </div>     
+                            @endforeach
+                            @endif
+                
                 <div class="col-xs-12 col-sm-4">
                     <div class="card">
                         <div class="marketplace-card-image porperty-image">

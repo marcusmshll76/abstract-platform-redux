@@ -10,7 +10,35 @@ use App\Http\Controllers\Controller;
 class Marketplace extends Controller
 {
     public function mcg(Request $request) {
+        $userid = Auth::id();
+        // Now, fetch each property that matches
+            // @TODO support more than just the property table
+            /* $property = DB::table('property')
+                ->where('userid', $userid)
+                ->select('opportunity_name as name', 'id')
+                ->addSelect(DB::raw("'sproperty' as fakeType")); */
+
+                $cproperty = DB::table('security_flow_property')
+                ->where('userid', $userid)
+                ->where('status', 'Approved')
+                ->select('property as name', 'id')
+                ->addSelect(DB::raw("'property' as fakeType"));
+            
+            // $property = $property->addSelect(DB::raw("'property' as fakeType"));
+            $data = DB::table('security_fund_flow')
+                ->where('userid', $userid)
+                ->where('status', 'Approved')
+                ->select('fund-name as name', 'id')
+                ->addSelect(DB::raw("'fund' as fakeType"))
+                // ->union($property)
+                ->union($cproperty)
+                ->get();
+            
+            return view( 'marketplace.learnmore', [ 'title' => 'Approved > Properties'] )->with(compact('data', 'userid'));
+    
+
         return view( 'marketplace.learnmore', [ 'title' => 'Learn More > Marketplace'] )->with('data', $request->session()->get('property'));
+        
     }
 
     public function new(Request $request, $type, $id) {
