@@ -46,17 +46,17 @@
                             <div class="header-toggle text-center">
                                 <div class="row">
                                 @if ($site -> host == 'abstract')
-                                    <div class="col-xs-12 col-sm-4">
+                                    <!-- <div class="col-xs-12 col-sm-4">
                                         <div class="header-toggle-item">
                                             <p>Investors</p>
                                         </div>
-                                    </div>
-                                    <div class="col-xs-12 col-sm-4">
+                                    </div>  -->
+                                    <div class="col-xs-12 col-sm-6">
                                         <div class="header-toggle-item active">
                                             <p>Sponsors</p>
                                         </div>
                                     </div>
-                                    <div class="col-xs-12 col-sm-4">
+                                    <div class="col-xs-12 col-sm-6">
                                         <div class="header-toggle-item">
                                             <p>Marketplace</p>
                                         </div>

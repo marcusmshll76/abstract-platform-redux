@@ -5070,13 +5070,15 @@ a{
 }
 .principal-section .file-upload-box-filled{
     padding-bottom: 10px !important;
+    height: 220px !important;
+    overflow: hidden !important;
 }
 .ivu-form .ivu-form-item-label {
     text-align: right;
     vertical-align: middle;
     float: left;
     font-size: 14px;
-    font-weight: bold;
+    /* font-weight: bold; */
     color: #283F5C;
     line-height: 1;
     padding: 10px 12px 10px 0;
@@ -5085,6 +5087,7 @@ a{
 }
 .checkbox-p{
     color: #283F5C;
+    font-weight: 400 !important;
 }
 
 .ivu-form-label-left .ivu-form-item-label {
@@ -5104,7 +5107,7 @@ a{
 }
 
 .ivu-form-item {
-    margin-bottom: 24px;
+    margin-bottom: 14px;
     vertical-align: top;
     zoom: 1
 }

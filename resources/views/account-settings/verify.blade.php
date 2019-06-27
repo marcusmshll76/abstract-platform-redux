@@ -2,7 +2,7 @@
 @section('title', $title )
 <style>
 .fix-verify{
-    margin-top:30px;
+    margin-top:21px;
 }
 </style>
 @section('body')

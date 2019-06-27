@@ -13,7 +13,7 @@
                         <div class="onboarding-steps">
                             <div class="row">
                                 <div class="col-xs-3">
-                                    <p>Account</p><img src="/img/icon-check-orange.svg">
+                                    <p>Create Account</p><img src="/img/icon-check-orange.svg">
                                 </div>
                                 <div class="col-xs-3">
                                   <p>User Dashboard</p><img src="/img/icon-check-white-circle.svg">

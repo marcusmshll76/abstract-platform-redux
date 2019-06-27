@@ -115,7 +115,7 @@
 import axios from 'axios'
 import config from '../libs'
 export default {
-    props: ['type', 'action', 'title', 'field', 'multi', 'icon', 'flat', 'path', 'elname', 'scope', 'refresh', 'section', 'small'],
+    props: ['type', 'action', 'title', 'field', 'multi', 'icon', 'flat', 'path', 'elname', 'scope', 'refresh', 'section', 'small', 'clear'],
     data () {
         return {
             loadertext: 'Uploading file',
@@ -136,6 +136,14 @@ export default {
             field: this.field
         }
         this.header = document.head.querySelector("[name~=csrf-token][content]").content
+    },
+    watch: {
+        clear: function (n) {
+            if (n === true) {
+                this.sus = false
+                this.src = ''
+            }
+        }
     },
     methods: {
         getImage (res) {
@@ -193,7 +201,15 @@ export default {
     .uploadcomplete-img{
         padding: 0 !important;
         background-size: cover !important;
-        height: 200px !important;
+        height: 161px !important;
+        display: -webkit-box;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        text-align: center;
         overflow: hidden !important;
     }
     .uploadcomplete-img img{
@@ -214,5 +230,8 @@ export default {
     }
     .uploads-csd span{
         color: #fff !important;
+    }
+    .uploads-csd{
+        height: 161px !important;
     }
 </style>

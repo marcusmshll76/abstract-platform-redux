@@ -9,44 +9,49 @@
 <div class="card-content">
 <div class="principal-section">
     <Form ref="addPrincipal" :model="create" :rules="ruleValidate" v-if="!preview">
-        <div class="margin-bottom-m border-bottom full-width">
+        <div class="margin-bottom-m border-bottom full-width" v-if="!type">
             <input v-model="check" type="checkbox">
             <span class="checkbox-p">Check this box to quickly add any Principals you have already attached to your account during Abstract’s Account Set Up. You can also manually add in other Princpals from your team below. </span>
             <br/><br/>
         </div>
         <div class="row margin-top-l">
-            <div class="col-xs-12 col-sm-4">
+            <div class="col-xs-12 col-sm-3">
                 <uploads
                     type="single"
                     title="Upload Photo"
                     action="/files"
                     elname="image"
                     scope="private"
+                    :clear="clear"
                     :field="'principles' + mndex"
                     multi="no"
                     :path="'/fund/principles/' + mndex + '/'"
                     @done="successUpload">
                 </uploads>
-            </div>
-            <div class="col-xs-12 col-sm-8">
-                <FormItem label="Principle Bio" prop="bio">
-                    <textarea name="bio" v-model="create.bio" @blur.native="handleSubmit('blur')"></textarea>
-                </FormItem>
-                <div class="row">
-                    <div class="col-xs-12 col-sm-6">
-                        <FormItem label="Principle Full Name" prop="name">
-                            <Input v-model="create.name" @blur.native="handleSubmit('blur')"/>
-                        </FormItem>
-                    </div>
-                    <div class="col-xs-12 col-sm-6">
-                        <FormItem label="Principle Title" prop="title">
-                            <Input v-model="create.title" @blur.native="handleSubmit('blur')"/>
-                        </FormItem>
+                <br/>
+                <div class="content-form">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <FormItem label="Principle Full Name" prop="name">
+                                <Input v-model="create.name" @blur.native="handleSubmit('blur')"/>
+                            </FormItem>
+                        </div>
+                        <div class="col-xs-12">
+                            <FormItem label="Principle Title" prop="title">
+                                <Input v-model="create.title" @blur.native="handleSubmit('blur')"/>
+                            </FormItem>
+                        </div>
                     </div>
                 </div>
             </div>
+            <div class="col-xs-12 col-sm-7 col-xs-offset-0 col-sm-offset-1 mrg-push-top">
+                <FormItem label="Principle Bio" prop="bio">
+                    <textarea name="bio" v-model="create.bio" @blur.native="handleSubmit('blur')"></textarea>
+                </FormItem>
+                <div class="btn small margin-principal-m" @click="handleAdd('addPrincipal')">+ Add Principle</div>
+            </div>
+            <div class="col-xs-12 col-sm-1 mrg-push-mid-top"><img src="/img/icon-large-arrow-right.svg"></div>
          </div>
-        <div class="btn small margin-principal-m fl-right" @click="handleAdd('addPrincipal')">+ Add Principle</div>
      </Form>
 
     <Form>
@@ -74,17 +79,18 @@
                                     <input type="text" @blur.native="handleSubmit('blur')" v-model="item.name">
                                 </div>
                                 <div class="col-xs-12">
-                                    <p>Principle Title</p>
+                                    <p>Principle Company</p>
                                     <input type="text" @blur.native="handleSubmit('blur')" v-model="item.title">
                                 </div>
                             </div>
                         </div>
-                        <div class="margin-top-m cursor-hand"><a @click="handleRemove(index)">Remove</a></div>
                     </div>
                     <div class="col-xs-12 col-sm-7 col-md-offset-1">
                         <p class="no-margin-top">Principle Bio</p>
                         <textarea class="textarea" @blur.native="handleSubmit('blur')" v-model="item.bio"></textarea>
+                        <a @click="handleRemove(index)" class="btn margin-top-m small color-white dust margin-right-m cursor-hand">Remove Principal</a>
                     </div>
+                     <div class="col-xs-12 col-sm-1 mrg-push-extra-top"><img src="/img/icon-large-arrow-right.svg"></div>
                 </div>
             </div>
         </div>
@@ -95,12 +101,28 @@
 </div>
 </div>
 <div class="row">
-    <div class="col-xs-12">
+    <div class="col-xs-6 col-sm-6">
         <div class="content-footer">
-            <a @click="handleSubmit('next')" class="btn margin-key-m color-white fl-right" v-if="next === 'yes'">Next</a>
+            <div class="footer-button-back" @click="handleback()">
+                <img src="/img/icon-arrow-back.svg">
+                <h5>Back</h5>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-6 col-sm-6">
+        <div class="content-footer">
+            <a @click="handleSubmit('next')" class="btn color-white fl-right" v-if="next === 'yes'">Next</a>
         </div>
     </div>
 </div>
+<popup-component
+    v-if="error"
+    title="Existing Principles Action"
+    type="recurring" 
+    :user="user"
+    info="<h5>You have no existing principles saved. </h5>"
+    action="Got It!">
+</popup-component>
 </div>
 </template>
 
@@ -110,7 +132,7 @@ import config from '../libs'
 import uploads from './UploadsComponent';
 import previews from './FilePreview';
 export default {
-    props: ['next', 'url', 'data', 'user', 'preview'],
+    props: ['type', 'next', 'url', 'data', 'user', 'preview', 'back'],
     components: {
         uploads,
         previews
@@ -122,6 +144,7 @@ export default {
             loading: false,
             loadingtext: 'Pulling existing principles, hold on',
             formDynamic: [],
+            error: false,
             create: {
                 bio: '',
                 name: '',
@@ -129,6 +152,7 @@ export default {
                 index: 1,
                 status: 1
             },
+            clear: false,
             ruleValidate: {
                 name: [
                     { required: true, message: 'Principle name required', trigger: 'blur' }
@@ -166,10 +190,8 @@ export default {
                     self.formDynamic.push(x)
                 });
             } else {
-                self.loadingtext = 'You have no existing principles';
-                setTimeout(function(){ 
-                    self.loading = false
-                }, 2000);
+                self.loading = false
+                self.error = true;
             }
             })
             .catch(function(error) {
@@ -187,11 +209,15 @@ export default {
                     'principles': JSON.stringify(self.formDynamic)
                 })
                 .then(function(resp) {
+                    console.log(resp)
                     resp.request.status === 200 && self.next === 'yes' && e === 'next' ? window.location.href = resp.data : ''
                 })
                 .catch(function(error) {
                     return error
                 });
+        },
+        handleback () {
+            this.back ? window.location.href = this.back : ''
         },
         successUpload(e) {
             console.log(e)
@@ -207,6 +233,7 @@ export default {
                     this.formDynamic.push(p)
                     this.$refs[name].resetFields()
                     this.mndex++
+                    this.clear = true
                     this.handleSubmit('blur')
                 } else {
                     this.$Message.error('Fail!');
@@ -246,7 +273,7 @@ export default {
      padding: 30px;
 }
 .push-top-card .card .textarea{
-    min-height: 95%;
+    min-height: 75%;
 }
 input[type="checkbox"]{
     background: #283F5C;
@@ -256,5 +283,14 @@ input[type="checkbox"]:checked{
 }
 .view-principles{
     margin-bottom: 20px !important;
+}
+.mrg-push-top{
+    margin-top: 50px !important;
+}
+.mrg-push-extra-top{
+    margin-top: 200px !important;
+}
+.mrg-push-mid-top{
+    margin-top: 140px !important;
 }
 </style>

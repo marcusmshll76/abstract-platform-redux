@@ -15,7 +15,8 @@
             next="yes"
             url="/account-settings/create/principles" 
             data="{{ isset($data['principles']) ? $data['principles'] : '' }}"
-            user="{{ Auth::id() }}">
+            user="{{ Auth::id() }}"
+            type="account settings">
         </principal-form>
     </div>
 </div>

@@ -6,7 +6,7 @@
         <div class="row center-xs text-center">
             <div class="col-xs-12 col-sm-8">
                 <h2>Our Services</h2>
-                <p>Explore our automated Investor Servicing Portal or lead the way for CRE 2.0 and create your 1st Digital Security with our Primary Issuance Platform.</p>
+                <p>Explore our automated Investor Servicing Portal or lead the way for CRE 2.0 and create your <br/> first Digital Security with our Primary Issuance Platform.</p>
             </div>
         </div>
     </div>
