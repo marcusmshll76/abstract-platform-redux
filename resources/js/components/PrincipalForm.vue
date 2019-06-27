@@ -101,9 +101,9 @@
 </div>
 </div>
 <div class="row">
-    <div class="col-xs-6 col-sm-6">
+    <div class="col-xs-6 col-sm-6" v-if="next === 'yes'">
         <div class="content-footer">
-            <div class="footer-button-back" @click="handleback()">
+            <div  class="footer-button-back" @click="handleback()">
                 <img src="/img/icon-arrow-back.svg">
                 <h5>Back</h5>
             </div>
@@ -199,7 +199,14 @@ export default {
             });
         },
         initData() {
-            this.data == '' || this.data == 'null' ? '' : this.formDynamic = JSON.parse(this.data)
+            if (this.data != '' || this.data != 'null') {
+                let a = JSON.parse(this.data)
+                if (typeof a === 'string' || a instanceof String) {
+                    this.formDynamic = JSON.parse(a)
+                } else {
+                    this.formDynamic = a
+                }
+            }
             this.formDynamic.length ? this.mndex = this.formDynamic.length + 1 : ''
         },
         handleSubmit(e) {

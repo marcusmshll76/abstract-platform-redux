@@ -80,4 +80,134 @@ class Property extends Controller
         
         return view( 'investor-servicing.property.index', [ 'title' => 'Upload New Property > Investor Servicing', 'success' => true ] );
     }
+
+    public function pending(Request $request) {
+        $userid = Auth::id();
+
+            // Now, fetch each property that matches
+            // @TODO support more than just the property table
+            /* $property = DB::table('property')
+                ->where('userid', $userid)
+                ->select('opportunity_name as name', 'id')
+                ->addSelect(DB::raw("'sproperty' as fakeType")); */
+
+            $cproperty = DB::table('security_flow_property')
+                ->where('userid', $userid)
+                ->where('status', 'Not Approved')
+                ->select('property as name', 'id')
+                ->addSelect(DB::raw("'property' as fakeType"));
+            
+            // $property = $property->addSelect(DB::raw("'property' as fakeType"));
+            $data = DB::table('security_fund_flow')
+                ->where('userid', $userid)
+                ->where('status', 'Not Approved')
+                ->select('fund-name as name', 'id')
+                ->addSelect(DB::raw("'fund' as fakeType"))
+                // ->union($property)
+                ->union($cproperty)
+                ->get();
+            
+            return view( 'my-properties.pending', [ 'title' => 'Pending > Properties'] )->with(compact('data', 'userid'));
+    }
+
+    public function approved(Request $request) {
+        $userid = Auth::id();
+
+            // Now, fetch each property that matches
+            // @TODO support more than just the property table
+            /* $property = DB::table('property')
+                ->where('userid', $userid)
+                ->select('opportunity_name as name', 'id')
+                ->addSelect(DB::raw("'sproperty' as fakeType")); */
+
+            $cproperty = DB::table('security_flow_property')
+                ->where('userid', $userid)
+                ->where('status', 'Approved')
+                ->select('property as name', 'id')
+                ->addSelect(DB::raw("'property' as fakeType"));
+            
+            // $property = $property->addSelect(DB::raw("'property' as fakeType"));
+            $data = DB::table('security_fund_flow')
+                ->where('userid', $userid)
+                ->where('status', 'Approved')
+                ->select('fund-name as name', 'id')
+                ->addSelect(DB::raw("'fund' as fakeType"))
+                // ->union($property)
+                ->union($cproperty)
+                ->get();
+            
+            return view( 'my-properties.approved', [ 'title' => 'Approved > Properties'] )->with(compact('data', 'userid'));
+    }
+
+    public function sticker(Request $request, $type, $rand, $id) {
+        $userid = Auth::id();
+
+        if (isset($type) && isset($id)) {
+            if ($type === 'fund') {
+                $table = 'security_fund_flow';
+                $q = 'fund-name as name';
+            } else if ($type === 'property') {
+                $table = 'security_flow_property';
+                $q = 'property as name';
+            }
+
+            $data = DB::table($table)
+                ->where('userid', $userid)
+                ->select($q, 'id')
+                ->first();
+            
+            return view( 'my-properties.sticker', [ 'title' => 'Choose Sticker > Properties'] )->with(compact('data', 'type', 'id'));
+        }
+    }
+
+    public function metrics(Request $request, $type, $rand, $id) {
+        $userid = Auth::id();
+
+        if (isset($type) && isset($id)) {
+            if ($type === 'fund') {
+                $table = 'security_fund_flow';
+                $q = 'fund-name as name';
+            } else if ($type === 'property') {
+                $table = 'security_flow_property';
+                $q = 'property as name';
+            }
+
+            $data = DB::table($table)
+                ->where('userid', $userid)
+                ->select($q, 'id', 'minimum-raise-amount as min', 'maximum-raise-amount as max', 'total-capital-required as total')
+                ->first();
+            
+            return view( 'my-properties.recap', [ 'title' => 'Investment Metrics > Properties'] )->with(compact('data', 'type', 'id'));
+        }
+    }
+
+    public function edit(Request $request, $type, $id) {
+            $userid = Auth::id();
+            if (isset($type) && isset($id)) {
+                if ($type === 'fund') {
+                    $table = 'security_fund_flow';
+                    $ses = 'security-fund-flow';
+                    $q = 'fund-name as name';
+                } else if ($type === 'property') {
+                    $table = 'security_flow_property';
+                    $q = 'property as name';
+                }
+
+                $data = DB::table($table)
+                    ->where('userid', $userid)
+                    ->where('status', 'Not Approved')
+                    ->first();
+
+                $array = (array) $data;
+
+                $request->session()->put($ses, $array);
+                return redirect('/'.$ses.'/preview');
+            } else {
+                return redirect('/properties/pending');
+            }   
+    }
+
+    public function recap(Request $request) {
+        return view( 'my-properties.popup', [ 'title' => 'Investment Metrics > Properties'] );
+    }
 }

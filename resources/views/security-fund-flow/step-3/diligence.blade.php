@@ -9,14 +9,14 @@
         <h5>Diligence & Deal Documents</h5>
     </div>
     <div class="card-content">
-        <h5>Diligence, with Ease- PLEASE UPLOAD DOCUMENTS FOR ANY EXISTING OR PLEDGED PROPERTIES</h5>
+        <h5>If your have any EXISTING or PLEDGED properties, please upload their diligence documents below, please only click on the folder for FURTHER SPONSOR DD.</h5>
         <p>View each of the 6 diligence category folders below and click on the respective DD List for all items needed to satisfty each category’s diligence. The list will pop up in another window or you may choose to Print the list. Simply drag and drop each diligence item in its’ respective folder. If you do not have any existing or pledged properties click on the folder for Further Sponsor DD.</p>
         <div class="card grey margin-top-m">
             <div class="card-content">
                 <div class="row">
                     <div class="col-xs-12 col-md-6">
                         <div class="breadcrumb">
-                            <p>All Files<img src="/img/icon-arrow-right.svg">Cephas Partners Diligence & Deal Documents</p>
+                            <p>All Files<img src="/img/icon-arrow-right.svg">{{ $company->company_name ? $company->company_name : '' }} Diligence & Deal Documents</p>
                         </div>
                     </div>
                     <div class="col-xs-12 col-md-6"><input type="search"></div>

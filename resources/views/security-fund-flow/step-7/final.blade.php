@@ -11,15 +11,16 @@
         user="{{ Auth::id() }}"
         info="<h5>Our team will be in touch within 48 hours should we need anything. You’re one step closer to creating your first digital security!</h5>"
         action="Got It!"
-        url="/investor-servicing/choose-investment">
+        url="/properties/pending">
     </popup-component>
 @endif
+<input type="hidden" name="updateflow" value="{{isset($data['id']) ? $data['id'] : ''}}"/>
 <div class="card margin-top-m">
     <div class="card-title blue">
         <h5>Preview & Submit</h5></div>
     <div class="card-content">
             <h5>Final Review</h5>
-            <p>Plesae review and ensure all information provided it is correct. To make changes, click the Edit link in the section you wish to change. Hit Submit at the bottom of the page when you are ready to send in your digital security for review.</p>
+            <p>Please review and ensure all information provided it is correct. To make changes, click the Edit link in the section you wish to change. Hit Submit at the bottom of the page when you are ready to send in your digital security for review.</p>
             <div class="card grey margin-bottom-m">
                 <div class="card-title blue has-button">
                     <h5>Presented By:</h5>
@@ -798,19 +799,12 @@
                     <h5>Meet the Principles</h5>
                     <a href="/security-fund-flow/step-6/meet-sponsors" class="btn color-white">Edit</a>
                 </div>
-                <div class="card-content">
-                    <div class="card">
-                        <div class="card-content">
-                            <principal-form
-                                preview="true"
-                                url="security-fund-flow/step-6/create/meetSponsors"
-                                data="{{ isset($data['principles']) ? $data['principles'] : '' }}"
-                                user="{{Auth::id()}}">
-                            </principal-form>
-                                
-                        </div>
-                    </div>
-                </div>
+                <principal-form
+                    preview="true"
+                    url="security-fund-flow/step-6/create/meetSponsors"
+                    data="{{ isset($data['principles']) ? $data['principles'] : '' }}"
+                    user="{{Auth::id()}}">
+                </principal-form>
             </div>
             <div class="row">
                 <div class="col-xs-12">

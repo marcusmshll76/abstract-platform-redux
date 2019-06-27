@@ -4,9 +4,9 @@
         <nested-draggable @moved="moved" @done="refresh" :struc="struc" :txtindex="txt" :data="list" />
     </div>
     <vue-context ref="menu">
-        <li>
+        <!-- <li>
             <a href="#" @click.prevent="createFolder"><Icon type="ios-folder-open" /> Create New Folder</a>
-        </li>
+        </li> -->
         <li>
             <a href="#" @click.prevent="createFile"><Icon type="ios-paper-outline" /> Create New File</a>
         </li>
@@ -58,7 +58,6 @@ export default {
     created () {
         let lup = Cookies.get(this.struc)
         if (lup !== undefined && lup.length > 0) {
-            console.log(lup)
             this.list = JSON.parse(lup);
         } else {
             // console.log(this.struc)
@@ -69,7 +68,8 @@ export default {
                         edit: false,
                         data: [{
                             name: 'Title Survey & Zoning DD List',
-                            edit: false
+                            edit: false,
+                            list: '<p><li>Title commitment and policy</li></p><p><li>Zoning and Confirmation</li></p><p><li>ALTA/ACSM Survey</li></p><p><li>Final plans &amp; specifications</li></p><p><li>Copies of easements, rights-of-way, and covenants affecting property</li></p><p><li>Notices of any violation of building codes, zoning or other ordinances</li></p><p><li>Estoppels from mortgagees, ground lessors &amp; tenants</li></p><p><li>Certificates of occupancy &amp; all other permits.</li></p><p><li>Subdivision Plat</li></p><p><li>Utility Report</li></p><p><li>Access Analysis</li></p><p><li>ADA Compliance Reports</li></p><p><li>Notices of any violation of building codes, zoning or other ordinances, laws or regulations affecting property.</li></p>'
                         }]
                     },
                     {
@@ -78,7 +78,8 @@ export default {
                         edit: false,
                         data: [{
                             name: 'Legal & Insurance DD List ',
-                            edit: false
+                            edit: false,
+                            list: '<p><li>Ground Lease, *if any</li></p><p><li>Any side agreements with tenants or others</li></p><p><li>Litigation Review</li></p><p><li>Contracts affecting Property</li></p><p><li>Private Placement Memorandum</li></p><p><li>Property Management Agreement</li></p><p><li>Insurance Certificate / Declarations Page</li></p><p><li>Corporate Resolutions of Seller, *if applicable</li></p><p><li>Corporate Certificate of Good Standing</li></p><p><li>Corporate Income Tax Returns for past three years, *if applicable</li></p><p><li>Partnership Agreements, Amendments, &amp; Certificate</li></p><p><li>Partnership Income Tax Returns, *Past 3 years</li></p><p><li>All leases, amendments &amp; rental agreements</li></p>'
                         }]
                     },
                     {
@@ -87,7 +88,8 @@ export default {
                         edit: false,
                         data: [{
                             name: 'Financial DD List',
-                            edit: false
+                            edit: false,
+                            list: '<p><li>Appraisal</li></p><p><li>Financial Statements *Past 3 years</li></p><p><li>Historical Operating Financials</li></p><p><li>Current Rent Roll</li></p><p><li>Lease Analysis</li></p><p><li>Financial Projections Model</li></p><p><li>Argus, *If applicable</li></p>'
                         }]
                     }
                 ];

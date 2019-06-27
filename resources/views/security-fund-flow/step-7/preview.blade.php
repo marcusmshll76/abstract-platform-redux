@@ -8,7 +8,7 @@
     </div>
     <div class="card-content">
         <h5>You’re nearly there!</h5>
-        <p>Hit preview to review all information to ensure it is correct. You may EDIT if need be by pressing the EDIT button at the start of each section; your information will automatically re-save when you hit submit at the bottom of the page..</p>
+        <p>Hit preview to review all information to ensure it is correct. You may EDIT if need be by pressing the EDIT button at the start of each section; your information will automatically re-save when you hit submit at the bottom of the page.. You can change or edit your photos in the final Preview Screen</p>
         <div class="card">
             <div class="card-title dust has-button">
                 <h5>Digital Security Details</h5>

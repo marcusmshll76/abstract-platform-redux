@@ -38,8 +38,14 @@ class SecurityFundFlow extends Controller
         return view( 'security-fund-flow.step-2.ownership', [ 'title' => 'Create Digital Security > Ownership' ] )->with('data', $request->session()->get('security-fund-flow'));
     }
 
-    public function diligence () {
-        return view( 'security-fund-flow.step-3.diligence', [ 'title' => 'Create Digital Security > Ownership' ] );
+    public function diligence (Request $request) {
+        $userid = Auth::id();
+        $company = DB::table('account_verification')
+            ->where('userid', $userid)
+            ->select('company_name')
+            ->first();
+        $data = $request->session()->get('security-flow');
+        return view( 'security-fund-flow.step-3.diligence', [ 'title' => 'Create Digital Security > Ownership' ] )->with(compact('company'));
     }
   
     public function keyPoints (Request $request) {
@@ -108,6 +114,88 @@ class SecurityFundFlow extends Controller
 
     // Submit Preview Data
     public function submitPreview(Request $request) {
+        $userid = Auth::id();
+        if (!empty($request->session()->get('security-fund-flow.key-points'))) {
+            $keyPoints = $request->session()->get('security-fund-flow.key-points');
+        }
+
+        if (!empty($request->session()->get('security-fund-flow.principles'))) {
+            $principles = $request->session()->get('security-fund-flow.principles');
+        }
+
+        if (!empty($request->session()->get('capRead'))) {
+            $capRead = json_encode($request->session()->get('capRead'));
+        } else {
+            $capRead = '';
+        }
+        $payload = array(
+            'userid' => $userid,
+            'target-investor-irr' => $request->get('target-investor-irr'),
+            'investment-profile' => $request->get('investment-profile'),
+            'funds-due' => $request->get('funds-due'),
+            'target-equity-multiple' => $request->get('target-equity-multiple'),
+            'minimum-investment' => $request->get('minimum-investment'),
+            'distribution-period' => $request->get('distribution-period'),
+            'target-investment-period' => $request->get('target-investment-period'),
+            'property-type' => $request->get('property-type'),
+            'sponsor-co-investment' => $request->get('sponsor-co-investment'),
+            'target-avg-investor-cash-yield' => $request->get('target-avg-investor-cash-yield'),
+            'offers-due' => $request->get('offers-due'),
+            'distribution-commencement' => $request->get('distribution-commencement'),
+            'fund-name' => $request->get('fund-name'),
+            'opportunity-type' => $request->get('opportunity-type'),
+            'type-of-fund' => $request->get('type-of-fund'),
+            'capital-origin' => $request->get('capital-origin'),
+            'fund-address' => $request->get('fund-address'),
+            'city' => $request->get('city'),
+            'state' => $request->get('state'),
+            'zip' => $request->get('zip'),
+            'country' => $request->get('country'),
+            'fund-description' => $request->get('fund-description'),
+            'investor-first-name' => $request->get('investor-first-name'),
+            'investor-last-name' => $request->get('investor-last-name'),
+            'ownership' => $request->get('ownership'),
+            'investor-first-name-1' => $request->get('investor-first-name-1'),
+            'investor-last-name-1' => $request->get('investor-last-name-1'),
+            'ownership-1' => $request->get('ownership-1'),
+            'investor-first-name-2' => $request->get('investor-first-name-2'),
+            'investor-last-name-2' => $request->get('investor-last-name-2'),
+            'ownership-2' => $request->get('ownership-2'),
+            'minimum-raise-amount' => $request->get('minimum-raise-amount'),
+            'distribution-frequency' => $request->get('distribution-frequency'),
+            'maximum-raise-amount' => $request->get('maximum-raise-amount'),
+            'total-capital-required' => $request->get('total-capital-required'),
+            'preferred-equity' => $request->get('preferred-equity'),
+            'common-equity' => $request->get('common-equity'),
+            'mezzanine-debt' => $request->get('mezzanine-debt'),
+            'senior-debt' => $request->get('senior-debt'),
+            'vacancy-rate' => $request->get('vacancy-rate'),
+            'proforma-current-noi' => $request->get('proforma-current-noi'),
+            'annual-cash-flow' => $request->get('annual-cash-flow'),
+            '1031-exchange' => $request->get('1031-exchange'),
+            'market-value' => $request->get('market-value'),
+            'square-footage' => $request->get('square-footage'),
+            'property-class' => $request->get('property-class'),
+            'total-debt' => $request->get('total-debt'),
+            'payoff-date' => $request->get('payoff-date'),
+            'loan-type' => $request->get('loan-type'),
+            'developed' => $request->get('developed'),
+            'existing-properties' => $request->get('existing-properties'),
+            'principles' => json_encode($principles),
+            'key-points' => $keyPoints,
+            'captables' => $capRead,
+            "created_at" =>  \Carbon\Carbon::now(),
+            "updated_at" => \Carbon\Carbon::now()
+        );
+        if (!empty($request->get('updateflow'))) {   
+            DB::table('security_fund_flow')
+                ->where('userid', $userid)
+                ->where('id', $request->get('updateflow'))
+                ->update($payload);
+                $request->session()->forget('security-fund-flow');
+                $request->session()->forget('capRead');
+            return view( 'security-fund-flow.step-7.final', [ 'title' => 'Create Digital Security -> Preview & Submit', 'success' => true ] );
+        } else {
         $session_data = session( 'security-fund-flow', array() );
         $session_data = array_merge( $session_data, $_POST );
         session( [ 'security-fund-flow' => $session_data ] );
@@ -181,83 +269,8 @@ class SecurityFundFlow extends Controller
         ];
         $rules = array_merge( $rules, $condRule, $capRule);
         $this->validate($request, $rules);
-        
-        if (!empty($request->session()->get('security-fund-flow.key-points'))) {
-            $keyPoints = $request->session()->get('security-fund-flow.key-points');
-        }
-
-        if (!empty($request->session()->get('security-fund-flow.principles'))) {
-            $principles = $request->session()->get('security-fund-flow.principles');
-        }
-
-        if (!empty($request->session()->get('capRead'))) {
-            $capRead = json_encode($request->session()->get('capRead'));
-        } else {
-            $capRead = '';
-        }
 
         if (isset($keyPoints) && isset($principles)) {
-            $userid = Auth::id();
-            $payload = array(
-                'userid' => $userid,
-                'target-investor-irr' => $request->get('target-investor-irr'),
-                'investment-profile' => $request->get('investment-profile'),
-                'funds-due' => $request->get('funds-due'),
-                'target-equity-multiple' => $request->get('target-equity-multiple'),
-                'minimum-investment' => $request->get('minimum-investment'),
-                'distribution-period' => $request->get('distribution-period'),
-                'target-investment-period' => $request->get('target-investment-period'),
-                'property-type' => $request->get('property-type'),
-                'sponsor-co-investment' => $request->get('sponsor-co-investment'),
-                'target-avg-investor-cash-yield' => $request->get('target-avg-investor-cash-yield'),
-                'offers-due' => $request->get('offers-due'),
-                'distribution-commencement' => $request->get('distribution-commencement'),
-                'fund-name' => $request->get('fund-name'),
-                'opportunity-type' => $request->get('opportunity-type'),
-                'type-of-fund' => $request->get('type-of-fund'),
-                'capital-origin' => $request->get('capital-origin'),
-                'fund-address' => $request->get('fund-address'),
-                'city' => $request->get('city'),
-                'state' => $request->get('state'),
-                'zip' => $request->get('zip'),
-                'country' => $request->get('country'),
-                'fund-description' => $request->get('fund-description'),
-                'investor-first-name' => $request->get('investor-first-name'),
-                'investor-last-name' => $request->get('investor-last-name'),
-                'ownership' => $request->get('ownership'),
-                'investor-first-name-1' => $request->get('investor-first-name-1'),
-                'investor-last-name-1' => $request->get('investor-last-name-1'),
-                'ownership-1' => $request->get('ownership-1'),
-                'investor-first-name-2' => $request->get('investor-first-name-2'),
-                'investor-last-name-2' => $request->get('investor-last-name-2'),
-                'ownership-2' => $request->get('ownership-2'),
-                'minimum-raise-amount' => $request->get('minimum-raise-amount'),
-                'distribution-frequency' => $request->get('distribution-frequency'),
-                'maximum-raise-amount' => $request->get('maximum-raise-amount'),
-                'total-capital-required' => $request->get('total-capital-required'),
-                'preferred-equity' => $request->get('preferred-equity'),
-                'common-equity' => $request->get('common-equity'),
-                'mezzanine-debt' => $request->get('mezzanine-debt'),
-                'senior-debt' => $request->get('senior-debt'),
-                'vacancy-rate' => $request->get('vacancy-rate'),
-                'proforma-current-noi' => $request->get('proforma-current-noi'),
-                'annual-cash-flow' => $request->get('annual-cash-flow'),
-                '1031-exchange' => $request->get('1031-exchange'),
-                'market-value' => $request->get('market-value'),
-                'square-footage' => $request->get('square-footage'),
-                'property-class' => $request->get('property-class'),
-                'total-debt' => $request->get('total-debt'),
-                'payoff-date' => $request->get('payoff-date'),
-                'loan-type' => $request->get('loan-type'),
-                'developed' => $request->get('developed'),
-                'existing-properties' => $request->get('existing-properties'),
-                'principles' => json_encode($principles),
-                'key-points' => $keyPoints,
-                'captables' => $capRead,
-                "created_at" =>  \Carbon\Carbon::now(),
-                "updated_at" => \Carbon\Carbon::now()
-            );
-
             DB::table('security_fund_flow')->insert($payload);
             $request->session()->forget('security-fund-flow');
             $request->session()->forget('capRead');
@@ -265,6 +278,7 @@ class SecurityFundFlow extends Controller
             
         } else {
             return view('security-fund-flow.step-7.final', [ 'title' => 'Create Digital Security > Preview & Submit' ])->with('data', $request->session()->get('security-fund-flow'));
-        } 
+        }
+        }
     }
 }

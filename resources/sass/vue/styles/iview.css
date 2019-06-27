@@ -5180,3 +5180,67 @@ a{
 .mrg-left{
     margin-left: 10px !important;
 }
+.presented-company{
+    height: 200px;
+    overflow: hidden !important;
+}
+.presented-company {
+    border: 2px solid #EEF1F7;
+    border-radius: 4px;
+    width: 100%;
+    padding-bottom: 246px;
+    position: relative;
+}
+.presented-company .filePreview div div{
+    width: 100% !important;
+    height: 250px !important;
+    display: flex  !important;
+    justify-content: center  !important;
+    flex-direction: column  !important;
+    text-align: center  !important;
+}
+.presented-company .filePreview .ivu-spin div{
+    height: 50px !important;
+}
+
+.presented-company img {
+    display: block;
+    width: 80% !important;
+    height: auto !important;
+    margin: auto !important;
+}
+
+.presented-company .button-edit {
+    display: none
+}
+
+.presented-company:hover .button-edit {
+    padding: 5px 10px;
+    background: linear-gradient(135deg, #000 0%, #868686 100%);
+    border-radius: 4px;
+    position: absolute;
+    display: block;
+    top: 5px;
+    right: 5px;
+    z-index: 20;
+    font-size: 12px;
+    color: white;
+    text-transform: uppercase;
+    font-weight: 700;
+    cursor: pointer;
+    line-height: 30px !important;
+    height: 30px !important;
+}
+
+.presented-description {
+    padding: 20px;
+    background: linear-gradient(135deg, #283f5c 0%, #8e9385 100%);
+    border-radius: 4px;
+    height: 210px;
+    overflow-y: scroll
+}
+
+.presented-description p {
+    color: white;
+    margin: 0
+}

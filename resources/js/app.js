@@ -12,9 +12,13 @@ require('../sass/vue/styles/iview.css');
 window.Vue = require('vue');
 Vue.use(iView, { locale });
 
+
 const files = require.context('./', true, /\.vue$/i);
 files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
 const app = new Vue({
     el: '#app',
 });
+
+Vue.config.productionTip = false
+

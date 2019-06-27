@@ -36,7 +36,7 @@
                         </div>
                         <div class="col-xs-12 col-sm-3">
                             <div class="dashboard-menu-tile"><img src="/img/icon-building.svg">
-                                <h5>My Properties</h5>
+                                <a class="color-white" href="/properties/pending"><h5>My Properties</h5></a>
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-3">
