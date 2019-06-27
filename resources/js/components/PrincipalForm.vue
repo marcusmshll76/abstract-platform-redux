@@ -96,8 +96,8 @@
     </Form>
 </div>
 </div>
-<div class="row">
-    <div class="col-xs-6 col-sm-6" v-if="next === 'yes'">
+<div class="row"  v-if="next === 'yes'">
+    <div class="col-xs-6 col-sm-6">
         <div class="content-footer">
             <div  class="footer-button-back" @click="handleback()">
                 <img src="/img/icon-arrow-back.svg">
@@ -107,7 +107,7 @@
     </div>
     <div class="col-xs-6 col-sm-6">
         <div class="content-footer">
-            <a @click="handleSubmit('next')" class="btn color-white fl-right" v-if="next === 'yes'">Next</a>
+            <a @click="handleSubmit('next')" class="btn color-white fl-right">Next</a>
         </div>
     </div>
 </div>
@@ -296,5 +296,8 @@ input[type="checkbox"]:checked{
 }
 .mrg-push-mid-top{
     margin-top: 140px !important;
+}
+.principal-section{
+    padding: 10px !important;
 }
 </style>

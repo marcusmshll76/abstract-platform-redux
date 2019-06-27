@@ -5248,3 +5248,7 @@ a{
 .header-toggle .col-sm-6{
     padding: 0 !important;
 }
+
+.quillWrapper{
+    background: #fff !important;
+}
