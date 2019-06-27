@@ -187,7 +187,8 @@ class SecurityFundFlow extends Controller
             "created_at" =>  \Carbon\Carbon::now(),
             "updated_at" => \Carbon\Carbon::now()
         );
-        if (!empty($request->get('updateflow'))) {   
+        if (!empty($request->get('updateflow'))) {  
+            dd('man'); 
             DB::table('security_fund_flow')
                 ->where('userid', $userid)
                 ->where('id', $request->get('updateflow'))

@@ -37,7 +37,7 @@
                             </FormItem>
                         </div>
                         <div class="col-xs-12">
-                            <FormItem label="Principle Title" prop="title">
+                            <FormItem label="Principle Company" prop="title">
                                 <Input v-model="create.title" @blur.native="handleSubmit('blur')"/>
                             </FormItem>
                         </div>
