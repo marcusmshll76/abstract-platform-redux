@@ -34,10 +34,8 @@ class Marketplace extends Controller
                 ->union($cproperty)
                 ->get();
             
+                
             return view( 'marketplace.learnmore', [ 'title' => 'Approved > Properties'] )->with(compact('data', 'userid'));
-    
-
-        return view( 'marketplace.learnmore', [ 'title' => 'Learn More > Marketplace'] )->with('data', $request->session()->get('property'));
         
     }
 
@@ -62,7 +60,7 @@ class Marketplace extends Controller
                 ->value('bio');
 
             $data = (array) $a;
-
+            $data ['principles'] = json_decode($data['principles']);
             return view( 'marketplace.final', [ 'title' => 'New > Marketplace'] )->with(compact('data', 'bio'));
             // return redirect('/'.$ses.'/preview');
         } 

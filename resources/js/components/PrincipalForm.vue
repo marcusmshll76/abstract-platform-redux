@@ -203,6 +203,7 @@ export default {
                 let a = JSON.parse(this.data)
                 if (typeof a === 'string' || a instanceof String) {
                     this.formDynamic = JSON.parse(a)
+                    console.log(a)
                 } else {
                     this.formDynamic = a
                 }

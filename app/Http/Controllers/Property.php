@@ -199,6 +199,7 @@ class Property extends Controller
                     ->first();
 
                 $array = (array) $data;
+                $array ['principles'] = json_decode($array['principles']);
 
                 $request->session()->put($ses, $array);
                 return redirect('/'.$ses.'/preview');
