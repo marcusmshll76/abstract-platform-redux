@@ -85,6 +85,7 @@ Route::get('/account-settings/privacy', 'AccountSettingsController@privacy');
 Route::post('/account-settings/privacy', 'AccountSettingsController@updatePrivacy');
 Route::get('/account-settings/password', 'AccountSettingsController@passwordAnd2FA');
 Route::post('/account-settings/password', 'AccountSettingsController@updatePassword');
+Route::get('/account-settings/export', 'AccountSettingsController@exportData');
 
 // Get Principles
 Route::get('/principles/get', 'AccountSettingsController@getPrinciples');

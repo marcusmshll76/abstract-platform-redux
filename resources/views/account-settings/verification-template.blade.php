@@ -22,6 +22,9 @@
                             <div class="left-nav-item">
                                 <p><a href="/account-settings/password">Password & Two-Factor Authentication</a></p>
                             </div>
+                            <div class="left-nav-item">
+                                <p><a href="/account-settings/export">Export Data</a></p>
+                            </div>
                         </div>
                     </div>
                 </div>

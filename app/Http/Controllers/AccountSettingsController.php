@@ -284,4 +284,8 @@ class AccountSettingsController extends Controller {
             return view( 'account-settings.password', [ 'title' => 'Account Settings -> Password & 2FA', 'error' => true ] );
         }
     }
+
+    public function exportData() {
+        return view( 'account-settings.export', [ 'title' => 'Account Settings -> Export Data' ] );
+    }
 }
