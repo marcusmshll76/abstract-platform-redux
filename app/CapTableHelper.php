@@ -84,17 +84,6 @@ EOD;
 
         foreach( $cap as $investor ) {
             $cap_table[] = [
-                /* 
-                    'Investor First Name'       => $investor->first_name,
-                    'Investor Last Name'        => $investor->last_name,
-                    'Investor Email Address'    => $investor->email,
-                    'Investor Entity'           => $investor->entity_name,
-                    'Contribution Date'         => $investor->contributed,
-                    'Contributed Capital'       => $investor->investment_amount,
-                    'Equity Stake'              => $investor->share * 100 . '%'
-
-                    Per Abel's specifications we should make this changes
-                 */
                     'Investor Name'        => $investor->entity_name,
                     'Investor Entity'      => '',
                     'Contribution Date'    => $investor->contributed,
