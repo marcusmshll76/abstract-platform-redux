@@ -36,7 +36,7 @@
                             <td>{{$h->date}}</td>
                             <td>{{$h->yield}}</td>
                             <td>{{$h->totalAmount}}</td>
-                            <td><a href="{{Storage::url($h->file)}}">Download CSV</a> | <a href="#">Download NACHA</a></td>
+                            <td><a href="{{Storage::url($h->file)}}">Download CSV</a> | <a href="/investor-servicing/distributions/nacha/{{$h->type}}/{{rand()}}/{{$h->id}}">Download NACHA</a></td>
                         </tr>
                     @endforeach
                 </tbody>

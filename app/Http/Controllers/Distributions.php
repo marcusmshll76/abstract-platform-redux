@@ -12,6 +12,11 @@ use Box\Spout\Common\Entity\Row;
 use Box\Spout\Writer\Common\Creator\Style\StyleBuilder;
 use Illuminate\Support\Facades\Storage;
 use DateTime;
+use \Nacha\File;
+use \Nacha\Batch;
+use Nacha\Field\TransactionCode;
+use \Nacha\Record\DebitEntry;
+use \Nacha\Record\CcdEntry;
 
 class Distributions extends Controller
 {
@@ -258,5 +263,68 @@ class Distributions extends Controller
     }
     public function display($path, $type, $id, $name) {
         
+    }
+
+    public function getNACHA(Request $request, $type, $rand, $distribution_id) {
+        $file = new File();
+        $file->getHeader()->setPriorityCode(1)
+			//->setImmediateDestination('')
+			//->setImmediateOrigin('')
+			->setFileCreationDate(date('YYMMDD'))
+			->setFormatCode('1')
+			//->setImmediateDestinationName('')
+			//->setImmediateOriginName('')
+			->setReferenceCode('Reference');
+
+        $distribution = DB::table('distribution_history')
+            ->where('distribution_history.property_type', $type)
+            ->where('distribution_history.distribution_id', $distribution_id)
+            ->get();
+        
+        
+        $batch = new Batch();
+        $batch->getHeader()->setCompanyEntryDescription('DISTRIBUTION');
+        foreach( $distribution as $d ) {
+            // Get the investor details
+            $investor = DB::table('investments')
+                ->where('propertyid', $d->property_id)
+                ->where('type', $d->property_type)
+                ->where('userid', $d->investor_id)
+                ->get();
+            
+            $check_digit_weighting = [3, 7, 1, 3, 7, 1, 3, 7];
+            $check_value = 0;
+            for( $i = 0; $i < strlen( substr($investor[0]->routing_number,0,8) ); $i++ ) {
+                $digit = $investor[0]->routing_number[$i];
+                $digit = $digit * $check_digit_weighting[$i];
+                $check_value += $digit;
+            }
+
+            while( ($check_value - 10 ) >= 0 ) {
+                $check_value -= 10;
+            }
+
+            $batch->addCreditEntry((new CcdEntry)
+                ->setTransactionCode(TransactionCode::CHECKING_DEPOSIT)
+                ->setReceivingDFiId(substr($investor[0]->routing_number, 0, 8))
+                ->setReceivingDFiAccountNumber($investor[0]->account_number)
+                ->setCheckDigit($check_value)
+                ->setAmount($d->distribution)
+            );
+        }
+
+        $file->addBatch($batch);
+        $nacha = (string)$file;
+
+        $z = 'NACHA_Distribution_' . $distribution_id . '.txt';
+        $headers = [
+            'Content-Type' => 'text', 
+            'Content-Description' => 'File Transfer',
+            'Content-Disposition' => "attachment; filename={$z}",
+            'filename'=> $z
+            ];
+            return response($nacha, 200, $headers);
+       
+
     }
 }
