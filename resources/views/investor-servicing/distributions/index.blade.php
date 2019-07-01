@@ -15,7 +15,38 @@
 @endif
 <div class="card margin-top-m">
     <div class="card-title blue">
-        <h5>Distributions</h5></div>
+        <h5>Distribution History</h5>
+    </div>
+    <div class="card-content">
+        @if(sizeof($history) > 1)
+            <p>This property has no historical distributions.</p>
+        @else
+            <table class="rwd-table">
+                <thead>
+                    <th>Name</th>
+                    <th>Date</th>
+                    <th>Yield Period</th>
+                    <th>Total Amount</th>
+                    <th>Actions</th>
+                </thead>
+                <tbody>
+                    @foreach($history as $h)
+                        <tr>
+                            <td>{{$h->name}}</td>
+                            <td>{{$h->date}}</td>
+                            <td>{{$h->yield}}</td>
+                            <td>{{$h->totalAmount}}</td>
+                            <td><a href="#">Download CSV</a> | <a href="#">Download NACHA</a></td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        @endif
+    </div>
+</div>
+<div class="card margin-top-m">
+    <div class="card-title blue">
+        <h5>New Distribution</h5></div>
     <div class="card-content">
         <p>Fill in the Pro Rata data inputs, then hit submit to preview or immediately download a CSV file.  Abstract will alert you within 48 hours when distributions reports are uploaded to the Investor Servicing Portal and ready for your investors to view.</p>
         <div class="card grey pad-bottom-open margin-top-m">

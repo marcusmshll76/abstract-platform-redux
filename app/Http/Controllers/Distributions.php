@@ -23,7 +23,8 @@ class Distributions extends Controller
 
     public function distributions(Request $request, $type, $rand, $id) {
         $data = $request->session()->get('distributions');
-        return view( 'investor-servicing.distributions.index', [ 'title' => 'Distributions > Investor Servicing'] )->with(compact('data', 'type', 'id'));
+        $history = DB::table('distributions')->where('property_id', $id)->where('type', $type)->get();
+        return view( 'investor-servicing.distributions.index', [ 'title' => 'Distributions > Investor Servicing'] )->with(compact('data', 'type', 'id', 'history'));
     }
 
     public function preview(Request $request, $type, $rand, $id) {
@@ -52,6 +53,7 @@ class Distributions extends Controller
         
         $this->validate($request, $rules);
 
+        // Generate CSV
         $userid = Auth::id();
         if (isset($type) && isset($id)) {
             if ($type === 'fund') {
@@ -171,9 +173,28 @@ class Distributions extends Controller
                     Storage::disk('s3')->put($nPath.$filename, file_get_contents($filePath.$filename));
                     Storage::disk('local')->delete($filePath.$filename);
 
-                    DB::table('distributions')->insert($payload);
+                    $distribution_id = DB::table('distributions')->insertGetId($payload);
 
-                    return view( 'investor-servicing.distributions.index', [ 'title' => 'Distributions > Investor Servicing', 'success' => true ] )->with(compact('type', 'id'));
+                    // Calculate per-investor distributions
+                    $fmt = new \NumberFormatter( 'en_US', \NumberFormatter::CURRENCY );
+                    $currency = 'USD';
+                    $raw_amount = $fmt->parseCurrency( $request->get('totalAmount'), $currency );
+                    $investors = DB::table('investments')->where('propertyid', $id)->get();
+                    $distribution_history = [];
+                    foreach( $investors as $investor ) {
+                        $distribution_history[] = [
+                            'property_id'       => $id,
+                            'property_type'     => $type,
+                            'investor_id'       => $investor->userid,
+                            'distribution_id'   => $distribution_id,
+                            'distribution'      => round( $raw_amount * $investor->share, 2 )
+                        ];
+                    }
+
+                    DB::table('distribution_history')->insert($distribution_history);
+                    
+                    $history = DB::table('distributions')->where('property_id', $id)->where('type', $type)->get();
+                    return view( 'investor-servicing.distributions.index', [ 'title' => 'Distributions > Investor Servicing', 'success' => true ] )->with(compact('type', 'id', 'history'));
                 }
             }
         } 
