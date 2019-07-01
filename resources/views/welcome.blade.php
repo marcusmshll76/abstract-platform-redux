@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Abstract Tokenization</title>
+    <title>Abstract</title>
     <meta http-eqiv="Content-Type" content="text/html; charset=utf-8">
     <meta http-equiv="Content-Language" content="en-us">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -15,12 +15,14 @@
     <link rel="stylesheet" href="/css/lib/cs-select.css">
     <link rel="stylesheet" href="/css/lib/owl.theme.css">
     <link rel="stylesheet" href="/css/lib/owl.carousel.css">
+    <link rel="stylesheet" href="/css/lib/modal-video.css">
     <link rel="stylesheet" href="/css/index.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="/js/custom.js"></script>
     <script src="/js/sectionscroll.js"></script>
     <script src="/js/owl.carousel.min.js"></script>
+    <script src="/js/videopopup.js"></script>
     <script src="/js/bootstrap.min.js"></script>
 </head>
 
@@ -108,14 +110,6 @@
                             <div class="nav-logo"><a href="/"><img src="/img/logo-dark-w-type.svg" class="logo"></a>
                             </div>
                         </div>
-                        <div class="col-xs-12 col-sm-4 last-xs">
-                            <ul class="nav-item margin-right-s">
-                                <li><a href="/login">Login</a></li>
-                                <li>
-                                    <div class="btn color-white"><a href="/register">Sign Up</a></div>
-                                </li>
-                            </ul>
-                        </div>
                     </div>
                 </div>
                 <div class="navbar-mobile">
@@ -123,10 +117,6 @@
                         <div class="col-xs-12">
                             <div class="logo"><a href="/"><img src="/img/logo-dark-w-type.svg" class="logo"></a></div>
                             <div class="menu-button"><img src="/img/icon-menu-btn.svg"></div>
-                            <ul class="nav-item">
-                                <li><a href="#">Login</a></li>
-                                <li><a href="#">Sign Up</a></li>
-                            </ul>
                         </div>
                     </div>
                 </div>
@@ -137,18 +127,23 @@
                 <div class="row">
                     <div class="col-xs-12 col-sm-8">
                         <div class="hero-content">
-                            <h1 style="font-weight: 500;">BLOCKCHAIN AND AUTOMATION FOR<div class="blue" style="color: #fff !important; font-weight: 900 !important;">COMMERCIAL REAL ESTATE</div>
+                            <h1>BLOCKCHAIN AND AUTOMATION FOR<div class="blue">COMMERCIAL REAL ESTATE</div>
                             </h1>
                             <h3>ABSTRACT BRINGS LIQUIDITY AND EFFICIENCY TO YOUR REAL ESTATE INVESTORS.</h3>
                         </div>
                         <div class="btn margin-top-m margin-bottom-s gold">Get Started</div>
                         <p>Voted Best ‘Blockchain Company’ by CRETech December ’18.</p>
                     </div>
-                </div><a href="#">
-                    <div class="hero-video">
+                </div>
+                <div class="hero-video"><a href="javascript:void(0)" id="video1">
                         <h5>Discover Abstract</h5><img src="/img/icon-video.svg">
-                    </div>
-                </a>
+                    </a></div>
+                <div id="vidBox">
+                    <div id="videCont"><iframe
+                            src="https://player.vimeo.com/video/290852869?byline=0&amp;portrait=0&amp;autoplay=1"
+                            style="position:absolute;top:0;left:0;width:100%;height:100%" frameborder="0"
+                            webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen=""></iframe></div>
+                </div>
             </div>
         </section>
         <section class="site-description">

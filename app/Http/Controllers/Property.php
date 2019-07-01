@@ -68,7 +68,9 @@ class Property extends Controller
                 'stake'         => $row[1],
                 'date'          => substr( $row[2]->date, 0, strpos( $row[2]->date, ' ' ) ),
                 'capital'       => $row[3],
-                'email'         => $row[4]
+                'email'         => $row[4],
+                'routing'       => $row[5],
+                'account'       => $row[6],
             ];
         }
         
