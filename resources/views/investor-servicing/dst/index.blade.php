@@ -582,7 +582,13 @@
                                             <p>Pre-Tax Returns calculated using the highest Federal Marginal tax rate of 37% plus an 8% allowance for state and local tax</p>
                                         </div>
                                     </div>
-                                    <div class="row">
+                                    <div class="row margin-top-m">
+                                                <div class="col-xs-12 col-sm-6">
+                                                    <div class="btn full-width margin-bottom-m-sm"><a href="/img/dst-report.pdf" style="color: #fff !important;" target="_blank">PDF</a></div>
+                                                </div>
+                                                <div class="col-xs-12 col-sm-6">
+                                                    <div class="btn dust full-width">CSV</div>
+                                                </div>
                                         <!-- <div class="col-xs-12 col-md-4">
                                             <div class="row">
                                                 <div class="col-xs-12 col-sm-6">

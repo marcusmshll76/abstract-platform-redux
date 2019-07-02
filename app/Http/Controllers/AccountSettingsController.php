@@ -181,9 +181,9 @@ class AccountSettingsController extends Controller {
             'reference_email_4' => 'required|email'
         ]);
         
-        if (!empty($request->session()->get('account-settings.principles'))) {
+        /* if (!empty($request->session()->get('account-settings.principles'))) {
             $principles = $request->session()->get('account-settings.principles');
-        }
+        } */
 
         if (!empty(json_encode($principles))) {
             $userid = Auth::id();
@@ -230,6 +230,9 @@ class AccountSettingsController extends Controller {
             );
 
             DB::table('account_verification')->insert($payload);
+            if ($request->session()->get('account-verification')) {
+                dd($request->session()->get('account-verification'));
+            }
             return view( 'account-settings.preview', [ 'title' => 'Account Settings -> Preview', 'success' => true ] );
         } else {
             return view( 'account-settings.preview', [ 'title' => 'Account Settings -> Preview', 'error' => true ] );

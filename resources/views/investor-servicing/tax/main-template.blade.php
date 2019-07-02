@@ -10,6 +10,7 @@
                             <h5>Investor Servicing</h5>
                         </div>
                         <br/>
+                        @if (isset($type) && isset($id))
                         <div class="left-nav-item-wrap">
                             <div class="left-nav-item">
                                 <p><a href="/investor-servicing/choose-investment"> Choose an <br/>Investment</a></p>
@@ -27,6 +28,7 @@
                                 <p><a href="{{'/investor-servicing/reports/'. $type. '/'.strtolower(str_random(100)). '/' .$id }}">Reports</a></p>
                             </div>
                         </div>
+                        @endif
                     </div>
                 </div>
             </div>

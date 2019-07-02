@@ -1,6 +1,14 @@
 @extends('investor-servicing.cap.main-template')
 @section('title', "Cap Table > Investor Servicing")
-
+<style>
+.fl-left{
+    float:left;
+}
+.hr-divider{
+    margin: 0 12px;
+    float:left;
+}
+</style>
 @section('body')
 <div class="card margin-top-m">
     <div class="card-title blue">
@@ -21,6 +29,8 @@
                             </div>
                         </div>
                         <p>Has your cap table changed?</p>
+                        <a class="fl-left" href="/28912SAIAS232/investor-cap-table-upload.xlsx" download>Cap Table Sample</a>
+                        <div class="hr-divider">|</div>
                         @if ($type === 'fund')
                             <uploads-component
                                 title="Upload New Cap Table"
