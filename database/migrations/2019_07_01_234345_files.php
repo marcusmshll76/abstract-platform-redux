@@ -13,6 +13,7 @@ class Files extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('files');
         Schema::create('files', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedInteger('user')->nullable();
