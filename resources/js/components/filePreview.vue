@@ -79,7 +79,6 @@ export default {
             axios
             .get(config.getFiles + url)
             .then(function(resp) {
-              console.log(resp)
               self.files = resp.data
               self.loading = false
             })

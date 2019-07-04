@@ -151,8 +151,10 @@ export default {
             var self = this
             let user =  res.path.indexOf('/') > -1 ? res.path.split('/')[0] : ''
 
+            const url = config.getFiles + '?user=' + user + '&&field=' + res.field + '&&section=' + res.section + '&&sectionid=' + res.section_id
+
             axios
-            .get(config.getFiles + '?user=' + user + '&&field=' + res.field)
+            .get(url)
             .then(function(resp) {
                 
                 resp.data.map(function (x) {
