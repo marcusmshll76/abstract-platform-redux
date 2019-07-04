@@ -1,5 +1,9 @@
 @extends('layouts.app')
-
+<style>
+.disabled-menu{
+    opacity: 0.2 !important;
+}
+</style>
 @section('content')
 <div class="dashboard-content-wrap">
         <div class="row digital">
@@ -17,16 +21,16 @@
                             <div class="left-nav-item active">
                                 <p><a>Upload New <br/>Property</a></p>
                             </div>
-                            <div class="left-nav-item">
+                            <div class="left-nav-item disabled-menu">
                                 <p><a>Cap Table <br/>Management </a></p>
                             </div>
-                            <div class="left-nav-item">
+                            <div class="left-nav-item disabled-menu">
                                 <p><a>Distributions</a></p>
                             </div>
-                            <div class="left-nav-item">
+                            <div class="left-nav-item disabled-menu">
                                 <p><a>Tax Documents</a></p>
                             </div>
-                            <div class="left-nav-item">
+                            <div class="left-nav-item disabled-menu">
                                 <p><a>Reports</a></p>
                             </div>
                         </div>

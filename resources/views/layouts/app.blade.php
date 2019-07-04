@@ -53,9 +53,11 @@
                                         </div>
                                     </div>  -->
                                     <div class="col-xs-12 col-sm-6">
-                                        <div class="header-toggle-item active">
-                                            <p>Sponsors</p>
-                                        </div>
+                                        <a href="/sponsor/introduction">
+                                            <div class="header-toggle-item active">
+                                                <p>Sponsors</p>
+                                            </div>
+                                        </a>
                                     </div>
                                     <div class="col-xs-12 col-sm-6">
                                         <a href="/marketplace/learn/more">
@@ -66,9 +68,11 @@
                                     </div>
                                 @else
                                     <div class="col-xs-12 col-sm-6">
+                                    <a href="/sponsor/introduction">
                                         <div class="header-toggle-item active">
                                             <p>Investors</p>
                                         </div>
+                                    </a>
                                     </div>
                                     <div class="col-xs-12 col-sm-6">
                                     <a href="/marketplace/learn/more">

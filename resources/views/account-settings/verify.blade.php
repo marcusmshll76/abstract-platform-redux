@@ -27,6 +27,7 @@
                                 field="companylogo"
                                 path="/account-settings/company-logo/"
                                 multi="no"
+                                map="account-verification"
                                 type="single"
                                 class="small">
                             </uploads-component>

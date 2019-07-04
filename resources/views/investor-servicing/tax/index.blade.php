@@ -9,17 +9,30 @@
 }
 </style>
 @section('body')
+@if( isset( $success ) && $success )
+<h1> Some document</h1>
+    <popup-component
+        title="Inputs have been submitted"
+        type="recurring"
+        user="{{ Auth::id() }}"
+        info="<h5>Please allow 48 hours for processing</h5>"
+        action="Got It!"
+        url="{{'/investor-servicing/reports/'. $type. '/'.strtolower(str_random(100)). '/' .$id}}">
+    </popup-component>
+@endif
 <div class="card margin-top-m">
 <form action="/tax/create/new" method="post">
     <div class="card-title blue">
-        <h5>Tax Documents</h5></div>
+        <h5>Tax Documents</h5>
+    </div>
+    @if (isset($type) && isset($id))
     <div class="card-content">
         <p>Choose which tax document you are uploading, choose the year, upload the tax document then hit Submit. Your investor tax documents will be uploaded to the Investor Servicing portal within 48 hours for viewing.</p>
         <div class="card grey margin-top-m">
             <div class="card-content">
                 @csrf
-                <input type="hidden" name="did" value="{{$id}}" />
-                <input type="hidden" name="tid" value="{{$type}}" />
+                <input type="hidden" name="did" value="{{isset($id) ? $id : ''}}" />
+                <input type="hidden" name="tid" value="{{isset($type) ? $type : ''}}" />
                 <div class="row">
                         <div class="col-xs-12 col-md-6 padding-right-l-lg border-right-lg">
                             <div class="card equal-padding margin-bottom-m">
@@ -182,7 +195,7 @@
                                         path="/tax/documents/">
                                     </uploads-component>
                                 </div>
-                                </div>
+                            </div>
                         </div>
 
                         <div class="col-xs-12 col-md-6 padding-left-l-lg">
@@ -388,6 +401,7 @@
             </div>
         </div>
     </div>
+    @endif
     </form>
 </div>
 @endsection

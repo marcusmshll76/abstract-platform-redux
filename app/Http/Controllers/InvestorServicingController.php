@@ -145,7 +145,8 @@ class InvestorServicingController extends Controller {
             
             DB::table('taxs')->insert($payload);
             $request->session()->forget('taxRead');
-            return redirect('/investor-servicing/reports/'. $type. '/'.strtolower(str_random(100)). '/' .$id);
+            return view( 'investor-servicing.tax.index', [ 'title' => 'Tax Documents > Investor Servicing', 'success' => true ] )->with(compact('type', 'id'));
+            // ->with(compact('data', 'type', 'id')); return redirect();
         } else {
             $data = $request->session()->get('tax');
             return view( 'investor-servicing.tax.index', [ 'title' => 'Tax Documents > Investor Servicing', 'errors' => true] )->with(compact('data', 'type', 'id'));

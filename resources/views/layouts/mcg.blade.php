@@ -52,22 +52,26 @@
                                         </div>
                                     </div>  -->
                                     <div class="col-xs-12 col-sm-6">
-                                        <div class="header-toggle-item">
-                                            <p>Sponsors</p>
-                                        </div>
+                                        <a href="/sponsor/introduction">
+                                            <div class="header-toggle-item">
+                                                <p>Sponsors</p>
+                                            </div>
+                                        </a>
                                     </div>
                                     <div class="col-xs-12 col-sm-6">
                                         <a href="/marketplace/learn/more">
-                                        <div class="header-toggle-item active">
-                                            <p>Marketplace</p>
-                                        </div>
-                                    </a>
+                                            <div class="header-toggle-item active">
+                                                <p>Marketplace</p>
+                                            </div>
+                                        </a>
                                     </div>
                                 @else
                                     <div class="col-xs-12 col-sm-6">
-                                        <div class="header-toggle-item">
-                                            <p>Investors</p>
-                                        </div>
+                                        <a href="/sponsor/introduction">
+                                            <div class="header-toggle-item">
+                                                <p>Investors</p>
+                                            </div>
+                                        </a>
                                     </div>
                                     <div class="col-xs-12 col-sm-6">
                                     <a href="/marketplace/learn/more">

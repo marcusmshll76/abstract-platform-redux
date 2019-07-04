@@ -115,7 +115,7 @@
 import axios from 'axios'
 import config from '../libs'
 export default {
-    props: ['type', 'action', 'title', 'field', 'multi', 'icon', 'flat', 'path', 'elname', 'scope', 'refresh', 'section', 'small', 'clear'],
+    props: ['type', 'action', 'title', 'field', 'multi', 'icon', 'flat', 'path', 'elname', 'scope', 'refresh', 'section', 'small', 'clear', 'map'],
     data () {
         return {
             loadertext: 'Uploading file',
@@ -133,7 +133,8 @@ export default {
             section: this.section,
             access: this.scope,
             multi: this.multi,
-            field: this.field
+            field: this.field,
+            map: this.map
         }
         this.header = document.head.querySelector("[name~=csrf-token][content]").content
     },

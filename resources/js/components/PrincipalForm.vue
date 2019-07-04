@@ -23,6 +23,7 @@
                     :clear="clear"
                     :field="'principles' + mndex"
                     multi="no"
+                    map="principles"
                     :path="'/fund/principles/' + mndex + '/'"
                     @done="successUpload">
                 </uploads>

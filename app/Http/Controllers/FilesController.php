@@ -52,17 +52,21 @@ class FilesController extends Controller
                     ->delete();
 
                 }
-
+                $map = str_random(5).$user;
                 $payload = array(
                     'user' => $user, 
                     'field' => $request->get('field'),
                     'name' => $filename,
+                    'map' => $map,
                     'path' => $filePath,
                     'created_at' =>  \Carbon\Carbon::now(),
                     'updated_at' => \Carbon\Carbon::now()
                 );
+                $mmap = $request->get('map');
 
                 DB::table('files')->insert($payload);
+
+                $request->session()->push($mmap.$map, $payload);
 
             } else {
                 return response()->json([
