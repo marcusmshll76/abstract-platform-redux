@@ -16,7 +16,8 @@
             url="/account-settings/create/principles" 
             data="{{ isset($data['principles']) ? $data['principles'] : '' }}"
             user="{{ Auth::id() }}"
-            type="account settings">
+            type="account settings"
+            map="account-verification-files">
         </principal-form>
     </div>
 </div>

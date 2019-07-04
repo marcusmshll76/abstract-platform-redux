@@ -37,7 +37,8 @@
                                 scope="private"
                                 field="property-image"
                                 multi="no"
-                                path="/property/images/">
+                                path="/property/images/"
+                                map="investor-servicing-files">
                             </uploads-component>
                         </div>
                         <div class="col-xs-12 col-sm-8">
@@ -116,7 +117,8 @@
                                 field="property-cap"
                                 multi="no"
                                 section="captable"
-                                path="/property/cap/">
+                                path="/property/cap/"
+                                map="investor-servicing-files">
                             </uploads-component>
                         </div>
                     </div>

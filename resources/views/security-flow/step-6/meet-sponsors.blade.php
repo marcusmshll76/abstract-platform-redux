@@ -16,7 +16,7 @@
                 url="security-flow/step-6/create/meetSponsors" 
                 data="{{ isset($data['principles']) ? $data['principles'] : '' }}"
                 user="{{Auth::id()}}"
-                map="security-flow">
+                map="security-flow-files">
             </principal-form>
         </form>
     </div>

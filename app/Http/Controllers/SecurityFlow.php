@@ -251,7 +251,19 @@ class SecurityFlow extends Controller
                 "updated_at" => \Carbon\Carbon::now()
             );
 
-            DB::table('security_flow_property')->insert($payload);
+            $id = DB::table('security_flow_property')->insertGetId($payload);
+            if ($request->session()->get('security-flow-files')) {
+                // dd($request->session()->get('account-verification'));
+                $files = $request->session()->get('security-flow-files');
+                foreach ($files as $key => $value) {
+                    DB::table('files')
+                        ->where('section', 'security-flow-files')
+                        ->where('map', $value['map'])
+                        // ->where('field', $value->field)
+                        ->update(['section_id' => $id]);
+                }  
+            }
+            $request->session()->forget('security-flow-files');
             $request->session()->forget('security-flow');
             $request->session()->forget('capRead');
             return view( 'security-flow.step-7.final', [ 'title' => 'Security Flow -> Preview & Submit', 'success' => true ] );

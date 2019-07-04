@@ -36,7 +36,7 @@ class Property extends Controller
             'bankTransfer' => 'required',
         ];
 
-        $this->validate($request, $rules );
+        $this->validate($request, $rules);
 
         if (!empty($request->session()->get('capRead'))) {
             $capRead = json_encode($request->session()->get('capRead'));
@@ -76,6 +76,17 @@ class Property extends Controller
         
        $property_id = DB::table('property')->insertGetId($payload);
        \CapTableHelper::process_cap_table( $property_id, $investor_details );
+
+        if ($request->session()->get('investor-servicing-files')) {
+            $files = $request->session()->get('investor-servicing-files');
+            foreach ($files as $key => $value) {
+                DB::table('files')
+                    ->where('section', 'investor-servicing-files')
+                    ->where('map', $value['map'])
+                    ->update(['section_id' => $property_id]);
+            }  
+        }
+        $request->session()->forget('investor-servicing-files');
         
         $request->session()->forget('property');
         $request->session()->forget('capRead');

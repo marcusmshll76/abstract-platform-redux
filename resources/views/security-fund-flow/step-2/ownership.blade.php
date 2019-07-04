@@ -29,7 +29,8 @@
                                 section="captable"
                                 multi="no"
                                 flat="true"
-                                type="single-dust">
+                                type="single-dust"
+                                map="security-fund-flow-files">
                             </uploads-component>
                             
                             <div class="content-form">

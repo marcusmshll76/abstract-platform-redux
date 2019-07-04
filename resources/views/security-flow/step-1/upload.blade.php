@@ -24,7 +24,7 @@
                             multi="yes"
                             path="/digital-security/photo-gallery/"
                             class="large margin-bottom-m-md"
-                            map="security-flow">
+                            map="security-flow-files">
                         </uploads-component>
                     </div>
                     <div class="col-xs-12 col-md-6">
@@ -39,7 +39,7 @@
                                     multi="yes"
                                     path="/digital-security/photo-gallery/"
                                     class="margin-bottom-m-md"
-                                    map="security-flow">
+                                    map="security-flow-files">
                                 </uploads-component>
                             </div>
                             <div class="col-xs-12 col-sm-6">
@@ -53,7 +53,7 @@
                                         multi="yes"
                                         path="/digital-security/photo-gallery/"
                                         class="margin-bottom-m-md"
-                                        map="security-flow">
+                                        map="security-flow-files">
                                     </uploads-component>
                                 </div>
                             </div>
@@ -70,7 +70,7 @@
                                         field="digital-security"
                                         multi="yes"
                                         class="margin-bottom-m-md"
-                                        map="security-flow">
+                                        map="security-flow-files">
                                     </uploads-component>
                                 </div>
                             </div>
@@ -85,7 +85,7 @@
                                         field="digital-security"
                                         multi="yes"
                                         class="margin-bottom-m-md"
-                                        map="security-flow">
+                                        map="security-flow-files">
                                     </uploads-component>
                                 </div>
                             </div>

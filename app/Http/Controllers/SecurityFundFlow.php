@@ -272,7 +272,19 @@ class SecurityFundFlow extends Controller
         $this->validate($request, $rules);
 
         if (isset($keyPoints) && isset($principles)) {
-            DB::table('security_fund_flow')->insert($payload);
+            $id = DB::table('security_fund_flow')->insertGetId($payload);
+            if ($request->session()->get('security-fund-flow-files')) {
+                // dd($request->session()->get('account-verification'));
+                $files = $request->session()->get('security-fund-flow-files');
+                foreach ($files as $key => $value) {
+                    DB::table('files')
+                        ->where('section', 'security-fund-flow-files')
+                        ->where('map', $value['map'])
+                        // ->where('field', $value->field)
+                        ->update(['section_id' => $id]);
+                }  
+            }
+            $request->session()->forget('ssecurity-fund-flow-files');
             $request->session()->forget('security-fund-flow');
             $request->session()->forget('capRead');
             return view( 'security-fund-flow.step-7.final', [ 'title' => 'Create Digital Security -> Preview & Submit', 'success' => true ] );

@@ -23,7 +23,8 @@
                             field="fund-digital-security"
                             multi="yes"
                             path="/digital-security/fund/photo-gallery/"
-                            class="large margin-bottom-m-md">
+                            class="large margin-bottom-m-md"
+                            map="security-fund-flow-files">
                         </uploads-component>
                     </div>
                     <div class="col-xs-12 col-md-6">
@@ -37,7 +38,8 @@
                                     field="fund-digital-security"
                                     multi="yes"
                                     path="/digital-security/fund/photo-gallery/"
-                                    class="margin-bottom-m-md">
+                                    class="margin-bottom-m-md"
+                                    map="security-fund-flow-files">
                                 </uploads-component>
                             </div>
                             <div class="col-xs-12 col-sm-6">
@@ -50,7 +52,8 @@
                                         field="fund-digital-security"
                                         multi="yes"
                                         path="/digital-security/fund/photo-gallery/"
-                                        class="margin-bottom-m-md">
+                                        class="margin-bottom-m-md"
+                                        map="security-fund-flow-files">
                                     </uploads-component>
                                 </div>
                             </div>
@@ -66,7 +69,8 @@
                                         path="/digital-security/fund/photo-gallery/"
                                         field="fund-digital-security"
                                         multi="yes"
-                                        class="margin-bottom-m-md">
+                                        class="margin-bottom-m-md"
+                                        map="security-fund-flow-files">
                                     </uploads-component>
                                 </div>
                             </div>
@@ -80,7 +84,8 @@
                                         path="/digital-security/fund/photo-gallery/"
                                         field="fund-digital-security"
                                         multi="yes"
-                                        class="margin-bottom-m-md">
+                                        class="margin-bottom-m-md"
+                                        map="security-fund-flow-files">
                                     </uploads-component>
                                 </div>
                             </div>

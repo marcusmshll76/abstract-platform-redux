@@ -230,16 +230,16 @@ class AccountSettingsController extends Controller {
             $id = DB::table('account_verification')->insertGetId($payload);
             if ($request->session()->get('account-verification')) {
                 // dd($request->session()->get('account-verification'));
-                $files = $request->session()->get('account-verification');
+                $files = $request->session()->get('account-verification-files');
                 foreach ($files as $key => $value) {
                     DB::table('files')
-                        ->where('section', 'account-verification')
+                        ->where('section', 'account-verification-files')
                         ->where('map', $value['map'])
                         // ->where('field', $value->field)
                         ->update(['section_id' => $id]);
                 }  
             }
-            $request->session()->forget('account-verification');
+            $request->session()->forget('account-verification-files');
             return view( 'account-settings.preview', [ 'title' => 'Account Settings -> Preview', 'success' => true ] );
         } else {
             return view( 'account-settings.preview', [ 'title' => 'Account Settings -> Preview', 'error' => true ] );
