@@ -155,7 +155,10 @@ class FilesController extends Controller
        $path = $request->query('path');
 
        $matchArr = [
-            'field' => $request->query('field')
+            'user' => $request->query('user'),
+            'field' => $request->query('field'),
+            'section' => $request->query('section'),
+            'section_id' => $request->query('sectionid')
         ];
 
        if (isset($user)) {

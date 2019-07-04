@@ -8,7 +8,7 @@
         <div class="card-title blue">
             <h5>Pending</h5></div>
         <div class="card-content">
-            <h5>Choose a pending Property or Fund </h5>
+            <h5>Choose a pending Property or Fund</h5>
             <p>These properties are pending due to incomplete or missing information. Use the EDIT button, under the property of your choice, to edit content / finish completing your digital security offering.</p>
             <div class="card grey margin-top-m">
                 <div class="card-content">
@@ -37,7 +37,9 @@
                                             user="{{Auth::id()}}"
                                             field="fund-digital-security"
                                             path="/digital-security/fund/photo-gallery/"
-                                            index="0">
+                                            index="0"
+                                            section="security-fund-flow-files"
+                                            sectionid="{{$property->id}}">
                                         </file-preview>
                                     </div>
                                     <a href="{{ '/edit/security-flow/' . $property->fakeType . '/' . $property->id }}" class="btn full-width margin-top-s color-white">Edit</a>
@@ -48,7 +50,9 @@
                                             user="{{Auth::id()}}"
                                             field="digital-security"
                                             path="/digital-security/photo-gallery/"
-                                            index="0">
+                                            index="0"
+                                            section="security-flow-files"
+                                            sectionid="{{$property->id}}">
                                         </file-preview>
                                     </div>
                                     <a href="{{ '/edit/security-flow/' . $property->fakeType . '/' . $property->id }}" class="btn full-width margin-top-s color-white">Edit</a>
@@ -59,7 +63,9 @@
                                             user="{{Auth::id()}}"
                                             field="property-image"
                                             path="/property/images/"
-                                            index="0">
+                                            index="0"
+                                            section="investor-servicing-files"
+                                            sectionid="{{$property->id}}">
                                         </file-preview>
                                     </div>
                                     <a href="{{ '/edit/security-flow/' . $property->fakeType . '/' . $property->id }}" class="btn full-width margin-top-s color-white">Edit</a>

@@ -64,7 +64,7 @@
 import axios from 'axios'
 import config from '../libs'
 export default {
-    props: ['title', 'user', 'path', 'field', 'scope', 'iname', 'index'],
+    props: ['title', 'user', 'path', 'field', 'scope', 'iname', 'index', 'sectionid', 'section'],
     data () {
         return {
             files: [],
@@ -74,8 +74,8 @@ export default {
     },
     created () {
         var self = this
-        const url = self.scope === 'private' ? self.user ? '?user=' + self.user + '&&field=' + self.field : false : 'public?path=' + self.path
-        console.log(self.field)
+        const url = self.scope === 'private' ? self.user ? '?user=' + self.user + '&&field=' + self.field + '&&section=' + self.section + '&&sectionid=' + self.sectionid : false : 'public?path=' + self.path
+        console.log(self.section)
         if (url !== false) {
             axios
             .get(config.getFiles + url)
