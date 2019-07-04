@@ -8,8 +8,8 @@
 <div class="principal-section">
     <Form ref="addPrincipal" :model="create" :rules="ruleValidate" v-if="!preview">
         <div class="margin-bottom-m border-bottom full-width" v-if="!type">
-            <input v-model="check" type="checkbox">
-            <span class="checkbox-p">Check this box to quickly add any Principals you have already attached to your account during Abstract’s Account Set Up. You can also manually add in other Princpals from your team below. </span>
+            <input v-model="check" type="checkbox" class="checkbox-box">
+            <div class="checkbox-p">Check this box to quickly add any Principals you have already attached to your account during Abstract’s Account Set Up. You can also manually add in other Princpals from your team below. </div>
             <br/><br/>
         </div>
         <div class="row margin-top-l">
@@ -23,7 +23,7 @@
                     :clear="clear"
                     :field="'principles' + mndex"
                     multi="no"
-                    map="principles"
+                    :map="map"
                     :path="'/fund/principles/' + mndex + '/'"
                     @done="successUpload">
                 </uploads>
@@ -129,7 +129,7 @@ import config from '../libs'
 import uploads from './UploadsComponent';
 import previews from './FilePreview';
 export default {
-    props: ['type', 'next', 'url', 'data', 'user', 'preview', 'back'],
+    props: ['type', 'next', 'url', 'map', 'data', 'user', 'preview', 'back'],
     components: {
         uploads,
         previews
@@ -261,6 +261,19 @@ export default {
     }
 };
 </script>
+<style>
+.checkbox-p{
+    color: #283F5C;
+    float:left;
+    width: calc(100% - 80px);
+    margin-top: -8px;
+    font-size: 14px !important;
+}
+.checkbox-box{
+    float: left;
+    margin-right: 10px;
+}
+</style>
 
 <style scoped>
 .margin-principal-m{

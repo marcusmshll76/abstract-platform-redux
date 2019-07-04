@@ -28,6 +28,7 @@
                                 section="captable"
                                 multi="no"
                                 flat="true"
+                                map="security-flow"
                                 type="single-dust">
                             </uploads-component>
 

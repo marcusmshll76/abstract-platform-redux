@@ -53,20 +53,21 @@ class FilesController extends Controller
 
                 }
                 $map = str_random(5).$user;
+                $mmap = $request->get('map');
+
                 $payload = array(
                     'user' => $user, 
                     'field' => $request->get('field'),
                     'name' => $filename,
                     'map' => $map,
+                    'section' => $mmap,
                     'path' => $filePath,
                     'created_at' =>  \Carbon\Carbon::now(),
                     'updated_at' => \Carbon\Carbon::now()
                 );
-                $mmap = $request->get('map');
 
                 DB::table('files')->insert($payload);
-
-                $request->session()->push($mmap.$map, $payload);
+                $request->session()->push($mmap, $payload);
 
             } else {
                 return response()->json([

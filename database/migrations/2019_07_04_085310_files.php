@@ -6,7 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 
 class Files extends Migration
 {
-    /**
+   /**
      * Run the migrations.
      *
      * @return void
@@ -17,9 +17,11 @@ class Files extends Migration
         Schema::create('files', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedInteger('user')->nullable();
-            $table->string('map')->nullable();
+            $table->unsignedInteger('section_id')->nullable();
             $table->string('name')->nullable();
+            $table->string('map')->nullable();
             $table->string('field')->nullable();
+            $table->string('section')->nullable();
             $table->string('path')->nullable();
             $table->string('status')->default('unverified');
             $table->timestamps();

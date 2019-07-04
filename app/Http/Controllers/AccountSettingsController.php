@@ -138,11 +138,10 @@ class AccountSettingsController extends Controller {
 
 
     public function submitPreview(Request $request) {
-
         $session_data = session( 'account-settings', array() );
         $session_data = array_merge( $session_data, $_POST );
         session( [ 'account-settings' => $session_data ] );
-        
+        /*
         $this->validate($request, [
             'company_name' => 'required',
             'company_website' => 'required',
@@ -179,11 +178,11 @@ class AccountSettingsController extends Controller {
             'reference_name_4' => 'required',
             'reference_phone_4' => 'required',
             'reference_email_4' => 'required|email'
-        ]);
+        ]); */
         
-        /* if (!empty($request->session()->get('account-settings.principles'))) {
+        if (!empty($request->session()->get('account-settings.principles'))) {
             $principles = $request->session()->get('account-settings.principles');
-        } */
+        }
 
         if (!empty(json_encode($principles))) {
             $userid = Auth::id();
@@ -228,11 +227,19 @@ class AccountSettingsController extends Controller {
                 "created_at" =>  \Carbon\Carbon::now(),
                 "updated_at" => \Carbon\Carbon::now()
             );
-
-            DB::table('account_verification')->insert($payload);
+            $id = DB::table('account_verification')->insertGetId($payload);
             if ($request->session()->get('account-verification')) {
-                dd($request->session()->get('account-verification'));
+                // dd($request->session()->get('account-verification'));
+                $files = $request->session()->get('account-verification');
+                foreach ($files as $key => $value) {
+                    DB::table('files')
+                        ->where('section', 'account-verification')
+                        ->where('map', $value['map'])
+                        // ->where('field', $value->field)
+                        ->update(['section_id' => $id]);
+                }  
             }
+            $request->session()->forget('account-verification');
             return view( 'account-settings.preview', [ 'title' => 'Account Settings -> Preview', 'success' => true ] );
         } else {
             return view( 'account-settings.preview', [ 'title' => 'Account Settings -> Preview', 'error' => true ] );
