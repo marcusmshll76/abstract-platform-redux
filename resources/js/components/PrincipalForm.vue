@@ -23,7 +23,7 @@
                     :clear="clear"
                     :field="'principles' + mndex"
                     multi="no"
-                    :map="map"
+                    map="principles-files"
                     :path="'/fund/principles/' + mndex + '/'"
                     @done="successUpload">
                 </uploads>
@@ -68,7 +68,7 @@
                                 :field="'principles' + parseInt(index + 1)"
                                 :path="'/fund/principles/' + parseInt(index + 1) + '/'"
                                 :index="0"
-                                :section="map">
+                                section="principles-files">
                             </previews>
                             <br/><br/>
                         </div>
