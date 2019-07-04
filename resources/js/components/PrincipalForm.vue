@@ -9,8 +9,7 @@
     <Form ref="addPrincipal" :model="create" :rules="ruleValidate" v-if="!preview">
         <div class="margin-bottom-m border-bottom full-width" v-if="!type">
             <input v-model="check" type="checkbox" class="checkbox-box">
-            <div class="checkbox-p">Check this box to quickly add any Principals you have already attached to your account during Abstract’s Account Set Up. You can also manually add in other Princpals from your team below. </div>
-            <br/><br/>
+            <div class="checkbox-p">Check this box to quickly add any Principals you have already attached to your account during Abstract’s Account Set Up. <br/>You can also manually add in other Princpals from your team below. </div>
         </div>
         <div class="row margin-top-l">
             <div class="col-xs-12 col-sm-3">
@@ -265,11 +264,15 @@ export default {
 </script>
 <style>
 .checkbox-p{
+    font-family: "Montserrat" !important;
     color: #283F5C;
     float:left;
     width: calc(100% - 80px);
     margin-top: -8px;
-    font-size: 14px !important;
+    font-weight: 500;
+    line-height: 1.5;
+    margin-bottom: 10px !important;
+    font-size: 13px !important;
 }
 .checkbox-box{
     float: left;

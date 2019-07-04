@@ -10,7 +10,7 @@
         <form>
         @csrf
             <h5>Team is Everything</h5>
-            <p>Share the bios and backgrounds of your key team members. Let the investors know they’re in good hands!</p>
+            <p class="sub-head">Share the bios and backgrounds of your key team members. Let the investors know they’re in good hands!</p>
             <principal-form 
                 next="yes" 
                 url="security-fund-flow/step-6/create/meetSponsors" 
