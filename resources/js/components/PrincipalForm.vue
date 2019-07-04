@@ -67,7 +67,8 @@
                                 :user="user"
                                 :field="'principles' + parseInt(index + 1)"
                                 :path="'/fund/principles/' + parseInt(index + 1) + '/'"
-                                :index="0">
+                                :index="0"
+                                :section="map">
                             </previews>
                             <br/><br/>
                         </div>
@@ -170,6 +171,7 @@ export default {
         }
     },
     created () {
+        console.log(this.map)
         this.initData()
     },
     methods: {
@@ -181,11 +183,12 @@ export default {
             .get(config.getPrinciples)
             .then(function(resp) {
             if (resp.data.status === 200) {
-                let a = JSON.parse(resp.data.response)
+                console.log(resp.data.response)
+                /* let a = JSON.parse(resp.data.response)
                 self.loading = false
                 a.map(function (x) {
                     self.formDynamic.push(x)
-                });
+                }); */
             } else {
                 self.loading = false
                 self.error = true;
@@ -197,13 +200,14 @@ export default {
         },
         initData() {
             if (this.data != '' || this.data != 'null') {
-                let a = JSON.parse(this.data)
-                if (typeof a === 'string' || a instanceof String) {
+                console.log(this.data)
+                // let a = JSON.parse(this.data)
+                /* if (typeof a === 'string' || a instanceof String) {
                     this.formDynamic = JSON.parse(a)
                     console.log(a)
                 } else {
                     this.formDynamic = a
-                }
+                } */
             }
             this.formDynamic.length ? this.mndex = this.formDynamic.length + 1 : ''
         },

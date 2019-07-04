@@ -60,7 +60,7 @@ class Marketplace extends Controller
                 ->value('bio');
 
             $data = (array) $a;
-            $data ['principles'] = json_decode($data['principles']);
+            // $data ['principles'] = json_decode($data['principles']);
             return view( 'marketplace.final', [ 'title' => 'New > Marketplace'] )->with(compact('data', 'bio'));
             // return redirect('/'.$ses.'/preview');
         } 

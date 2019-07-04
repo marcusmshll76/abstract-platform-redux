@@ -37,7 +37,9 @@
                                             user="{{Auth::id()}}"
                                             field="fund-digital-security"
                                             path="/digital-security/fund/photo-gallery/"
-                                            index="0">
+                                            index="0"
+                                            section="security-fund-flow-files"
+                                            sectionid="{{$property->id}}">
                                         </file-preview>
                                     </div>
                                     <a href="{{ '/properties/choose/sticker/'.$property->fakeType.'/'.strtolower(str_random(100)).'/'.$property->id }}" class="btn full-width margin-top-s color-white">Complete</a>
@@ -48,7 +50,9 @@
                                             user="{{Auth::id()}}"
                                             field="digital-security"
                                             path="/digital-security/photo-gallery/"
-                                            index="0">
+                                            index="0"
+                                            section="security-flow-files"
+                                            sectionid="{{$property->id}}">
                                         </file-preview>
                                     </div>
                                     <a href="{{ '/properties/choose/sticker/'.$property->fakeType.'/'.strtolower(str_random(100)).'/'.$property->id }}" class="btn full-width margin-top-s color-white">Complete</a>
@@ -59,7 +63,9 @@
                                             user="{{Auth::id()}}"
                                             field="property-image"
                                             path="/property/images/"
-                                            index="0">
+                                            index="0"
+                                            section="investor-servicing-files"
+                                            sectionid="{{$property->id}}">
                                         </file-preview>
                                     </div>
                                     <a href="{{ '/properties/choose/sticker/'.$property->fakeType.'/'.strtolower(str_random(100)).'/'.$property->id }}" class="btn full-width margin-top-s color-white">Complete</a>

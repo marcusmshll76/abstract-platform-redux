@@ -37,7 +37,8 @@
                                         user="{{Auth::id()}}"
                                         field="companylogo"
                                         path="/account-settings/company-logo/"
-                                        index="0">
+                                        index="0"
+                                        section="account-verification-files">
                                     </file-preview>
                                     <uploads-component
                                         class="button-edit"
@@ -69,12 +70,13 @@
                     <a href="/security-fund-flow/step-1/upload-photos" class="btn color-white">Edit</a>
                 </div>
                 <div class="card-content">
-                <file-preview
+                    <file-preview
                         iname="Digital Security Photo Gallery"
                         scope="private"
                         user="{{Auth::id()}}"
                         field="fund-digital-security"
-                        path="/digital-security/fund/photo-gallery/">
+                        path="/digital-security/fund/photo-gallery/"
+                        section="security-fund-flow-files">
                     </file-preview>
                 </div>
             </div>
@@ -806,7 +808,8 @@
                     preview="true"
                     url="security-fund-flow/step-6/create/meetSponsors"
                     data="{{ isset($data['principles']) ? $data['principles'] : '' }}"
-                    user="{{Auth::id()}}">
+                    user="{{Auth::id()}}"
+                    map="security-fund-flow-files">
                 </principal-form>
             </div>
             <div class="row">

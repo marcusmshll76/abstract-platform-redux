@@ -154,18 +154,27 @@ class FilesController extends Controller
        $user = $request->query('user');
        $path = $request->query('path');
 
-       $matchArr = [
-            'user' => $request->query('user'),
-            'field' => $request->query('field'),
-            'section' => $request->query('section'),
-            'section_id' => $request->query('sectionid')
-        ];
+        if (!empty($request->query('section_id'))) {
+            $matchArr = [
+                'user' => $request->query('user'),
+                'field' => $request->query('field'),
+                'section' => $request->query('section'),
+                'section_id' => $request->query('sectionid')
+            ];
+        } else {
+            $matchArr = [
+                'user' => $request->query('user'),
+                'field' => $request->query('field'),
+                'section' => $request->query('section')
+            ];
+        }
 
        if (isset($user)) {
         
             $allfiles = DB::table('files')
                 ->where($matchArr)
                 ->select('path')
+                ->orderBy('id', 'desc')
                 ->get();
 
             if (!empty($allfiles)) {

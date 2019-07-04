@@ -37,7 +37,9 @@
                                         user="{{Auth::id()}}"
                                         field="companylogo"
                                         path="/account-settings/company-logo/"
-                                        index="0">
+                                        index="0"
+                                        section="account-verification-files"
+                                        sectionid="2">
                                     </file-preview>
                                     <uploads-component
                                         class="button-edit"

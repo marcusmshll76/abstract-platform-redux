@@ -187,8 +187,9 @@ class Property extends Controller
 
             $data = DB::table($table)
                 ->where('userid', $userid)
-                ->select($q, 'id', 'minimum-raise-amount as min', 'maximum-raise-amount as max', 'total-capital-required as total')
+                ->select($q, 'id')
                 ->first();
+                // 'minimum-raise-amount as min', 'maximum-raise-amount as max', 'total-capital-required as total'
             
             return view( 'my-properties.recap', [ 'title' => 'Investment Metrics > Properties'] )->with(compact('data', 'type', 'id'));
         }
