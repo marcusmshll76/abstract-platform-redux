@@ -12,6 +12,11 @@ use Box\Spout\Common\Entity\Row;
 use Box\Spout\Writer\Common\Creator\Style\StyleBuilder;
 use Illuminate\Support\Facades\Storage;
 use DateTime;
+use \Nacha\File;
+use \Nacha\Batch;
+use Nacha\Field\TransactionCode;
+use \Nacha\Record\DebitEntry;
+use \Nacha\Record\CcdEntry;
 
 class Distributions extends Controller
 {
@@ -23,7 +28,8 @@ class Distributions extends Controller
 
     public function distributions(Request $request, $type, $rand, $id) {
         $data = $request->session()->get('distributions');
-        return view( 'investor-servicing.distributions.index', [ 'title' => 'Distributions > Investor Servicing'] )->with(compact('data', 'type', 'id'));
+        $history = DB::table('distributions')->where('property_id', $id)->where('type', $type)->get();
+        return view( 'investor-servicing.distributions.index', [ 'title' => 'Distributions > Investor Servicing'] )->with(compact('data', 'type', 'id', 'history'));
     }
 
     public function preview(Request $request, $type, $rand, $id) {
@@ -45,13 +51,15 @@ class Distributions extends Controller
         $rules = [
             'name' => 'required',
             'date' => 'required',
-            'yield' => 'required',
+            'period_start_date' => 'required',
+            'period_end_date' => 'required',
             'cashFlowtype' => 'required',
             'totalAmount' => 'required'
         ];
         
         $this->validate($request, $rules);
 
+        // Generate CSV
         $userid = Auth::id();
         if (isset($type) && isset($id)) {
             if ($type === 'fund') {
@@ -160,7 +168,8 @@ class Distributions extends Controller
                         'type' => $type,
                         'name' => $request->get('name'),
                         'date' => $request->get('date'), 
-                        'yield' => $request->get('yield'), 
+                        'period_start_date' => $request->get('period_start_date'), 
+                        'period_end_date' => $request->get('period_end_date'),
                         'cashFlowtype' => $request->get('cashFlowtype'), 
                         'totalAmount' => $request->get('totalAmount'),
                         'file' =>  $nPath.$filename,
@@ -171,9 +180,28 @@ class Distributions extends Controller
                     Storage::disk('s3')->put($nPath.$filename, file_get_contents($filePath.$filename));
                     Storage::disk('local')->delete($filePath.$filename);
 
-                    DB::table('distributions')->insert($payload);
+                    $distribution_id = DB::table('distributions')->insertGetId($payload);
 
-                    return view( 'investor-servicing.distributions.index', [ 'title' => 'Distributions > Investor Servicing', 'success' => true ] )->with(compact('type', 'id'));
+                    // Calculate per-investor distributions
+                    $fmt = new \NumberFormatter( 'en_US', \NumberFormatter::CURRENCY );
+                    $currency = 'USD';
+                    $raw_amount = $fmt->parseCurrency( $request->get('totalAmount'), $currency );
+                    $investors = DB::table('investments')->where('propertyid', $id)->get();
+                    $distribution_history = [];
+                    foreach( $investors as $investor ) {
+                        $distribution_history[] = [
+                            'property_id'       => $id,
+                            'property_type'     => $type,
+                            'investor_id'       => $investor->userid,
+                            'distribution_id'   => $distribution_id,
+                            'distribution'      => round( $raw_amount * $investor->share, 2 )
+                        ];
+                    }
+
+                    DB::table('distribution_history')->insert($distribution_history);
+                    
+                    $history = DB::table('distributions')->where('property_id', $id)->where('type', $type)->get();
+                    return view( 'investor-servicing.distributions.index', [ 'title' => 'Distributions > Investor Servicing', 'success' => true ] )->with(compact('type', 'id', 'history'));
                 }
             }
         } 
@@ -185,7 +213,8 @@ class Distributions extends Controller
         $rules = [
             'name' => 'required',
             'date' => 'required',
-            'yield' => 'required',
+            'period_start_date' => 'required',
+            'period_end_date' => 'required',
             'cashFlowtype' => 'required',
             'totalAmount' => 'required'
         ];
@@ -237,5 +266,103 @@ class Distributions extends Controller
     }
     public function display($path, $type, $id, $name) {
         
+    }
+
+    public function getCSV(Request $request, $type, $rand, $distribution_id) {
+        $data = DB::table('distributions')
+            ->where('userid', Auth::id())
+            ->where('id', $distribution_id)
+            ->select('file')
+            ->first();
+
+        $adapter = Storage::disk('s3')->getDriver()->getAdapter();
+        if (!empty($data->file)) {
+            $path = $data->file;
+            $command = $adapter->getClient()->getCommand('GetObject', [
+                    'Bucket' => $adapter->getBucket(),
+                    'Key'    => $adapter->getPathPrefix().$path
+                ]);
+
+                $request = $adapter->getClient()->createPresignedRequest($command, '+20 minute');
+                $data = (string) $request->getUri();
+
+                if (isset($data)) {
+                $f = file_get_contents($data);
+                $z = 'Distribution_' . $distribution_id . '.csv';
+                $headers = [
+                    'Content-Type' => 'text/csv', 
+                    'Content-Description' => 'File Transfer',
+                    'Content-Disposition' => "attachment; filename={$z}",
+                    'filename'=> $z
+                ];
+
+                    return response($f, 200, $headers);
+            }
+        } else {
+          return redirect('/investor-servicing' );  
+        }
+    }
+
+    public function getNACHA(Request $request, $type, $rand, $distribution_id) {
+        $file = new File();
+        $file->getHeader()->setPriorityCode(1)
+			//->setImmediateDestination('')
+			//->setImmediateOrigin('')
+			->setFileCreationDate(date('YYMMDD'))
+			->setFormatCode('1')
+			//->setImmediateDestinationName('')
+			//->setImmediateOriginName('')
+			->setReferenceCode('Reference');
+
+        $distribution = DB::table('distribution_history')
+            ->where('distribution_history.property_type', $type)
+            ->where('distribution_history.distribution_id', $distribution_id)
+            ->get();
+        
+        
+        $batch = new Batch();
+        $batch->getHeader()->setCompanyEntryDescription('DISTRIBUTION');
+        foreach( $distribution as $d ) {
+            // Get the investor details
+            $investor = DB::table('investments')
+                ->where('propertyid', $d->property_id)
+                ->where('type', $d->property_type)
+                ->where('userid', $d->investor_id)
+                ->get();
+            
+            $check_digit_weighting = [3, 7, 1, 3, 7, 1, 3, 7];
+            $check_value = 0;
+            for( $i = 0; $i < strlen( substr($investor[0]->routing_number,0,8) ); $i++ ) {
+                $digit = $investor[0]->routing_number[$i];
+                $digit = $digit * $check_digit_weighting[$i];
+                $check_value += $digit;
+            }
+
+            while( ($check_value - 10 ) >= 0 ) {
+                $check_value -= 10;
+            }
+
+            $batch->addCreditEntry((new CcdEntry)
+                ->setTransactionCode(TransactionCode::CHECKING_DEPOSIT)
+                ->setReceivingDFiId(substr($investor[0]->routing_number, 0, 8))
+                ->setReceivingDFiAccountNumber($investor[0]->account_number)
+                ->setCheckDigit($check_value)
+                ->setAmount($d->distribution)
+            );
+        }
+
+        $file->addBatch($batch);
+        $nacha = (string)$file;
+
+        $z = 'NACHA_Distribution_' . $distribution_id . '.txt';
+        $headers = [
+            'Content-Type' => 'text', 
+            'Content-Description' => 'File Transfer',
+            'Content-Disposition' => "attachment; filename={$z}",
+            'filename'=> $z
+            ];
+            return response($nacha, 200, $headers);
+       
+
     }
 }

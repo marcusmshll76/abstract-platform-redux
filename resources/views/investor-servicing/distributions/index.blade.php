@@ -15,7 +15,38 @@
 @endif
 <div class="card margin-top-m">
     <div class="card-title blue">
-        <h5>Distributions</h5></div>
+        <h5>Distribution History</h5>
+    </div>
+    <div class="card-content">
+        @if(sizeof($history) < 1)
+            <p>This property has no historical distributions.</p>
+        @else
+            <table class="rwd-table">
+                <thead>
+                    <th>Name</th>
+                    <th>Date</th>
+                    <th>Yield Period</th>
+                    <th>Total Amount</th>
+                    <th>Actions</th>
+                </thead>
+                <tbody>
+                    @foreach($history as $h)
+                        <tr>
+                            <td>{{$h->name}}</td>
+                            <td>{{$h->date}}</td>
+                            <td>{{$h->period_start_date}} - {{$h->period_end_date}}</td>
+                            <td>{{$h->totalAmount}}</td>
+                            <td><a href="/investor-servicing/distributions/csv/{{$h->type}}/{{rand()}}/{{$h->id}}">Download CSV</a> | <a href="/investor-servicing/distributions/nacha/{{$h->type}}/{{rand()}}/{{$h->id}}">Download NACHA</a></td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        @endif
+    </div>
+</div>
+<div class="card margin-top-m">
+    <div class="card-title blue">
+        <h5>New Distribution</h5></div>
     <div class="card-content">
         <p>Fill in the Pro Rata data inputs, then hit submit to preview or immediately download a CSV file.  Abstract will alert you within 48 hours when distributions reports are uploaded to the Investor Servicing Portal and ready for your investors to view.</p>
         <div class="card grey pad-bottom-open margin-top-m">
@@ -47,7 +78,7 @@
                                         <input type="text" value="{{ isset($data['name']) ? $data['name'] : '' }}" name="name">
                                     </div>
                                     <div class="col-xs-12 col-sm-4">
-                                        <p class="no-margin-top">Date</p>
+                                        <p class="no-margin-top">Distribution Date</p>
                                         @if($errors->has('date'))
                                             <br/>
                                             <small class="error-small"><em>*</em> <span> {{ $errors->first('date') }} </span></small>
@@ -55,12 +86,12 @@
                                         <input type="text" value="{{ isset($data['date']) ? $data['date'] : '' }}" name="date">
                                     </div>
                                     <div class="col-xs-12 col-sm-4">
-                                        <p class="no-margin-top">Yield Period</p>
-                                        @if($errors->has('yield'))
+                                        <p class="no-margin-top">Total Amount</p>
+                                        @if($errors->has('totalAmount'))
                                             <br/>
-                                            <small class="error-small"><em>*</em> <span> {{ $errors->first('yield') }} </span></small>
+                                            <small class="error-small"><em>*</em> <span> {{ $errors->first('totalAmount') }} </span></small>
                                         @endif
-                                        <input type="text" value="{{ isset($data['yield']) ? $data['yield'] : '' }}" name="yield">
+                                        <input type="text" value="{{ isset($data['totalAmount']) ? $data['totalAmount'] : '' }}" name="totalAmount">
                                     </div>
                                 </div>
                                 <div class="row">
@@ -73,13 +104,27 @@
                                         <input type="text" value="{{ isset($data['cashFlowtype']) ? $data['cashFlowtype'] : '' }}" name="cashFlowtype">
                                     </div>
                                     <div class="col-xs-12 col-sm-4">
-                                        <p>Total Amount</p>
-                                        @if($errors->has('totalAmount'))
+                                        <p>Yield Period Start Date</p>
+                                        @if($errors->has('period_start_date'))
                                             <br/>
-                                            <small class="error-small"><em>*</em> <span> {{ $errors->first('totalAmount') }} </span></small>
+                                            <small class="error-small"><em>*</em> <span> {{ $errors->first('period_start_date') }} </span></small>
                                         @endif
-                                        <input type="text" value="{{ isset($data['totalAmount']) ? $data['totalAmount'] : '' }}" name="totalAmount">
+                                        <input type="text" value="{{ isset($data['period_start_date']) ? $data['period_start_date'] : '' }}" name="period_start_date">
                                     </div>
+                                    <div class="col-xs-12 col-sm-4">
+                                        <p>Yield Period End Date</p>
+                                        @if($errors->has('period_end_date'))
+                                            <br/>
+                                            <small class="error-small"><em>*</em> <span> {{ $errors->first('period_end_date') }} </span></small>
+                                        @endif
+                                        <input type="text" value="{{ isset($data['period_end_date']) ? $data['period_end_date'] : '' }}" name="period_end_date">
+                                    </div>
+                                    <script>
+                                        $(document).ready(function(){
+                                            $('input[name="period_start_date"]').datepicker();
+                                            $('input[name="period_end_date"]').datepicker();
+                                        });
+                                    </script>
                                 </div>
                             </div>
                         </div>

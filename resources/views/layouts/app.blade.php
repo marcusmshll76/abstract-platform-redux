@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="/css/lib/owl.carousel.css">
     <link rel="stylesheet" href="/css/index.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <script src="/js/custom.js"></script>
     <script src="/js/sectionscroll.js"></script>
     <script src="/js/bootstrap.min.js"></script>
