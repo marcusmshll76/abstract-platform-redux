@@ -7,7 +7,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-xs-12 col-sm-8 col-md-6 col-lg-5 center">
-        @if ($site -> host == 'abstract')
+        @if ($site ->id == 1)
             <div class="card-content-onboarding card">
                 <div class="onboarding-title">
                     <div class="onboarding-logo"><img src="/img/logo-light-w-type.svg"></div>
@@ -41,7 +41,7 @@
                         <p><a href="/forget-password">Forgot Password? </a></p>
                     @endif
                 </div>
-                @if ($site -> host != 'abstract')
+                @if ($site ->id != 1)
                     <div class="footer-logo"><img src="/img/logo-light.svg">
                         <p>Powered By Abstract</p>
                     </div>
