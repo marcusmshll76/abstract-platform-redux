@@ -265,6 +265,41 @@ class Distributions extends Controller
         
     }
 
+    public function getCSV(Request $request, $type, $rand, $distribution_id) {
+        $data = DB::table('distributions')
+            ->where('userid', Auth::id())
+            ->where('id', $distribution_id)
+            ->select('file')
+            ->first();
+
+        $adapter = Storage::disk('s3')->getDriver()->getAdapter();
+        if (!empty($data->file)) {
+            $path = $data->file;
+            $command = $adapter->getClient()->getCommand('GetObject', [
+                    'Bucket' => $adapter->getBucket(),
+                    'Key'    => $adapter->getPathPrefix().$path
+                ]);
+
+                $request = $adapter->getClient()->createPresignedRequest($command, '+20 minute');
+                $data = (string) $request->getUri();
+
+                if (isset($data)) {
+                $f = file_get_contents($data);
+                $z = 'Distribution_' . $distribution_id . '.csv';
+                $headers = [
+                    'Content-Type' => 'text/csv', 
+                    'Content-Description' => 'File Transfer',
+                    'Content-Disposition' => "attachment; filename={$z}",
+                    'filename'=> $z
+                ];
+
+                    return response($f, 200, $headers);
+            }
+        } else {
+          return redirect('/investor-servicing' );  
+        }
+    }
+
     public function getNACHA(Request $request, $type, $rand, $distribution_id) {
         $file = new File();
         $file->getHeader()->setPriorityCode(1)

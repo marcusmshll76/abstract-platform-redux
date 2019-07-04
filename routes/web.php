@@ -198,6 +198,7 @@ Route::post('/distributions/create/new', 'Distributions@submitDistributions');
 Route::get('/investor-servicing/distributions/{type?}/{rand?}/{id?}', 'Distributions@distributions');
 Route::get('/investor-servicing/distributions/preview/{type?}/{rand?}/{id?}', 'Distributions@preview');
 Route::get('/investor-servicing/distributions/nacha/{type?}/{rand?}/{id?}', 'Distributions@getNACHA');
+Route::get('/investor-servicing/distributions/csv/{type?}/{rand?}/{id?}', 'Distributions@getCSV');
 Route::post('/distributions/preview/new', 'Distributions@download');
 
 // Tax
