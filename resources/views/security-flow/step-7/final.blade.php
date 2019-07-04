@@ -36,7 +36,8 @@
                                         user="{{Auth::id()}}"
                                         field="companylogo"
                                         path="/account-settings/company-logo/"
-                                        index="0">
+                                        index="0"
+                                        section="account-verification-files">
                                     </file-preview>
                                     <uploads-component
                                         class="button-edit"
@@ -73,7 +74,8 @@
                         scope="private"
                         user="{{Auth::id()}}"
                         field="digital-security"
-                        path="/digital-security/photo-gallery/">
+                        path="/digital-security/photo-gallery/"
+                        section="security-flow-files">
                     </file-preview>
                 </div>
             </div>
@@ -235,10 +237,9 @@
                                             @endif
                                             <select name="opportunity_type">
                                                 <option value="{{ isset($data['opportunity_type']) ? $data['opportunity_type'] : '' }}" selected="selected">{{ isset($data['opportunity_type']) ? $data['opportunity_type'] : 'Select an option' }}</option>
-                                                <option value="option">option</option>
-                                                <option value="option">option</option>
-                                                <option value="option">option</option>
-                                                <option value="option">option</option>
+                                                <option value="Core">Core</option>
+                                                <option value="Value-Added">Value-Added</option>
+                                                <option value="Opportunistic">Opportunistic</option>
                                             </select>
                                         </div>
                                     </div>
@@ -562,10 +563,10 @@
                                             <select name="distribution-frequency">
                                                 <option value="{{ isset($data['distribution-frequency']) ? $data['distribution-frequency'] : '' }}" selected="selected">
                                                 {{ isset($data['distribution-frequency']) ? $data['distribution-frequency'] : 'Select an option' }}</option>
-                                                <option value="option">option</option>
-                                                <option value="option">option</option>
-                                                <option value="option">option</option>
-                                                <option value="option">option</option>
+                                                <option value="Monthly">Monthly </option>
+                                                <option value="Quarterly">Quarterly</option>
+                                                <option value="Semi-Annually">Semi-Annually</option>
+                                                <option value="Annually">Annually</option>
                                             </select>
                                         </div>
                                     </div>

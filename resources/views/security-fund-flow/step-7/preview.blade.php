@@ -20,7 +20,8 @@
                     scope="private"
                     user="{{Auth::id()}}"
                     field="fund-digital-security"
-                    path="/digital-security/fund/photo-gallery/">
+                    path="/digital-security/fund/photo-gallery/"
+                    section="security-fund-flow-files">
                 </file-preview>
             </div>
         </div>

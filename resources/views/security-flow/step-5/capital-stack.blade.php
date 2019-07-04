@@ -14,27 +14,29 @@
                         <div class="card grey card-black margin-top-m">
                             <div class="card-content">
                                 <form>
-                                    <div class="row margin-top-l">
-                                        <div class="col-xs-12 col-sm-4">
+                                    <div class="row">
+                                         <!-- <div class="col-xs-12 col-sm-4">
                                             <div class="file-upload-box margin-bottom-m-sm">
                                                 <img src="/img/icon-statistics-white.svg"></div>
-                                        </div>
-                                        <div class="col-xs-12 col-sm-8">
+                                        </div> -->
+                                        <div class="col-xs-12 col-sm-12">
+                                            <p>* All  4 inputs should equal 100% </p>
+                                            <br/><br/>
                                             <div class="content-form">
                                                 <div class="row">
                                                     <div class="col-xs-12 col-sm-6">
-                                                        <p class="no-margin-top">Preferred Equity</p><input name="preferred-equity" value="{{ isset($data['preferred-equity']) ? $data['preferred-equity'] : '' }}" type="text">
+                                                        <p class="no-margin-top">Preferred Equity</p><input name="preferred-equity" placeholder="%" value="{{ isset($data['preferred-equity']) ? $data['preferred-equity'] : '' }}" type="text">
                                                     </div>
                                                     <div class="col-xs-12 col-sm-6">
-                                                        <p class="no-margin-top margin-top-s-sm">Common Equity</p><input name="common-equity" value="{{ isset($data['common-equity']) ? $data['common-equity'] : '' }}" type="text">
+                                                        <p class="no-margin-top margin-top-s-sm">Common Equity</p><input placeholder="%" name="common-equity" value="{{ isset($data['common-equity']) ? $data['common-equity'] : '' }}" type="text">
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-xs-12 col-sm-6">
-                                                        <p>Mezzanine Debt</p><input name="mezzanine-debt" value="{{ isset($data['mezzanine-debt']) ? $data['mezzanine-debt'] : '' }}" type="text">
+                                                        <p>Mezzanine Debt</p><input placeholder="%" name="mezzanine-debt" value="{{ isset($data['mezzanine-debt']) ? $data['mezzanine-debt'] : '' }}" type="text">
                                                     </div>
                                                     <div class="col-xs-12 col-sm-6">
-                                                        <p>Senior Debt</p><input name="senior-debt" value="{{ isset($data['senior-debt']) ? $data['senior-debt'] : '' }}" type="text">
+                                                        <p>Senior Debt</p><input placeholder="%" name="senior-debt" value="{{ isset($data['senior-debt']) ? $data['senior-debt'] : '' }}" type="text">
                                                     </div>
                                                 </div>
                                             </div>
@@ -48,16 +50,16 @@
                                                         <div class="content-footer-step">
                                                             <div class="row">
                                                                 <div class="col-xs">
+                                                                    <div class="step-item"></div>
+                                                                </div>
+                                                                <div class="col-xs">
+                                                                    <div class="step-item"></div>
+                                                                </div>
+                                                                <div class="col-xs">
+                                                                    <div class="step-item"></div>
+                                                                </div>
+                                                                <div class="col-xs">
                                                                     <div class="step-item active"></div>
-                                                                </div>
-                                                                <div class="col-xs">
-                                                                    <div class="step-item"></div>
-                                                                </div>
-                                                                <div class="col-xs">
-                                                                    <div class="step-item"></div>
-                                                                </div>
-                                                                <div class="col-xs">
-                                                                    <div class="step-item"></div>
                                                                 </div>
                                                                 <div class="col-xs">
                                                                     <div class="step-item"></div>

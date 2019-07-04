@@ -78,10 +78,10 @@
                                         <p class="no-margin-top margin-top-s-md">Distribution frequency</p>
                                         <select name="distribution-frequency">
                                             <option value="{{ isset($data['distribution-frequency']) ? $data['distribution-frequency'] : '' }}" selected="selected">{{ isset($data['distribution-frequency']) ? $data['distribution-frequency'] : 'Select an option' }}</option>
-                                            <option value="option">option</option>
-                                            <option value="option">option</option>
-                                            <option value="option">option</option>
-                                            <option value="option">option</option>
+                                            <option value="Monthly">Monthly </option>
+                                            <option value="Quarterly">Quarterly</option>
+                                            <option value="Semi-Annually">Semi-Annually</option>
+                                            <option value="Annually">Annually</option>
                                         </select>
                                     </div>
                                 </div>
