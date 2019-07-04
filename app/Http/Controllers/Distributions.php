@@ -51,7 +51,8 @@ class Distributions extends Controller
         $rules = [
             'name' => 'required',
             'date' => 'required',
-            'yield' => 'required',
+            'period_start_date' => 'required',
+            'period_end_date' => 'required',
             'cashFlowtype' => 'required',
             'totalAmount' => 'required'
         ];
@@ -167,7 +168,8 @@ class Distributions extends Controller
                         'type' => $type,
                         'name' => $request->get('name'),
                         'date' => $request->get('date'), 
-                        'yield' => $request->get('yield'), 
+                        'period_start_date' => $request->get('period_start_date'), 
+                        'period_end_date' => $request->get('period_end_date'),
                         'cashFlowtype' => $request->get('cashFlowtype'), 
                         'totalAmount' => $request->get('totalAmount'),
                         'file' =>  $nPath.$filename,
@@ -211,7 +213,8 @@ class Distributions extends Controller
         $rules = [
             'name' => 'required',
             'date' => 'required',
-            'yield' => 'required',
+            'period_start_date' => 'required',
+            'period_end_date' => 'required',
             'cashFlowtype' => 'required',
             'totalAmount' => 'required'
         ];
