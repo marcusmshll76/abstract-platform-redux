@@ -48,75 +48,76 @@
                     <div class="col-xs-12 col-sm-9">
                         <div class="content-form fix-verify">
                             <div class="row">
-                                <div class="col-xs-12 col-sm-4">
+                                <div class="col-xs-12 col-sm-12">
                                     <div class="row">
-                                        <div class="col-xs-12">
+                                        <div class="col-xs-12 col-sm-4">
                                             <p class="no-margin-top">First Name</p>
                                             <input type="text" value="{{ isset($data['first_name']) ? $data['first_name'] : '' }}" name="first_name">
                                         </div>
-                                        <div class="col-xs-12">
-
-                                            <p>Work Phone</p>
-                                            <input type="text" value="{{ isset($data['work_phone']) ? $data['work_phone'] : '' }}" name="work_phone">
-                                        </div>
-                                        <div class="col-xs-12">
-                                            <p>Company Address</p>
-                                            <input type="text" value="{{ isset($data['company_address']) ? $data['company_address'] : '' }}" name="company_address">
-                                        </div>
-                                        <div class="col-xs-12">
-                                            <p>Company Address</p>
-                                            <input type="text" value="{{ isset($data['company_address_2']) ? $data['company_address_2'] : '' }}" name="company_address_2">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-12 col-sm-4">
-                                    <div class="row">
-                                        <div class="col-xs-12">
+                                        <div class="col-xs-12 col-sm-4">
                                             <p class="no-margin-top">Last Name</p>
                                             <input type="text" value="{{ isset($data['last_name']) ? $data['last_name'] : '' }}" name="last_name">
                                         </div>
-                                        <div class="col-xs-12">
-                                            <p>Mobile Phone</p>
-                                            <input type="text" value="{{ isset($data['mobile']) ? $data['mobile'] : '' }}" name="mobile">
-                                        </div>
-                                        <div class="col-xs-12">
-                                            <div class="row">
-                                                <div class="col-xs-12 col-sm-7 col-md-8">
-                                                    <p>City</p>
-                                                    <input type="text" value="{{ isset($data['city']) ? $data['city'] : '' }}" name="city">
-                                                </div>
-                                                <div class="col-xs-12 col-sm-5 col-md-4">
-                                                    <p>State</p>
-                                                    <input type="text" value="{{ isset($data['state']) ? $data['state'] : '' }}" name="state">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12">
-                                            <p>ZIP Code</p>
-                                            <input type="text" value="{{ isset($data['zip']) ? $data['zip'] : '' }}" name="zip">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-12 col-sm-4">
-                                    <div class="row">
-                                        <div class="col-xs-12">
+                                        <div class="col-xs-12 col-sm-4">
                                             <p class="no-margin-top">Email</p>
                                             <input type="email" value="{{ isset($data['email']) ? $data['email'] : '' }}" name="email">
                                         </div>
-                                        <div class="col-xs-12">
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12">
+                                    <div class="row">
+                                        <div class="col-xs-12 col-sm-4">
+                                            <p>Work Phone</p>
+                                            <input type="text" value="{{ isset($data['work_phone']) ? $data['work_phone'] : '' }}" name="work_phone">
+                                        </div>
+                                        <div class="col-xs-12 col-sm-4">
+                                            <p>Mobile Phone</p>
+                                            <input type="text" value="{{ isset($data['mobile']) ? $data['mobile'] : '' }}" name="mobile">
+                                        </div>
+                                        <div class="col-xs-12 col-sm-4">
                                             <p>Job Title</p>
                                             <input type="text" value="{{ isset($data['job_title']) ? $data['job_title'] : '' }}" name="job_title">
                                         </div>
-                                        <div class="col-xs-12">
+                                    </div>
+                                </div>
+                                <div class="col-xs-12">
+                                    <div class="row">
+                                        <div class="col-xs-12 col-sm-4">
+                                            <p>Company Address</p>
+                                            <input type="text" value="{{ isset($data['company_address']) ? $data['company_address'] : '' }}" name="company_address">
+                                        </div>
+                                        <div class="col-xs-12 col-sm-2">
+                                            <p>City</p>
+                                            <input type="text" value="{{ isset($data['city']) ? $da['city'] : '' }}" name="city">
+                                        </div>
+                                        <div class="col-xs-12 col-sm-2">
+                                            <p>State</p>
+                                            <input type="text" value="{{ isset($data['state']) ? $data['state'] : '' }}" name="state">
+                                        </div>
+                                        <div class="col-xs-12 col-sm-4">
                                             <p>Sponsor EIN/TIN</p>
                                             <input type="text" value="{{ isset($data['tin']) ? $data['tin'] : '' }}" name="tin">
                                         </div>
-                                        <div class="col-xs-12">
+                                    </div>
+                                </div>  
+                                <div class="col-xs-12 col-sm-12">
+                                    <div class="row">
+                                        <div class="col-xs-12 col-sm-4">
+                                            <p>Company Address</p>
+                                            <input type="text" value="{{ isset($data['company_address_2']) ? $data['company_address_2'] : '' }}" name="company_address_2">
+                                        </div>
+                                        <div class="col-xs-12 col-sm-4">
+                                            <p>ZIP Code</p>
+                                            <input type="text" value="{{ isset($data['zip']) ? $data['zip'] : '' }}" name="zip">
+                                        </div>
+                                        <div class="col-xs-12 col-sm-4">
                                             <p>Country</p>
                                             <input type="text" value="{{ isset($data['country']) ? $data['country'] : '' }}" name="country">
                                         </div>
                                     </div>
                                 </div>
+
+
                             </div>
                         </div>
                     </div>
