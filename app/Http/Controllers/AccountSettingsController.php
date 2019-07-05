@@ -144,6 +144,8 @@ class AccountSettingsController extends Controller {
         $session_data = array_merge( $session_data, $_POST );
         session( [ 'account-settings' => $session_data ] );
 
+        /* ### Production Turn On
+        
         $this->validate($request, [
             'company_name' => 'required',
             'company_website' => 'required',
@@ -180,7 +182,7 @@ class AccountSettingsController extends Controller {
             'reference_name_4' => 'required',
             'reference_phone_4' => 'required',
             'reference_email_4' => 'required|email'
-        ]);
+        ]); */
         
         if (!empty($request->session()->get('account-settings.principles'))) {
             $principles = $request->session()->get('account-settings.principles');

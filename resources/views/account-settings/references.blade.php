@@ -21,10 +21,10 @@
                                 <!-------
                                     -------------- Reference 1 -------------
                                 -------->
-                                <div class="col-xs-12 col-sm-3 margin-bottom-m-sm">
+                                <div class="col-xs-12 col-sm-12 margin-bottom-m-sm">
                                     <div class="row">
-                                        <div class="col-xs-12">
-                                            <p class="no-margin-top">Reference Type</p>
+                                        <div class="col-xs-12 col-sm-3">
+                                            <p>Reference Type</p>
                                             <select name="reference_type_1">
 
                                                 <!-- default select value -->
@@ -59,17 +59,17 @@
                                                 <option value="bank">Bank Reference</option>
                                             </select>
                                         </div>
-                                        <div class="col-xs-12">
-                                            <p>First, Last Name</p>
-                                            <input type="text" value="{{ isset($data['reference_name_1']) ? $data['reference_name_1'] : '' }}" name="reference_name_1">
+                                        <div class="col-xs-12 col-sm-3">
+                                            <p>Full Name</p>
+                                            <input type="text" value="{{ isset($data['reference_name_1']) ? $data['reference_name_1'] : '' }}" placeholder="Jane Doe" name="reference_name_1">
                                         </div>
-                                        <div class="col-xs-12">
+                                        <div class="col-xs-12 col-sm-3">
                                             <p>Phone Number</p>
-                                            <input type="text" value="{{ isset($data['reference_phone_1']) ? $data['reference_phone_1'] : '' }}" name="reference_phone_1">
+                                            <input type="text" value="{{ isset($data['reference_phone_1']) ? $data['reference_phone_1'] : '' }}" placeholder="202-555-0176" name="reference_phone_1">
                                         </div>
-                                        <div class="col-xs-12">
+                                        <div class="col-xs-12 col-sm-3">
                                             <p>Email</p>
-                                            <input type="text" value="{{ isset($data['reference_email_1']) ? $data['reference_email_1'] : '' }}" name="reference_email_1">
+                                            <input type="text" value="{{ isset($data['reference_email_1']) ? $data['reference_email_1'] : '' }}" placeholder="jane@abstract.com" name="reference_email_1">
                                         </div>
                                     </div>
                                 </div>
@@ -78,10 +78,10 @@
                                     -------------- Reference 2 -------------
                                 -------->
 
-                                <div class="col-xs-12 col-sm-3 margin-bottom-m-sm">
+                                <div class="col-xs-12 col-sm-12 margin-bottom-m-sm">
                                     <div class="row">
-                                        <div class="col-xs-12">
-                                            <p class="no-margin-top">Reference Type</p>
+                                        <div class="col-xs-12 col-sm-3">
+                                            <p>Reference Type</p>
                                             <select name="reference_type_2">
                                                 
                                                 <!-- default select value -->
@@ -115,17 +115,17 @@
                                                 <option value="bank">Bank Reference</option>
                                             </select>
                                         </div>
-                                        <div class="col-xs-12">
-                                            <p>First, Last Name</p>
-                                            <input type="text" value="{{ isset($data['reference_name_2']) ? $data['reference_name_2'] : '' }}" name="reference_name_2">
+                                        <div class="col-xs-12 col-sm-3">
+                                            <p>Full Name</p>
+                                            <input type="text" value="{{ isset($data['reference_name_2']) ? $data['reference_name_2'] : '' }}" placeholder="John Doe" name="reference_name_2">
                                         </div>
-                                        <div class="col-xs-12">
+                                        <div class="col-xs-12 col-sm-3">
                                             <p>Phone Number</p>
-                                            <input type="text" value="{{ isset($data['reference_phone_2']) ? $data['reference_phone_2'] : '' }}" name="reference_phone_2">
+                                            <input type="text" value="{{ isset($data['reference_phone_2']) ? $data['reference_phone_2'] : '' }}" placeholder="202-555-0176" name="reference_phone_2">
                                         </div>
-                                        <div class="col-xs-12">
+                                        <div class="col-xs-12 col-sm-3">
                                             <p>Email</p>
-                                            <input type="text" value="{{ isset($data['reference_email_2']) ? $data['reference_email_2'] : '' }}" name="reference_email_2">
+                                            <input type="text" value="{{ isset($data['reference_email_2']) ? $data['reference_email_2'] : '' }}" placeholder="john@abstract.com" name="reference_email_2">
                                         </div>
                                     </div>
                                 </div>
@@ -134,10 +134,10 @@
                                     -------------- Reference 3 -------------
                                 -------->
 
-                                <div class="col-xs-12 col-sm-3 margin-bottom-m-sm">
+                                <div class="col-xs-12 col-sm-12 margin-bottom-m-sm">
                                     <div class="row">
-                                        <div class="col-xs-12">
-                                            <p class="no-margin-top">Reference Type</p>
+                                        <div class="col-xs-12 col-sm-3">
+                                            <p>Reference Type</p>
                                             <select name="reference_type_3">
                                                 
                                                 <!-- default select value -->
@@ -171,17 +171,17 @@
                                                 <option value="bank">Bank Reference</option>
                                             </select>
                                         </div>
-                                        <div class="col-xs-12">
-                                            <p>First, Last Name</p>
-                                            <input type="text" value="{{ isset($data['reference_name_3']) ? $data['reference_name_3'] : '' }}" name="reference_name_3">
+                                        <div class="col-xs-12 col-sm-3">
+                                            <p>Full Name</p>
+                                            <input type="text" value="{{ isset($data['reference_name_3']) ? $data['reference_name_3'] : '' }}" placeholder="Jane Doe" name="reference_name_3">
                                         </div>
-                                        <div class="col-xs-12">
+                                        <div class="col-xs-12 col-sm-3">
                                             <p>Phone Number</p>
-                                            <input type="text" value="{{ isset($data['reference_phone_3']) ? $data['reference_phone_3'] : '' }}" name="reference_phone_3">
+                                            <input type="text" value="{{ isset($data['reference_phone_3']) ? $data['reference_phone_3'] : '' }}" placeholder="202-555-0176" name="reference_phone_3">
                                         </div>
-                                        <div class="col-xs-12">
+                                        <div class="col-xs-12 col-sm-3">
                                             <p>Email</p>
-                                            <input type="text" value="{{ isset($data['reference_email_3']) ? $data['reference_email_3'] : '' }}" name="reference_email_3">
+                                            <input type="text" value="{{ isset($data['reference_email_3']) ? $data['reference_email_3'] : '' }}" placeholder="jane@abstract.com" name="reference_email_3">
                                         </div>
                                     </div>
                                 </div>
@@ -190,10 +190,10 @@
                                     -------------- Reference 4 -------------
                                 -------->
 
-                                <div class="col-xs-12 col-sm-3">
+                                <div class="col-xs-12 col-sm-12">
                                     <div class="row">
-                                        <div class="col-xs-12">
-                                            <p class="no-margin-top">Reference Type</p>
+                                        <div class="col-xs-12 col-sm-3">
+                                            <p>Reference Type</p>
                                             <select name="reference_type_4">
                                                 
                                                 <!-- default select value -->
@@ -228,17 +228,17 @@
                                                 <option value="bank">Bank Reference</option>
                                             </select>
                                         </div>
-                                        <div class="col-xs-12">
-                                            <p>First, Last Name</p>
-                                            <input type="text" value="{{ isset($data['reference_name_4']) ? $data['reference_name_4'] : '' }}" name="reference_name_4">
+                                        <div class="col-xs-12 col-sm-3">
+                                            <p>Full Name</p>
+                                            <input type="text" value="{{ isset($data['reference_name_4']) ? $data['reference_name_4'] : '' }}" placeholder="John Doe" name="reference_name_4">
                                         </div>
-                                        <div class="col-xs-12">
+                                        <div class="col-xs-12 col-sm-3">
                                             <p>Phone Number</p>
-                                            <input type="text" value="{{ isset($data['reference_phone_4']) ? $data['reference_phone_4'] : '' }}" name="reference_phone_4">
+                                            <input type="text" value="{{ isset($data['reference_phone_4']) ? $data['reference_phone_4'] : '' }}" placeholder="202-555-0176" name="reference_phone_4">
                                         </div>
-                                        <div class="col-xs-12">
+                                        <div class="col-xs-12 col-sm-3">
                                             <p>Email</p>
-                                            <input type="text" value="{{ isset($data['reference_email_4']) ? $data['reference_email_4'] : '' }}" name="reference_email_4">
+                                            <input type="text" value="{{ isset($data['reference_email_4']) ? $data['reference_email_4'] : '' }}" placeholder="john@abstract.com" name="reference_email_4">
                                         </div>
                                     </div>
                                 </div>

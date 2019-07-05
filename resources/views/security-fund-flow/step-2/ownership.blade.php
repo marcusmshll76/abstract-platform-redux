@@ -73,7 +73,7 @@
                             <div class="content-form">
                                 <div class="row">
                                     <div class="col-xs-12 col-md-6">
-                                        <p class="no-margin-top">Minimum Raise Amount</p><input name="minimum-raise-amount" value="{{ isset($data['minimum-raise-amount']) ? $data['minimum-raise-amount'] : '' }}" type="text">
+                                        <p class="no-margin-top">Minimum Raise Amount</p><input placeholder="$10,000,000" name="minimum-raise-amount" value="{{ isset($data['minimum-raise-amount']) ? $data['minimum-raise-amount'] : '' }}" type="text">
                                     </div>
                                     <div class="col-xs-12 col-md-6">
                                         <p class="no-margin-top margin-top-s-md">Distribution frequency</p>
@@ -87,11 +87,11 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-xs-12 col-md-6">
-                                        <p>Maximum Raise Amount</p><input name="maximum-raise-amount" value="{{ isset($data['maximum-raise-amount']) ? $data['maximum-raise-amount'] : '' }}" type="text">
+                                        <p>Maximum Raise Amount</p><input placeholder="$15,000,000" name="maximum-raise-amount" value="{{ isset($data['maximum-raise-amount']) ? $data['maximum-raise-amount'] : '' }}" type="text">
                                         <p class="light">*Maximum of 100%</p>
                                     </div>
                                     <div class="col-xs-12 col-md-6">
-                                        <p>Total Capital Required</p><input name="total-capital-required" value="{{ isset($data['total-capital-required']) ? $data['total-capital-required'] : '' }}" type="text">
+                                        <p>Total Capital Required</p><input placeholder="$20,000,000" name="total-capital-required" value="{{ isset($data['total-capital-required']) ? $data['total-capital-required'] : '' }}" type="text">
                                         <p class="light">*Total amount of capital that needs to be raised between equity & debt.</p>
                                     </div>
                                 </div>
@@ -101,26 +101,41 @@
                     <div class="row">
                         <div class="col-xs-12">
                             <div class="content-footer">
+                                <a href="/security-fund-flow/step-1/highlights" class="footer-button-back">
+                                    <h5><img src="/img/icon-arrow-back.svg" style="margin-right:10px;"> Back</h5>
+                                </a>
                                 <div class="row center-xs">
                                     <div class="col-xs-12 col-sm-6 col-md-4">
                                         <div class="content-footer-step">
-                                            <div class="row">
-                                                <div class="col-xs">
-                                                    <div class="step-item active"></div>
-                                                </div>
-                                                <div class="col-xs">
-                                                    <div class="step-item"></div>
-                                                </div>
-                                                <div class="col-xs">
-                                                    <div class="step-item"></div>
-                                                </div>
-                                                <div class="col-xs">
-                                                    <div class="step-item"></div>
-                                                </div>
-                                                <div class="col-xs">
-                                                    <div class="step-item"></div>
-                                                </div>
+                                        <div class="row">
+                                            <div class="col-xs">
+                                                <div class="step-item"></div>
                                             </div>
+                                            <div class="col-xs">
+                                                <div class="step-item"></div>
+                                            </div>
+                                            <div class="col-xs">
+                                                <div class="step-item"></div>
+                                            </div>
+                                            <div class="col-xs">
+                                                <div class="step-item active"></div>
+                                            </div>
+                                            <div class="col-xs">
+                                                <div class="step-item"></div>
+                                            </div>
+                                            <div class="col-xs">
+                                                <div class="step-item"></div>
+                                            </div>
+                                            <div class="col-xs">
+                                                <div class="step-item"></div>
+                                            </div>
+                                            <div class="col-xs">
+                                                <div class="step-item"></div>
+                                            </div>
+                                            <div class="col-xs">
+                                                <div class="step-item"></div>
+                                            </div>
+                                        </div>
                                             <div class="step-divider"></div>
                                         </div>
                                     </div>

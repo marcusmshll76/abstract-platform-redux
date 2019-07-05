@@ -98,7 +98,7 @@
 </div>
 </div>
 <div class="row"  v-if="next === 'yes'">
-    <div class="col-xs-6 col-sm-6">
+    <div class="col-xs-6 col-sm-6" v-if="back">
         <div class="content-footer">
             <div  class="footer-button-back" @click="handleback()">
                 <img src="/img/icon-arrow-back.svg">
@@ -170,7 +170,6 @@ export default {
         }
     },
     created () {
-        console.log(this.map)
         this.initData()
     },
     methods: {

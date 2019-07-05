@@ -5256,3 +5256,28 @@ a{
     font-size: 15px !important;
     color: #283F5C !important;
 }
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: #ccc !important;
+  }
+  ::-moz-placeholder { /* Firefox 19+ */
+    color: #ccc !important;
+    opacity: 1 !important;
+  }
+  :-ms-input-placeholder { /* IE 10+ */
+    color: #ccc !important;
+  }
+  :-moz-placeholder { /* Firefox 18- */
+    color: #ccc !important;
+  }
+  .content-footer h5{
+      color:#283F5C !important;
+  }
+  .content-footer h5:hover{
+    opacity: 0.8 !important;
+}
+@media screen and (min-width: 75em) {
+.step-divider{
+    width: calc(100% - 10px) !important;
+}
+}

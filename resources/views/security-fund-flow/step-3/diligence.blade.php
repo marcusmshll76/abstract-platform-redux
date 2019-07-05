@@ -16,7 +16,7 @@
                 <div class="row">
                     <div class="col-xs-12 col-md-6">
                         <div class="breadcrumb">
-                            <p>All Files<img src="/img/icon-arrow-right.svg">{{ $company->company_name ? $company->company_name : '' }} Diligence & Deal Documents</p>
+                            <p>All Files<img src="/img/icon-arrow-right.svg">{{ !empty($company) ? $company->company_name : '' }} Diligence & Deal Documents</p>
                         </div>
                     </div>
                     <div class="col-xs-12 col-md-6"><input type="search"></div>
@@ -27,10 +27,25 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="content-footer">
+                            <a href="/security-fund-flow/step-2/ownership" class="footer-button-back">
+                                <h5><img src="/img/icon-arrow-back.svg" style="margin-right:10px;"> Back</h5>
+                            </a>
                             <div class="row center-xs">
                                 <div class="col-xs-12 col-sm-6 col-md-4">
                                     <div class="content-footer-step">
-                                        <div class="row">
+                                    <div class="row">
+                                            <div class="col-xs">
+                                                <div class="step-item"></div>
+                                            </div>
+                                            <div class="col-xs">
+                                                <div class="step-item"></div>
+                                            </div>
+                                            <div class="col-xs">
+                                                <div class="step-item"></div>
+                                            </div>
+                                            <div class="col-xs">
+                                                <div class="step-item"></div>
+                                            </div>
                                             <div class="col-xs">
                                                 <div class="step-item active"></div>
                                             </div>

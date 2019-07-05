@@ -7,8 +7,21 @@
     <vue-editor v-model="content" :editorToolbar="customToolbar" @blur="saveData('blur')">
         <span v-html="data"></span>
     </vue-editor>
-        <a @click="saveData('submit')" class="btn margin-key-m color-white fl-right" v-if="next === 'yes'">Next</a>
-        <br/><br/><br/><br/>
+    <div class="row"  v-if="next === 'yes'">
+    <div class="col-xs-6 col-sm-6" v-if="back">
+        <div class="content-footer">
+            <div  class="footer-button-back" @click="handleback()">
+                <img src="/img/icon-arrow-back.svg">
+                <h5>Back</h5>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-6 col-sm-6">
+        <div class="content-footer">
+            <a @click="saveData('submit')" class="btn margin-key-m color-white fl-right" v-if="next === 'yes'">Next</a>
+        </div>
+    </div>
+</div>
 </div>
 </template>
 
@@ -18,7 +31,7 @@ import config from '../libs'
 import { VueEditor } from 'vue2-editor';
 const bbb = '';
 export default {
-    props: ['data', 'next', 'url'],
+    props: ['data', 'next', 'url', 'back'],
     components: {
         VueEditor
     },
@@ -44,6 +57,9 @@ export default {
         }
     }, 
     methods: {
+        handleback () {
+            this.back ? window.location.href = this.back : ''
+        },
         saveData(e) {
             var self = this
             axios
