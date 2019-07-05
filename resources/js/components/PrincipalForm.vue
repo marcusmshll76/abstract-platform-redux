@@ -23,7 +23,7 @@
                     :field="'principles' + mndex"
                     multi="no"
                     map="principles-files"
-                    :path="'/fund/principles/' + mndex + '/'"
+                    :path="'/principles/' + mndex + '/'"
                     @done="successUpload">
                 </uploads>
                 <br/>
@@ -35,7 +35,7 @@
                             </FormItem>
                         </div>
                         <div class="col-xs-12">
-                            <FormItem label="Principle Company" prop="title">
+                            <FormItem label="Principle Title" prop="title">
                                 <Input v-model="create.title" @blur.native="handleSubmit('blur')"/>
                             </FormItem>
                         </div>
@@ -65,7 +65,7 @@
                                 scope="private"
                                 :user="user"
                                 :field="'principles' + parseInt(index + 1)"
-                                :path="'/fund/principles/' + parseInt(index + 1) + '/'"
+                                :path="'/principles/' + parseInt(index + 1) + '/'"
                                 :index="0"
                                 section="principles-files">
                             </previews>
@@ -78,7 +78,7 @@
                                     <input type="text" @blur.native="handleSubmit('blur')" v-model="item.name">
                                 </div>
                                 <div class="col-xs-12">
-                                    <p>Principle Company</p>
+                                    <p>Principle Title</p>
                                     <input type="text" @blur.native="handleSubmit('blur')" v-model="item.title">
                                 </div>
                             </div>

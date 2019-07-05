@@ -33,7 +33,8 @@
                                             user="{{Auth::id()}}"
                                             field="fund-digital-security"
                                             path="/digital-security/fund/photo-gallery/"
-                                            index="0">
+                                            index="0"
+                                            section="security-fund-flow-files">
                                         </file-preview>
                                     </div>
 
@@ -44,7 +45,8 @@
                                             user="{{Auth::id()}}"
                                             field="digital-security"
                                             path="/digital-security/photo-gallery/"
-                                            index="0">
+                                            index="0"
+                                            section="security-flow-files">
                                         </file-preview>
                                     </div>
                                     
@@ -55,7 +57,8 @@
                                             user="{{Auth::id()}}"
                                             field="property-image"
                                             path="/property/images/"
-                                            index="0">
+                                            index="0"
+                                            section="investor-servicing-files">
                                         </file-preview>
                                     </div>
                                     

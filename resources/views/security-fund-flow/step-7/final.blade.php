@@ -570,7 +570,8 @@
                                     scope="private"
                                     user="{{Auth::id()}}"
                                     field="fund-cap-property"
-                                    path="/ownership/">
+                                    path="/ownership/"
+                                    section="security-fund-flow-files">
                                 </file-preview>
 
                             <div class="content-form">
