@@ -18,7 +18,9 @@ class AccountSettingsController extends Controller {
      * ******* Account Verification
      **************/
     public function verification(Request $request) {
-        return view( 'account-settings.verify', [ 'title' => 'Account Settings -> Account Verification'] )->with('data', $request->session()->get('account-settings'));
+        $user = auth()->user();
+        $data = $request->session()->get('account-settings');
+        return view( 'account-settings.verify', [ 'title' => 'Account Settings -> Account Verification'] )->with(compact('data', 'user'));
     }
 
     public function createVerification(Request $request) {
@@ -141,7 +143,7 @@ class AccountSettingsController extends Controller {
         $session_data = session( 'account-settings', array() );
         $session_data = array_merge( $session_data, $_POST );
         session( [ 'account-settings' => $session_data ] );
-        /*
+
         $this->validate($request, [
             'company_name' => 'required',
             'company_website' => 'required',
@@ -178,7 +180,7 @@ class AccountSettingsController extends Controller {
             'reference_name_4' => 'required',
             'reference_phone_4' => 'required',
             'reference_email_4' => 'required|email'
-        ]); */
+        ]);
         
         if (!empty($request->session()->get('account-settings.principles'))) {
             $principles = $request->session()->get('account-settings.principles');

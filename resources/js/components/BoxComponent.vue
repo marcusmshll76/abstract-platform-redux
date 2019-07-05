@@ -191,6 +191,16 @@ export default {
                 type: 'folder',
                 data: []
             });
+            axios.post('/user', {
+    firstName: 'Fred',
+    lastName: 'Flintstone'
+  })
+  .then(function (response) {
+    console.log(response);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
         },
         createFile: function () {
             this.confirm()

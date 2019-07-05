@@ -52,15 +52,15 @@
                                     <div class="row">
                                         <div class="col-xs-12 col-sm-4">
                                             <p class="no-margin-top">First Name</p>
-                                            <input type="text" value="{{ isset($data['first_name']) ? $data['first_name'] : '' }}" name="first_name">
+                                            <input type="text" value="{{ !empty($data['first_name']) ? $data['first_name'] : !empty($user) ? $user->first_name : '' }}" name="first_name">
                                         </div>
                                         <div class="col-xs-12 col-sm-4">
                                             <p class="no-margin-top">Last Name</p>
-                                            <input type="text" value="{{ isset($data['last_name']) ? $data['last_name'] : '' }}" name="last_name">
+                                            <input type="text" value="{{ !empty($data['last_name']) ? $data['last_name'] : !empty($user) ? $user->last_name : '' }}" name="last_name">
                                         </div>
                                         <div class="col-xs-12 col-sm-4">
                                             <p class="no-margin-top">Email</p>
-                                            <input type="email" value="{{ isset($data['email']) ? $data['email'] : '' }}" name="email">
+                                            <input type="email" value="{{ !empty($data['email']) ? $data['email'] : !empty($user) ? $user->email : '' }}" name="email">
                                         </div>
                                     </div>
                                 </div>
@@ -88,7 +88,7 @@
                                         </div>
                                         <div class="col-xs-12 col-sm-2">
                                             <p>City</p>
-                                            <input type="text" value="{{ isset($data['city']) ? $da['city'] : '' }}" name="city">
+                                            <input type="text" value="{{ isset($data['city']) ? $data['city'] : '' }}" name="city">
                                         </div>
                                         <div class="col-xs-12 col-sm-2">
                                             <p>State</p>
