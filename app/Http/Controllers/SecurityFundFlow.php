@@ -45,7 +45,7 @@ class SecurityFundFlow extends Controller
             ->select('company_name')
             ->first();
         $data = $request->session()->get('security-flow');
-        return view( 'security-fund-flow.step-3.diligence', [ 'title' => 'Create Digital Security > Ownership' ] )->with(compact('company'));
+        return view( 'security-fund-flow.step-3.diligence', [ 'title' => 'Create Digital Security > Ownership' ] )->with(compact('company', 'userid'));
     }
   
     public function keyPoints (Request $request) {

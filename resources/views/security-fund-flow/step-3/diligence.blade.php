@@ -22,7 +22,11 @@
                     <div class="col-xs-12 col-md-6"><input type="search"></div>
                 </div>
                 <div class="row">
-                    <box-component struc="diligence"></box-component>
+                    <box-component
+                        user="{{ $userid }}"
+                        owner="{{ !empty($company) ? $company->company_name : '' }}" 
+                        struc="diligence">
+                    </box-component>
                 </div>
                 <div class="row">
                     <div class="col-xs-12">

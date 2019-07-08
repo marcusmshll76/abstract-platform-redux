@@ -138,9 +138,9 @@ class BoxController extends Controller
 
     public function createFolder(Request $request) {
       $name = $request->get('name');
-      $parent_id = $request->get('parent_id');
+      $parent = $request->get('parent');
       return response()->json([
-        'response' => json_decode(BoxAU::createFolder($name, $parent_id, true))
+        'response' => json_decode(BoxAU::createFolder($name, $parent, true))
       ]);
     }
 

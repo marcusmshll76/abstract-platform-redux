@@ -30,7 +30,7 @@ import {
     VueContext
 } from 'vue-context';
 export default {
-    props: ['struc', 'name'],
+    props: ['struc', 'name', 'owner', 'user'],
     name: "file-tree",
     display: "Nested",
     order: 15,
@@ -160,20 +160,53 @@ export default {
     },
     methods: {
         getRootFolder () {
+            // Get Root Folder
+            var self = this
             axios.get(config.boxRootFolder)
                 .then(function (resp) {
-                    let a 
+                    let a
                     resp.data.response.item_collection.entries.map(function (folder) {
-                        return folder.name === 'Dilligence' ? a = folder : ''
+                        folder.name === 'Dilligence' ? a = folder.id : ''
                     })
-                    console.log(a)
+                    self.checkSponsorDir(a)
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+        },
+        checkSponsorDir (root) {
+            // Check Sponsor Dir
+            var self = this
+            axios.get(config.boxFolderItems + root)
+                .then(function (resp) {
+                    let a
+                    resp.data.response.item_collection.entries.map(function (folder) {
+                        if (folder.name === self.owner + '__' + self.user) {
+                            a = folder
+                            return a
+                        } else {
+                           self.createNewBoxFolder(self.owner + '__' + self.user, root) 
+                        }
+                    })
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+        },
+        createNewBoxFolder (name, parent) {
+            axios.post(config.boxCreateFolder, {
+                name: name,
+                parent: parent
+            })
+            .then(function (response) {
+                console.log(response);
             })
             .catch(function (error) {
                 console.log(error);
             });
         },
         moved (res) {
-            console.log('You moved' + res.draggedContext.element.name);
+            // console.log('You moved' + res.draggedContext.element.name);
             if (this.struc) {
                 Cookies.remove(this.struc);
                 Cookies.set(this.struc, this.list, {
