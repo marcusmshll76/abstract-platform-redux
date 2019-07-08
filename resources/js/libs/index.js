@@ -13,5 +13,6 @@ export default {
 	checkDiligence: API_URL + 'files/diligence/check',
 	diligence: API_URL + 'files/diligence/create',
 	getPrinciples: API_URL + 'principles/get',
-	boxToken: API_URL + 'box/access-token'
+	boxToken: API_URL + 'box/access-token',
+	boxRootFolder: API_URL + 'box/rootfolder'
 };

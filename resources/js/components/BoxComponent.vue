@@ -1,7 +1,7 @@
 <template>
 <div class="full-width" id="file-drag-drop" v-bind:class="{ 'dragover': dragTrue }">
     <div class="row contextArea drop drop-files" ref="fileform" @contextmenu.prevent="$refs.menu.open">
-        <nested-draggable @moved="moved" @done="refresh" :struc="struc" :txtindex="txt" :data="list" />
+       <!-- <nested-draggable @moved="moved" @done="refresh" :struc="struc" :txtindex="txt" :data="list" /> -->
     </div>
     <vue-context ref="menu">
         <!-- <li>
@@ -23,6 +23,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+import config from '../libs'
 import Cookies from 'js-cookie';
 import {
     VueContext
@@ -52,11 +54,13 @@ export default {
             dragAndDropCapable: false,
             files: [],
             uploadPercentage: 0,
-            dragTrue: false
+            dragTrue: false,
+            root: 1,
         };
     },
     created () {
-        let lup = Cookies.get(this.struc)
+        this.getRootFolder()
+        /* let lup = Cookies.get(this.struc)
         if (lup !== undefined && lup.length > 0) {
             this.list = JSON.parse(lup);
         } else {
@@ -132,7 +136,7 @@ export default {
         }
         Cookies.set(this.struc, this.list, {
             expires: 364
-        })
+        }) */
     },
     mounted() {
         this.dragAndDropCapable = this.determineDragAndDropCapable();
@@ -155,6 +159,19 @@ export default {
         }
     },
     methods: {
+        getRootFolder () {
+            axios.get(config.boxRootFolder)
+                .then(function (resp) {
+                    let a 
+                    resp.data.response.item_collection.entries.map(function (folder) {
+                        return folder.name === 'Dilligence' ? a = folder : ''
+                    })
+                    console.log(a)
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+        },
         moved (res) {
             console.log('You moved' + res.draggedContext.element.name);
             if (this.struc) {
@@ -191,16 +208,6 @@ export default {
                 type: 'folder',
                 data: []
             });
-            axios.post('/user', {
-    firstName: 'Fred',
-    lastName: 'Flintstone'
-  })
-  .then(function (response) {
-    console.log(response);
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
         },
         createFile: function () {
             this.confirm()
