@@ -180,12 +180,12 @@ export default {
             axios.get(config.boxFolderItems + root)
                 .then(function (resp) {
                     let a
-                    resp.data.response.item_collection.entries.map(function (folder) {
-                        if (folder.name === self.owner + '__' + self.user) {
+                    resp.data.response.entries.map(function (folder) {
+                        if (folder.name === self.owner + self.user) {
                             a = folder
-                            return a
                         } else {
-                           self.createNewBoxFolder(self.owner + '__' + self.user, root) 
+                           a = self.createNewBoxFolder(self.owner + self.user, root)
+                           self.newDDList(a.id)
                         }
                     })
             })
@@ -198,12 +198,25 @@ export default {
                 name: name,
                 parent: parent
             })
-            .then(function (response) {
-                console.log(response);
+            .then(function (resp) {
+                let data = {}
+                data.id = resp.data.response.id
+                data.name = resp.data.response.name
+                return data
             })
             .catch(function (error) {
-                console.log(error);
+                console.log(error)
             });
+        },
+        newDDList (parent) {
+            // Create new dd folders
+            this.createNewBoxFolder('Title Survey & Zoning Diligence', parent)
+            this.createNewBoxFolder('Legal & Insurance Diligence', parent)
+            this.createNewBoxFolder('Financial Diligence', parent)
+            this.createNewBoxFolder('Debt Diligence', parent)
+            this.createNewBoxFolder('Environmental & Property Condition', parent)
+            this.createNewBoxFolder('Deal Documents', parent)
+            this.createNewBoxFolder('Investor Documents', parent)
         },
         moved (res) {
             // console.log('You moved' + res.draggedContext.element.name);
