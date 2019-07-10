@@ -107,6 +107,45 @@
                     <div class="row">
                         <div class="col-xs-12">
                             <div class="content-footer">
+                                <a href="/security-flow/step-1/highlights" class="footer-button-back">
+                                    <h5><img src="/img/icon-arrow-back.svg" style="margin-right:10px;"> Back</h5>
+                                </a>
+                                <div class="row center-xs">
+                                    <div class="col-xs-12 col-sm-6 col-md-4">
+                                        <div class="content-footer-step">
+                                            <div class="row">
+                                                <div class="col-xs">
+                                                    <div class="step-item"></div>
+                                                </div>
+                                                <div class="col-xs">
+                                                    <div class="step-item"></div>
+                                                </div>
+                                                <div class="col-xs">
+                                                    <div class="step-item"></div>
+                                                </div>
+                                                <div class="col-xs">
+                                                    <div class="step-item active"></div>
+                                                </div>
+                                                <div class="col-xs">
+                                                    <div class="step-item"></div>
+                                                </div>
+                                                <div class="col-xs">
+                                                    <div class="step-item"></div>
+                                                </div>
+                                                <div class="col-xs">
+                                                    <div class="step-item"></div>
+                                                </div>
+                                                <div class="col-xs">
+                                                    <div class="step-item"></div>
+                                                </div>
+                                                <div class="col-xs">
+                                                    <div class="step-item"></div>
+                                                </div>
+                                            </div>
+                                            <div class="step-divider"></div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="footer-button-next"><input type="submit" value="Next"></div>
                             </div>
                         </div>

@@ -459,9 +459,10 @@
                                     iname="file"
                                     scope="private"
                                     user="{{Auth::id()}}"
-                                    field="cap-property"
-                                    path="/ownership/">
-                                </file-preview>
+                                    field="fund-cap-property"
+                                    path="/ownership/"
+                                    section="security-flow-files">
+                                </file-preview>>
                                 <div class="content-form">
                                     <!--<div class="row margin-bottom-l-md">
                                         <div class="col-xs-12 col-md-4">
@@ -711,7 +712,8 @@
                                 preview="true"
                                 url="security-flow/step-6/create/meetSponsors"
                                 data="{{ isset($data['principles']) ? $data['principles'] : '' }}"
-                                user="{{Auth::id()}}">
+                                user="{{Auth::id()}}"
+                                map="security-flow-files">
                             </principal-form>
                         </div>
                     </div>

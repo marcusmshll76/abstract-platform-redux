@@ -2,7 +2,7 @@
 @section('title', $title )
 
 @section('body')
-<form action="/account-settings/verification/bio/create" method="post">
+<form>
 @csrf
 <div class="card margin-top-m">
     <div class="card-title blue">

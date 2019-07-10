@@ -11,45 +11,45 @@
             <p>Cut and paste key deal points from your PPM or offering memerandum. Enter up to 5 key deal points, starting each new deal point with a bullet or astrix.</p>  
             <key-points url="security-fund-flow/step-4/create/keyPoints" back="/security-fund-flow/step-3/diligence" data="{{ isset($data['key-point']) ? $data['key-point'] : '' }}" next="yes"></key-points>
             <div class="row">
-        <div class="col-xs-12">
-            <div class="row center-xs">
-                <div class="col-xs-12 col-sm-6 col-md-4">
-                    <div class="content-footer-step">
-                        <div class="row">
-                            <div class="col-xs">
-                                <div class="step-item"></div>
-                            </div>
-                            <div class="col-xs">
-                                <div class="step-item"></div>
-                            </div>
-                            <div class="col-xs">
-                                <div class="step-item"></div>
-                            </div>
-                            <div class="col-xs">
-                                <div class="step-item"></div>
-                            </div>
-                            <div class="col-xs">
-                                <div class="step-item"></div>
-                            </div>
-                            <div class="col-xs">
-                                <div class="step-item active"></div>
-                            </div>
-                            <div class="col-xs">
-                                <div class="step-item"></div>
-                            </div>
-                            <div class="col-xs">
-                                <div class="step-item"></div>
-                            </div>
-                            <div class="col-xs">
-                                <div class="step-item"></div>
+                <div class="col-xs-12">
+                    <div class="row center-xs">
+                        <div class="col-xs-12 col-sm-6 col-md-4">
+                            <div class="content-footer-step">
+                                <div class="row">
+                                    <div class="col-xs">
+                                        <div class="step-item"></div>
+                                    </div>
+                                    <div class="col-xs">
+                                        <div class="step-item"></div>
+                                    </div>
+                                    <div class="col-xs">
+                                        <div class="step-item"></div>
+                                    </div>
+                                    <div class="col-xs">
+                                        <div class="step-item"></div>
+                                    </div>
+                                    <div class="col-xs">
+                                        <div class="step-item"></div>
+                                    </div>
+                                    <div class="col-xs">
+                                        <div class="step-item active"></div>
+                                    </div>
+                                    <div class="col-xs">
+                                        <div class="step-item"></div>
+                                    </div>
+                                    <div class="col-xs">
+                                        <div class="step-item"></div>
+                                    </div>
+                                    <div class="col-xs">
+                                        <div class="step-item"></div>
+                                    </div>
+                                </div>
+                                <div class="step-divider"></div>
                             </div>
                         </div>
-                        <div class="step-divider"></div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
     </div>
 </div>
 @endsection

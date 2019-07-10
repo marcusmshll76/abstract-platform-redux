@@ -102,15 +102,13 @@ export default {
             var self = this
             axios.get(config.boxFolderItems + root)
                 .then(function (resp) {
-                    let a
-                    resp.data.response.entries.map(function (folder) {
-                        if (folder.name === self.owner + self.user) {
-                            a = folder
-                        } else {
-                           a = self.createNewBoxFolder(self.owner + self.user, root)
-                           self.newDDList(a.id)
-                        }
-                    })
+                    let a = resp.data.response.entries.find(x => x.name === self.owner + self.user)
+                    if (a) {
+                        console.log(a)
+                    } else{
+                        self.createNewBoxFolder(self.owner + self.user, root)
+                        self.newDDList(a.id)
+                    }
             })
             .catch(function (error) {
                 console.log(error);
