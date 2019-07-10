@@ -5024,6 +5024,10 @@ fieldset[disabled] .ivu-input:hover {
 .digital .left-nav-item-wrap .active{
     background-image: linear-gradient(-180deg, #283F5C 39%, #8E9385 100%);
 }
+.left-nav .card-title h5{
+    line-height: 20px !important;
+    padding: 15px !important;
+}
 .digital p, .digital a{
     color: #000000;
     font-size: 13px;
