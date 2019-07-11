@@ -9,7 +9,7 @@
                     {{ path.name }} 
                 </label>
                 <span v-show="path.edit === true">
-                    <Icon type="ios-folder-open" v-if="path.type" />
+                    <Icon type="ios-folder-open" v-if="path.type === 'folder'" />
                     <Icon type="ios-paper-outline" v-else />
                     <input v-model="value" v-on:blur="rename(index);" @keyup.enter="rename(index)">
                 </span>
@@ -65,6 +65,7 @@ export default {
     watch: {
         data: function (val) {
             this.subdata = val
+            console.log(val)
         },
         txtindex: function (val) {
             this.openEditor(val)

@@ -1,7 +1,7 @@
 <template>
 <div class="full-width" id="file-drag-drop" v-bind:class="{ 'dragover': dragTrue }">
     <div class="row contextArea drop drop-files" ref="fileform" @contextmenu.prevent="$refs.menu.open">
-       <!-- <nested-draggable @moved="moved" @done="refresh" :struc="struc" :txtindex="txt" :data="list" /> -->
+       <nested-draggable @moved="moved" @done="refresh" :struc="struc" :txtindex="txt" :data="list" />
     </div>
     <vue-context ref="menu">
         <!-- <li>
@@ -104,10 +104,8 @@ export default {
                 .then(function (resp) {
                     let a = resp.data.response.entries.find(x => x.name === self.owner + self.user)
                     if (a) {
-                        console.log(a)
-                        console.log('Man')
+                        self.displayAllFiles(a.id)
                     } else{
-                        // let x = self.createNewBoxFolder(self.owner + self.user, root)
                         self.newDDList(self.owner + self.user, root)
                     }
             })
@@ -130,7 +128,27 @@ export default {
                 console.log(error)
             });
         },
+        displayAllFiles (root) {
+            // Display Files
+            var self = this
+            axios.get(config.boxFolderItems + root)
+            .then(function (resp) {
+                resp.data.response.entries.map(function (folder) {
+                    self.list.push({
+                        name: folder.name,
+                        edit: false,
+                        type: folder.type,
+                        data: [],
+                        list: ''
+                    });
+                })
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+        },
         newDDList (name, parent) {
+            // Create Diligence Folders for First timers
             var self = this
             axios.post(config.boxCreateFolder, {
                 name: name,
