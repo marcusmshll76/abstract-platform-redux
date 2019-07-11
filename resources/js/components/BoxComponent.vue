@@ -129,6 +129,19 @@ export default {
                 console.log(error)
             });
         },
+        copyFolder (id, destination) {
+            axios.post(config.boxCopyFolder, {
+                id: id,
+                destination: destination
+            })
+            .then(function (resp) {
+                console.log(resp);
+                return;
+            })
+            .catch(function (error) {
+                console.log(error)
+            });
+        },
         newDDList (parent) {
             // Create new dd folders
             this.createNewBoxFolder('Title Survey & Zoning Diligence', parent)

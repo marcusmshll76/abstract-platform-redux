@@ -16,5 +16,6 @@ export default {
 	boxToken: API_URL + 'box/access-token',
 	boxRootFolder: API_URL + 'box/rootfolder',
 	boxFolderItems: API_URL + 'box/folder/items/',
-	boxCreateFolder: API_URL + '/box/folder/create',
+    boxCreateFolder: API_URL + '/box/folder/create',
+    boxCopyFolder: API_URL + '/box/folder/copy',
 };
