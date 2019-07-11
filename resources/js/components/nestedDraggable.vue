@@ -120,7 +120,7 @@ export default {
 <style>
 .dragArea {
     width: 100%;
-    min-height: 15px;
+    min-height: 25px;
 }
 
 .dragArea .ivu-icon-ios-folder-open {
@@ -152,7 +152,7 @@ export default {
     font-size: '1em';
 }
 .list-dd li{
-    list-style:circle;
+    list-style: none;
     padding-left: 20px !important;
     border-bottom: solid 1px #f1f1f1;
     padding: 10px 0 !important;

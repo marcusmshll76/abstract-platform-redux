@@ -147,6 +147,20 @@ export default {
                 console.log(error);
             });
         },
+
+        copyFolder (id, destination) {
+            axios.post(config.boxCopyFolder, {
+                id: id,
+                destination: destination
+            })
+            .then(function (resp) {
+                console.log(resp);
+                return;
+            })
+            .catch(function (error) {
+                console.log(error)
+            });
+        },
         newDDList (name, parent) {
             // Create Diligence Folders for First timers
             var self = this
