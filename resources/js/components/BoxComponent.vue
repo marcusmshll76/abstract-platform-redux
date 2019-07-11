@@ -105,9 +105,10 @@ export default {
                     let a = resp.data.response.entries.find(x => x.name === self.owner + self.user)
                     if (a) {
                         console.log(a)
+                        console.log('Man')
                     } else{
-                        self.createNewBoxFolder(self.owner + self.user, root)
-                        self.newDDList(a.id)
+                        // let x = self.createNewBoxFolder(self.owner + self.user, root)
+                        self.newDDList(self.owner + self.user, root)
                     }
             })
             .catch(function (error) {
@@ -120,10 +121,10 @@ export default {
                 parent: parent
             })
             .then(function (resp) {
-                let data = {}
+                /* let data = {}
                 data.id = resp.data.response.id
                 data.name = resp.data.response.name
-                return data
+                return data */
             })
             .catch(function (error) {
                 console.log(error)
@@ -152,6 +153,28 @@ export default {
             this.createNewBoxFolder('Deal Documents', parent)
             this.createNewBoxFolder('Investor Documents', parent)
 
+        newDDList (name, parent) {
+            var self = this
+            axios.post(config.boxCreateFolder, {
+                name: name,
+                parent: parent
+            })
+            .then(function (resp) {
+                let data = {}
+                data.id = resp.data.response.id
+                data.name = resp.data.response.name
+                // Create new dd folders
+                self.createNewBoxFolder('Title Survey & Zoning Diligence', data.id)
+                self.createNewBoxFolder('Legal & Insurance Diligence', data.id)
+                self.createNewBoxFolder('Financial Diligence', data.id)
+                self.createNewBoxFolder('Debt Diligence', data.id)
+                self.createNewBoxFolder('Environmental & Property Condition', data.id)
+                self.createNewBoxFolder('Deal Documents', data.id)
+                self.createNewBoxFolder('Investor Documents', data.id)
+            })
+            .catch(function (error) {
+                console.log(error)
+            });
             return 'created dd lists'
         },
         moved (res) {
