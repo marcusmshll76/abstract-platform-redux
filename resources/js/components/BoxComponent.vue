@@ -73,7 +73,7 @@ export default {
         // this.loading = false
     },
     mounted() {
-       /* this.dragAndDropCapable = this.determineDragAndDropCapable();
+       this.dragAndDropCapable = this.determineDragAndDropCapable();
         if (this.dragAndDropCapable) {
             // Drag actions, 'drag', 'dragstart', 'dragend',
             ['dragover', 'dragenter', 'dragleave', 'drop'].forEach(function (evt) {
@@ -90,7 +90,7 @@ export default {
                 }
                 this.submitFiles();
             }.bind(this));
-        } */
+        }
     },
     methods: {
         getRootFolder () {
