@@ -1,24 +1,32 @@
 <template>
-<div class="full-width" id="file-drag-drop" v-bind:class="{ 'dragover': dragTrue }">
-    <div class="row contextArea drop drop-files" ref="fileform" @contextmenu.prevent="$refs.menu.open">
-       <nested-draggable @moved="moved" @done="refresh" :struc="struc" :txtindex="txt" :data="list" />
+<div class="full-width">
+    <Row type="flex" justify="center" align="middle" v-if="loading">
+        <Spin>
+            <Icon type="ios-loading" size="18" class="spin-icon-load"></Icon>
+            <div>{{ loadingtxt }}</div>
+        </Spin>
+    </Row>
+    <div class="full-width" id="file-drag-drop" v-bind:class="{ 'dragover': dragTrue }" v-else>
+        <div class="row contextArea drop drop-files" ref="fileform" @contextmenu.prevent="$refs.menu.open">
+           <nested-draggable @moved="moved" @done="refresh" :struc="struc" :txtindex="txt" :data="list" />
+        </div>
+        <vue-context ref="menu">
+            <!-- <li>
+                <a href="#" @click.prevent="createFolder"><Icon type="ios-folder-open" /> Create New Folder</a>
+            </li> -->
+            <li>
+                <a href="#" @click.prevent="createFile"><Icon type="ios-paper-outline" /> Create New File</a>
+            </li>
+        </vue-context>
+        <Modal v-model="upload" title="Upload A New File" @on-ok="save" @on-cancel="cancel" ok-text="Save File" cancel-text="Cancel" class="upload-drag">
+            <Upload multiple type="drag" action="//jsonplaceholder.typicode.com/posts/" :on-success="successBox">
+                <div style="padding: 20px 0">
+                    <Icon type="ios-cloud-upload" size="52" style="color: #283f5c"></Icon>
+                    <p>Click or drag files here to upload</p>
+                </div>
+            </Upload>
+        </Modal>
     </div>
-    <vue-context ref="menu">
-        <!-- <li>
-            <a href="#" @click.prevent="createFolder"><Icon type="ios-folder-open" /> Create New Folder</a>
-        </li> -->
-        <li>
-            <a href="#" @click.prevent="createFile"><Icon type="ios-paper-outline" /> Create New File</a>
-        </li>
-    </vue-context>
-    <Modal v-model="upload" title="Upload A New File" @on-ok="save" @on-cancel="cancel" ok-text="Save File" cancel-text="Cancel" class="upload-drag">
-        <Upload multiple type="drag" action="//jsonplaceholder.typicode.com/posts/" :on-success="successBox">
-            <div style="padding: 20px 0">
-                <Icon type="ios-cloud-upload" size="52" style="color: #283f5c"></Icon>
-                <p>Click or drag files here to upload</p>
-            </div>
-        </Upload>
-    </Modal>
 </div>
 </template>
 
@@ -48,6 +56,8 @@ export default {
     data () {
         return {
             list: [],
+            loading: true,
+            loadingtxt: 'Preparing Diligence ...',
             upload: false,
             txt: '',
             ref: 1,
@@ -60,6 +70,7 @@ export default {
     },
     created () {
         this.getRootFolder()
+        // this.loading = false
     },
     mounted() {
         this.dragAndDropCapable = this.determineDragAndDropCapable();
@@ -99,12 +110,15 @@ export default {
         },
         checkSponsorDir (root) {
             // Check Sponsor Dir
+            this.loadingtxt = "Checking Sponsor Folder ..."
             var self = this
             axios.get(config.boxFolderItems + root)
                 .then(function (resp) {
                     let a = resp.data.response.entries.find(x => x.name === self.owner + self.user)
                     if (a) {
                         self.displayAllFiles(a.id)
+                        self.loadingtxt = "Done ..."
+                        self.loading = false
                     } else{
                         self.newDDList(self.owner + self.user, root)
                     }
@@ -162,6 +176,7 @@ export default {
             });
         },
         newDDList (name, parent) {
+            this.loadingtxt = "Creating a new Sponsor Folder ..."
             // Create Diligence Folders for First timers
             var self = this
             axios.post(config.boxCreateFolder, {
@@ -184,7 +199,8 @@ export default {
             .catch(function (error) {
                 console.log(error)
             });
-            return 'created dd lists'
+            this.loadingtxt = "Done ..."
+            this.loading = false
         },
         moved (res) {
             // console.log('You moved' + res.draggedContext.element.name);
@@ -312,28 +328,23 @@ export default {
 .dragover {
     border: dashed 1px #999999 !important;
 }
-
 .upload-drag .ivu-modal-footer {
     display: none;
 }
-
-.drop {
-    margin-top: 30px;
+.dragArea li{
+    list-style: none !important;
+    height: 30px !important;
 }
-
 .ivu-upload-drag:hover {
     border-color: #283f5c;
 }
-
 .v-context {
     outline: 0 !important;
     overflow: hidden !important;
 }
-
 .full-width {
     width: 100%;
 }
-
 .contextArea {
     width: 100%;
     min-height: 300px;
