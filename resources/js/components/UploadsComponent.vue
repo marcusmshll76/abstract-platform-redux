@@ -98,7 +98,7 @@
         :name="elname"
         :headers="{'X-CSRF-TOKEN': header}"
         ref="upload"
-        v-if="type === 'text'" 
+        v-if="type === 'text'"
         :action="action"
         :on-progress="progress"
         :on-success="success"
@@ -107,6 +107,12 @@
         :data="payload">
         <a class="upload-text"><Icon type="md-checkmark" v-if="sus && elname !== 'image'" /> {{ !title ? 'Upload File' : title }}</a>
     </Upload>
+    <div class="row" v-if="section === 'captable' && type !== 'text'">
+        <br/>
+        <a class="mrg-left-cap" href="/28912SAIAS232/investor-cap-table-upload.xlsx" download>
+            <Icon type="md-cloud-download" /> Cap Table Sample
+        </a>
+    </div>
     </div>
 </div>
 </template>
@@ -236,5 +242,12 @@ export default {
     }
     .uploads-csd{
         height: 161px !important;
+    }
+    .download-sample-cap{
+        font-weight: bold;
+        font-size: 24px;
+    }
+    .mrg-left-cap{
+        padding: 20px;
     }
 </style>

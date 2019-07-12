@@ -5285,3 +5285,10 @@ a{
     width: calc(100% - 10px) !important;
 }
 }
+.fl-left{
+    float:left;
+}
+.hr-divider{
+    margin: 0 12px;
+    float:left;
+}

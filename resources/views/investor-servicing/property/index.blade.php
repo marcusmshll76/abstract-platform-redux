@@ -120,6 +120,7 @@
                                 path="/property/cap/"
                                 map="investor-servicing-files">
                             </uploads-component>
+                            <br/><br/><br/>
                         </div>
                     </div>
                 </div>

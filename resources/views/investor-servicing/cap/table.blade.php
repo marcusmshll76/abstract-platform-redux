@@ -1,14 +1,5 @@
 @extends('investor-servicing.cap.main-template')
 @section('title', "Cap Table > Investor Servicing")
-<style>
-.fl-left{
-    float:left;
-}
-.hr-divider{
-    margin: 0 12px;
-    float:left;
-}
-</style>
 @section('body')
 <div class="card margin-top-m">
     <div class="card-title blue">
