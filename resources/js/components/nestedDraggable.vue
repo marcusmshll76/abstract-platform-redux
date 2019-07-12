@@ -19,10 +19,10 @@
     </draggable>
     <Modal v-model="editor" class="dd-list">
         <p slot="header">
-            <Icon type="ios-paper-outline" /> {{ data[0] ? data[0].name : '' }}
+            <Icon type="ios-paper-outline" /> {{ active.name }}
         </p>
         <!-- <vue-editor v-model="data[0].list" :editor-toolbar="customToolbar"></vue-editor> -->
-        <span class="list-dd" v-html="data[0].list"></span>
+        <span class="list-dd" v-html="active.list"></span>
         <span slot="footer"></span>
     </Modal>
 </div>
@@ -46,6 +46,10 @@ export default {
     props: ['data', 'txtindex'],
     data() {
         return {
+            active: {
+                name: '',
+                list: ''
+            },
             subdata: [],
             value: '',
             refresh: 1,
@@ -110,7 +114,7 @@ export default {
         },
         openEditor: function (index, path) {
             if (!path.type) {
-                this.docindex = index
+                this.active = this.subdata[index]
                 this.editor = true
             }
         }
@@ -159,6 +163,10 @@ export default {
     border-bottom: solid 1px #f1f1f1;
     padding: 10px 0 !important;
     color: #000000 !important;
+}
+.dd-list i{
+    font-size: 22px;
+    margin-right: 15px;
 }
 .dd-list .ivu-modal-header p, .ivu-modal-header-inner{
     height: 20px !important;
