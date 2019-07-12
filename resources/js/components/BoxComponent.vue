@@ -117,8 +117,6 @@ export default {
                     let a = resp.data.response.entries.find(x => x.name === self.owner + self.user)
                     if (a) {
                         self.displayAllFiles(a.id)
-                        self.loadingtxt = "Done ..."
-                        self.loading = false
                     } else{
                         self.newDDList(self.owner + self.user, root)
                     }
@@ -126,6 +124,8 @@ export default {
             .catch(function (error) {
                 console.log(error);
             });
+            self.loadingtxt = "Done ..."
+            self.loading = false
         },
         createNewBoxFolder (name, parent) {
             axios.post(config.boxCreateFolder, {
@@ -148,12 +148,45 @@ export default {
             axios.get(config.boxFolderItems + root)
             .then(function (resp) {
                 resp.data.response.entries.map(function (folder) {
+                    let dd
+                    switch(folder.name) {
+                      case 'Deal Documents':
+                        dd = ''
+                        break;
+                      case 'Debt Diligence':
+                        dd = ''
+                        break;
+                      case 'Environmental & Property Condition':
+                        dd = ''
+                        break;
+                      case 'Investor Documents':
+                        dd = ''
+                        break;
+
+                      case 'Financial Diligence':
+                        dd = '<p><li>Appraisal</li></p><p><li>Financial Statements *Past 3 years</li></p><p><li>Historical Operating Financials</li></p><p><li>Current Rent Roll</li></p><p><li>Lease Analysis</li></p><p><li>Financial Projections Model</li></p><p><li>Argus, *If applicable</li></p>'
+                        break;
+
+                      case 'Legal & Insurance Diligence':
+                        dd = '<p><li>Ground Lease, *if any</li></p><p><li>Any side agreements with tenants or others</li></p><p><li>Litigation Review</li></p><p><li>Contracts affecting Property</li></p><p><li>Private Placement Memorandum</li></p><p><li>Property Management Agreement</li></p><p><li>Insurance Certificate / Declarations Page</li></p><p><li>Corporate Resolutions of Seller, *if applicable</li></p><p><li>Corporate Certificate of Good Standing</li></p><p><li>Corporate Income Tax Returns for past three years, *if applicable</li></p><p><li>Partnership Agreements, Amendments, &amp; Certificate</li></p><p><li>Partnership Income Tax Returns, *Past 3 years</li></p><p><li>All leases, amendments &amp; rental agreements</li></p>'
+                        break;
+
+                      case 'Title Survey & Zoning Diligence':
+                        dd = '<p><li>Title commitment and policy</li></p><p><li>Zoning and Confirmation</li></p><p><li>ALTA/ACSM Survey</li></p><p><li>Final plans &amp; specifications</li></p><p><li>Copies of easements, rights-of-way, and covenants affecting property</li></p><p><li>Notices of any violation of building codes, zoning or other ordinances</li></p><p><li>Estoppels from mortgagees, ground lessors &amp; tenants</li></p><p><li>Certificates of occupancy &amp; all other permits.</li></p><p><li>Subdivision Plat</li></p><p><li>Utility Report</li></p><p><li>Access Analysis</li></p><p><li>ADA Compliance Reports</li></p><p><li>Notices of any violation of building codes, zoning or other ordinances, laws or regulations affecting property.</li></p>'
+                        break;
+
+                      default:
+                      // code block
+                    }
                     self.list.push({
                         name: folder.name,
                         edit: false,
                         type: folder.type,
-                        data: [],
-                        list: ''
+                        data: [{
+                            name: folder.name + ' DD List',
+                            edit: false,
+                            list: dd
+                        }]
                     });
                 })
             })
@@ -199,8 +232,6 @@ export default {
             .catch(function (error) {
                 console.log(error)
             });
-            this.loadingtxt = "Done ..."
-            this.loading = false
         },
         moved (res) {
             // console.log('You moved' + res.draggedContext.element.name);
@@ -298,24 +329,6 @@ export default {
                 formData.append('files[' + i + ']', file);
             }
             this.files = [];
-
-            /* Upload File with Axios
-             axios.post( '/file-drag-drop-instant',
-              formData,
-              {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                },
-                onUploadProgress: function( progressEvent ) {
-                  this.uploadPercentage = parseInt( Math.round( ( progressEvent.loaded * 100 ) / progressEvent.total ) );
-                }.bind(this)
-              }
-            ).then(function(){
-              console.log('SUCCESS!!');
-            })
-            .catch(function(){
-              console.log('FAILURE!!');
-            }); */
         },
         removeFile(key) {
             this.files.splice(key, 1);
@@ -332,8 +345,8 @@ export default {
     display: none;
 }
 .dragArea li{
-    list-style: none !important;
-    height: 30px !important;
+    /* list-style: none !important; */
+    min-height: 30px !important;
 }
 .ivu-upload-drag:hover {
     border-color: #283f5c;

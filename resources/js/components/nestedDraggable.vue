@@ -3,21 +3,21 @@
     <draggable class="dragArea" tag="ul" :move="moved" :list="subdata" :group="{ name: 'g1' }">
         <li v-for="(path, index) in subdata" :key="path.name">
             <a>
-                <label v-show="!path.edit" @click="handleClick(index)" :style="[path.type ? {'font-weight' : 'bold'} : '']"> 
+                <label v-show="!path.edit" @click="handleClick(index, path)" :style="[path.type ? {'font-weight' : 'bold'} : '']"> 
                     <Icon type="ios-folder-open" v-if="path.type" />
                     <Icon type="ios-paper-outline" v-else />
                     {{ path.name }} 
                 </label>
-                <span v-show="path.edit === true">
+                <!-- <span v-show="path.edit === true">
                     <Icon type="ios-folder-open" v-if="path.type === 'folder'" />
                     <Icon type="ios-paper-outline" v-else />
                     <input v-model="value" v-on:blur="rename(index);" @keyup.enter="rename(index)">
-                </span>
+                </span> -->
             </a>
             <nested-draggable @moved="moved" :data="path.data" />
         </li>
     </draggable>
-    <Modal v-model="editor" title="Man" class="dd-list">
+    <Modal v-model="editor" class="dd-list">
         <p slot="header">
             <Icon type="ios-paper-outline" /> {{ data[0] ? data[0].name : '' }}
         </p>
@@ -78,12 +78,12 @@ export default {
         moved: function (evt) {
             this.$emit('moved', evt)
         },
-        handleClick: function (index) {
+        handleClick: function (index, path) {
             this.clickCount++
             if (this.clickCount === 1) {
                 this.clickTimer = setTimeout(() => {
                     this.clickCount = 0
-                    this.openEditor(index)
+                    this.openEditor(index, path)
                 }, 450)
             }
             if (this.clickCount === 2) {
@@ -108,9 +108,11 @@ export default {
             }
             this.$emit('done', this.data)
         },
-        openEditor: function (index) {
-            this.docindex = index
-            this.editor = true
+        openEditor: function (index, path) {
+            if (!path.type) {
+                this.docindex = index
+                this.editor = true
+            }
         }
     },
     name: "nested-draggable"
