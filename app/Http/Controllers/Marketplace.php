@@ -64,5 +64,8 @@ class Marketplace extends Controller
             return view( 'marketplace.final', [ 'title' => 'New > Marketplace'] )->with(compact('data', 'bio'));
             // return redirect('/'.$ses.'/preview');
         } 
-}
+    }
+    public function learnmoreDummy () {
+        return view( 'marketplace.learnmoreDummy', [ 'title' => 'Details > Marketplace'] );
+    }
 }

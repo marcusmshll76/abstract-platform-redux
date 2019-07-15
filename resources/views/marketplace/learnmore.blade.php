@@ -107,7 +107,7 @@
                             </div>
                         </div>
                         <div class="marketplace-card-button">
-                            <div class="btn full-width">Learn More</div>
+                            <a href="{{'/marketplace/details/'.$property->fakeType.'/'.strtolower(str_random(30)).'/'.$property->id}}" class="btn full-width color-white">Learn More</a>
                         </div>
                     </div>
                 </div>     
@@ -163,7 +163,7 @@
                             </div>
                         </div>
                         <div class="marketplace-card-button">
-                            <div class="btn full-width">Learn More</div>
+                            <a href="/marketplace/details/learn-more" class="btn full-width">Learn More</a>
                         </div>
                     </div>
                 </div>
@@ -217,7 +217,7 @@
                             </div>
                         </div>
                         <div class="marketplace-card-button">
-                            <div class="btn full-width">Learn More</div>
+                            <a href="/marketplace/details/learn-more" class="btn full-width">Learn More</a>
                         </div>
                     </div>
                 </div>
@@ -271,7 +271,7 @@
                             </div>
                         </div>
                         <div class="marketplace-card-button">
-                            <div class="btn full-width">Learn More</div>
+                            <a href="/marketplace/details/learn-more" class="btn full-width">Learn More</a>
                         </div>
                     </div>
                 </div> 
@@ -325,7 +325,7 @@
                             </div>
                         </div>
                         <div class="marketplace-card-button">
-                            <div class="btn full-width">Learn More</div>
+                            <a href="/marketplace/details/learn-more" class="btn full-width">Learn More</a>
                         </div>
                     </div>
                 </div>
@@ -379,7 +379,7 @@
                             </div>
                         </div>
                         <div class="marketplace-card-button">
-                            <div class="btn full-width">Learn More</div>
+                            <a href="/marketplace/details/learn-more" class="btn full-width">Learn More</a>
                         </div>
                     </div>
                 </div>
@@ -433,7 +433,7 @@
                             </div>
                         </div>
                         <div class="marketplace-card-button">
-                            <div class="btn full-width">Learn More</div>
+                            <a href="/marketplace/details/learn-more" class="btn full-width">Learn More</a>
                         </div>
                     </div>
                 </div> 

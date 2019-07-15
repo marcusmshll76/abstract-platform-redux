@@ -17,7 +17,7 @@
         user="{{ Auth::id() }}"
         info="<h5>Please allow 48 hours for processing</h5>"
         action="Got It!"
-        url="{{'/investor-servicing/reports/'. $type. '/'.strtolower(str_random(100)). '/' .$id}}">
+        url="{{'/investor-servicing/reports/'. $type. '/'.strtolower(str_random(30)). '/' .$id}}">
     </popup-component>
 @endif
 <div class="card margin-top-m">

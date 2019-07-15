@@ -59,7 +59,7 @@
                                             index="0">
                                         </file-preview>
                                     </div>
-                                    <a href="{{ $site -> host == 'abstract' ? '/investor-servicing/cap-table-mgmt/' : '/ownership-snapshot/' }}{{$investment->fakeType. '/'.strtolower(str_random(100)). '/' .$investment->id}}" class="btn full-width margin-top-s color-white">Select</a>
+                                    <a href="{{ $site -> host == 'abstract' ? '/investor-servicing/cap-table-mgmt/' : '/ownership-snapshot/' }}{{$investment->fakeType. '/'.strtolower(str_random(30)). '/' .$investment->id}}" class="btn full-width margin-top-s color-white">Select</a>
                                     @elseif ($investment->fakeType === 'property')
                                         <file-preview
                                             iname="Single"
@@ -70,7 +70,7 @@
                                             index="0">
                                         </file-preview>
                                     </div>
-                                    <a href="{{ $site -> host == 'abstract' ? '/investor-servicing/cap-table-mgmt/' : '/ownership-snapshot/' }}{{$investment->fakeType. '/'.strtolower(str_random(100)). '/' .$investment->id}}" class="btn full-width margin-top-s color-white">Select</a>
+                                    <a href="{{ $site -> host == 'abstract' ? '/investor-servicing/cap-table-mgmt/' : '/ownership-snapshot/' }}{{$investment->fakeType. '/'.strtolower(str_random(30)). '/' .$investment->id}}" class="btn full-width margin-top-s color-white">Select</a>
                                     @elseif ($investment->fakeType === 'sproperty')
                                         <file-preview
                                             iname="Single"
@@ -81,7 +81,7 @@
                                             index="0">
                                         </file-preview>
                                     </div>
-                                    <a href="{{ $site -> host == 'abstract' ? '/investor-servicing/cap-table-mgmt/' : '/ownership-snapshot/' }}{{$investment->fakeType. '/'.strtolower(str_random(100)). '/' .$investment->id}}" class="btn full-width margin-top-s color-white">Select</a>
+                                    <a href="{{ $site -> host == 'abstract' ? '/investor-servicing/cap-table-mgmt/' : '/ownership-snapshot/' }}{{$investment->fakeType. '/'.strtolower(str_random(30)). '/' .$investment->id}}" class="btn full-width margin-top-s color-white">Select</a>
                                 @endif
                             </div>
                             @endforeach

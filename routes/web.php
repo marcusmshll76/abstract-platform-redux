@@ -169,8 +169,10 @@ Route::get('/create/recap/metrics/{type?}/{rand}/{id?}', 'Property@recap');
 /*******************
     * ******* Marketplace
 **************/
-Route::get('/marketplace/new/{type?}/{rand}/{id?}', 'Marketplace@new');
+Route::get('/marketplace/details/{type?}/{rand}/{id?}', 'Marketplace@new');
 Route::get('/marketplace/learn/more', 'Marketplace@mcg');
+// Details Fill Void (Learn More) for Demo Purposes
+Route::get('/marketplace/details/learn-more', 'Marketplace@learnmoreDummy');
 
 Route::get('/properties/choose/sticker/{type?}/{rand}/{id?}', 'Property@sticker');
 Route::get('/investment/metrics/{type?}/{rand}/{id?}', 'Property@metrics');

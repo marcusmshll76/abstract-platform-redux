@@ -824,7 +824,7 @@
                                         <div class="card-content">
                                             <p class="no-margin-top">If you’re ready to pull the trigger on this invetment, you can begin the Investment process below or feel free to contact us to set up a call. We’re here to help! </p>
                                             <div class="btn">Contact Us</div>
-                                            <a href="/marketplace/learn/more" class="btn gold margin-left-m color-white">Invest</a>
+                                            <a target="_blank" href="https://api-development.norcapsecurities.com/admin_v3/widgetv3_demo?widget=TOPPIPJWCXJGCWLJBIBGZRCVD" class="btn gold margin-left-m color-white">Invest</a>
                                         </div>
                                     </div>
                                 </div>

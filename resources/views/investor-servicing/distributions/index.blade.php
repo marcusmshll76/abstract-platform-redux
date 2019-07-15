@@ -10,7 +10,7 @@
     user="{{ Auth::id() }}"
     info="<h5>You will be able to view this document in excel or CSV form shortly.  Within 48 hours we will post the distributions via PDF to  your Investors Servicing Portal for their viewing. </h5>"
     action="Got It!"
-    url="{{'/investor-servicing/distributions/preview/'. $type. '/'.strtolower(str_random(100)). '/' .$id }}">
+    url="{{'/investor-servicing/distributions/preview/'. $type. '/'.strtolower(str_random(30)). '/' .$id }}">
 </popup-component>
 @endif
 <div class="card margin-top-m">

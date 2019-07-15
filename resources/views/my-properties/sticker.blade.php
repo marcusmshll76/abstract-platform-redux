@@ -87,7 +87,7 @@
                                     <div class="col-xs-12">
                                         <div class="content-footer">
                                             <div class="footer-button-next">
-                                                <a href="{{ '/investment/metrics/'.$type.'/'.strtolower(str_random(100)).'/'.$id }}" class="btn gold color-white">FINISH CREATING DIGITAL SECURITY</a>
+                                                <a href="{{ '/investment/metrics/'.$type.'/'.strtolower(str_random(30)).'/'.$id }}" class="btn gold color-white">FINISH CREATING DIGITAL SECURITY</a>
                                             </div>
                                         </div>
                                     </div>

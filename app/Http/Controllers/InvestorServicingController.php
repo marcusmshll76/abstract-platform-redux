@@ -182,7 +182,7 @@ class InvestorServicingController extends Controller {
             
             DB::table('reports')->insert($payload);
             $request->session()->forget('reportRead');
-            return redirect('/investor-servicing/reports/dt/'. $type. '/'.strtolower(str_random(100)). '/' .$id);
+            return redirect('/investor-servicing/reports/dt/'. $type. '/'.strtolower(str_random(30)). '/' .$id);
         } else {
             $data = $request->session()->get('report');
             return view( 'investor-servicing.tax.index', [ 'title' => 'Reports > Investor Servicing', 'errors' => true] )->with(compact('data', 'type', 'id'));

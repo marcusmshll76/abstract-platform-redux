@@ -90,7 +90,7 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="content-footer">
-                            <a href="{{'/ownership-snapshot/'. $type. '/'.strtolower(str_random(100)). '/' .$id }}" class="footer-button-back"><img src="/img/icon-arrow-back.svg">
+                            <a href="{{'/ownership-snapshot/'. $type. '/'.strtolower(str_random(30)). '/' .$id }}" class="footer-button-back"><img src="/img/icon-arrow-back.svg">
                                 <h5>Back</h5></a>
                             <div class="row center-xs">
                                 <div class="col-xs-12 col-sm-6 col-md-4">
@@ -117,7 +117,7 @@
                                 </div>
                             </div>
                             <div class="footer-button-next">
-                                <a href="{{'/reports/'. $type. '/'.strtolower(str_random(100)). '/' .$id }}" class="btn color-white">Next</a>
+                                <a href="{{'/reports/'. $type. '/'.strtolower(str_random(30)). '/' .$id }}" class="btn color-white">Next</a>
                             </div>
                         </div>
                     </div>

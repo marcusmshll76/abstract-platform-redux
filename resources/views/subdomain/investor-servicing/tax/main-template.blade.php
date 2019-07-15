@@ -15,13 +15,13 @@
                                 <p><a href="/investor-servicing/choose-investment"> Choose an <br/>Investment</a></p>
                             </div>
                             <div class="left-nav-item">
-                                <p><a href="{{'/ownership-snapshot/'. $type. '/'.strtolower(str_random(100)). '/' .$id }}">Ownership Distribution &amp; <br/> Performance </a></p>
+                                <p><a href="{{'/ownership-snapshot/'. $type. '/'.strtolower(str_random(30)). '/' .$id }}">Ownership Distribution &amp; <br/> Performance </a></p>
                             </div>
                             <div class="left-nav-item active">
-                                <p><a href="{{'/tax-documents/'. $type. '/'.strtolower(str_random(100)). '/' .$id }}">Tax Documents</a></p>
+                                <p><a href="{{'/tax-documents/'. $type. '/'.strtolower(str_random(30)). '/' .$id }}">Tax Documents</a></p>
                             </div>
                             <div class="left-nav-item">
-                                <p><a href="{{'/reports/'. $type. '/'.strtolower(str_random(100)). '/' .$id }}">Reports</a></p>
+                                <p><a href="{{'/reports/'. $type. '/'.strtolower(str_random(30)). '/' .$id }}">Reports</a></p>
                             </div>
                         </div>
                     </div>

@@ -81,7 +81,7 @@
                                         </div>
                         <div class="row margin-top-m">
                             <div class="col-xs-12 col-sm-6">
-                                <a href="{{'/investor-servicing/reports/dt/'. $type. '/'.strtolower(str_random(100)). '/' .$id }}" class="btn full-width margin-bottom-m-md color-white">View</a>
+                                <a href="{{'/investor-servicing/reports/dt/'. $type. '/'.strtolower(str_random(30)). '/' .$id }}" class="btn full-width margin-bottom-m-md color-white">View</a>
                             </div>
                             <div class="col-xs-12 col-sm-6">
                                 <a href="/28912SAIAS232/dst-report.pdf" class="btn full-width margin-bottom-m-md color-white" download>Download</a>

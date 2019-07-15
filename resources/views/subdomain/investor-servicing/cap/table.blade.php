@@ -174,7 +174,7 @@
                                 </div>
                             </div>
                             <div class="footer-button-next">
-                                <a href="{{'/tax-documents/'. $type. '/'.strtolower(str_random(100)). '/' .$id }}" class="btn color-white">Next</a>
+                                <a href="{{'/tax-documents/'. $type. '/'.strtolower(str_random(30)). '/' .$id }}" class="btn color-white">Next</a>
                             </div>
                         </div>
                     </div>
