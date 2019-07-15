@@ -68,8 +68,8 @@ class SecurityFlowProperty extends Migration
             $table->string('mezzanine-debt')->nullable();
             $table->string('senior-debt')->nullable();
             $table->text('principles')->nullable();
-            $table->text('key-points')->nullable();
-            $table->string('status')->default('Not Approved');
+            $table->string('key-points')->nullable();
+            $table->string('status')->default('Approved');
             $table->timestamps();
         });
     }

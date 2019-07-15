@@ -13,6 +13,7 @@ class Property extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('property');
         Schema::create('property', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('userid')->nullable();
@@ -33,6 +34,7 @@ class Property extends Migration
             $table->string('ownership-2')->nullable();
             $table->text('captables')->nullable();
             $table->string('bankTransfer')->nullable();
+            $table->string('status')->default('Approved');
             $table->timestamps();
         });
     }

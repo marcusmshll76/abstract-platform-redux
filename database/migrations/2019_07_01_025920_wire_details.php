@@ -13,7 +13,8 @@ class WireDetails extends Migration
      */
     public function up()
     {
-        Schema::table( 'investments', function( Blueprint $table) {
+        Schema::dropIfExists('investments');
+        Schema::create('investments', function( Blueprint $table) {
             $table->string('routing_number')->nullable();
             $table->string('account_number')->nullable();
         });
@@ -26,6 +27,6 @@ class WireDetails extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('investments');
     }
 }
