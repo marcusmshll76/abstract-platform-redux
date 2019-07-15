@@ -91,8 +91,8 @@ export default {
                 }, 450)
             }
             if (this.clickCount === 2) {
-                this.edit(index)
-                clearTimeout(this.clickTimer)
+                // this.edit(index)
+                //  clearTimeout(this.clickTimer)
                 this.clickCount = 0
             }
         },
