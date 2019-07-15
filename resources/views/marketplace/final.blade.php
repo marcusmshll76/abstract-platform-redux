@@ -11,7 +11,7 @@
         user="{{ Auth::id() }}"
         info="<h5>Our team will be in touch within 48 hours should we need anything. You’re one step closer to creating your first digital security!</h5>"
         action="Got It!"
-        url="/properties/pending">
+        url="/properties/approved">
     </popup-component>
 @endif
 <input type="hidden" name="updateflow" value="{{isset($data['id']) ? $data['id'] : ''}}"/>

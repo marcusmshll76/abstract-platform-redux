@@ -218,7 +218,7 @@ class Property extends Controller
                 $request->session()->put($ses, $array);
                 return redirect('/'.$ses.'/preview');
             } else {
-                return redirect('/properties/pending');
+                return redirect('/properties/approved');
             }   
     }
 
