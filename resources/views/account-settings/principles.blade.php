@@ -11,9 +11,10 @@
     <div class="card-content">
         <h5>Meet The Principles, Property Owners, and Fund Managers</h5>
         <p>Connect any Principles or Partners to your organization.  These will be shared to investors interested in your deals on Abstract’s Marketplace. </p>
-        <principal-form 
+        <principal-form
+            back="/account-settings/verification/bio"
             next="yes"
-            url="/account-settings/create/principles" 
+            url="/principles/create" 
             data="{{ isset($data['principles']) ? $data['principles'] : '' }}"
             user="{{ Auth::id() }}"
             type="account settings"

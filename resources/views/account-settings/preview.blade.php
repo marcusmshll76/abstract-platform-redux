@@ -11,7 +11,7 @@
     user="{{ Auth::id() }}"
     info="<h5>Our team will be in touch within 48 hours should we need any thing else from your end.  You’re one step closer to creating your first digital security!</h5>"
     action="Got It!"
-    url="/investor-servicing/choose-investment">
+    url="/security-flow/step-1/choose">
 </popup-component>
 @endif
 <div class="card margin-top-m">
@@ -282,7 +282,7 @@
                 <div class="card-content">
                     <principal-form
                         preview="true"
-                        url="/account-settings/create/principles"
+                        url="/principles/create"
                         data="{{ isset($data['principles']) ? $data['principles'] : '' }}"
                         user="{{Auth::id()}}">
                     </principal-form>

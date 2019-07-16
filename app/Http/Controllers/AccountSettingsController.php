@@ -71,26 +71,6 @@ class AccountSettingsController extends Controller {
         return redirect('/account-settings/verification/preview');
     }
 
-    public function getPrinciples(Request $request) {
-        $userid = Auth::id();
-        $principles = DB::table('account_verification')
-            ->where('userid', $userid)
-            ->select('principles')
-            ->first();
-        if ($principles) {
-            return response()->json([
-                'message' => 'Account Settings Principles',
-                'response' => $principles->principles,
-                'status' => 200
-            ]);
-        } else {
-            return response()->json([
-                'message' => 'Failed',
-                'status' => 490
-            ]);
-        }
-    }
-
     // Save Data into a session
     public function saveData (Request $request, $e) {
         

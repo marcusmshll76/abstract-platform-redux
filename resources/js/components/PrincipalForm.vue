@@ -24,19 +24,21 @@
                     multi="no"
                     map="principles-files"
                     :path="'/principles/' + mndex + '/'"
-                    @done="successUpload">
+                    section="principles-files"
+                    >
+                    <!-- @done="successUpload" -->
                 </uploads>
                 <br/>
                 <div class="content-form">
                     <div class="row">
                         <div class="col-xs-12">
                             <FormItem label="Principle Full Name" prop="name">
-                                <Input v-model="create.name" @blur.native="handleSubmit('blur')"/>
+                                <Input v-model="create.name"/>
                             </FormItem>
                         </div>
                         <div class="col-xs-12">
                             <FormItem label="Principle Title" prop="title">
-                                <Input v-model="create.title" @blur.native="handleSubmit('blur')"/>
+                                <Input v-model="create.title"/>
                             </FormItem>
                         </div>
                     </div>
@@ -44,9 +46,9 @@
             </div>
             <div class="col-xs-12 col-sm-7 col-xs-offset-0 col-sm-offset-1 mrg-push-top">
                 <FormItem label="Principle Bio" prop="bio">
-                    <textarea name="bio" v-model="create.bio" @blur.native="handleSubmit('blur')"></textarea>
+                    <textarea name="bio" v-model="create.bio"></textarea>
                 </FormItem>
-                <div class="btn small margin-principal-m" @click="handleAdd('addPrincipal')">+ Add Principle</div>
+                <div class="btn small margin-principal-m" @click="handlePlus('addPrincipal')">+ Add Principle</div>
             </div>
             <div class="col-xs-12 col-sm-1 mrg-push-mid-top"><img src="/img/icon-large-arrow-right.svg"></div>
          </div>
@@ -170,21 +172,25 @@ export default {
         }
     },
     created () {
-        this.initData()
+        this.getPrinciples()
+        console.log(this.formDynamic)
     },
     methods: {
         getPrinciples () {
             var self = this
             self.loading = true
-            self.loadingtext = 'Pulling existing principles, hold on'
+            self.loadingtext = 'Pulling principles, hold on'
             axios
             .get(config.getPrinciples)
             .then(function(resp) {
             if (resp.data.status === 200) {
-                let a = JSON.parse(resp.data.response)
+                let a = resp.data.response
                 self.loading = false
                 a.map(function (x) {
-                    self.formDynamic.push(x)
+                    let c = x
+                    c.index = 1
+                    c.status = 1
+                    self.formDynamic.push(c)
                 });
             } else {
                 self.loading = false
@@ -195,7 +201,7 @@ export default {
                 return error
             });
         },
-        initData() {
+        /* initData() {
             if (this.data != '' || this.data != 'null') {
                 let a = JSON.parse(this.data)
                 if (typeof a === 'string' || a instanceof String) {
@@ -206,22 +212,29 @@ export default {
                 }
             }
             this.formDynamic.length ? this.mndex = this.formDynamic.length + 1 : ''
-        },
-        handleSubmit(e) {
+        }, */
+        /*handleSubmit(e) {
             var self = this
-            axios
-                .post(config.host + self.url, {
-                    'principles': JSON.stringify(self.formDynamic)
+            let data = {
+                name: self.formDynamic.name,
+                bio: slef.formDynamic.bio,
+                title: self.formDynamic.title,
+                url: self.url
+            }
+            console.log('called')
+            /* axios
+                .post(config.postPrinciples, {
+                    data
                 })
                 .then(function(resp) {
                     console.log(resp)
-                    resp.request.status === 200 && self.next === 'yes' && e === 'next' ? window.location.href = resp.data : ''
+                    //resp.request.status === 200 && self.next === 'yes' && e === 'next' ? window.location.href = resp.data : ''
                 })
                 .catch(function(error) {
                     return error
-                });
-        },
-        handleback () {
+                }); */
+        /*},
+        /* handleback () {
             this.back ? window.location.href = this.back : ''
         },
         successUpload(e) {
@@ -229,23 +242,33 @@ export default {
         },
         handleReset(name) {
             this.$refs['addPrincipal'].resetFields();
-        },
-        handleAdd(name) {
+        }, */
+        handlePlus(name) {
             this.$refs[name].validate((valid) => {
                 if (valid) {
+                    console.log('called')
                     let p = Object.assign({}, this.create);
                     this.create.index = this.mndex
                     this.formDynamic.push(p)
                     this.$refs[name].resetFields()
                     this.mndex++
                     this.clear = true
-                    this.handleSubmit('blur')
-                } else {
-                    this.$Message.error('Fail!');
-                }
-            })
+                    var self = this
+                    axios
+                        .post(config.postPrinciples, p)
+                        .then(function(resp) {
+                            console.log(resp)
+                            //resp.request.status === 200 && self.next === 'yes' && e === 'next' ? window.location.href = resp.data : ''
+                        })
+                        .catch(function(error) {
+                            return error
+                        });
+            } else {
+                this.$Message.error('Fail!');
+            }
+        })
         },
-        handleRemove(index) {
+       /* handleRemove(index) {
             this.$Modal.confirm({
                 title: 'Delete Principle',
                 content: '<p>Are you sure you want to delete Principle</p>',
@@ -257,7 +280,7 @@ export default {
                 },
                 onCancel: () => {}
             });
-        }
+        } */
     }
 };
 </script>

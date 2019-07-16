@@ -31,7 +31,6 @@ class FilesController extends Controller
         $section = $request->get('section');
 
         if ($request->get('access') === 'private') {
-            // Set Private Path
             $user = Auth::id();
             if (isset($user)) { 
                 $filePath = $user . $request->get('structure') . $filename;  
@@ -44,7 +43,7 @@ class FilesController extends Controller
                     ->where($matchArr)
                     ->first();
 
-                if ($request->get('multi') === 'no' && !empty($allfiles)) {
+                /* if ($request->get('multi') === 'no' && !empty($allfiles)) {
                     Storage::disk('s3')->delete($allfiles->path);
 
                     DB::table('files')
@@ -74,14 +73,19 @@ class FilesController extends Controller
                     'response' => 'Not Authenticated'
                 ]);
             }
-        } else{
+        } */
+            /*// Set Private Path
+            
+             */
+        /* } else{
             // Set Public Path
             $filePath = 'public/' . $request->get('structure') . $allfiles;
         }
         
         Storage::disk('s3')->put($filePath, file_get_contents($file));
+        */
 
-        $ext = pathinfo($filePath, PATHINFO_EXTENSION);
+        /* $ext = pathinfo($filePath, PATHINFO_EXTENSION);
         if ($ext == 'csv' || $ext == 'ods' || $ext == 'xlsx' || $ext == 'XLSX') {
             if ($section === 'captable') {
                 Storage::disk('local')->put($filePath, file_get_contents($file));
@@ -106,7 +110,7 @@ class FilesController extends Controller
             'message' => 'File uploaded successfully',
             'response' => $payload,
             'status' => 200
-        ]);
+        ]); */
     }
 
     public function readDocFiles($path) {

@@ -807,7 +807,7 @@
                 </div>
                 <principal-form
                     preview="true"
-                    url="security-fund-flow/step-6/create/meetSponsors"
+                    url="/principles/create"
                     data="{{ isset($data['principles']) ? $data['principles'] : '' }}"
                     user="{{Auth::id()}}"
                     map="security-fund-flow-files">

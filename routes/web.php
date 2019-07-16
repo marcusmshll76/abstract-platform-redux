@@ -65,7 +65,7 @@ Route::post('/account-settings/verification/bio/create', 'AccountSettingsControl
 // Principles (Meet The Principles, Property Owners, and Fund Managers)
 
 Route::get('/account-settings/verification/principles', 'AccountSettingsController@principles');
-Route::post('/account-settings/verification/principles/create', 'AccountSettingsController@createPrinciples');
+Route::post('/principles/create', 'Principles@createPrinciples');
 
 // References (Professional References)
 Route::get('/account-settings/verification/references', 'AccountSettingsController@references');
@@ -88,7 +88,7 @@ Route::post('/account-settings/password', 'AccountSettingsController@updatePassw
 Route::get('/account-settings/export', 'AccountSettingsController@exportData');
 
 // Get Principles
-Route::get('/principles/get', 'AccountSettingsController@getPrinciples');
+Route::get('/principles/get', 'Principles@getPrinciples');
 
 // Save Data
 Route::post('/account-settings/create/{principles?}', 'AccountSettingsController@saveData');
