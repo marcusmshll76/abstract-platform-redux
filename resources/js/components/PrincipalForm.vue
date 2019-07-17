@@ -24,7 +24,6 @@
                     multi="no"
                     map="principles-files"
                     :path="'/principles/' + mndex + '/'"
-                    section="principles-files"
                     >
                     <!-- @done="successUpload" -->
                 </uploads>
