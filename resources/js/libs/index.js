@@ -14,6 +14,7 @@ export default {
 	diligence: API_URL + 'files/diligence/create',
 	getPrinciples: API_URL + 'principles/get',
 	postPrinciples: API_URL + 'principles/create',
+	deletePrinciple: API_URL + 'principles/delete',
 	boxToken: API_URL + 'box/access-token',
 	boxRootFolder: API_URL + 'box/rootfolder',
 	boxFolderItems: API_URL + 'box/folder/items/',

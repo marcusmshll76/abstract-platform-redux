@@ -103,9 +103,6 @@ class AccountSettingsController extends Controller {
             case "capitalStack":
                 return redirect('/account-settings/step-6/meet-sponsors');
                 break;
-            case "principles":
-                return ('/account-settings/verification/references');
-                break;
             default:
                 return redirect('/account-settings/step-1/choose');
         }

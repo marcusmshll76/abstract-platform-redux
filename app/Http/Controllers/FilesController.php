@@ -80,7 +80,7 @@ class FilesController extends Controller
         }
         
         Storage::disk('s3')->put($filePath, file_get_contents($file));
-
+        
         $ext = pathinfo($filePath, PATHINFO_EXTENSION);
         if ($ext == 'csv' || $ext == 'ods' || $ext == 'xlsx' || $ext == 'XLSX') {
             if ($section === 'captable') {

@@ -14,7 +14,7 @@
             <principal-form 
                 next="yes"
                 back="/security-flow/step-5/capital-stack"
-                url="/principles/create" 
+                url="/security-flow/step-7/preview" 
                 data="{{ isset($data['principles']) ? $data['principles'] : '' }}"
                 user="{{Auth::id()}}"
                 map="security-flow-files">

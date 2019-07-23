@@ -175,7 +175,6 @@ export default {
         },
         success(res, file) {
             this.fileOld = file;
-            console.log(res);
             this.type === 'photos' ? this.getImage(res.response) : ''
             this.elname === 'image' && !this.flat ? this.getImage(res.response) : ''
             this.sus = true

@@ -104,9 +104,6 @@ class SecurityFundFlow extends Controller
             case "capitalStack":
                 return redirect('/security-fund-flow/step-6/meet-sponsors');
                 break;
-            case "meetSponsors":
-                return ('/security-fund-flow/step-7/preview');
-                break;
             default:
                 return redirect('/security-fund-flow/step-1/choose');
         }

@@ -4,7 +4,7 @@
         <Icon type="ios-loading" size="18" class="spin-icon-load"></Icon>
         <div>{{ loadingtxt }}</div>
     </Spin> 
-    <div v-if="!loading && iname !== 'filebutton'">
+    <div v-if="!loading && iname !== 'filebutton' && !src">
         <div v-if="files.length > 0">
             <!--- Display Static indexes -->
             <div class="row" v-if="iname === 'Digital Security Photo Gallery'">
@@ -55,6 +55,16 @@
             <div>No Available Files, Please Upload the required files</div>
         </Spin>
     </div>
+    <div v-if="iname !== 'filebutton' && src">
+         <!--- Display Images -->
+         <div v-if="url">
+             <img v-if="iname === 'Single'" class="single" :src="url" />
+         </div>
+         <Spin v-else>
+            <Icon type="ios-cube-outline" size="18" />
+            <div>File not found</div>
+        </Spin>
+    </div>
     <a v-if="iname === 'filebutton'" :href="files[0] ? files[0].src : '#not-found'" target="_blank" download>
         <Button class="btn full-width color-white" :loading="loading"> <b style="font-size:14px;">{{ title }}</b></Button></a>
 </div>
@@ -64,9 +74,10 @@
 import axios from 'axios'
 import config from '../libs'
 export default {
-    props: ['title', 'user', 'path', 'field', 'scope', 'iname', 'index', 'sectionid', 'section'],
+    props: ['title', 'user', 'path', 'field', 'scope', 'iname', 'src', 'index', 'sectionid', 'section'],
     data () {
         return {
+            url: '',
             files: [],
             loading: true,
             loadingtxt: 'Loading Files, Please Hold On'
@@ -80,7 +91,6 @@ export default {
             .get(config.getFiles + url)
             .then(function(resp) {
               self.files = resp.data
-              self.loading = false
             })
             .catch(function(error) {
                 return error

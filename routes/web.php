@@ -66,6 +66,7 @@ Route::post('/account-settings/verification/bio/create', 'AccountSettingsControl
 
 Route::get('/account-settings/verification/principles', 'AccountSettingsController@principles');
 Route::post('/principles/create', 'Principles@createPrinciples');
+Route::delete('/principles/delete', 'Principles@deletePrinciple');
 
 // References (Professional References)
 Route::get('/account-settings/verification/references', 'AccountSettingsController@references');

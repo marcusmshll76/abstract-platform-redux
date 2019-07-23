@@ -7,10 +7,10 @@
 <div v-else>
 <div class="principal-section">
     <Form ref="addPrincipal" :model="create" :rules="ruleValidate" v-if="!preview">
-        <div class="margin-bottom-m border-bottom full-width" v-if="!type">
+        <!-- <div class="margin-bottom-m border-bottom full-width" v-if="!type">
             <input v-model="check" type="checkbox" class="checkbox-box">
             <div class="checkbox-p">Check this box to quickly add any Principals you have already attached to your account during Abstract’s Account Set Up. <br/>You can also manually add in other Princpals from your team below. </div>
-        </div>
+        </div> -->
         <div class="row margin-top-l">
             <div class="col-xs-12 col-sm-3">
                 <uploads
@@ -20,12 +20,12 @@
                     elname="image"
                     scope="private"
                     :clear="clear"
-                    :field="'principles' + mndex"
-                    multi="no"
+                    field="principles"
+                    multi="yes"
                     map="principles-files"
                     :path="'/principles/' + mndex + '/'"
+                    @done="successUpload"
                     >
-                    <!-- @done="successUpload" -->
                 </uploads>
                 <br/>
                 <div class="content-form">
@@ -60,16 +60,7 @@
                 <div class="row">
                     <div class="col-xs-12 col-sm-4 col-md-3">
                         <div class="file-upload-box-filled">
-                            <previews
-                                class="view-principles"
-                                iname="Single"
-                                scope="private"
-                                :user="user"
-                                :field="'principles' + parseInt(index + 1)"
-                                :path="'/principles/' + parseInt(index + 1) + '/'"
-                                :index="0"
-                                section="principles-files">
-                            </previews>
+                            <img :src="item.src" />
                             <br/><br/>
                         </div>
                         <div class="content-form">
@@ -88,7 +79,7 @@
                     <div class="col-xs-12 col-sm-7 col-md-offset-1">
                         <p class="no-margin-top">Principle Bio</p>
                         <textarea class="textarea" @blur.native="handleSubmit('blur')" v-model="item.bio"></textarea>
-                        <a @click="handleRemove(index)" class="btn margin-top-m small color-white dust margin-right-m cursor-hand">Remove Principal</a>
+                        <Button :loading="delLoader" @click="handleRemove(index, item.id)" class="btn margin-top-m color-white dust margin-right-m cursor-hand rm-boost"><b>Remove Principal</b></Button>
                     </div>
                      <div class="col-xs-12 col-sm-1 mrg-push-extra-top"><img src="/img/icon-large-arrow-right.svg"></div>
                 </div>
@@ -113,22 +104,24 @@
         </div>
     </div>
 </div>
-<popup-component
+<!-- 
+    ### Disable Popoup but maintain it for future use ###
+    <popup-component
     v-if="error"
     title="Existing Principles Action"
     type="recurring" 
     :user="user"
     info="<h5>You have no existing principles saved. </h5>"
     action="Got It!">
-</popup-component>
+</popup-component> -->
 </div>
 </template>
 
 <script>
 import axios from 'axios'
 import config from '../libs'
-import uploads from './UploadsComponent';
-import previews from './FilePreview';
+import uploads from './UploadsComponent'
+import previews from './FilePreview'
 export default {
     props: ['type', 'next', 'url', 'map', 'data', 'user', 'preview', 'back'],
     components: {
@@ -139,14 +132,17 @@ export default {
         return {
             check: false,
             mndex: 1,
+            delLoader: false,
             loading: false,
             loadingtext: 'Pulling existing principles, hold on',
             formDynamic: [],
             error: false,
+            files: [],
             create: {
                 bio: '',
                 name: '',
                 title: '',
+                path: '',
                 index: 1,
                 status: 1
             },
@@ -168,11 +164,13 @@ export default {
     watch: {
         check: function (val) {
           val === true ? this.getPrinciples() : ''
+        },
+        files: function (n, o) {
+           this.getPrinciples() 
         }
     },
     created () {
-        this.getPrinciples()
-        console.log(this.formDynamic)
+        this.getFiles()
     },
     methods: {
         getPrinciples () {
@@ -182,71 +180,49 @@ export default {
             axios
             .get(config.getPrinciples)
             .then(function(resp) {
-            if (resp.data.status === 200) {
-                let a = resp.data.response
-                self.loading = false
-                a.map(function (x) {
-                    let c = x
-                    c.index = 1
-                    c.status = 1
-                    self.formDynamic.push(c)
-                });
-            } else {
-                self.loading = false
-                self.error = true;
-            }
+                if (resp.data.status === 200) {
+                    let a = resp.data.response
+                    self.loading = false
+                    a.map(function (x) {
+                        x.index = 1
+                        x.status = 1
+                        for (let key in self.files) {
+                            if (self.files[key]) {
+                                x.image === self.files[key].path ? x.src = self.files[key].src : ''
+                            }
+                        }
+                        self.formDynamic.push(x)
+                    })
+                } else {
+                    self.loading = false
+                }
+            })
+            .catch(function(error) {
+                return error
+            })
+        },
+        getFiles() {
+            var self = this
+            let x = '?user=' + self.user + '&&field=principles&&section=principles-files'
+            axios
+            .get(config.getFiles + x)
+            .then(function(resp) {
+                self.files = resp.data
             })
             .catch(function(error) {
                 return error
             });
         },
-        /* initData() {
-            if (this.data != '' || this.data != 'null') {
-                let a = JSON.parse(this.data)
-                if (typeof a === 'string' || a instanceof String) {
-                    this.formDynamic = JSON.parse(a)
-                    console.log(a)
-                } else {
-                    this.formDynamic = a
-                }
-            }
-            this.formDynamic.length ? this.mndex = this.formDynamic.length + 1 : ''
-        }, */
-        /*handleSubmit(e) {
-            var self = this
-            let data = {
-                name: self.formDynamic.name,
-                bio: slef.formDynamic.bio,
-                title: self.formDynamic.title,
-                url: self.url
-            }
-            console.log('called')
-            /* axios
-                .post(config.postPrinciples, {
-                    data
-                })
-                .then(function(resp) {
-                    console.log(resp)
-                    //resp.request.status === 200 && self.next === 'yes' && e === 'next' ? window.location.href = resp.data : ''
-                })
-                .catch(function(error) {
-                    return error
-                }); */
-        /*},
-        /* handleback () {
+        successUpload(e) {
+            e.response.path ? this.create.path = e.response.path : ''
+        },
+        handleback () {
             this.back ? window.location.href = this.back : ''
         },
-        successUpload(e) {
-            console.log(e)
-        },
-        handleReset(name) {
-            this.$refs['addPrincipal'].resetFields();
-        }, */
         handlePlus(name) {
             this.$refs[name].validate((valid) => {
-                if (valid) {
-                    console.log('called')
-                    let p = Object.assign({}, this.create);
+                if (valid && this.create.path !== '') {
+                    let p = Object.assign({}, this.create)
                     this.create.index = this.mndex
                     this.formDynamic.push(p)
                     this.$refs[name].resetFields()
@@ -256,32 +232,46 @@ export default {
                     axios
                         .post(config.postPrinciples, p)
                         .then(function(resp) {
-                            console.log(resp)
-                            //resp.request.status === 200 && self.next === 'yes' && e === 'next' ? window.location.href = resp.data : ''
+                            self.formDynamic = []
+                            self.getFiles() 
                         })
                         .catch(function(error) {
                             return error
-                        });
-            } else {
-                this.$Message.error('Fail!');
-            }
-        })
+                        })
+                } else {
+                    this.$Message.error('All fields are required')
+                }
+            })
         },
-       /* handleRemove(index) {
+        handleSubmit(e) {
+            this.next === 'yes' && e === 'next' ? window.location.href = this.url : ''
+        },
+        handleReset(name) {
+            this.$refs['addPrincipal'].resetFields()
+        },
+        handleRemove(index, id) {
             this.$Modal.confirm({
                 title: 'Delete Principle',
                 content: '<p>Are you sure you want to delete Principle</p>',
                 okText: 'Delete',
                 cancelText: 'Cancel',
                 onOk: () => {
-                    this.formDynamic.splice(index, 1);
-                    this.handleSubmit('blur')
+                    this.deleteAction(id, index)
                 },
                 onCancel: () => {}
-            });
-        } */
+            })
+        },
+        deleteAction (id, index) {
+            var self = this
+            self.formDynamic.splice(index, 1)
+            axios
+            .delete(config.deletePrinciple, { data: { id: id } })
+            .then(function(resp) {}).catch(function(error) {
+                return error
+            })
+        }
     }
-};
+}
 </script>
 <style>
 .checkbox-p{
@@ -339,5 +329,8 @@ input[type="checkbox"]:checked{
 }
 .principal-section{
     padding: 10px !important;
+}
+.rm-boost{
+    font-size: 16px;
 }
 </style>

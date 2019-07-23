@@ -14,7 +14,7 @@
         <principal-form
             back="/account-settings/verification/bio"
             next="yes"
-            url="/principles/create" 
+            url="/account-settings/verification/references" 
             data="{{ isset($data['principles']) ? $data['principles'] : '' }}"
             user="{{ Auth::id() }}"
             type="account settings"
