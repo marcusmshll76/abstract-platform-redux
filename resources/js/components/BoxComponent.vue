@@ -1,5 +1,5 @@
 <template>
-<div class="full-width">
+<div class="full-width" ref="fileform">
     <Row type="flex" justify="center" align="middle" v-if="loading">
         <Spin>
             <Icon type="ios-loading" size="18" class="spin-icon-load"></Icon>
@@ -7,7 +7,7 @@
         </Spin>
     </Row>
     <div class="full-width" id="file-drag-drop" v-bind:class="{ 'dragover': dragTrue }" v-else>
-        <div class="row contextArea drop drop-files" ref="fileform" @contextmenu.prevent="$refs.menu.open">
+        <div class="row contextArea drop drop-files" @contextmenu.prevent="$refs.menu.open">
            <nested-draggable @moved="moved" @done="refresh" :struc="struc" :txtindex="txt" :data="list" />
         </div>
         <vue-context ref="menu">
