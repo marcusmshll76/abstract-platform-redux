@@ -13,6 +13,7 @@ class Principles extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('principles');
         Schema::create('principles', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedInteger('user')->nullable();
