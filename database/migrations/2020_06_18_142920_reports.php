@@ -13,6 +13,7 @@ class Reports extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('reports');
         Schema::create('reports', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('userid')->nullable();
