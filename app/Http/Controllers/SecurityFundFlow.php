@@ -66,12 +66,16 @@ class SecurityFundFlow extends Controller
 
     public function final (Request $request) {
         $userid = Auth::id();
+        $company = DB::table('account_verification')
+            ->where('userid', $userid)
+            ->select('company_name')
+            ->first();
         $bio = DB::table('account_verification')
             ->where('userid', $userid)
             ->value('bio');
         $data = $request->session()->get('security-fund-flow');
         
-        return view( 'security-fund-flow.step-7.final', [ 'title' => 'Create Digital Security > Preview & Submit' ] )->with(compact('data', 'bio'));
+        return view( 'security-fund-flow.step-7.final', [ 'title' => 'Create Digital Security > Preview & Submit' ] )->with(compact('data', 'company', 'bio'));
     }
 
     // Save Data into a session
@@ -116,10 +120,6 @@ class SecurityFundFlow extends Controller
             $keyPoints = $request->session()->get('security-fund-flow.key-points');
         }
 
-        if (!empty($request->session()->get('security-fund-flow.principles'))) {
-            $principles = $request->session()->get('security-fund-flow.principles');
-        }
-
         if (!empty($request->session()->get('capRead'))) {
             $capRead = json_encode($request->session()->get('capRead'));
         } else {
@@ -149,15 +149,6 @@ class SecurityFundFlow extends Controller
             'zip' => $request->get('zip'),
             'country' => $request->get('country'),
             'fund-description' => $request->get('fund-description'),
-            'investor-first-name' => $request->get('investor-first-name'),
-            'investor-last-name' => $request->get('investor-last-name'),
-            'ownership' => $request->get('ownership'),
-            'investor-first-name-1' => $request->get('investor-first-name-1'),
-            'investor-last-name-1' => $request->get('investor-last-name-1'),
-            'ownership-1' => $request->get('ownership-1'),
-            'investor-first-name-2' => $request->get('investor-first-name-2'),
-            'investor-last-name-2' => $request->get('investor-last-name-2'),
-            'ownership-2' => $request->get('ownership-2'),
             'minimum-raise-amount' => $request->get('minimum-raise-amount'),
             'distribution-frequency' => $request->get('distribution-frequency'),
             'maximum-raise-amount' => $request->get('maximum-raise-amount'),
@@ -178,14 +169,13 @@ class SecurityFundFlow extends Controller
             'loan-type' => $request->get('loan-type'),
             'developed' => $request->get('developed'),
             'existing-properties' => $request->get('existing-properties'),
-            'principles' => json_encode($principles),
+            'principles' => '',
             'key-points' => $keyPoints,
             'captables' => $capRead,
             "created_at" =>  \Carbon\Carbon::now(),
             "updated_at" => \Carbon\Carbon::now()
         );
-        if (!empty($request->get('updateflow'))) {  
-            dd('man'); 
+        if (!empty($request->get('updateflow'))) {
             DB::table('security_fund_flow')
                 ->where('userid', $userid)
                 ->where('id', $request->get('updateflow'))
@@ -201,7 +191,7 @@ class SecurityFundFlow extends Controller
         // Validations
         $capRule = [];
         if(empty($request->session()->get('capRead'))) {
-            $capRule = [
+            /* $capRule = [
                 'investor-first-name' => 'required',
                 'investor-last-name' => 'required',
                 'ownership' => 'required',
@@ -211,7 +201,7 @@ class SecurityFundFlow extends Controller
                 'investor-first-name-2' => 'required',
                 'investor-last-name-2' => 'required',
                 'ownership-2' => 'required',
-            ];
+            ]; */
         }
         $condRule = [];
         if ($request->get('fund-type') === 'Yes') {
@@ -268,7 +258,7 @@ class SecurityFundFlow extends Controller
         $rules = array_merge( $rules, $condRule, $capRule);
         $this->validate($request, $rules);
 
-        if (isset($keyPoints) && isset($principles)) {
+        if (isset($keyPoints)) {
             $id = DB::table('security_fund_flow')->insertGetId($payload);
             if ($request->session()->get('security-fund-flow-files')) {
                 // dd($request->session()->get('account-verification'));

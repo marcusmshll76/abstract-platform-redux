@@ -61,7 +61,15 @@ class AccountSettingsController extends Controller {
     }
 
     public function diligence(Request $request) {
-        return view( 'account-settings.diligence', [ 'title' => 'Account Settings -> Sponsor Diligence' ] )->with('data', $request->session()->get('account-settings'));
+        $userid = Auth::id();
+        $company = DB::table('account_verification')
+            ->where('userid', $userid)
+            ->select('company_name')
+            ->first();
+
+        $data = $request->session()->get('account-settings');
+        
+        return view( 'account-settings.diligence', [ 'title' => 'Account Settings -> Sponsor Diligence' ] )->with(compact('data', 'company'));
     }
 
     public function createDiligence(Request $request) {
@@ -112,7 +120,14 @@ class AccountSettingsController extends Controller {
      * ******* Preview
      **************/
     public function preview(Request $request) {
-        return view( 'account-settings.preview', [ 'title' => 'Account Settings -> Preview' ] )->with('data', $request->session()->get('account-settings'));
+        $userid = Auth::id();
+        $company = DB::table('account_verification')
+            ->where('userid', $userid)
+            ->select('company_name')
+            ->first();
+        
+        $data = $request->session()->get('account-settings');
+        return view( 'account-settings.preview', [ 'title' => 'Account Settings -> Preview' ] )->with(compact('data', 'company'));
     }
 
 
@@ -120,8 +135,6 @@ class AccountSettingsController extends Controller {
         $session_data = session( 'account-settings', array() );
         $session_data = array_merge( $session_data, $_POST );
         session( [ 'account-settings' => $session_data ] );
-
-        /* ### Production Turn On
         
         $this->validate($request, [
             'company_name' => 'required',
@@ -159,7 +172,7 @@ class AccountSettingsController extends Controller {
             'reference_name_4' => 'required',
             'reference_phone_4' => 'required',
             'reference_email_4' => 'required|email'
-        ]); */
+        ]);
         
         if (!empty($request->session()->get('account-settings.principles'))) {
             $principles = $request->session()->get('account-settings.principles');

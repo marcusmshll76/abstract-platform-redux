@@ -36,8 +36,14 @@ class SecurityFlow extends Controller
         return view( 'security-flow.step-2.ownership', [ 'title' => 'Create Digital Security > Ownership' ] )->with('data', $request->session()->get('security-flow'));
     }
 
-    public function diligence () {
-        return view( 'security-flow.step-3.diligence', [ 'title' => 'Create Digital Security > Ownership' ] );
+    public function diligence (Request $request) {
+        $userid = Auth::id();
+        $company = DB::table('account_verification')
+            ->where('userid', $userid)
+            ->select('company_name')
+            ->first();
+        $data = $request->session()->get('security-flow');
+        return view( 'security-flow.step-3.diligence', [ 'title' => 'Create Digital Security > Ownership' ] )->with(compact('company', 'data'));
     }
 
     public function keyPoints (Request $request) {
@@ -58,12 +64,15 @@ class SecurityFlow extends Controller
 
     public function final (Request $request) {
         $userid = Auth::id();
+        $company = DB::table('account_verification')
+            ->where('userid', $userid)
+            ->select('company_name')
+            ->first();
         $bio = DB::table('account_verification')
             ->where('userid', $userid)
             ->value('bio');
         $data = $request->session()->get('security-flow');
-        
-        return view( 'security-flow.step-7.final', [ 'title' => 'Create Digital Security > Preview & Submit' ] )->with(compact('data', 'bio'));
+        return view( 'security-flow.step-7.final', [ 'title' => 'Create Digital Security > Preview & Submit' ] )->with(compact('data', 'company', 'bio'));
     }
 
     public function display (Request $request) {
@@ -178,17 +187,13 @@ class SecurityFlow extends Controller
             $keyPoints = $request->session()->get('security-flow.key-points');
         }
 
-        if (!empty($request->session()->get('security-flow.principles'))) {
-            $principles = $request->session()->get('security-flow.principles');
-        }
-
         if (!empty($request->session()->get('capRead'))) {
             $capRead = json_encode($request->session()->get('capRead'));
         } else {
             $capRead = '';
         }
 
-        if (isset($keyPoints) && !empty(json_encode($principles))) {
+        if (isset($keyPoints)) {
             $userid = Auth::id();
             $payload = array(
                 'userid' => $userid,
@@ -241,7 +246,7 @@ class SecurityFlow extends Controller
                 'common-equity' => $request->get('common-equity'),
                 'mezzanine-debt' => $request->get('mezzanine-debt'),
                 'senior-debt' => $request->get('senior-debt'),
-                'principles' => json_encode($principles),
+                'principles' => '',
                 'captables' => $capRead,
                 'key-points' => $keyPoints,
                 "created_at" =>  \Carbon\Carbon::now(),

@@ -30,24 +30,32 @@
                 <div class="dashboard-menu-tile-container">
                     <div class="row">
                         <div class="col-xs-12 col-sm-3">
+                        <a href="/account-settings/verification">
                             <div class="dashboard-menu-tile"><img src="/img/icon-user-etting-blue.svg">
-                                <a class="color-white" href="/account-settings/verification"><h5>Account Settings</h5></a>
+                                <h5>Account Settings</h5>
                             </div>
+                            </a>
                         </div>
                         <div class="col-xs-12 col-sm-3">
+                        <a class="color-white" href="/properties/approved">
                             <div class="dashboard-menu-tile active"><img src="/img/icon-building-white-menu.svg">
-                                <a class="color-white" href="/properties/approved"><h5>My Properties</h5></a>
+                                <h5>My Properties</h5>
                             </div>
+                            </a>
                         </div>
                         <div class="col-xs-12 col-sm-3">
+                        <a href="/investor-servicing/choose-investment">
                             <div class="dashboard-menu-tile"><img src="/img/icon-paper-settings.svg">
-                                <a href="/investor-servicing/choose-investment"><h5>Investor Servicing</h5></a>
+                                <h5>Investor Servicing</h5>
                             </div>
+                            </a>
                         </div>
                         <div class="col-xs-12 col-sm-3">
+                        <a href="/security-fund-flow/step-1/choose">
                             <div class="dashboard-menu-tile"><img src="/img/icon-secured.svg">
-                                <a href="/security-flow/step-1/choose"><h5>Create Digital Security</h5></a>
+                                <h5>Create Digital Security</h5>
                             </div>
+                        </a>
                         </div>
                     </div>
                 </div>

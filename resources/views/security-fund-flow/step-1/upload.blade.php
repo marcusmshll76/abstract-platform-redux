@@ -26,6 +26,7 @@
                             class="large margin-bottom-m-md"
                             map="security-fund-flow-files">
                         </uploads-component>
+                        
                     </div>
                     <div class="col-xs-12 col-md-6">
                         <div class="row margin-bottom-m">

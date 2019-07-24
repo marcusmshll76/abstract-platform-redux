@@ -52,7 +52,7 @@
         </div>
         <Spin v-else>
             <Icon type="ios-cube-outline" size="18" />
-            <div>No Available Files, Please Upload the required files</div>
+            <div>File not found</div>
         </Spin>
     </div>
     <div v-if="iname !== 'filebutton' && src">
@@ -91,6 +91,7 @@ export default {
             .get(config.getFiles + url)
             .then(function(resp) {
               self.files = resp.data
+              self.loading = false
             })
             .catch(function(error) {
                 return error

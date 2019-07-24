@@ -73,7 +73,7 @@
         :on-exceeded-size="maxSize"
         :data="payload">
         <div class="photo-upload-box">
-            <img :src="src ? src : '/img/icon-upload.svg'">
+            <img v-if="src" :style="[src ? {'width':'auto', 'height':'100%'} : '']" :src="src">
         </div>
     </Upload>
 

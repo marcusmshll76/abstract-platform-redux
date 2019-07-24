@@ -17,7 +17,14 @@ class Property extends Controller
     }
     
     public function newProperty(Request $request) {
-        return view( 'investor-servicing.property.index', [ 'title' => 'Upload New Property > Investor Servicing'] )->with('data', $request->session()->get('property'));
+        $userid = Auth::id();
+        $company = DB::table('account_verification')
+            ->where('userid', $userid)
+            ->select('company_name')
+            ->first();
+        
+        $data = $request->session()->get('property');
+        return view( 'investor-servicing.property.index', [ 'title' => 'Upload New Property > Investor Servicing'] )->with(compact('data', 'company'));
     }
 
     // Submit Preview Data

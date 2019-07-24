@@ -38,33 +38,39 @@
                 <div class="dashboard-menu-tile-container">
                     <div class="row">
                         <div class="col-xs-12 col-sm-3">
-                            <div class="dashboard-menu-tile"><img src="/img/icon-user-etting-blue.svg">
-                            <a href="{{ $site -> host == 'abstract' ? '/account-settings/verification' : '/account-settings/investor-info' }}"><h5>Account Settings</h5></a>
-                            </div>
+                        <a href="{{ $site -> host == 'abstract' ? '/account-settings/verification' : '/account-settings/investor-info' }}"><div class="dashboard-menu-tile"><img src="/img/icon-user-etting-blue.svg">
+                            <h5>Account Settings</h5>
+                            </div></a>
                         </div>
                         @if ($site -> host == 'abstract')
                             <div class="col-xs-12 col-sm-3">
+                            <a class="color-white" href="/properties/approved">
                                 <div class="dashboard-menu-tile"><img src="/img/icon-building.svg">
-                                    <a class="color-white" href="/properties/approved"><h5>My Properties</h5></a>
+                                    <h5>My Properties</h5>
                                 </div>
+                            </a>
                             </div>
                         @endif
                         <div class="col-xs-12 col-sm-3">
+                        <a href="/investor-servicing/choose-investment">
                             <div class="dashboard-menu-tile active"><img src="/img/icon-paper-settings-active.svg">
-                                <a href="/investor-servicing/choose-investment"><h5>
+                                <h5>
                                 @if ($site -> host == 'abstract') 
                                     Investor Servicing
                                 @else
                                     Your Investments
                                 @endif
-                            </h5></a>
+                            </h5>
                             </div>
+                        </a>
                         </div>
                         @if ($site -> host == 'abstract')
                         <div class="col-xs-12 col-sm-3">
+                        <a href="/security-fund-flow/step-1/choose">
                             <div class="dashboard-menu-tile"><img src="/img/icon-security-blue.svg">
-                                <a href="/security-fund-flow/step-1/choose"><h5>Create Digital Security</h5></a>
+                                <h5>Create Digital Security</h5>
                             </div>
+                        </a>
                         </div>
                         @endif
                     </div>

@@ -5060,12 +5060,14 @@ fieldset[disabled] .ivu-input:hover {
     color: #fff !important;
 }
 .photo-upload-box{
-    display: -webkit-box;
+    /* display: -webkit-box;
     display: -moz-box;
     display: -ms-flexbox;
     display: -webkit-flex;
     display: flex;
-    justify-content: center;
+    justify-content: center; */
+    display: inline-block;
+    vertical-align: middle;
     overflow: hidden !important;
 }
 .large .photo-upload-box{height:535px !important;}

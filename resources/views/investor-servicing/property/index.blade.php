@@ -145,9 +145,13 @@
                     <h5>Investors Signed Subscription Documents</h5>
                     <p>Please drag and drop to the space below the signed investor subscription documents or the operating agreement signed by your investors:</p>
                     <div class="breadcrumb margin-top-m">
-                        <p>All Files<img src="/img/icon-arrow-right.svg">Sponsor Company Name<img src="/img/icon-arrow-right.svg">Investor Servicing<img src="/img/icon-arrow-right.svg">Subscription Documents</p>
+                        <p>All Files <img src="/img/icon-arrow-right.svg"> {{ !empty($company) ? $company->company_name : 'Sponsor Company' }} <img src="/img/icon-arrow-right.svg"> Investor Servicing <img src="/img/icon-arrow-right.svg"> Subscription Documents</p>
                     </div>
-                    <box-component struc="investor-servicing"></box-component>
+                    <box-component
+                        user="{{ Auth::id() }}"
+                        owner="{{ !empty($company) ? $company->company_name : '' }}" 
+                        struc="diligence">
+                    </box-component>
                 </div>
             </div>
             <div class="row prop-new">

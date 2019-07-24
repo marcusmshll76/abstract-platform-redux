@@ -60,8 +60,14 @@ class Marketplace extends Controller
                 ->value('bio');
 
             $data = (array) $a;
+
+            $company = DB::table('account_verification')
+            ->where('userid', $userid)
+            ->select('company_name')
+            ->first();
+
             // $data ['principles'] = json_decode($data['principles']);
-            return view( 'marketplace.final', [ 'title' => 'New > Marketplace'] )->with(compact('data', 'bio'));
+            return view( 'marketplace.final', [ 'title' => 'New > Marketplace'] )->with(compact('data', 'company', 'bio'));
             // return redirect('/'.$ses.'/preview');
         } 
     }

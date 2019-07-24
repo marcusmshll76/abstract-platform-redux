@@ -16,13 +16,17 @@
                 <div class="row">
                     <div class="col-xs-12 col-md-6">
                         <div class="breadcrumb">
-                            <p>All Files<img src="/img/icon-arrow-right.svg">Cephas Partners Diligence & Deal Documents</p>
+                            <p>All Files<img src="/img/icon-arrow-right.svg">{{ !empty($company) ? $company->company_name : '' }} Diligence & Deal Documents</p>
                         </div>
                     </div>
                     <div class="col-xs-12 col-md-6"><input type="search"></div>
                 </div>
                 <div class="row">
-                    <box-component struc="diligence"></box-component>
+                    <box-component
+                        user="{{ Auth::id() }}"
+                        owner="{{ !empty($company) ? $company->company_name : '' }}" 
+                        struc="diligence">
+                    </box-component>
                 </div>
                 <div class="row">
                         <div class="col-xs-12">

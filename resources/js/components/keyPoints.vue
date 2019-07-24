@@ -18,7 +18,7 @@
     </div>
     <div class="col-xs-6 col-sm-6">
         <div class="content-footer">
-            <a @click="saveData('submit')" class="btn margin-key-m color-white fl-right" v-if="next === 'yes'">Next</a>
+            <a @click="saveData('submit')" class="btn margin-key-m color-white fl-right" v-if="next === 'yes'">{{nxtext}}</a>
         </div>
     </div>
 </div>
@@ -37,6 +37,7 @@ export default {
     },
     data() {
         return {
+            nxtext: 'Save',
             error: false,
             content: '',
             customToolbar: [
@@ -67,7 +68,11 @@ export default {
                     'key-point': self.content,
                 })
                 .then(function(resp) {
-                    resp.request.status === 200 && self.next === 'yes' && e !== 'blur' ? window.location.href = resp.data : ''
+                    self.nxtext = 'Next'
+                    setTimeout(function(){
+                        resp.request.status === 200 && self.next === 'yes' && e !== 'blur' ? window.location.href = resp.data : ''
+                    }, 3000);
+                    
                 })
                 .catch(function(error) {
                     return error

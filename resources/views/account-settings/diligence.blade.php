@@ -33,11 +33,16 @@
                         <div class="card">
                             <div class="card-title">
                                 <div class="breadcome">
-                                    <p>All Files<img src="/img/icon-arrow-right.svg"> Diligence Documents </p>
+                                    <p>All Files <img src="/img/icon-arrow-right.svg"> {{ !empty($company) ? $company->company_name : '' }} Diligence Documents </p>
                                 </div>
                             </div>
                             <div class="card-content">
-                            <box-component struc="account-settings"></box-component>
+                                <!-- todo fix company name in session -->
+                            <box-component
+                                user="{{ Auth::id() }}"
+                                owner="{{ !empty($company) ? $company->company_name : '' }}" 
+                                struc="diligence">
+                            </box-component>
                             </div>
                         </div>
                     </div>

@@ -126,7 +126,7 @@ export default {
 <style>
 .dragArea {
     width: 100%;
-    min-height: 25px;
+    min-height: 20px;
 }
 
 .dragArea .ivu-icon-ios-folder-open {
