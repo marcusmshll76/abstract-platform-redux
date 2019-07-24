@@ -13,6 +13,7 @@ class Property extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('property');
         Schema::create('property', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('userid')->nullable();
