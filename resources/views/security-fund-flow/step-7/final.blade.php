@@ -13,6 +13,10 @@
         action="Got It!"
         url="/properties/approved">
     </popup-component>
+    <temp-clear 
+        field="fund-digital-security"
+        cook="up1,up2,up3,up4,up5">
+    </temp-clear>
 @endif
 <input type="hidden" name="updateflow" value="{{isset($data['id']) ? $data['id'] : ''}}"/>
 <div class="card margin-top-m">

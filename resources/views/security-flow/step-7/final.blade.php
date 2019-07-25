@@ -13,6 +13,10 @@
         action="Got It!"
         url="/properties/approved">
     </popup-component>
+    <temp-clear 
+        field="digital-security"
+        cook="up1,up2,up3,up4,up5">
+    </temp-clear>
 @endif
 <div class="card margin-top-m">
     <div class="card-title blue">

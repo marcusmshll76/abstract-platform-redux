@@ -120,8 +120,9 @@
 <script>
 import axios from 'axios'
 import config from '../libs'
+import Cookies from 'js-cookie';
 export default {
-    props: ['type', 'action', 'title', 'field', 'multi', 'icon', 'flat', 'path', 'elname', 'scope', 'refresh', 'section', 'small', 'clear', 'map'],
+    props: ['type', 'action', 'title', 'field', 'multi', 'icon', 'flat', 'path', 'elname', 'scope', 'refresh', 'section', 'small', 'clear', 'map','cook'],
     data () {
         return {
             loadertext: 'Uploading file',
@@ -143,6 +144,9 @@ export default {
             map: this.map
         }
         this.header = document.head.querySelector("[name~=csrf-token][content]").content
+        if (Cookies.get(this.field + this.cook)) {
+            this.src = Cookies.get(this.field + this.cook)
+        }
     },
     watch: {
         clear: function (n) {
@@ -166,6 +170,12 @@ export default {
                 resp.data.map(function (x) {
                     if (x.path === res.path) {
                         self.src = x.src
+                        if (self.cook) {
+                            Cookies.remove(self.field + self.cook);
+                            Cookies.set(self.field + self.cook, x.src, {
+                                expires: 1
+                            })
+                        }
                     }
                 });
             })
@@ -175,8 +185,12 @@ export default {
         },
         success(res, file) {
             this.fileOld = file;
-            this.type === 'photos' ? this.getImage(res.response) : ''
-            this.elname === 'image' && !this.flat ? this.getImage(res.response) : ''
+            if (this.cook) {
+                this.getImage(res.response)
+            } else {
+                this.type === 'photos' ? this.getImage(res.response) : ''
+                this.elname === 'image' && !this.flat ? this.getImage(res.response) : ''
+            }
             this.sus = true
             this.loadertext = 'File Uploaded'
             var self = this

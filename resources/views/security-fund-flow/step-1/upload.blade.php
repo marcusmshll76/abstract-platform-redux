@@ -22,6 +22,7 @@
                             scope="private"
                             field="fund-digital-security"
                             multi="yes"
+                            cook="up1"
                             path="/digital-security/fund/photo-gallery/"
                             class="large margin-bottom-m-md"
                             map="security-fund-flow-files">
@@ -38,6 +39,7 @@
                                     scope="private"
                                     field="fund-digital-security"
                                     multi="yes"
+                                    cook="up2"
                                     path="/digital-security/fund/photo-gallery/"
                                     class="margin-bottom-m-md"
                                     map="security-fund-flow-files">
@@ -52,6 +54,7 @@
                                         scope="private"
                                         field="fund-digital-security"
                                         multi="yes"
+                                        cook="up3"
                                         path="/digital-security/fund/photo-gallery/"
                                         class="margin-bottom-m-md"
                                         map="security-fund-flow-files">
@@ -70,6 +73,7 @@
                                         path="/digital-security/fund/photo-gallery/"
                                         field="fund-digital-security"
                                         multi="yes"
+                                        cook="up4"
                                         class="margin-bottom-m-md"
                                         map="security-fund-flow-files">
                                     </uploads-component>
@@ -85,6 +89,7 @@
                                         path="/digital-security/fund/photo-gallery/"
                                         field="fund-digital-security"
                                         multi="yes"
+                                        cook="up5"
                                         class="margin-bottom-m-md"
                                         map="security-fund-flow-files">
                                     </uploads-component>
