@@ -64,7 +64,8 @@ class Property extends Controller
             'bankTransfer'=> $request->get('bankTransfer'),
             'captables' => $capRead,
             "created_at" =>  \Carbon\Carbon::now(),
-            "updated_at" => \Carbon\Carbon::now()
+            "updated_at" => \Carbon\Carbon::now(),
+            'status' => 'Approved'
         );
         // If a cap table file was uploaded, populate the appropriate information
         $cap_table = json_decode( $capRead );
