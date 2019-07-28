@@ -97,8 +97,8 @@
                                 <div class="row center-xs margin-top-m">
                                     <!-- <input type="submit" value="Download CSV of Distributions"> -->
                                     <!-- @remove and update dynamically -->
-                                    <a href="/28912SAIAS232/DistributionExport-932422.xlsx" class="btn color-white mrg-left" download>Download CSV of Distributions</a>
-                                    <a href="/28912SAIAS232/PopulatedACH-3223454.txt" class="btn color-white mrg-left" download>Download NACHA File</a>
+                                    <a href="/investor-servicing/distributions/csv/{{$type}}/{{rand()}}/{{$id}}" class="btn color-white mrg-left" download>Download CSV of Distributions</a>
+                                    <a href="/investor-servicing/distributions/nacha/{{$type}}/{{rand()}}/{{$id}}" class="btn color-white mrg-left" download>Download NACHA File</a>
                                 </div>
                                 <br/>
                                 <div class="row center-xs">
