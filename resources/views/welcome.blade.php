@@ -110,6 +110,14 @@
                             <div class="nav-logo"><a href="/"><img src="/img/logo-dark-w-type.svg" class="logo"></a>
                             </div>
                         </div>
+                        <div class="col-xs-12 col-sm-4 last-xs">
+                            <ul class="nav-item margin-right-s">
+                                <li><a href="/login">Login</a></li>
+                                <li>
+                                    <div class="btn"><a href="/register">Sign Up</a></div>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
                 <div class="navbar-mobile">
@@ -117,6 +125,10 @@
                         <div class="col-xs-12">
                             <div class="logo"><a href="/"><img src="/img/logo-dark-w-type.svg" class="logo"></a></div>
                             <div class="menu-button"><img src="/img/icon-menu-btn.svg"></div>
+                            <ul class="nav-item">
+                                <li><a href="/login">Login</a></li>
+                                <li><a href="/register">Sign Up</a></li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -131,7 +143,7 @@
                             </h1>
                             <h3>ABSTRACT BRINGS LIQUIDITY AND EFFICIENCY TO YOUR REAL ESTATE INVESTORS.</h3>
                         </div>
-                        <div class="btn margin-top-m margin-bottom-s gold">Get Started</div>
+                        <div class="btn margin-top-m margin-bottom-s gold"><a href="/register">Get Started</a></div>
                         <p>Voted Best ‘Blockchain Company’ by CRETech December ’18.</p>
                     </div>
                 </div>

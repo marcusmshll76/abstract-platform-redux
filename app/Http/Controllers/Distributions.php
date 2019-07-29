@@ -306,12 +306,13 @@ class Distributions extends Controller
     public function getNACHA(Request $request, $type, $rand, $distribution_id) {
         $file = new File();
         $file->getHeader()->setPriorityCode(1)
-			//->setImmediateDestination('')
-			//->setImmediateOrigin('')
-			->setFileCreationDate(date('YYMMDD'))
+			->setImmediateDestination('072000805') // Our bank's routing number
+			->setImmediateOrigin('0123456789') // Our tax ID number (10 digits)
+            ->setFileCreationDate(date('YYMMDD'))
+            ->setFileCreationTime(date('HHMM'))
 			->setFormatCode('1')
-			//->setImmediateDestinationName('')
-			//->setImmediateOriginName('')
+			->setImmediateDestinationName('Testing Bank') // Our bank's name
+			->setImmediateOriginName('Abstract Tokenization Test') // Our company name
 			->setReferenceCode('Reference');
 
         $distribution = DB::table('distribution_history')
@@ -348,6 +349,11 @@ class Distributions extends Controller
                 ->setReceivingDFiAccountNumber($investor[0]->account_number)
                 ->setCheckDigit($check_value)
                 ->setAmount($d->distribution)
+                // ->setIndividualId('5678901234') // Receiver's TID
+                // ->setIdividualName('Test Recipient') // Receiver's name
+                ->setDiscretionaryData('GE')
+                ->setAddendaRecordIndicator('0')
+                // ->setTraceNumber('')
             );
         }
 
