@@ -10,9 +10,9 @@ class IdentifySite {
 
         $maybe_site = \DB::table('sites')->where('host', $hostname)->first();
         // If we don't find a site, redirect to the first site.
+        $a = explode('.', $hostname, 3);
         if (!$maybe_site) {
             $primary = DB::table('sites')->where('id', 1)->first();
-            $a = explode('.', $hostname, 3);
             if ($a[0] !== 'develop' &&  $a[0] !== 'demo') {
                 return redirect('http://' . $primary->host);
             } 
@@ -21,7 +21,11 @@ class IdentifySite {
                 $maybe_site->host = 'abstract';
             }
         } else {
-            $maybe_site->host = explode('.', $hostname, 2)[0];
+            if ($a[0] !== 'develop' &&  $a[0] !== 'demo' && $a[0] !== 'abstracttokenization') {
+                $maybe_site->host = $a[0];
+            } else {
+                $maybe_site->host = 'abstract';
+            }
         }
         
         $request->site = $maybe_site;
