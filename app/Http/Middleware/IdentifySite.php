@@ -13,7 +13,7 @@ class IdentifySite {
         $a = explode('.', $hostname, 3);
         if (!$maybe_site) {
             $primary = DB::table('sites')->where('id', 1)->first();
-            if ($a[0] !== 'develop' &&  $a[0] !== 'demo') {
+            if ($a[0] !== 'develop') {
                 return redirect('http://' . $primary->host);
             } 
             else{
@@ -21,7 +21,7 @@ class IdentifySite {
                 $maybe_site->host = 'abstract';
             }
         } else {
-            if ($a[0] !== 'develop' &&  $a[0] !== 'demo' && $a[0] !== 'abstracttokenization') {
+            if ($a[0] !== 'develop') {
                 $maybe_site->host = $a[0];
             } else {
                 $maybe_site->host = 'abstract';
