@@ -18,7 +18,7 @@ class IdentifySite {
             if ($a[0] == 'develop') {
                 // Enable sponsor view
                 $maybe_site->host = 'abstract';
-            } else {
+            } elseif ($a[0] != 'demo' && $a[0] != 'develop') {
                 // redirect to the first site
                 return redirect('http://' . $primary->host);
             }
