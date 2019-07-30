@@ -9,22 +9,27 @@ class IdentifySite {
         $hostname = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : $_SERVER['SERVER_NAME'];
 
         $maybe_site = \DB::table('sites')->where('host', $hostname)->first();
-        // If we don't find a site, redirect to the first site.
         $a = explode('.', $hostname, 3);
+        // If we don't find a site.
         if (!$maybe_site) {
             $primary = DB::table('sites')->where('id', 1)->first();
-            if ($a[0] !== 'develop') {
-                return redirect('http://' . $primary->host);
-            } 
-            else{
-                $maybe_site = $primary;
+            // check if development server
+            $maybe_site = $primary;
+            if ($a[0] == 'develop') {
+                // Enable sponsor view
                 $maybe_site->host = 'abstract';
+            } else {
+                // redirect to the first site
+                return redirect('http://' . $primary->host);
             }
         } else {
-            if ($a[0] !== 'develop') {
-                $maybe_site->host = $a[0];
-            } else {
+            // check if development server
+            if ($a[0] == 'develop') {
+                // Enable sponsor view
                 $maybe_site->host = 'abstract';
+            } else {
+                // Set dynamic site host
+                $maybe_site->host = explode('.', $hostname, 2)[0];
             }
         }
         
