@@ -27,8 +27,14 @@
         :max-size="2048"
         :on-exceeded-size="maxSize"
         :data="payload">
+        <div
+            class="back-lay"
+            v-bind:class="{ 'blur-bg': src != '' }" 
+            :style="[src != '' ? {'background' : 'url(' + src + ')'} : {}]">
+        </div>
         <!-- @TODO <Button type="primary">Upload</Button> -->
         <div class="btn dust" v-if="type === 'single-dust'">
+            <!--  -->
             <span v-if="src !== '' && elname === 'image'">
                 <img :src="src ? src : '/img/icon-upload.svg'">
             </span>
@@ -195,7 +201,8 @@ export default {
             this.loadertext = 'File Uploaded'
             var self = this
             setTimeout(function(){ 
-                self.loader = false; 
+                self.sus = false;
+                self.loader = false;
                 self.loadertext = 'Uploading File';
             }, 2000);
             this.refresh === 'true' ? window.location.reload() : ''
@@ -235,6 +242,8 @@ export default {
         overflow: hidden !important;
     }
     .uploadcomplete-img img{
+        position: relative;
+        z-index: 2;
         width: 100% !important;
         height: auto !important;
     }
@@ -250,11 +259,27 @@ export default {
     .uploadcomplete-img:hover .ivu-btn{
         visibility: visible !important;
     }
+    .uploads-csd{
+        position: relative;
+        height: 161px !important;
+        overflow: hidden;
+        border-radius: 3px;
+    }
     .uploads-csd span{
         color: #fff !important;
     }
-    .uploads-csd{
-        height: 161px !important;
+    .blur-bg{
+      /* Add the blur effect */
+      filter: blur(8px);
+      -webkit-filter: blur(8px);
+      /* Center and scale the image nicely */
+      background-position: center;
+      background-size: cover;
+    }
+    .back-lay{
+        position: absolute;
+        width: 100%;
+        height: 100%;
     }
     .download-sample-cap{
         font-weight: bold;
