@@ -18,6 +18,7 @@
                         <div class="col-xs-12 col-sm-6">
                             <h5>Existing Investor Ownership</h5>
                             <p>Please upload your cap table; our preferred method of data transfer. However, if you have 3 or less investors on your cap table, you may enter their information mannually below. </p>
+
                             <uploads-component
                                 title="Upload Cap Table"
                                 action="/files"
@@ -28,9 +29,10 @@
                                 section="captable"
                                 multi="no"
                                 flat="true"
-                                map="security-flow-files"
-                                type="single-dust">
+                                type="single-dust"
+                                map="security-flow-files">
                             </uploads-component>
+                            
 
                             <div class="content-form">
                                 <!-- <div class="row margin-bottom-l-md">

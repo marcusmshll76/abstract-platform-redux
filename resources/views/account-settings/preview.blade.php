@@ -13,6 +13,10 @@
     action="Got It!"
     url="/security-flow/step-1/choose">
 </popup-component>
+    <temp-clear 
+        field="companylogo"
+        cook="cp1">
+    </temp-clear>
 @endif
 <div class="card margin-top-m">
         <div class="card-title blue">

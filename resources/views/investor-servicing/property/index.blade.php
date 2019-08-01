@@ -116,6 +116,7 @@
                                 scope="private"
                                 field="property-cap"
                                 multi="no"
+                                flat="yes"
                                 section="captable"
                                 path="/property/cap/"
                                 map="investor-servicing-files">

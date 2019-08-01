@@ -77,12 +77,13 @@
                 </div>
                 <div class="card-content">
                 <file-preview
-                        iname="Digital Security Photo Gallery"
-                        scope="private"
-                        user="{{Auth::id()}}"
-                        field="fund-digital-security"
-                        path="/digital-security/fund/photo-gallery/">
-                    </file-preview>
+                    iname="Digital Security Photo Gallery"
+                    scope="private"
+                    user="{{Auth::id()}}"
+                    field="fund-digital-security"
+                    path="/digital-security/fund/photo-gallery/"
+                    section="security-fund-flow-files">
+                </file-preview>
                 </div>
             </div>
             <div class="card grey margin-bottom-m margin-top-m">
@@ -575,7 +576,8 @@
                                     scope="private"
                                     user="{{Auth::id()}}"
                                     field="fund-cap-property"
-                                    path="/ownership/">
+                                    path="/ownership/"
+                                    section="security-fund-flow-files">
                                 </file-preview>
 
                             <div class="content-form">

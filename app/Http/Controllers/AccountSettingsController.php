@@ -173,12 +173,6 @@ class AccountSettingsController extends Controller {
             'reference_phone_4' => 'required',
             'reference_email_4' => 'required|email'
         ]);
-        
-        if (!empty($request->session()->get('account-settings.principles'))) {
-            $principles = $request->session()->get('account-settings.principles');
-        }
-
-        if (!empty(json_encode($principles))) {
             $userid = Auth::id();
             $payload = array(
                 'userid' => $userid,
@@ -201,7 +195,6 @@ class AccountSettingsController extends Controller {
                 'portfolio_activity_amount' => $request->get('portfolio_activity_amount'),
                 'assets_under_management' => $request->get('assets_under_management'),
                 'square_feet_managed' => $request->get('square_feet_managed'),
-                'principles' => $principles,
                 'reference_type_1' => $request->get('reference_type_1'),
                 'reference_name_1' => $request->get('reference_name_1'),
                 'reference_phone_1' => $request->get('reference_phone_1'),
@@ -222,22 +215,17 @@ class AccountSettingsController extends Controller {
                 "updated_at" => \Carbon\Carbon::now()
             );
             $id = DB::table('account_verification')->insertGetId($payload);
-            if ($request->session()->get('account-verification')) {
-                // dd($request->session()->get('account-verification'));
+            if ($request->session()->get('account-verification-files')) {
                 $files = $request->session()->get('account-verification-files');
                 foreach ($files as $key => $value) {
                     DB::table('files')
                         ->where('section', 'account-verification-files')
                         ->where('map', $value['map'])
-                        // ->where('field', $value->field)
                         ->update(['section_id' => $id]);
                 }  
             }
             $request->session()->forget('account-verification-files');
             return view( 'account-settings.preview', [ 'title' => 'Account Settings -> Preview', 'success' => true ] );
-        } else {
-            return view( 'account-settings.preview', [ 'title' => 'Account Settings -> Preview', 'error' => true ] );
-        }
     }
 
     public function wallets() {

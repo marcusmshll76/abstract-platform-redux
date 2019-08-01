@@ -28,6 +28,7 @@
         :on-exceeded-size="maxSize"
         :data="payload">
         <div
+            v-if="elname === 'image'"
             class="back-lay"
             v-bind:class="{ 'blur-bg': src != '' }" 
             :style="[src != '' ? {'background' : 'url(' + src + ')'} : {}]">
@@ -190,6 +191,7 @@ export default {
             })
         },
         success(res, file) {
+            console.log(res)
             this.fileOld = file;
             if (this.cook) {
                 this.getImage(res.response)
@@ -201,7 +203,7 @@ export default {
             this.loadertext = 'File Uploaded'
             var self = this
             setTimeout(function(){ 
-                self.sus = false;
+                self.elname === 'image' ? self.sus = false : '';
                 self.loader = false;
                 self.loadertext = 'Uploading File';
             }, 2000);
@@ -262,7 +264,6 @@ export default {
     .uploads-csd{
         position: relative;
         height: 161px !important;
-        overflow: hidden;
         border-radius: 3px;
     }
     .uploads-csd span{

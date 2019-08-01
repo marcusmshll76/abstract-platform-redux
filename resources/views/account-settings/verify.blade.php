@@ -29,6 +29,7 @@
                                 multi="no"
                                 map="account-verification-files"
                                 type="single"
+                                cook="cp1"
                                 class="small">
                             </uploads-component>
 

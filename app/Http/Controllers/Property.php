@@ -44,7 +44,6 @@ class Property extends Controller
         ];
 
         $this->validate($request, $rules);
-
         if (!empty($request->session()->get('capRead'))) {
             $capRead = json_encode($request->session()->get('capRead'));
         } else {
@@ -136,10 +135,10 @@ class Property extends Controller
 
             // Now, fetch each property that matches
             // @TODO support more than just the property table
-            /* $property = DB::table('property')
+            $property = DB::table('property')
                 ->where('userid', $userid)
                 ->select('opportunity_name as name', 'id')
-                ->addSelect(DB::raw("'sproperty' as fakeType")); */
+                ->addSelect(DB::raw("'sproperty' as fakeType"));
 
             $cproperty = DB::table('security_flow_property')
                 ->where('userid', $userid)
@@ -153,8 +152,8 @@ class Property extends Controller
                 ->where('status', 'Approved')
                 ->select('fund-name as name', 'id')
                 ->addSelect(DB::raw("'fund' as fakeType"))
-                // ->union($property)
                 ->union($cproperty)
+                ->union($property)
                 ->get();
             
             return view( 'my-properties.approved', [ 'title' => 'Approved > Properties'] )->with(compact('data', 'userid'));
