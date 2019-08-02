@@ -33,6 +33,7 @@
                                             user="{{Auth::id()}}"
                                             field="fund-digital-security"
                                             path="/digital-security/fund/photo-gallery/"
+                                            section="security-fund-flow-files"
                                             index="0">
                                         </file-preview>
                                     @elseif ($type === 'property')
@@ -42,16 +43,18 @@
                                             user="{{Auth::id()}}"
                                             field="digital-security"
                                             path="/digital-security/photo-gallery/"
+                                            section="security-flow-files"
                                             index="0">
                                         </file-preview>
                                     @elseif ($type === 'sproperty')
                                         <file-preview
-                                            iname="Single"
+                                        iname="Single"
                                             scope="private"
                                             user="{{Auth::id()}}"
                                             field="property-image"
                                             path="/property/images/"
-                                            index="0">
+                                            index="0"
+                                            section="investor-servicing-files">
                                         </file-preview>
                                 @endif
                         </div>
