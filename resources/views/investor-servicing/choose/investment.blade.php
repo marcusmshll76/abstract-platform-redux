@@ -5,7 +5,7 @@
 <div class="card margin-top-m">
     <div class="card-title blue">
         <h5>
-        @if ($site->id == 1) 
+        @if ($site -> host == 'abstract' || $site -> host == 'abstracttokenization') 
             Choose or Upload New Property
         @else
             Choose an Investment
