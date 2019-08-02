@@ -34,39 +34,6 @@
                             </uploads-component>
                             
                             <div class="content-form">
-                                <!-- <div class="row margin-bottom-l-md">
-                                    <div class="col-xs-12 col-md-4">
-                                        <p>Investor First Name</p><input value="{{ isset($data['investor-first-name']) ? $data['investor-first-name'] : '' }}" name="investor-first-name" type="text">
-                                    </div>
-                                    <div class="col-xs-12 col-md-4">
-                                        <p>Investor Last Name</p><input name="investor-last-name" value="{{ isset($data['investor-last-name']) ? $data['investor-last-name'] : '' }}" type="text">
-                                    </div>
-                                    <div class="col-xs-12 col-md-4">
-                                        <p>% Ownership</p><input type="text" value="{{ isset($data['ownership']) ? $data['ownership'] : '' }}" name="ownership">
-                                    </div>
-                                </div>
-                                <div class="row margin-bottom-l-md">
-                                    <div class="col-xs-12 col-md-4">
-                                        <p>Investor First Name</p><input value="{{ isset($data['investor-first-name-1']) ? $data['investor-first-name-1'] : '' }}" type="text" name="investor-first-name-1">
-                                    </div>
-                                    <div class="col-xs-12 col-md-4">
-                                        <p>Investor Last Name</p><input type="text" value="{{ isset($data['investor-last-name-1']) ? $data['investor-last-name-1'] : '' }}" name="investor-last-name-1">
-                                    </div>
-                                    <div class="col-xs-12 col-md-4">
-                                        <p>% Ownership</p><input type="text" value="{{ isset($data['ownership-1']) ? $data['ownership-1'] : '' }}" name="ownership-1">
-                                    </div>
-                                </div>
-                                <div class="row margin-bottom-l-sm">
-                                    <div class="col-xs-12 col-md-4">
-                                        <p>Investor First Name</p><input type="text" value="{{ isset($data['investor-first-name-2']) ? $data['investor-first-name-2'] : '' }}" name="investor-first-name-2">
-                                    </div>
-                                    <div class="col-xs-12 col-md-4">
-                                        <p>Investor Last Name</p><input type="text" value="{{ isset($data['investor-last-name-2']) ? $data['investor-last-name-2'] : '' }}" name="investor-last-name-2">
-                                    </div>
-                                    <div class="col-xs-12 col-md-4">
-                                        <p>% Ownership</p><input type="text" value="{{ isset($data['ownership-2']) ? $data['ownership-2'] : '' }}" name="ownership-2">
-                                    </div>
-                                </div> -->
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-6">

@@ -19,7 +19,7 @@
     <div class="card-title blue">
         <h5>Preview & Submit</h5></div>
     <div class="card-content">
-            <h5>Final Review</h5>
+            <h5>Final Review {{json_encode($data['investment-profile'])}}</h5>
             <p>Please review and ensure all information provided it is correct. To make changes, click the Edit link in the section you wish to change. Hit Submit at the bottom of the page when you are ready to send in your digital security for review.</p>
             <div class="card grey margin-bottom-m">
                 <div class="card-title blue has-button">
@@ -38,8 +38,7 @@
                                         field="companylogo"
                                         path="/account-settings/company-logo/"
                                         index="0"
-                                        section="account-verification-files"
-                                        sectionid="2">
+                                        section="account-verification-files">
                                     </file-preview>
                                     <uploads-component
                                         class="button-edit"
@@ -243,9 +242,9 @@
                         @endif
                         <select name="opportunity-type">
                             <option value="{{ isset($data['opportunity-type']) ? $data['opportunity-type'] : '' }}" selected="selected">{{ isset($data['opportunity-type']) ? $data['opportunity-type'] : 'Select an option' }}</option>
-                            <option value="option">Core</option>
-                            <option value="option">Value-Added</option>
-                            <option value="option">Opportunistic</option>
+                            <option value="Core">Core</option>
+                            <option value="Value-Added">Value-Added</option>
+                            <option value="Opportunistic">Opportunistic</option>
                         </select>
                     </div>
                 </div>
@@ -258,8 +257,8 @@
                         @endif
                         <select name="type-of-fund">
                             <option value="{{ isset($data['type-of-fund']) ? $data['type-of-fund'] : '' }}" selected="selected">{{ isset($data['type-of-fund']) ? $data['type-of-fund'] : 'Select an option' }}</option>
-                            <option value="option">Closed End</option>
-                            <option value="option">Opened End</option>
+                            <option value="Closed End">Closed End</option>
+                            <option value="Opened End">Opened End</option>
                         </select>
                     </div>
                     <div class="col-xs-12 col-sm-6">
@@ -388,15 +387,15 @@
                                         @endif
                                         <select name="property-type-pledged">
                                             <option value="{{ isset($data['property-type-pledged']) ? $data['property-type-pledged'] : '' }}" selected="selected">{{ isset($data['property-type-pledged']) ? $data['property-type-pledged'] : 'Select an option' }}</option>
-                                            <option value="option">Healthcare</option>
-                                            <option value="option">Hospital</option>
-                                            <option value="option">Industrial</option>
-                                            <option value="option">Land</option>
-                                            <option value="option">Multifamily</option>
-                                            <option value="option">Office</option>
-                                            <option value="option">Portfolio</option>
-                                            <option value="option">Retail</option>
-                                            <option value="option">Specialty</option>
+                                            <option value="Healthcare">Healthcare</option>
+                                            <option value="Hospital">Hospital</option>
+                                            <option value="Industrial">Industrial</option>
+                                            <option value="Land">Land</option>
+                                            <option value="Multifamily">Multifamily</option>
+                                            <option value="Office">Office</option>
+                                            <option value="Portfolio">Portfolio</option>
+                                            <option value="Retail">Retail</option>
+                                            <option value="Specialty">Specialty</option>
                                         </select>
                                     </div>
                                     <div class="col-xs-12 col-md-4">
@@ -409,11 +408,11 @@
                                             <option value="{{ isset($data['market-focus']) ? $data['market-focus'] : '' }}" disabled="disabled" selected="selected">
                                             {{ isset($data['market-focus']) ? $data['market-focus'] : 'Select an option' }}
                                             </option>
-                                            <option value="option">Northwest</option>
-                                            <option value="option">Northeast</option>
-                                            <option value="option">Midwest</option>
-                                            <option value="option">Southwest</option>
-                                            <option value="option">Southeast</option>
+                                            <option value="Northwest">Northwest</option>
+                                            <option value="Northeast">Northeast</option>
+                                            <option value="Midwest">Midwest</option>
+                                            <option value="Southwest">Southwest</option>
+                                            <option value="Southeast">Southeast</option>
                                         </select>
                                     </div>
                                 </div>
@@ -581,84 +580,7 @@
                                 </file-preview>
 
                             <div class="content-form">
-                                <div class="row margin-bottom-l-md">
-                                    <div class="col-xs-12 col-md-4">
-                                        <p>Investor First Name</p>
-                                        @if($errors->has('investor-first-name'))
-                                            <br/>
-                                            <small class="error-small"><em>*</em> <span> {{ $errors->first('investor-first-name') }} </span></small>
-                                        @endif
-                                        <input value="{{ isset($data['investor-first-name']) ? $data['investor-first-name'] : '' }}" name="investor-first-name" type="text">
-                                    </div>
-                                    <div class="col-xs-12 col-md-4">
-                                        <p>Investor Last Name</p>
-                                        @if($errors->has('investor-last-name'))
-                                            <br/>
-                                            <small class="error-small"><em>*</em> <span> {{ $errors->first('investor-last-name') }} </span></small>
-                                        @endif
-                                        <input name="investor-last-name" value="{{ isset($data['investor-last-name']) ? $data['investor-last-name'] : '' }}" type="text">
-                                    </div>
-                                    <div class="col-xs-12 col-md-4">
-                                        <p>% Ownership</p>
-                                        @if($errors->has('ownership'))
-                                            <br/>
-                                            <small class="error-small"><em>*</em> <span> {{ $errors->first('ownership') }} </span></small>
-                                        @endif
-                                        <input type="text" value="{{ isset($data['ownership']) ? $data['ownership'] : '' }}" name="ownership">
-                                    </div>
-                                </div>
-                                <div class="row margin-bottom-l-md">
-                                    <div class="col-xs-12 col-md-4">
-                                        <p>Investor First Name</p>
-                                        @if($errors->has('investor-first-name-1'))
-                                            <br/>
-                                            <small class="error-small"><em>*</em> <span> {{ $errors->first('investor-first-name-1') }} </span></small>
-                                        @endif
-                                        <input value="{{ isset($data['investor-first-name-1']) ? $data['investor-first-name-1'] : '' }}" type="text" name="investor-first-name-1">
-                                    </div>
-                                    <div class="col-xs-12 col-md-4">
-                                        <p>Investor Last Name</p>
-                                        @if($errors->has('investor-last-name-1'))
-                                            <br/>
-                                            <small class="error-small"><em>*</em> <span> {{ $errors->first('investor-last-name-1') }} </span></small>
-                                        @endif
-                                        <input type="text" value="{{ isset($data['investor-last-name-1']) ? $data['investor-last-name-1'] : '' }}" name="investor-last-name-1">
-                                    </div>
-                                    <div class="col-xs-12 col-md-4">
-                                        <p>% Ownership</p>
-                                        @if($errors->has('ownership-1'))
-                                            <br/>
-                                            <small class="error-small"><em>*</em> <span> {{ $errors->first('ownership-1') }} </span></small>
-                                        @endif
-                                        <input type="text" value="{{ isset($data['ownership-1']) ? $data['ownership-1'] : '' }}" name="ownership-1">
-                                    </div>
-                                </div>
-                                <div class="row margin-bottom-l-sm">
-                                    <div class="col-xs-12 col-md-4">
-                                        <p>Investor First Name</p>
-                                        @if($errors->has('investor-first-name-2'))
-                                            <br/>
-                                            <small class="error-small"><em>*</em> <span> {{ $errors->first('investor-first-name-2') }} </span></small>
-                                        @endif
-                                        <input type="text" value="{{ isset($data['investor-first-name-2']) ? $data['investor-first-name-2'] : '' }}" name="investor-first-name-2">
-                                    </div>
-                                    <div class="col-xs-12 col-md-4">
-                                        <p>Investor Last Name</p>
-                                        @if($errors->has('investor-last-name-2'))
-                                            <br/>
-                                            <small class="error-small"><em>*</em> <span> {{ $errors->first('investor-last-name-2') }} </span></small>
-                                        @endif
-                                        <input type="text" value="{{ isset($data['investor-last-name-2']) ? $data['investor-last-name-2'] : '' }}" name="investor-last-name-2">
-                                    </div>
-                                    <div class="col-xs-12 col-md-4">
-                                        <p>% Ownership</p>
-                                        @if($errors->has('ownership-2'))
-                                            <br/>
-                                            <small class="error-small"><em>*</em> <span> {{ $errors->first('ownership-2') }} </span></small>
-                                        @endif
-                                        <input type="text" value="{{ isset($data['ownership-2']) ? $data['ownership-2'] : '' }}" name="ownership-2">
-                                    </div>
-                                </div>
+                               
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-6">

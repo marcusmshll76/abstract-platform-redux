@@ -189,20 +189,6 @@ class SecurityFundFlow extends Controller
         session( [ 'security-fund-flow' => $session_data ] );
 
         // Validations
-        $capRule = [];
-        if(empty($request->session()->get('capRead'))) {
-            /* $capRule = [
-                'investor-first-name' => 'required',
-                'investor-last-name' => 'required',
-                'ownership' => 'required',
-                'investor-first-name-1' => 'required',
-                'investor-last-name-1' => 'required',
-                'ownership-1' => 'required',
-                'investor-first-name-2' => 'required',
-                'investor-last-name-2' => 'required',
-                'ownership-2' => 'required',
-            ]; */
-        }
         $condRule = [];
         if ($request->get('fund-type') === 'Yes') {
             $condRule = [
@@ -255,7 +241,7 @@ class SecurityFundFlow extends Controller
             'mezzanine-debt' => 'required',
             'senior-debt' => 'required'
         ];
-        $rules = array_merge( $rules, $condRule, $capRule);
+        $rules = array_merge( $rules, $condRule);
         $this->validate($request, $rules);
 
         if (isset($keyPoints)) {

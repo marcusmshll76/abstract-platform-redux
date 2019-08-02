@@ -106,10 +106,10 @@ class Property extends Controller
 
             // Now, fetch each property that matches
             // @TODO support more than just the property table
-            /* $property = DB::table('property')
+            $property = DB::table('property')
                 ->where('userid', $userid)
                 ->select('opportunity_name as name', 'id')
-                ->addSelect(DB::raw("'sproperty' as fakeType")); */
+                ->addSelect(DB::raw("'sproperty' as fakeType"));
 
             $cproperty = DB::table('security_flow_property')
                 ->where('userid', $userid)
@@ -135,10 +135,11 @@ class Property extends Controller
 
             // Now, fetch each property that matches
             // @TODO support more than just the property table
-            $property = DB::table('property')
+            /* $property = DB::table('property')
                 ->where('userid', $userid)
                 ->select('opportunity_name as name', 'id')
                 ->addSelect(DB::raw("'sproperty' as fakeType"));
+            */
 
             $cproperty = DB::table('security_flow_property')
                 ->where('userid', $userid)
@@ -153,7 +154,7 @@ class Property extends Controller
                 ->select('fund-name as name', 'id')
                 ->addSelect(DB::raw("'fund' as fakeType"))
                 ->union($cproperty)
-                ->union($property)
+                // ->union($property)
                 ->get();
             
             return view( 'my-properties.approved', [ 'title' => 'Approved > Properties'] )->with(compact('data', 'userid'));
@@ -169,6 +170,9 @@ class Property extends Controller
             } else if ($type === 'property') {
                 $table = 'security_flow_property';
                 $q = 'property as name';
+            } else if ($type === 'sproperty') {
+                $table = 'property';
+                $q = 'opportunity_name as name';
             }
 
             $data = DB::table($table)
@@ -190,6 +194,9 @@ class Property extends Controller
             } else if ($type === 'property') {
                 $table = 'security_flow_property';
                 $q = 'property as name';
+            } else if ($type === 'sproperty') {
+                $table = 'property';
+                $q = 'opportunity_name as name';
             }
 
             $data = DB::table($table)
@@ -211,12 +218,17 @@ class Property extends Controller
                     $q = 'fund-name as name';
                 } else if ($type === 'property') {
                     $table = 'security_flow_property';
+                    $ses = 'security-flow';
                     $q = 'property as name';
+                } else if ($type === 'sproperty') {
+                    $table = 'property';
+                    $ses = 'property';
+                    $q = 'opportunity_name as name';
                 }
 
                 $data = DB::table($table)
                     ->where('userid', $userid)
-                    ->where('status', 'Not Approved')
+                    ->where('status', 'Approved')
                     ->first();
 
                 $array = (array) $data;

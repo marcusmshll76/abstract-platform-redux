@@ -13,12 +13,12 @@ class Marketplace extends Controller
         $userid = Auth::id();
         // Now, fetch each property that matches
             // @TODO support more than just the property table
-            /* $property = DB::table('property')
+            $property = DB::table('property')
                 ->where('userid', $userid)
                 ->select('opportunity_name as name', 'id')
-                ->addSelect(DB::raw("'sproperty' as fakeType")); */
+                ->addSelect(DB::raw("'sproperty' as fakeType"));
 
-                $cproperty = DB::table('security_flow_property')
+            $cproperty = DB::table('security_flow_property')
                 ->where('userid', $userid)
                 ->where('status', 'Approved')
                 ->select('property as name', 'id')
@@ -48,11 +48,14 @@ class Marketplace extends Controller
             } else if ($type === 'property') {
                 $table = 'security_flow_property';
                 $q = 'property as name';
+            } else if ($type === 'sproperty') {
+                $table = 'property';
+                $q = 'opportunity_name as name';
             }
 
             $a = DB::table($table)
                 ->where('userid', $userid)
-                ->where('status', 'Not Approved')
+                ->where('status', 'Approved')
                 ->first();
 
             $bio = DB::table('account_verification')

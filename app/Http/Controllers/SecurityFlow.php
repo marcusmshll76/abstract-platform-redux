@@ -123,20 +123,6 @@ class SecurityFlow extends Controller
         $session_data = array_merge( $session_data, $_POST );
         session( [ 'security-flow' => $session_data ] );
 
-        $capRule = [];
-        if(empty($request->session()->get('capRead'))) {
-            $capRule = [
-                'investor-first-name' => 'required',
-                'investor-last-name' => 'required',
-                'ownership' => 'required',
-                'investor-first-name-1' => 'required',
-                'investor-last-name-1' => 'required',
-                'ownership-1' => 'required',
-                'investor-first-name-2' => 'required',
-                'investor-last-name-2' => 'required',
-                'ownership-2' => 'required',
-            ];
-        }
         $rules = [
             'target-investor-irr' => 'required',
             'investment-profile' => 'required',
@@ -179,9 +165,8 @@ class SecurityFlow extends Controller
             'mezzanine-debt' => 'required',
             'senior-debt' => 'required'
         ];
-        $rulesCall = array_merge( $rules, $capRule);
         
-        $this->validate($request, $rulesCall);
+        $this->validate($request, $rules);
 
         if (!empty($request->session()->get('security-flow.key-points'))) {
             $keyPoints = $request->session()->get('security-flow.key-points');
@@ -228,15 +213,6 @@ class SecurityFlow extends Controller
                 'payoff_date' => $request->get('payoff_date'),
                 'loan-type' => $request->get('loan-type'),
                 'developed' => $request->get('developed'),
-                'investor-first-name' => $request->get('investor-first-name'),
-                'investor-last-name' => $request->get('investor-last-name'),
-                'ownership' => $request->get('ownership'),
-                'investor-first-name-1' => $request->get('investor-first-name-1'),
-                'investor-last-name-1' => $request->get('investor-last-name-1'),
-                'ownership-1' => $request->get('ownership-1'),
-                'investor-first-name-2' => $request->get('investor-first-name-2'),
-                'investor-last-name-2' => $request->get('investor-last-name-2'),
-                'ownership-2' => $request->get('ownership-2'),
                 'pro-frorma-noi' => $request->get('pro-frorma-noi'),
                 'distribution-frequency' => $request->get('distribution-frequency'),
                 'equity-raise-floor-amount' => $request->get('equity-raise-floor-amount'),

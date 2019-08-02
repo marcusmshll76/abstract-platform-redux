@@ -56,7 +56,8 @@
                                             user="{{Auth::id()}}"
                                             field="fund-digital-security"
                                             path="/digital-security/fund/photo-gallery/"
-                                            index="0">
+                                            index="0"
+                                            section="security-fund-flow-files">
                                         </file-preview>
                                     </div>
                                     <a href="{{ $site -> host == 'abstract' ? '/investor-servicing/cap-table-mgmt/' : '/ownership-snapshot/' }}{{$investment->fakeType. '/'.strtolower(str_random(30)). '/' .$investment->id}}" class="btn full-width margin-top-s color-white">Select</a>
@@ -67,7 +68,8 @@
                                             user="{{Auth::id()}}"
                                             field="digital-security"
                                             path="/digital-security/photo-gallery/"
-                                            index="0">
+                                            index="0"
+                                            section="security-flow-files">
                                         </file-preview>
                                     </div>
                                     <a href="{{ $site -> host == 'abstract' ? '/investor-servicing/cap-table-mgmt/' : '/ownership-snapshot/' }}{{$investment->fakeType. '/'.strtolower(str_random(30)). '/' .$investment->id}}" class="btn full-width margin-top-s color-white">Select</a>
@@ -78,7 +80,8 @@
                                             user="{{Auth::id()}}"
                                             field="property-image"
                                             path="/property/images/"
-                                            index="0">
+                                            index="0"
+                                            section="investor-servicing-files">
                                         </file-preview>
                                     </div>
                                     <a href="{{ $site -> host == 'abstract' ? '/investor-servicing/cap-table-mgmt/' : '/ownership-snapshot/' }}{{$investment->fakeType. '/'.strtolower(str_random(30)). '/' .$investment->id}}" class="btn full-width margin-top-s color-white">Select</a>
