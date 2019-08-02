@@ -32,7 +32,7 @@
                         <a href="/onboarding/login-reset-password">
                             <button class="large full-width white">Send</button>
                         </a>
-                        <p>Remenber password?<a href="/onboarding/login"> Login</a></p>
+                        <p>Remember password?<a href="/onboarding/login"> Login</a></p>
                     </div>
                 </div>
             </div>
