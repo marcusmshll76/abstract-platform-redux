@@ -25,7 +25,8 @@
                                             scope="private"
                                             user="{{Auth::id()}}"
                                             path="/digital-security/fund/photo-gallery/"
-                                            index="{{ $key }}">
+                                            index="{{ $key }}"
+                                            section="security-fund-flow-files">
                                         </file-preview>
                                     </div>
                                     <a href="{{'/investor-servicing/cap-table-mgmt/fund/'.$investment->id}}" class="btn full-width margin-top-s color-white">Select</a>
@@ -35,7 +36,8 @@
                                         scope="private"
                                         user="{{Auth::id()}}"
                                         path="/digital-security/photo-gallery/"
-                                        index="$key">
+                                        index="$key"
+                                        section="security-flow-files">
                                     </file-preview>
 
                                 </div>

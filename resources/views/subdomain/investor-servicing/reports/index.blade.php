@@ -32,6 +32,7 @@
                                             user="{{Auth::id()}}"
                                             field="fund-digital-security"
                                             path="/digital-security/fund/photo-gallery/"
+                                            section="security-fund-flow-files"
                                             index="0">
                                         </file-preview>
                                     @elseif ($type === 'property')
@@ -41,6 +42,7 @@
                                             user="{{Auth::id()}}"
                                             field="digital-security"
                                             path="/digital-security/photo-gallery/"
+                                            section="security-flow-files"
                                             index="0">
                                         </file-preview>
                                     @elseif ($type === 'sproperty')
@@ -50,6 +52,7 @@
                                             user="{{Auth::id()}}"
                                             field="property-image"
                                             path="/property/images/"
+                                            section="investor-servicing-files"
                                             index="0">
                                         </file-preview>
                                 @endif    
@@ -92,8 +95,8 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="content-footer">
-                            <div class="footer-button-back"><img src="/img/icon-arrow-back.svg">
-                                <h5>Back</h5></div>
+                                <a href="{{'/tax-documents/'. $type. '/'.strtolower(str_random(30)). '/' .$id }}" class="footer-button-back">
+                                <h5><img src="/img/icon-arrow-back.svg"> Back</h5></a>
                             <div class="row center-xs">
                                 <div class="col-xs-12 col-sm-6 col-md-4">
                                     <div class="content-footer-step">
