@@ -5,7 +5,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-xs-12 col-sm-8 col-md-6 col-lg-5 center">
-                @if ($site -> host == 'abstract')
+                @if ($site -> host == 'abstract' || $site -> host == 'abstracttokenization')
                     <div class="card-content-onboarding card">
                         <div class="onboarding-title">
                             <div class="onboarding-logo"><img src="/img/logo-light-w-type.svg"></div>
@@ -62,7 +62,7 @@
                         <div class="signup-footer">
                             <button class="large full-width white">Create Account!</button>
                         </div>
-                        @if ($site -> host != 'abstract')
+                        @if ($site -> host != 'abstract' || $site -> host != 'abstracttokenization')
                             <div class="footer-logo"><img src="/img/logo-light.svg">
                                 <p>Powered By Abstract</p>
                             </div>
