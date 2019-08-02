@@ -97,7 +97,7 @@
                         <div class="content-footer">
                             <div class="footer-button-back">
                                 <a href="{{'/tax-documents/'. $type. '/'.strtolower(str_random(30)). '/' .$id }}" class="footer-button-back">
-                                <img src="/img/icon-arrow-back.svg"><h5>Back</h5></a>
+                                <h5><img src="/img/icon-arrow-back.svg"> Back</h5></a>
                                </div>
                             <div class="row center-xs">
                                 <div class="col-xs-12 col-sm-6 col-md-4">
