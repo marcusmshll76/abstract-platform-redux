@@ -5,7 +5,7 @@
 <div class="card margin-top-m">
     <div class="card-title blue">
         <h5>
-        @if ($site->id == 1) 
+        @if ($site -> host == 'abstract' || $site -> host == 'abstracttokenization') 
             Choose or Upload New Property
         @else
             Choose an Investment
@@ -22,7 +22,7 @@
         <div class="card grey margin-top-m">
             <div class="card-content">
                 <div class="row">
-                @if ($site->id == 1) 
+                @if ($site -> host == 'abstract' || $site -> host == 'abstracttokenization') 
                     <div class="col-xs-12 col-sm-4 slider-upload">
                         <a href="/investor-servicing/upload-new-property">
                             <div class="marketplace-card-image porperty-image"><img src="/img/icon-circle-plus.svg" class="icon-plus"></div>
@@ -60,7 +60,7 @@
                                             section="security-fund-flow-files">
                                         </file-preview>
                                     </div>
-                                    <a href="{{ $site -> host == 'abstract' ? '/investor-servicing/cap-table-mgmt/' : '/ownership-snapshot/' }}{{$investment->fakeType. '/'.strtolower(str_random(30)). '/' .$investment->id}}" class="btn full-width margin-top-s color-white">Select</a>
+                                    <a href="{{ $site -> host == 'abstract' || $site -> host == 'abstracttokenization' ? '/investor-servicing/cap-table-mgmt/' : '/ownership-snapshot/' }}{{$investment->fakeType. '/'.strtolower(str_random(30)). '/' .$investment->id}}" class="btn full-width margin-top-s color-white">Select</a>
                                     @elseif ($investment->fakeType === 'property')
                                         <file-preview
                                             iname="Single"
@@ -72,7 +72,7 @@
                                             section="security-flow-files">
                                         </file-preview>
                                     </div>
-                                    <a href="{{ $site -> host == 'abstract' ? '/investor-servicing/cap-table-mgmt/' : '/ownership-snapshot/' }}{{$investment->fakeType. '/'.strtolower(str_random(30)). '/' .$investment->id}}" class="btn full-width margin-top-s color-white">Select</a>
+                                    <a href="{{ $site -> host == 'abstract' || $site -> host == 'abstracttokenization' ? '/investor-servicing/cap-table-mgmt/' : '/ownership-snapshot/' }}{{$investment->fakeType. '/'.strtolower(str_random(30)). '/' .$investment->id}}" class="btn full-width margin-top-s color-white">Select</a>
                                     @elseif ($investment->fakeType === 'sproperty')
                                         <file-preview
                                             iname="Single"
@@ -84,7 +84,7 @@
                                             section="investor-servicing-files">
                                         </file-preview>
                                     </div>
-                                    <a href="{{ $site -> host == 'abstract' ? '/investor-servicing/cap-table-mgmt/' : '/ownership-snapshot/' }}{{$investment->fakeType. '/'.strtolower(str_random(30)). '/' .$investment->id}}" class="btn full-width margin-top-s color-white">Select</a>
+                                    <a href="{{ $site -> host == 'abstract' || $site -> host == 'abstracttokenization' ? '/investor-servicing/cap-table-mgmt/' : '/ownership-snapshot/' }}{{$investment->fakeType. '/'.strtolower(str_random(30)). '/' .$investment->id}}" class="btn full-width margin-top-s color-white">Select</a>
                                 @endif
                             </div>
                             @endforeach

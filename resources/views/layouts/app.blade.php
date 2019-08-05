@@ -47,7 +47,7 @@
                         <div class="col-xs-12 col-sm-4">
                             <div class="header-toggle text-center">
                                 <div class="row">
-                                @if ($site -> host == 'abstract')
+                                @if ($site -> host == 'abstract' || $site -> host == 'abstracttokenization')
                                     <!-- <div class="col-xs-12 col-sm-4">
                                         <div class="header-toggle-item">
                                             <p>Investors</p>

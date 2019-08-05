@@ -58,7 +58,7 @@
                             <button class="large full-width white">Create Account!</button>
                             <p>Already have an account? <a href="/login">Login now</a></p>
                         </div>
-                        @if ($site -> host != 'abstract')
+                        @if ($site -> host != 'abstract' || $site -> host != 'abstracttokenization')
                             <div class="footer-logo"><img src="/img/logo-light.svg">
                                 <p>Powered By Abstract</p>
                             </div>
