@@ -68,7 +68,7 @@
                                             sectionid="{{$property->id}}">
                                         </file-preview>
                                     </div>
-                                    <a href="{{ '/properties/choose/sticker/'.$property->fakeType.'/'.strtolower(str_random(30)).'/'.$property->id }}" class="btn full-width margin-top-s color-white">Complete</a>
+                                    <!-- <a href="{{ '/properties/choose/sticker/'.$property->fakeType.'/'.strtolower(str_random(30)).'/'.$property->id }}" class="btn full-width margin-top-s color-white">Complete</a> -->
                                 @endif
                             </div>
                             @endforeach

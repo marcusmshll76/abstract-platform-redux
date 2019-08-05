@@ -3,7 +3,7 @@
 
 @section('body')
 
-@if( $site->id == 1 )
+@if( $site -> host == 'abstract' || $site -> host == 'abstracttokenization' )
 <div class="card margin-top-m">
                     <div class="card-title blue">
                         <h5>Reports</h5></div>

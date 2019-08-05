@@ -13,7 +13,7 @@
     </h5></div>
     <div class="card-content">
         <p>
-            @if ($site->id == 1) 
+            @if ($site -> host == 'abstract' || $site -> host == 'abstracttokenization') 
                 Add a new Property or choose an Approved Property below to utilize our automated Investor Servicing portal.
             @else
                 Select an investment below to view all investment details.
@@ -50,27 +50,29 @@
                                         </p>
                                     </div>
                                     @if ($investment->fakeType === 'fund')
-                                        <file-preview
+                                        <!-- <file-preview
                                             iname="Single"
                                             scope="private"
                                             user="{{Auth::id()}}"
                                             field="fund-digital-security"
                                             path="/digital-security/fund/photo-gallery/"
                                             index="0"
-                                            section="security-fund-flow-files">
-                                        </file-preview>
+                                            section="security-fund-flow-files"
+                                            sectionid="{{$investment->id}}">
+                                        </file-preview> -->
                                     </div>
                                     <a href="{{ $site -> host == 'abstract' || $site -> host == 'abstracttokenization' ? '/investor-servicing/cap-table-mgmt/' : '/ownership-snapshot/' }}{{$investment->fakeType. '/'.strtolower(str_random(30)). '/' .$investment->id}}" class="btn full-width margin-top-s color-white">Select</a>
                                     @elseif ($investment->fakeType === 'property')
-                                        <file-preview
+                                        <!-- <file-preview
                                             iname="Single"
                                             scope="private"
                                             user="{{Auth::id()}}"
                                             field="digital-security"
                                             path="/digital-security/photo-gallery/"
-                                            index="0"
-                                            section="security-flow-files">
-                                        </file-preview>
+                                            index="1"
+                                            section="security-flow-files"
+                                            sectionid="{{$investment->id}}">
+                                        </file-preview> -->
                                     </div>
                                     <a href="{{ $site -> host == 'abstract' || $site -> host == 'abstracttokenization' ? '/investor-servicing/cap-table-mgmt/' : '/ownership-snapshot/' }}{{$investment->fakeType. '/'.strtolower(str_random(30)). '/' .$investment->id}}" class="btn full-width margin-top-s color-white">Select</a>
                                     @elseif ($investment->fakeType === 'sproperty')
@@ -81,7 +83,8 @@
                                             field="property-image"
                                             path="/property/images/"
                                             index="0"
-                                            section="investor-servicing-files">
+                                            section="investor-servicing-files"
+                                            sectionid="{{$investment->id}}">
                                         </file-preview>
                                     </div>
                                     <a href="{{ $site -> host == 'abstract' || $site -> host == 'abstracttokenization' ? '/investor-servicing/cap-table-mgmt/' : '/ownership-snapshot/' }}{{$investment->fakeType. '/'.strtolower(str_random(30)). '/' .$investment->id}}" class="btn full-width margin-top-s color-white">Select</a>
@@ -99,7 +102,7 @@
         </div>
     </div>
 </div>
-@if ($site->id == 1) 
+@if ($site -> host == 'abstract' || $site -> host == 'abstracttokenization') 
 <popup-component
     title="Abstract Investor Servicing"
     type="basic" 

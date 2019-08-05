@@ -90,7 +90,7 @@ export default {
             axios
             .get(config.getFiles + url)
             .then(function(resp) {
-              self.files = resp.data
+              self.sortFiles(resp.data)
               self.loading = false
             })
             .catch(function(error) {
@@ -101,6 +101,18 @@ export default {
         }
     },
     methods: {
+        sortFiles (e) {
+            var self = this
+            if (self.sectionid) {
+                e.map(function (x) {
+                    if (self.sectionid == x.data.section_id) {
+                        self.files.push(x)
+                    }
+                })
+            } else{
+                self.files = e
+            }
+        },
         deleteFile (e) {
             var key = e
             this.$Modal.confirm({

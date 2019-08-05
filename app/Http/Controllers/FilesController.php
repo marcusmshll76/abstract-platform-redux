@@ -173,7 +173,7 @@ class FilesController extends Controller
         
             $allfiles = DB::table('files')
                 ->where($matchArr)
-                ->select('path')
+                ->select('path', 'section_id', 'user')
                 ->orderBy('id', 'desc')
                 ->get();
 
@@ -201,6 +201,7 @@ class FilesController extends Controller
                 $x = $file;
            } else {
                 $x = $file->path;
+                $d = $file;
            }
             $command = $adapter->getClient()->getCommand('GetObject', [
                 'Bucket' => $adapter->getBucket(),
@@ -209,6 +210,7 @@ class FilesController extends Controller
             $request = $adapter->getClient()->createPresignedRequest($command, '+20 minute');
             $data[] = [
                 'path' => $x,
+                'data' => $d,
                 'src' => (string) $request->getUri()
             ];
         } 
