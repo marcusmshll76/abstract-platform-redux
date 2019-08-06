@@ -810,7 +810,7 @@
             </div>
             <div class="card">
                 <div class="card-title blue has-button">
-                    <h5>Meet the Principles</h5>
+                    <h5>Meet the Principals</h5>
                     <a href="/security-fund-flow/step-6/meet-sponsors" class="btn color-white">Edit</a>
                 </div>
                 <principal-form

@@ -9,8 +9,8 @@
         <h5>Account Verification</h5>
     </div>
     <div class="card-content">
-        <h5>Meet The Principles, Property Owners, and Fund Managers</h5>
-        <p>Connect any Principles or Partners to your organization.  These will be shared to investors interested in your deals on Abstract’s Marketplace. </p>
+        <h5>Meet The Principals, Property Owners, and Fund Managers</h5>
+        <p>Connect any Principals or Partners to your organization.  These will be shared to investors interested in your deals on Abstract’s Marketplace. </p>
         <principal-form
             back="/account-settings/verification/bio"
             next="yes"
