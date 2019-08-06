@@ -70,7 +70,7 @@ class Marketplace extends Controller
             ->first();
 
             // $data ['principles'] = json_decode($data['principles']);
-            return view( 'marketplace.final', [ 'title' => 'New > Marketplace'] )->with(compact('data', 'company', 'bio'));
+            return view( 'marketplace.final', [ 'title' => 'New > Marketplace'] )->with(compact('data', 'company', 'bio', 'type'));
             // return redirect('/'.$ses.'/preview');
         } 
     }

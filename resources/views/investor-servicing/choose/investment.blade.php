@@ -50,7 +50,7 @@
                                         </p>
                                     </div>
                                     @if ($investment->fakeType === 'fund')
-                                        <!-- <file-preview
+                                        <file-preview
                                             iname="Single"
                                             scope="private"
                                             user="{{Auth::id()}}"
@@ -59,11 +59,11 @@
                                             index="0"
                                             section="security-fund-flow-files"
                                             sectionid="{{$investment->id}}">
-                                        </file-preview> -->
+                                        </file-preview>
                                     </div>
                                     <a href="{{ $site -> host == 'abstract' || $site -> host == 'abstracttokenization' ? '/investor-servicing/cap-table-mgmt/' : '/ownership-snapshot/' }}{{$investment->fakeType. '/'.strtolower(str_random(30)). '/' .$investment->id}}" class="btn full-width margin-top-s color-white">Select</a>
                                     @elseif ($investment->fakeType === 'property')
-                                        <!-- <file-preview
+                                        <file-preview
                                             iname="Single"
                                             scope="private"
                                             user="{{Auth::id()}}"
@@ -72,7 +72,7 @@
                                             index="1"
                                             section="security-flow-files"
                                             sectionid="{{$investment->id}}">
-                                        </file-preview> -->
+                                        </file-preview>
                                     </div>
                                     <a href="{{ $site -> host == 'abstract' || $site -> host == 'abstracttokenization' ? '/investor-servicing/cap-table-mgmt/' : '/ownership-snapshot/' }}{{$investment->fakeType. '/'.strtolower(str_random(30)). '/' .$investment->id}}" class="btn full-width margin-top-s color-white">Select</a>
                                     @elseif ($investment->fakeType === 'sproperty')

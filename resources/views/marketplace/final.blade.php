@@ -75,6 +75,17 @@
                     <a href="/security-fund-flow/step-1/upload-photos" class="btn color-white">Edit</a>
                 </div>
                 <div class="card-content">
+                @if (isset($type) &&  $type === 'property')
+                <file-preview
+                    iname="Digital Security Photo Gallery"
+                    scope="private"
+                    user="{{Auth::id()}}"
+                    field="digital-security"
+                    path="/digital-security/photo-gallery/"
+                    section="security-flow-files">
+                </file-preview>   
+
+                @elseif (isset($type) &&  $type === 'sproperty')
                 <file-preview
                     iname="Digital Security Photo Gallery"
                     scope="private"
@@ -83,6 +94,17 @@
                     path="/digital-security/fund/photo-gallery/"
                     section="security-fund-flow-files">
                 </file-preview>
+                @else
+                <file-preview
+                    iname="Digital Security Photo Gallery"
+                    scope="private"
+                    user="{{Auth::id()}}"
+                    field="fund-digital-security"
+                    path="/digital-security/fund/photo-gallery/"
+                    section="security-fund-flow-files">
+                </file-preview>
+                @endif
+                
                 </div>
             </div>
             <div class="card grey margin-bottom-m margin-top-m">
@@ -570,6 +592,26 @@
                         <div class="col-xs-12 col-sm-6">
                             <h5>Existing Investor Ownership</h5>
                             <p>Please upload your cap table; our preferred method of data transfer. However, if you have 3 or less investors on your cap table, you may enter their information mannually below. </p>
+                                @if (isset($type) &&  $type === 'property')
+                                <file-preview
+                                    iname="file"
+                                    scope="private"
+                                    user="{{Auth::id()}}"
+                                    field="cap-property"
+                                    path="/ownership/"
+                                    section="security-flow-files">
+                                </file-preview>   
+
+                                @elseif (isset($type) &&  $type === 'sproperty')
+                                <file-preview
+                                    iname="file"
+                                    scope="private"
+                                    user="{{Auth::id()}}"
+                                    field="property-cap"
+                                    path="/ownership/"
+                                    section="investor-servicing-files">
+                                </file-preview>
+                                @else
                                 <file-preview
                                     iname="file"
                                     scope="private"
@@ -578,6 +620,7 @@
                                     path="/ownership/"
                                     section="security-fund-flow-files">
                                 </file-preview>
+                                @endif
 
                             <div class="content-form">
                                
