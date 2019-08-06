@@ -65,9 +65,9 @@ class FilesController extends Controller
                     'created_at' =>  \Carbon\Carbon::now(),
                     'updated_at' => \Carbon\Carbon::now()
                 );
+                $request->session()->push($mmap, $payload);
 
                 DB::table('files')->insert($payload);
-                $request->session()->push($mmap, $payload);
 
             } else {
                 return response()->json([
