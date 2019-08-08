@@ -11,10 +11,22 @@
                         </div>
                         <div class="left-nav-item-wrap">
                             <div class="left-nav-item active">
-                                <p><a href="/properties/approved">Pending</a></p>
+                                <p><a>Pending</a></p>
                             </div>
                             <div class="left-nav-item">
-                                <p><a href="/properties/approved">Approved</a></p>
+                                <p><a>Approved</a></p>
+                            </div>
+                            <div class="left-nav-item">
+                                <p><a>Offering Asset Type</a></p>
+                            </div>
+                            <div class="left-nav-item">
+                                <p><a>Opportunity Type</a></p>
+                            </div>
+                            <div class="left-nav-item">
+                                <p><a>Geo Metro</a></p>
+                            </div>
+                            <div class="left-nav-item">
+                                <p><a>Property Class</a></p>
                             </div>
                             <!-- <div class="left-nav-item">
                                 <p><a href="/account-settings/privacy">Privacy & Data Storage Security</a></p>
@@ -26,7 +38,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xs-12 col-sm-9 col-md-10">
+            <!-- <div class="col-xs-12 col-sm-9 col-md-10">
                 <div class="dashboard-menu-tile-container">
                     <div class="row">
                         <div class="col-xs-12 col-sm-3">
@@ -58,7 +70,7 @@
                         </a>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 @yield('body')
             </div>
         </div>

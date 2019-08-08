@@ -61,7 +61,7 @@
                                         </a>
                                     </div>
                                     <div class="col-xs-12 col-sm-6">
-                                        <a href="/marketplace/learn/more">
+                                        <a href="/marketplace">
                                         <div class="header-toggle-item">
                                             <p>Marketplace</p>
                                         </div>
@@ -76,7 +76,7 @@
                                     </a>
                                     </div>
                                     <div class="col-xs-12 col-sm-6">
-                                    <a href="/marketplace/learn/more">
+                                    <a href="/marketplace">
                                         <div class="header-toggle-item">
                                             <p>Marketplace</p>
                                         </div>
