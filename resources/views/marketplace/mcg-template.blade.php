@@ -38,8 +38,8 @@
                     </div>
                 </div>
             </div>
-            <!-- <div class="col-xs-12 col-sm-9 col-md-10">
-                <div class="dashboard-menu-tile-container">
+             <div class="col-xs-12 col-sm-9 col-md-10">
+                <!-- <div class="dashboard-menu-tile-container">
                     <div class="row">
                         <div class="col-xs-12 col-sm-3">
                         <a href="/account-settings/verification">
