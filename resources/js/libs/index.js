@@ -1,6 +1,6 @@
 function getApiUrl() {
 	let hn = window.location.hostname;
-	return 'http://' + hn + '/';
+	return 'https://' + hn + '/';
 }
 const API_URL = getApiUrl();
 export default {
