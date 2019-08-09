@@ -31,12 +31,12 @@
                 <div class="content-form">
                     <div class="row">
                         <div class="col-xs-12">
-                            <FormItem label="Principle Full Name" prop="name">
+                            <FormItem label="Principal Full Name" prop="name">
                                 <Input v-model="create.name"/>
                             </FormItem>
                         </div>
                         <div class="col-xs-12">
-                            <FormItem label="Principle Title" prop="title">
+                            <FormItem label="Principal Title" prop="title">
                                 <Input v-model="create.title"/>
                             </FormItem>
                         </div>
@@ -44,10 +44,10 @@
                 </div>
             </div>
             <div class="col-xs-12 col-sm-7 col-xs-offset-0 col-sm-offset-1 mrg-push-top">
-                <FormItem label="Principle Bio" prop="bio">
+                <FormItem label="Principal Bio" prop="bio">
                     <textarea name="bio" v-model="create.bio"></textarea>
                 </FormItem>
-                <div class="btn small margin-principal-m" @click="handlePlus('addPrincipal')">+ Add Principle</div>
+                <div class="btn small margin-principal-m" @click="handlePlus('addPrincipal')">+ Add Principal</div>
             </div>
             <div class="col-xs-12 col-sm-1 mrg-push-mid-top"><img src="/img/icon-large-arrow-right.svg"></div>
          </div>
@@ -66,18 +66,18 @@
                         <div class="content-form">
                             <div class="row">
                                 <div class="col-xs-12">
-                                    <p>Principle Full Name</p>
+                                    <p>Principal Full Name</p>
                                     <input type="text" @blur.native="handleSubmit('blur')" v-model="item.name">
                                 </div>
                                 <div class="col-xs-12">
-                                    <p>Principle Title</p>
+                                    <p>Principal Title</p>
                                     <input type="text" @blur.native="handleSubmit('blur')" v-model="item.title">
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-7 col-md-offset-1">
-                        <p class="no-margin-top">Principle Bio</p>
+                        <p class="no-margin-top">Principal Bio</p>
                         <textarea class="textarea" @blur.native="handleSubmit('blur')" v-model="item.bio"></textarea>
                         <Button :loading="delLoader" @click="handleRemove(index, item.id)" class="btn margin-top-m color-white dust margin-right-m cursor-hand rm-boost"><b>Remove Principal</b></Button>
                     </div>
@@ -134,7 +134,7 @@ export default {
             mndex: 1,
             delLoader: false,
             loading: false,
-            loadingtext: 'Pulling existing principles, hold on',
+            loadingtext: 'Pulling existing principals, hold on',
             formDynamic: [],
             error: false,
             files: [],
@@ -149,13 +149,13 @@ export default {
             clear: false,
             ruleValidate: {
                 name: [
-                    { required: true, message: 'Principle name required', trigger: 'blur' }
+                    { required: true, message: 'Principal name required', trigger: 'blur' }
                 ],
                 title: [
-                    { required: true, message: 'Principle title required', trigger: 'blur' }
+                    { required: true, message: 'Principal title required', trigger: 'blur' }
                 ],
                 bio: [
-                    { required: true, message: 'Principle Bio required', trigger: 'blur' },
+                    { required: true, message: 'Principal Bio required', trigger: 'blur' },
                     { type: 'string', min: 20, message: 'Introduce no less than 10 words', trigger: 'blur' }
                 ]
             }
@@ -176,7 +176,7 @@ export default {
         getPrinciples () {
             var self = this
             self.loading = true
-            self.loadingtext = 'Pulling principles, hold on'
+            self.loadingtext = 'Pulling principals, hold on'
             axios
             .get(config.getPrinciples)
             .then(function(resp) {
@@ -251,8 +251,8 @@ export default {
         },
         handleRemove(index, id) {
             this.$Modal.confirm({
-                title: 'Delete Principle',
-                content: '<p>Are you sure you want to delete Principle</p>',
+                title: 'Delete Principal',
+                content: '<p>Are you sure you want to delete Principal</p>',
                 okText: 'Delete',
                 cancelText: 'Cancel',
                 onOk: () => {
